@@ -1,0 +1,51 @@
+---
+import Icon from './Icon.astro';
+import { t } from '../lib/i18n';
+import type { Language } from '../lib/site';
+interface Props { lang: Language; }
+const { lang } = Astro.props;
+const copy = t(lang).docs;
+---
+<button class="docs-search-button" type="button" data-open-search><Icon name="search" size={16}/><span>{copy.search}</span><kbd>⌘ K</kbd></button>
+<dialog class="search-dialog" data-search-dialog data-search-url={`/${lang}/search.json`} data-empty={copy.noResults} data-hint={copy.searchHint} aria-label={copy.search}>
+  <div class="search-input-row"><Icon name="search" size={20}/><input type="search" aria-label={copy.search} placeholder={copy.searchPlaceholder} autocomplete="off" data-search-input/><button data-close-search aria-label={t(lang).nav.close}><Icon name="close" size={19}/></button></div>
+  <div class="search-results" data-search-results aria-live="polite"><p>{copy.searchHint}</p></div>
+  <div class="search-dialog-footer"><span><kbd>Tab</kbd> {lang === 'zh' ? '选择' : 'navigate'} <kbd>Enter</kbd> {lang === 'zh' ? '打开' : 'open'}</span><span><kbd>Esc</kbd> {lang === 'zh' ? '关闭' : 'close'}</span></div>
+</dialog>
+<script>
+  interface SearchEntry { title: string; description: string; text: string; href: string; group: string; }
+  const dialog = document.querySelector<HTMLDialogElement>('[data-search-dialog]');
+  const input = document.querySelector<HTMLInputElement>('[data-search-input]');
+  const results = document.querySelector<HTMLElement>('[data-search-results]');
+  let entries: SearchEntry[] | undefined;
+  let loadPromise: Promise<void> | undefined;
+  let openingControl: HTMLElement | null = null;
+  const showMessage = (message: string) => { if (!results) return; const p = document.createElement('p'); p.textContent = message; results.replaceChildren(p); };
+  const search = () => {
+    if (!dialog || !input || !results) return;
+    const query = input.value.trim().toLocaleLowerCase();
+    if (!query) { showMessage(dialog.dataset.hint ?? ''); return; }
+    if (!entries) return;
+    const tokens = query.split(/\s+/);
+    const matches = entries.filter(entry => tokens.every(token => `${entry.title} ${entry.description} ${entry.text}`.toLocaleLowerCase().includes(token))).sort((a,b) => Number(b.title.toLocaleLowerCase().includes(query)) - Number(a.title.toLocaleLowerCase().includes(query))).slice(0, 8);
+    results.replaceChildren();
+    if (!matches.length) { showMessage(dialog.dataset.empty ?? ''); return; }
+    matches.forEach(entry => { const link = document.createElement('a'); link.href = entry.href; const category = document.createElement('small'); category.textContent = entry.group; const title = document.createElement('strong'); title.textContent = entry.title; const description = document.createElement('span'); description.textContent = entry.description; link.append(category, title, description); results.append(link); });
+  };
+  const openSearch = async () => {
+    if (!dialog || !input || dialog.open) return;
+    openingControl = document.activeElement as HTMLElement;
+    dialog.showModal(); input.focus();
+    if (!entries && !loadPromise) {
+      loadPromise = fetch(dialog.dataset.searchUrl!).then(async response => { if (!response.ok) throw new Error('Search unavailable'); entries = await response.json() as SearchEntry[]; }).catch(() => { showMessage(document.documentElement.lang === 'zh-CN' ? '搜索加载失败，请关闭后重试。' : 'Search could not load. Close and try again.'); loadPromise = undefined; });
+    }
+    await loadPromise; search();
+  };
+  document.querySelectorAll('[data-open-search]').forEach(button => button.addEventListener('click', openSearch));
+  document.querySelector('[data-close-search]')?.addEventListener('click', () => dialog?.close());
+  dialog?.addEventListener('click', event => { if (event.target === dialog) { const rect = dialog.getBoundingClientRect(); if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close(); } });
+  dialog?.addEventListener('close', () => openingControl?.focus());
+  input?.addEventListener('input', search);
+  input?.addEventListener('keydown', event => { if (event.key === 'Enter') { const first = results?.querySelector<HTMLAnchorElement>('a'); if (first) { event.preventDefault(); first.click(); } } });
+  document.addEventListener('keydown', event => { if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') { event.preventDefault(); void openSearch(); } });
+</script>

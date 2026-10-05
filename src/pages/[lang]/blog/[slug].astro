@@ -1,0 +1,22 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import ArticleVisual from '../../../components/ArticleVisual.astro';
+import BlogCard from '../../../components/BlogCard.astro';
+import { pathFor, dateLabel, categories, canonicalFor } from '../../../lib/site';
+import { t } from '../../../lib/i18n';
+export async function getStaticPaths() { return (await getCollection('blog', post => !post.data.draft)).map(post => ({ params: { lang: post.data.lang, slug: post.data.slug }, props: { post } })); }
+interface Props { post: CollectionEntry<'blog'>; }
+const { post } = Astro.props;
+const lang = post.data.lang;
+const copy = t(lang).blog;
+const { Content } = await render(post);
+const words = post.body?.match(/[\u4e00-\u9fff]|\b[\w]+\b/g)?.length ?? 0;
+const minutes = Math.max(1, Math.ceil(words / (lang === 'zh' ? 350 : 200)));
+const related = (await getCollection('blog', entry => entry.data.lang === lang && entry.data.slug !== post.data.slug && !entry.data.draft)).sort((a,b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 2);
+---
+<Base lang={lang} title={post.data.title} description={post.data.description} path={`blog/${post.data.slug}`}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({ '@context':'https://schema.org', '@type':'BlogPosting', headline:post.data.title, description:post.data.description, datePublished:post.data.date.toISOString(), author:{'@type':'Organization', name:post.data.author}, publisher:{'@type':'Organization',name:'Ait'}, mainEntityOfPage:canonicalFor(lang,`blog/${post.data.slug}`), inLanguage:lang === 'zh' ? 'zh-CN' : 'en' }).replace(/</g,'\u003c')} />
+  <main id="main-content" class="article-page container"><a class="article-back" href={pathFor(lang,'blog')}><span>←</span>{copy.back}</a><header class="article-header"><div class="article-meta"><span>{categories[lang][post.data.category]}</span><time datetime={post.data.date.toISOString()}>{dateLabel(post.data.date,lang)}</time><span>{minutes} {copy.minutes}</span></div><h1>{post.data.title}</h1><p class="article-deck">{post.data.description}</p><div class="article-author"><img src="/brand/ait-mark.svg" alt="" width="24" height="17"/>{post.data.author}</div></header><ArticleVisual visual={post.data.visual} large/><article class="prose article-body"><Content/></article>{related.length > 0 && <section class="article-related"><h2>{copy.related}</h2><div class="blog-grid">{related.map(entry => <BlogCard post={entry} lang={lang}/>)}</div></section>}</main>
+</Base>

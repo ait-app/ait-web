@@ -1,0 +1,31 @@
+---
+import Icon from './Icon.astro';
+import { t } from '../lib/i18n';
+import { pathFor, product, type Language } from '../lib/site';
+interface Props { lang: Language; path?: string; docs?: boolean; }
+const { lang, path = '', docs = false } = Astro.props;
+const copy = t(lang);
+const otherLang = lang === 'zh' ? 'en' : 'zh';
+const links = [
+  { label: copy.nav.product, path: '', active: !path },
+  { label: copy.nav.blog, path: 'blog', active: path.startsWith('blog') },
+  { label: copy.nav.docs, path: 'docs', active: path.startsWith('docs') },
+];
+---
+<header class:list={['site-header', { 'docs-header': docs }]}>
+  <div class="header-inner">
+    <a class="brand" href={pathFor(lang)} aria-label="Ait"><img src="/brand/ait-lockup-horizontal.svg" width="114" height="43" alt="AIT" /></a>
+    <nav class="desktop-nav" aria-label={lang === 'zh' ? '主导航' : 'Main navigation'}>
+      {links.map(link => <a href={pathFor(lang, link.path)} aria-current={link.active ? 'page' : undefined}>{link.label}</a>)}
+    </nav>
+    <div class="header-actions">
+      <a class="language-switch" href={pathFor(otherLang, path)} aria-label={copy.nav.language} lang={otherLang === 'zh' ? 'zh-CN' : 'en'}><Icon name="globe" size={16} /><span>{otherLang === 'zh' ? '中文' : 'EN'}</span></a>
+      <a class="github-link" href={product.repository} target="_blank" rel="noopener noreferrer" aria-label="GitHub"><Icon name="github" size={21} /></a>
+      <a class="button button-small button-dark header-download" href={pathFor(lang, 'download')}>{copy.nav.download}<Icon name="download" size={15}/></a>
+      <details class="mobile-nav">
+        <summary aria-label={copy.nav.menu}><span></span><span></span></summary>
+        <nav aria-label={copy.nav.menu}>{links.map(link => <a href={pathFor(lang, link.path)} aria-current={link.active ? 'page' : undefined}>{link.label}</a>)}<a href={pathFor(lang, 'download')}>{copy.nav.download}</a></nav>
+      </details>
+    </div>
+  </div>
+</header>

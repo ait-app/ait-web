@@ -1,0 +1,7 @@
+---
+import { pathFor } from '../lib/site';
+const lang = __DEFAULT_LOCALE__;
+const destination = pathFor(lang);
+---
+<!doctype html>
+<html lang={lang === 'zh' ? 'zh-CN' : 'en'}><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta http-equiv="refresh" content={`0;url=${destination}`}/><meta name="robots" content="noindex, follow"/><title>Ait</title><link rel="icon" href="/brand/ait-mark-small.svg"/></head><body><a href={destination}>{lang === 'zh' ? '进入 Ait 官网' : 'Visit Ait'}</a></body></html>

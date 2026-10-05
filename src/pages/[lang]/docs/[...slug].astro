@@ -1,0 +1,42 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import Search from '../../../components/Search.astro';
+import DocsNav from '../../../components/DocsNav.astro';
+import Icon from '../../../components/Icon.astro';
+import { pathFor, groups, docPath, product } from '../../../lib/site';
+import { t } from '../../../lib/i18n';
+export async function getStaticPaths() { return (await getCollection('docs')).map(page => ({ params: { lang: page.data.lang, slug: page.data.slug === 'getting-started' ? undefined : page.data.slug }, props: { page } })); }
+interface Props { page: CollectionEntry<'docs'>; }
+const { page } = Astro.props;
+const lang = page.data.lang;
+const copy = t(lang).docs;
+const pages = (await getCollection('docs', entry => entry.data.lang === lang)).sort((a,b) => a.data.order - b.data.order);
+const index = pages.findIndex(entry => entry.id === page.id);
+const previous = pages[index-1]; const next = pages[index+1];
+const { Content, headings } = await render(page);
+---
+<Base lang={lang} title={page.data.title} description={page.data.description} path={docPath(page.data.slug)} docs>
+  <div class="docs-mobile-toolbar"><details class="docs-mobile-menu"><summary><Icon name="book" size={17}/>{copy.navigation}<Icon name="chevron" size={14}/></summary><DocsNav lang={lang} pages={pages} slug={page.data.slug}/></details><button type="button" data-open-search aria-label={copy.search}><Icon name="search" size={20}/></button></div>
+  <div class="docs-layout">
+    <aside class="docs-sidebar"><div class="docs-sidebar-label">AIT <span>/ {copy.label}</span></div><Search lang={lang}/><DocsNav lang={lang} pages={pages} slug={page.data.slug}/><a class="docs-sidebar-github" href={product.repository} target="_blank" rel="noopener noreferrer"><Icon name="github" size={16}/>GitHub<Icon name="external" size={13}/></a></aside>
+    <main id="main-content" class="docs-main" data-copy-label={copy.copy} data-copied-label={copy.copied} data-copy-error={copy.copyError}><div class="docs-breadcrumb"><a href={pathFor(lang,'docs')}>{copy.breadcrumb}</a><Icon name="chevron" size={12}/><span>{groups[lang][page.data.group]}</span></div><header class="docs-page-header"><h1>{page.data.title}</h1><p>{page.data.description}</p></header><article class="prose docs-prose"><Content/></article><div class="docs-page-end"><a href={`${product.websiteRepository}/edit/main/src/content/docs/${page.id}.md`} target="_blank" rel="noopener noreferrer"><Icon name="file" size={14}/>{copy.edit}<Icon name="external" size={12}/></a></div><nav class="docs-pagination" aria-label={lang === 'zh' ? '相邻文档' : 'Adjacent pages'}>{previous ? <a href={pathFor(lang,docPath(previous.data.slug))}><span>← {copy.previous}</span><strong>{previous.data.title}</strong></a> : <div></div>}{next && <a class="next-page" href={pathFor(lang,docPath(next.data.slug))}><span>{copy.next} →</span><strong>{next.data.title}</strong></a>}</nav><div class="docs-footer">Ait<span>{t(lang).footer.status}</span></div></main>
+    <aside class="docs-toc"><span>{copy.toc}</span><nav>{headings.filter(heading => heading.depth === 2 || heading.depth === 3).map(heading => <a class:list={[{'toc-nested':heading.depth === 3}]} href={`#${heading.slug}`}>{heading.text}</a>)}</nav></aside>
+  </div>
+</Base>
+<script>
+  const main = document.querySelector<HTMLElement>('.docs-main');
+  document.querySelectorAll<HTMLPreElement>('.docs-prose pre').forEach(pre => {
+    const code = pre.querySelector('code'); if (!code || !main) return;
+    const wrapper = document.createElement('div'); wrapper.className = 'code-block'; pre.parentElement?.insertBefore(wrapper, pre); wrapper.append(pre);
+    const copy = document.createElement('button'); copy.type = 'button'; copy.className = 'code-copy'; copy.textContent = main.dataset.copyLabel ?? 'Copy'; copy.setAttribute('aria-label',main.dataset.copyLabel ?? 'Copy'); wrapper.append(copy);
+    copy.addEventListener('click', async () => { try { await navigator.clipboard.writeText(code.textContent ?? ''); copy.textContent = main.dataset.copiedLabel ?? 'Copied'; } catch { copy.textContent = main.dataset.copyError ?? 'Copy manually'; } setTimeout(() => { copy.textContent = main.dataset.copyLabel ?? 'Copy'; },2000); });
+  });
+  const headings = [...document.querySelectorAll<HTMLElement>('.docs-prose h2, .docs-prose h3')];
+  const observer = new IntersectionObserver(entries => {
+    const visible = entries.filter(entry => entry.isIntersecting).sort((a,b) => a.boundingClientRect.top - b.boundingClientRect.top)[0]; if (!visible) return;
+    document.querySelectorAll<HTMLAnchorElement>('.docs-toc a').forEach(link => { if (decodeURIComponent(link.hash.slice(1)) === visible.target.id) link.setAttribute('aria-current','location'); else link.removeAttribute('aria-current'); });
+  }, {rootMargin:'-100px 0px -65% 0px'});
+  headings.forEach(heading => observer.observe(heading));
+</script>

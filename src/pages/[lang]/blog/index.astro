@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import BlogCard from '../../../components/BlogCard.astro';
+import Icon from '../../../components/Icon.astro';
+import { languages, categories, type Language } from '../../../lib/site';
+import { t } from '../../../lib/i18n';
+export function getStaticPaths() { return languages.map(lang => ({ params: { lang } })); }
+const lang = Astro.params.lang as Language;
+const copy = t(lang).blog;
+const posts = (await getCollection('blog', post => post.data.lang === lang && !post.data.draft)).sort((a,b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<Base lang={lang} title="Blog" description={copy.description} path="blog"><main id="main-content" class="blog-page container"><div class="page-intro"><p class="eyebrow">{copy.eyebrow}</p><h1>{copy.title}</h1><p>{copy.description}</p></div><div class="blog-controls"><div class="blog-filters" aria-label={lang === 'zh' ? '文章分类' : 'Article categories'}><button data-category="all" aria-pressed="true">{copy.all}<span>{posts.length}</span></button>{Object.entries(categories[lang]).map(([value,label]) => <button data-category={value} aria-pressed="false">{label}</button>)}</div><a href={`/${lang}/rss.xml`} class="rss-link"><Icon name="rss" size={16}/>{copy.rss}</a></div><div class="blog-grid blog-list">{posts.map(post => <article data-post-category={post.data.category}><BlogCard post={post} lang={lang}/></article>)}</div><p class="blog-empty" aria-live="polite" hidden>{copy.empty}</p></main></Base>
+<script>
+  const filters = [...document.querySelectorAll<HTMLButtonElement>('[data-category]')];
+  const articles = [...document.querySelectorAll<HTMLElement>('[data-post-category]')];
+  filters.forEach(button => button.addEventListener('click', () => {
+    filters.forEach(filter => filter.setAttribute('aria-pressed', String(filter === button)));
+    let count = 0;
+    articles.forEach(article => { article.hidden = button.dataset.category !== 'all' && article.dataset.postCategory !== button.dataset.category; if (!article.hidden) count++; });
+    const empty = document.querySelector<HTMLElement>('.blog-empty'); if (empty) empty.hidden = count > 0;
+  }));
+</script>

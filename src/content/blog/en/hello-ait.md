@@ -1,0 +1,39 @@
+---
+title: Hello, Ait. Put your ideas in motion.
+description: A local-first workspace for multiple agents, connecting the tools you know with the work you’re doing.
+lang: en
+slug: hello-ait
+date: 2026-10-05
+category: product
+visual: flight
+---
+
+Open a terminal, ask an agent to do a task, and switch to an editor to inspect the code. Choose another agent and repeat. As work grows, what’s missing is often a place to keep the context together.
+
+That is the problem Ait sets out to solve.
+
+## Let familiar tools work together
+
+Ait is a local-first manager for multiple agents. It uses native tools installed on your working host and brings Codex, Claude Code, and OpenCode conversations into a shared interface.
+
+Keep your own sign-ins and model configuration, and choose the agent that suits the task. Providers have different capabilities; the setup documentation describes the current supported boundaries.
+
+## Move from conversation to results
+
+Finishing a task takes more than receiving an answer. You need to inspect changes, check files, run a build, and decide what comes next.
+
+An Ait workspace organizes agents, files, terminals, and code changes. The conversation sits beside the work, so you can move from the execution timeline to the code and bring verification results back into the session.
+
+## Execution on a host, access across devices
+
+Ait’s local service is written in Rust. The Electron desktop shell and Expo interface share the daemon, client SDK, and connection protocol.
+
+Desktop and Android support account-based discovery of online working hosts. Web and iOS use direct connections. Projects and runtimes stay on the working host, accessible from another screen.
+
+Local first means clear execution and data ownership. Agents still communicate with providers according to their own settings. Ait does not change a model service’s data-processing rules.
+
+## Start with one task
+
+We want Ait to help you switch windows a little less and keep the work moving.
+
+[Get Ait](/en/download/) and follow the [quick start](/en/docs/) to set up your first agent. Visit [GitHub](https://github.com/ait-app/ait) to explore the source and current progress.

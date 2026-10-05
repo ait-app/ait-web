@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import ProductDemo from '../../components/ProductDemo.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { languages, pathFor, type Language } from '../../lib/site';
+import { t } from '../../lib/i18n';
+export function getStaticPaths() { return languages.map(lang => ({ params: { lang } })); }
+const lang = Astro.params.lang as Language;
+const copy = t(lang).home;
+const zh = lang === 'zh';
+const posts = (await getCollection('blog', post => post.data.lang === lang && !post.data.draft)).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
+---
+<Base lang={lang}>
+  <main id="main-content">
+    <section class="hero container">
+      <p class="hero-eyebrow"><span class="eyebrow-mark"><img src="/brand/ait-mark.svg" alt="" width="20" height="14"/></span>{copy.eyebrow}</p>
+      <h1>{copy.title}<br/><span>{copy.titleAccent}</span></h1>
+      <p class="hero-description">{copy.description}</p>
+      <div class="hero-actions"><a class="button button-primary" href={pathFor(lang, 'download')}><Icon name="download" size={18}/>{copy.cta}</a><a class="button button-outline" href={pathFor(lang, 'docs')}><Icon name="book" size={18}/>{copy.secondary}</a></div>
+      <p class="hero-platforms">{copy.note}<span class="platform-note">{zh ? '为开发者而造' : 'Made for developers'}</span></p>
+      <div class="provider-strip"><span class="provider-name"><span class="claude-symbol">✳</span>Claude Code</span><span class="provider-name"><span class="codex-symbol">◉</span>Codex</span><span class="provider-name"><span class="opencode-symbol">▰</span>OpenCode</span></div>
+      <p class="providers-caption">{copy.providers}</p>
+    </section>
+    <ProductDemo lang={lang}/>
+    <section class="features-section container" id="product">
+      <div class="section-heading"><div><p class="eyebrow">{copy.featuresEyebrow}</p><h2>{copy.featuresTitle}</h2></div><p class="section-description">{copy.featuresDescription}</p></div>
+      <div class="feature-grid">{copy.features.map(feature => <article class="feature-card"><div class="feature-top"><Icon name={feature.icon} size={26}/><span>{feature.number}</span></div><h3>{feature.title}</h3><p>{feature.description}</p><a class="text-link" href={pathFor(lang, feature.path)}>{feature.link}<Icon name="arrow" size={17}/></a></article>)}</div>
+    </section>
+    <section class="connect-section container">
+      <div class="connect-copy"><p class="eyebrow">{copy.connectEyebrow}</p><h2>{copy.connectTitle}</h2><p>{copy.connectDescription}</p><a class="text-link" href={pathFor(lang, 'docs/connection')}>{copy.connectLink}<Icon name="arrow" size={17}/></a><small>{copy.connectNote}</small></div>
+      <div class="device-scene" aria-label={zh ? '多设备连接示意' : 'Multi-device connection illustration'}><div class="device-orbit"></div><div class="mini-desktop"><div class="mini-titlebar"><div class="traffic-lights"><i></i><i></i><i></i></div><span>Ait</span></div><div class="mini-desktop-body"><div class="mini-sidebar"><Icon name="folder" size={15}/><span></span><span></span><span></span></div><div class="mini-chat"><img src="/brand/ait-mark.svg" alt="" width="28" height="20"/><h4>{zh ? '想法已经在路上。' : 'Ideas are in motion.'}</h4><div class="mini-message"></div><div class="mini-message short"></div><div class="mini-check"><Icon name="check" size={13}/>{zh ? '构建完成' : 'Build complete'}</div><div class="mini-input">{zh ? '下一步，做点什么？' : 'What’s next?'}</div></div></div></div><div class="mini-phone"><div class="phone-top"><span>9:41</span><span>▮▮▮</span></div><div class="phone-heading"><img src="/brand/ait-mark.svg" alt="" width="24" height="17"/><strong>Ait</strong></div><span class="phone-caption">{zh ? '在线主机' : 'Online hosts'}</span><div class="phone-host"><Icon name="laptop" size={22}/><strong>My MacBook</strong><small><span class="host-dot"></span>{zh ? '在线' : 'Online'}</small></div><div class="phone-task"><span class="task-dot dot-green"></span><span>{zh ? '构建个人主页' : 'Personal website'}<small>Claude Code</small></span></div><div class="phone-task"><span class="task-dot dot-blue"></span><span>{zh ? '检查登录流程' : 'Review sign-in'}<small>Codex</small></span></div><div class="phone-bottom"></div></div><span class="device-scene-label">{zh ? '界面示意 · 同一个工作空间' : 'Interface illustration · One workspace'}</span></div>
+    </section>
+    <section class="journal-section container"><div class="section-heading"><div><p class="eyebrow">{copy.blogEyebrow}</p><h2>{copy.blogTitle}</h2></div><a class="text-link" href={pathFor(lang, 'blog')}>{copy.blogLink}<Icon name="arrow" size={17}/></a></div><div class="blog-grid">{posts.map(post => <BlogCard post={post} lang={lang}/>)}</div></section>
+    <section class="docs-callout container"><div><p class="eyebrow">{copy.docsEyebrow}</p><h2>{copy.docsTitle}</h2><p>{copy.docsDescription}</p><a class="button button-dark" href={pathFor(lang, 'docs')}><Icon name="book" size={18}/>{copy.docsLink}</a></div><div class="docs-callout-graphic" aria-hidden="true"><div class="doc-sheet"><span class="doc-sheet-label">AIT / DOCS</span><Icon name="book" size={35}/><span class="doc-sheet-heading">{zh ? '开始使用' : 'Getting started'}</span><i></i><i></i><i class="short"></i><span class="doc-step">01<span>{zh ? '安装 Ait' : 'Install Ait'}</span><Icon name="check" size={15}/></span><span class="doc-step">02<span>{zh ? '接入 Agent' : 'Connect an agent'}</span><Icon name="check" size={15}/></span><span class="doc-step">03<span>{zh ? '开始创造' : 'Start creating'}</span><Icon name="arrow" size={15}/></span></div></div></section>
+    <section class="faq-section container"><h2>{copy.faqTitle}</h2><div class="faq-list">{copy.faqs.map(faq => <details><summary>{faq.question}<Icon name="plus" size={18}/></summary><p>{faq.answer}</p></details>)}</div></section>
+  </main>
+</Base>

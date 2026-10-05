@@ -1,0 +1,10 @@
+---
+import Icon from './Icon.astro';
+interface Props { visual: 'flight' | 'connection' | 'workspace'; large?: boolean; }
+const { visual, large = false } = Astro.props;
+---
+<div class:list={['article-visual', `visual-${visual}`, { 'visual-large': large }]} aria-hidden="true">
+  {visual === 'flight' && <><span class="visual-label">A NEW PERSPECTIVE</span><img src="/brand/ait-mark.svg" alt="" width="160" height="113"/><span class="visual-foot">01 / IN MOTION</span></>}
+  {visual === 'connection' && <><span class="visual-label">STAY CONNECTED</span><div class="connection-graphic"><span><Icon name="laptop" size={32}/></span><i></i><img src="/brand/ait-mark.svg" alt="" width="42" height="30"/><i></i><span><Icon name="phone" size={30}/></span></div><span class="visual-foot">02 / WITHIN REACH</span></>}
+  {visual === 'workspace' && <><span class="visual-label">MAKE ROOM FOR IDEAS</span><div class="workspace-graphic"><div><i></i><i></i><i></i><span>workspace</span></div><p><span>›</span> create something<br/><span class="terminal-success">✓</span> ready to build<span class="terminal-cursor"></span></p></div><span class="visual-foot">03 / IN CONTEXT</span></>}
+</div>

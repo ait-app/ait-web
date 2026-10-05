@@ -1,0 +1,48 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { canonicalFor, type Language } from '../lib/site';
+import '../styles/global.css';
+interface Props { lang: Language; title?: string; description?: string; path?: string; docs?: boolean; noindex?: boolean; }
+const { lang, title, description = lang === 'zh' ? 'Ait 是本地优先的多 Agent 工作空间。统一管理 Claude Code、Codex、OpenCode，从多端连接你的工作主机。' : 'Ait is a local-first workspace for your agents. Manage Claude Code, Codex, and OpenCode and connect to your working host across devices.', path = '', docs = false, noindex = false } = Astro.props;
+const pageTitle = title ? `${title} — Ait` : (lang === 'zh' ? 'Ait — 你的 Agent，随时在场。' : 'Ait — Your agents. Within reach.');
+const canonical = canonicalFor(lang, path);
+---
+<!doctype html>
+<html lang={lang === 'zh' ? 'zh-CN' : 'en'}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#FAFAF8" />
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <title>{pageTitle}</title>
+    <link rel="icon" href="/brand/ait-mark-small.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="zh-CN" href={canonicalFor('zh', path)} />
+    <link rel="alternate" hreflang="en" href={canonicalFor('en', path)} />
+    <link rel="alternate" hreflang="x-default" href={canonicalFor('en', path)} />
+    <link rel="alternate" type="application/rss+xml" title="Ait Blog" href={`/${lang}/rss.xml`} />
+    <meta property="og:type" content={path.startsWith('blog/') ? 'article' : 'website'} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Ait" />
+    <meta property="og:locale" content={lang === 'zh' ? 'zh_CN' : 'en_US'} />
+    <meta name="twitter:card" content="summary" />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">{lang === 'zh' ? '跳到内容' : 'Skip to content'}</a>
+    <Header lang={lang} path={path} docs={docs}/>
+    <slot />
+    {!docs && <Footer lang={lang}/>}
+    <script>
+      document.querySelectorAll<HTMLDetailsElement>('.mobile-nav').forEach(menu => {
+        document.addEventListener('click', event => { if (!menu.contains(event.target as Node)) menu.open = false; });
+        document.addEventListener('keydown', event => { if (event.key === 'Escape') menu.open = false; });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+name: Verify website
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm run build:all
+      - run: npm run verify
+      - uses: actions/upload-artifact@v6
+        with:
+          name: ait-web-cn
+          path: dist/cn/
+      - uses: actions/upload-artifact@v6
+        with:
+          name: ait-web-com
+          path: dist/com/

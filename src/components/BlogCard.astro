@@ -1,0 +1,14 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ArticleVisual from './ArticleVisual.astro';
+import Icon from './Icon.astro';
+import { categories, dateLabel, pathFor, type Language } from '../lib/site';
+interface Props { post: CollectionEntry<'blog'>; lang: Language; }
+const { post, lang } = Astro.props;
+---
+<a class="blog-card" href={pathFor(lang, `blog/${post.data.slug}`)}>
+  <ArticleVisual visual={post.data.visual}/>
+  <div class="blog-card-meta"><span>{categories[lang][post.data.category]}</span><time datetime={post.data.date.toISOString()}>{dateLabel(post.data.date, lang)}</time></div>
+  <h3>{post.data.title}<Icon name="arrow" size={20}/></h3>
+  <p>{post.data.description}</p>
+</a>
