@@ -11,20 +11,20 @@ Ait separates execution from access. The working host runs the daemon and agents
 
 ## Connect through an account
 
-Desktop and Android use `https://dash.ait-app.com:8443/api` as the default account service.
+Desktop, Android, and iOS use `https://aitapp.cn:8443/api` as the default account service. The Web client in an account console uses that console’s same-origin `/api` service.
 
-1. Sign in to the desktop app on the working computer to bring it online.
-2. Sign in to the same account on another desktop device or Android.
-3. Open **Settings → Host → Account and online hosts** or **Add Host**.
-4. Select the working computer from the online host list.
+1. Open **Online service → Sign in / Register** on the working computer. Complete hosted sign-in and return to Ait.
+2. Check that the working host is synchronized with the online service. If synchronization was stopped, enable it in the host’s connection settings.
+3. Sign in to the same account and service on another desktop device, Android, or iOS. Open **Online service** or **Add Host**.
+4. Select the working computer from the online host list and add it to your saved hosts.
 
-The host list refreshes periodically and does not show the current machine. Android is a client and does not publish the phone as a working host. See [Platform support](/en/docs/platforms/) for current mobile verification boundaries.
+The host list refreshes periodically and does not show the current machine. Mobile devices are clients and do not publish the phone as a working host. Hosted sign-in uses the system browser on desktop and Android and the system authentication window on iOS. See [Platform support](/en/docs/platforms/) for current mobile verification boundaries.
 
 For a self-hosted account service, enter its API base address in **Service settings**. An empty field uses the default. `/hosts` is a management page, not an API base address. Saved accounts continue using their originally configured service address.
 
 ## Direct connections
 
-Web and iOS currently use direct connections and do not provide account sign-in. A direct connection needs the host address, port, and daemon access token.
+Desktop and mobile clients can use direct connections; the local development Web client also uses this method. The Web client integrated into the account console provides online-service connections instead. A direct connection needs the host address, port, and daemon access token.
 
 The default local development listener is `127.0.0.1:7316`. That address only works on the corresponding host; another device needs a reachable host address. See [Server configuration](/en/docs/configuration/) for listener and browser Origin settings.
 

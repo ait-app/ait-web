@@ -1,0 +1,28 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { t } from '../../lib/i18n';
+import { dateLabel, pathFor, product } from '../../lib/site';
+export async function getStaticPaths() {
+  return (await getCollection('legal', page => page.data.slug === 'privacy')).map(page => ({ params: { lang: page.data.lang }, props: { page } }));
+}
+interface Props { page: CollectionEntry<'legal'>; }
+const { page } = Astro.props;
+const lang = page.data.lang;
+const copy = t(lang).privacy;
+const { Content, headings } = await render(page);
+---
+<Base lang={lang} title={page.data.title} description={page.data.description} path="privacy">
+  <main id="main-content" class="privacy-page container">
+    <header class="privacy-header">
+      <p class="eyebrow">{copy.label}</p>
+      <h1>{page.data.title}</h1>
+      <p class="article-deck">{page.data.description}</p>
+      <p class="privacy-updated">{copy.updated}: <time datetime={page.data.updated.toISOString().slice(0,10)}>{dateLabel(page.data.updated,lang)}</time></p>
+      <div class="privacy-actions"><a href={`mailto:${product.supportEmail}`}>{product.supportEmail}</a><a href="#data-deletion">{copy.deletion} →</a><a href={pathFor(lang,'docs')}>{copy.support} →</a></div>
+    </header>
+    <nav class="privacy-contents" aria-label={copy.contents}>{headings.filter(heading => heading.depth === 2).map(heading => <a href={`#${heading.slug}`}>{heading.text}</a>)}</nav>
+    <article class="prose"><Content/></article>
+  </main>
+</Base>

@@ -5,6 +5,7 @@ export const domains: Record<Language, string> = {
   en: 'https://ait-app.com',
 };
 export const product = {
+  supportEmail: 'support@ait-app.com',
   repository: 'https://github.com/ait-app/ait',
   websiteRepository: 'https://github.com/ait-app/ait-web',
   releases: 'https://github.com/ait-app/ait/releases',

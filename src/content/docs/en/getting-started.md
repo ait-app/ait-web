@@ -1,6 +1,6 @@
 ---
-title: Quick start
-description: Install Ait, connect the agents you know, and start your first workspace.
+title: Docs & support
+description: Get help with Ait, install the app, connect your agents, and start your first workspace.
 lang: en
 slug: getting-started
 group: start
@@ -35,7 +35,7 @@ Read [Workspaces](/en/docs/workspaces/) for project organization and Git worktre
 
 ## Connect another device
 
-Desktop and Android can sign in to the same account and select the working computer from the online host list. Web and iOS currently use direct connections. Connection capabilities differ by platform.
+Desktop, Android, and iOS can sign in to the same account and select the working computer from the online host list. The Web client built into the account console uses that console’s online service; the local development Web client uses direct connections. Connection capabilities differ by platform and build.
 
 Read [Connections & data](/en/docs/connection/) and [Platform support](/en/docs/platforms/) to choose a connection method.
 

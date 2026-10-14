@@ -1,6 +1,6 @@
 # Ait website
 
-Ait 宣传官网，包含产品主页、Blog、Docs 和下载页。使用 Astro 静态生成，中英文内容直接维护在 Markdown 中，不依赖数据库或 CMS。
+Ait 宣传官网，包含产品主页、Blog、Docs / 支持、Privacy 和下载页。使用 Astro 静态生成，中英文内容直接维护在 Markdown 中，不依赖数据库或 CMS。
 
 设计参考 [Paseo 官网](https://paseo.sh/) 的产品展示方式；视觉使用 Ait 现有 BI，包括正式飞鸟 SVG、路径化 AIT 字标、暖白底与橙红品牌色。
 
@@ -45,6 +45,7 @@ CI 在 `.github/workflows/ci.yml` 中生成两份通过校验的部署产物，�
 ```text
 src/content/blog/{zh,en}/*.md    Blog 正文和元数据
 src/content/docs/{zh,en}/*.md    Docs 正文、分组和排序
+src/content/legal/{zh,en}/*.md   隐私政策正文与更新日期
 src/lib/i18n.ts                 界面与主页文案
 src/lib/site.ts                 域名、路由和产品仓库入口
 src/styles/global.css          BI 令牌和页面样式
@@ -71,6 +72,22 @@ draft: true
 `category` 可选 `product`、`engineering`、`guide`；`visual` 可选 `flight`、`connection`、`workspace`。
 
 Docs 使用 `group: start | workflow | reference` 与数值 `order`。`getting-started` 对应 `/zh/docs/` 与 `/en/docs/`，其他页面使用 `/[lang]/docs/[slug]/`。搜索索引在构建时从全部文档正文生成。
+
+## 商店支持与隐私页面
+
+Docs 首页包含直接可见的客服邮箱、反馈与隐私入口；`docs/support/` 提供排障和反馈指引。客服邮箱统一为 `support@ait-app.com`，界面入口由 `src/lib/site.ts` 管理，Markdown 中的可见地址也需同步维护。
+
+部署后可使用以下地址填写商店资料，中文版本对应 `https://aitapp.cn/zh/` 下的相同路径：
+
+| 用途 | 英文地址 |
+| --- | --- |
+| App Store Support URL / Google Play 支持网站 | `https://ait-app.com/en/docs/` |
+| Privacy Policy URL | `https://ait-app.com/en/privacy/` |
+| Google Play 外部账户删除申请页面 | `https://ait-app.com/en/privacy/#data-deletion` |
+
+Apple 的 [Support URL 定义](https://developer.apple.com/help/app-store-connect/reference/app-information/platform-version-information/)要求真实联系方式；Google Play [要求提供客服邮箱，建议提供支持网站](https://support.google.com/googleplay/android-developer/answer/9859152?hl=en)。补充后的 Docs 可作为支持页面，但这些地址须先部署并保持无需登录可访问，邮箱须可实际收信。
+
+网站的删除申请入口不替代应用内能力：提供账户创建的 App 还需要应用内账户删除入口，并实际处理账户与关联数据删除，见 [Apple 账号删除要求](https://developer.apple.com/support/offering-account-deletion-in-your-app/)和 [Google Play 账户删除要求](https://support.google.com/googleplay/android-developer/answer/13327111?hl=en)。Apple 对普通应用不接受仅通过客服邮件完成删除，应提供可在应用内发起的删除流程；本网站的邮件申请可作为 Google Play 的外部申请资源及额外隐私联系方式。商店隐私申报需与发布版本和第三方 SDK 的实际行为一致。Privacy 文案按源码边界编写；运营方已确认线上账户、日志和备份没有固定保留期限，可通过 `support@ait-app.com` 申请删除。运营安排变化时同步更新中英文政策。
 
 ## 内容和品牌来源
 

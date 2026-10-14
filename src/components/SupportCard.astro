@@ -1,0 +1,18 @@
+---
+import { t } from '../lib/i18n';
+import { pathFor, product, type Language } from '../lib/site';
+interface Props { lang: Language; }
+const { lang } = Astro.props;
+const copy = t(lang).support;
+---
+<section class="docs-support" aria-labelledby="support-heading">
+  <h2 id="support-heading">{copy.title}</h2>
+  <p>{copy.description}</p>
+  <a class="support-email" href={`mailto:${product.supportEmail}`}>{product.supportEmail}</a>
+  <div class="support-actions">
+    <a class="button button-small button-dark" href={`mailto:${product.supportEmail}`}>{copy.email}</a>
+    <a href={pathFor(lang, 'docs/support')}>{copy.guide} →</a>
+    <a href={pathFor(lang, 'privacy')}>{copy.privacy}</a>
+  </div>
+  <p class="support-hint">{copy.hint}</p>
+</section>

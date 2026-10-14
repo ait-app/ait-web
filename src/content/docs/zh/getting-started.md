@@ -1,6 +1,6 @@
 ---
-title: 快速开始
-description: 安装 Ait，接入你熟悉的 Agent，然后开始第一个工作区。
+title: 文档与支持
+description: 获取 Ait 使用帮助，安装应用、接入 Agent，开始你的第一个工作区。
 lang: zh
 slug: getting-started
 group: start
@@ -35,7 +35,7 @@ Ait 不包含模型订阅。开始之前，在工作主机上安装并登录至�
 
 ## 连接另一台设备
 
-桌面和 Android 可以登录同一账户，从在线主机列表选择工作电脑。Web 与 iOS 当前使用直接连接，各端并不具有完全相同的连接能力。
+桌面、Android 与 iOS 可以登录同一账户，从在线主机列表选择工作电脑。账户控制台内置的 Web 客户端使用该控制台的在线服务，本地开发的 Web 客户端使用直接连接。各端的连接能力有所区别。
 
 继续阅读 [连接与数据](/zh/docs/connection/) 和 [平台支持](/zh/docs/platforms/)，选择适合你的连接方式。
 

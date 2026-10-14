@@ -17,7 +17,7 @@ const walk = async directory => {
 };
 const check = (condition, message) => { if (!condition) errors.push(message); };
 
-for (const collection of ['docs', 'blog']) {
+for (const collection of ['docs', 'blog', 'legal']) {
   const root = path.join(workspace, 'src/content', collection);
   const zh = (await readdir(path.join(root, 'zh'))).filter(file => file.endsWith('.md')).sort();
   const en = (await readdir(path.join(root, 'en'))).filter(file => file.endsWith('.md')).sort();

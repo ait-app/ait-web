@@ -30,4 +30,9 @@ const docs = defineCollection({
   }),
 });
 
-export const collections = { blog, docs };
+const legal = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/legal', generateId: ({ entry }) => entry.replace(/\.md$/, '') }),
+  schema: z.object({ ...common, updated: z.coerce.date() }),
+});
+
+export const collections = { blog, docs, legal };
