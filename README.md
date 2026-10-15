@@ -2,7 +2,9 @@
 
 Ait 宣传官网，包含产品主页、Blog、Docs / 支持、Privacy 和下载页。使用 Astro 静态生成，中英文内容直接维护在 Markdown 中，不依赖数据库或 CMS。
 
-设计参考 [Paseo 官网](https://paseo.sh/) 的产品展示方式；视觉使用 Ait 现有 BI，包括正式飞鸟 SVG、路径化 AIT 字标、暖白底与橙红品牌色。
+官网唯一域名为 **[ait-app.com](https://ait-app.com/)**，中英文内容均在此域名下提供。
+
+视觉使用 Ait 现有 BI，包括正式飞鸟 SVG、路径化 AIT 字标、暖白底与橙红品牌色。
 
 ## 本地开发
 
@@ -10,10 +12,10 @@ Ait 宣传官网，包含产品主页、Blog、Docs / 支持、Privacy 和下载
 
 ```sh
 npm ci
-npm run dev
+SITE_URL=https://ait-app.com npm run dev
 ```
 
-默认地址为 `http://localhost:4321`。中文主页 `/zh/`，英文主页 `/en/`。本地开发默认进入中文。
+默认地址为 `http://localhost:4321`。中文主页 `/zh/`，英文主页 `/en/`。使用上述命令时，根路径默认进入英文，与线上站点一致。
 
 ```sh
 npm run check
@@ -21,26 +23,31 @@ npm run build:all
 npm run verify
 ```
 
-`check` 检查 Astro 与 TypeScript；`verify` 检查两份构建的本地链接、资源、锚点、默认语言、canonical、hreflang、sitemap、RSS、搜索内容与双语文件完整性。
+`check` 检查 Astro 与 TypeScript；`verify` 检查生成页面的本地链接、资源、锚点、默认语言、canonical、hreflang、sitemap、RSS、搜索内容与双语文件完整性。现有校验脚本仍依赖两份构建，因此校验前使用 `build:all`。
 
-## 双域名部署
+## 部署
 
-`ait-app.com` 使用 GitHub Pages，通过本仓库的 GitHub Actions 自动发布。部署与 Cloudflare DNS 配置见 [GitHub Pages 部署说明](docs/github-pages.md)。
+网站使用 `ait-app.com`。使用 GitHub Pages 托管，通过本仓库的 GitHub Actions 自动发布，Cloudflare 提供 DNS 与代理。部署配置见 [GitHub Pages 部署说明](docs/github-pages.md)。
 
 | 域名 | 根路径默认进入 | 构建命令 | 上传目录 |
 | --- | --- | --- | --- |
-| `aitapp.cn` | `/zh/` | `npm run build:cn` | `dist/cn/` |
 | `ait-app.com` | `/en/` | `npm run build:com` | `dist/com/` |
 
-两个构建都包含中英页面。语言切换保留当前文章或文档路径，不要求用户切换域名。SEO 的主地址按语言固定：中文 canonical 指向 `aitapp.cn`，英文指向 `ait-app.com`，两个域名不会争夺同一语言的主地址。每份 sitemap 只列出本域名的主要语言，并包含另一个语言的 alternate。
+同一份构建包含中英页面：英文位于 `https://ait-app.com/en/`，中文位于 `https://ait-app.com/zh/`。语言切换保留当前文章或文档路径。新增官网链接、商店资料和部署配置统一使用 `ait-app.com`，语言通过路径区分。
 
-无语言前缀的 `/privacy`（或 `/privacy/`）跳转到当前域名的默认语言隐私政策：中文站进入 `/zh/privacy/`，英文站进入 `/en/privacy/`。启用 JavaScript 时保留查询参数与锚点，例如账户删除入口 `#data-deletion`；禁用 JavaScript 时通过 HTML 自动跳转，并提供可点击链接。
+无语言前缀的 `/privacy`（或 `/privacy/`）跳转到 `/en/privacy/`。启用 JavaScript 时保留查询参数与锚点，例如账户删除入口 `#data-deletion`；禁用 JavaScript 时通过 HTML 自动跳转，并提供可点击链接。中文隐私政策可直接访问 `/zh/privacy/`。
 
-`npm run build` 默认输出 `dist/`。可设置 `SITE_URL=https://ait-app.com` 改为英文默认站。`SITE_URL` 只接受两个正式 HTTPS 域名，防止误生成错误的 SEO 地址。
+单独生成官网发布产物：
 
-GitHub Pages 发布 `dist/com/`，保留中英文内容及英文默认入口。`dist/cn/` 仍可单独用于 `aitapp.cn` 的中文默认站；同一个仓库的 Pages 站点只配置一个主域名，不能直接用这一份部署同时实现两个域名的不同默认语言。
+```sh
+npm run build:com
+```
 
-CI 在 `.github/workflows/ci.yml` 中对 PR 运行类型检查、双域名构建与站内校验。推送 `main` 或手动运行工作流时，校验通过后自动发布 GitHub Pages。工作流还保留 `ait-web-cn` 和 `ait-web-com` 两份可下载产物。
+若使用通用构建命令，设置 `SITE_URL=https://ait-app.com npm run build`，输出为 `dist/`。
+
+CI 在 `.github/workflows/ci.yml` 中对 PR 运行类型检查、构建与站内校验。推送 `main` 或手动运行工作流时，校验通过后只发布 `dist/com/` 到 GitHub Pages；`ait-web-com` 为对应的可下载产物。
+
+历史配置待收敛：源码仍保留旧域名的构建、中文 SEO 地址映射及相关校验，CI 也仍生成 `dist/cn/` / `ait-web-cn`。这些不是后续部署目标；后续清理时应同步统一 canonical、hreflang、sitemap、RSS、环境变量和构建校验。
 
 本项目按自定义域名根路径部署，`astro.config.mjs` 不设置 `/ait-web` 的 `base`。GitHub Pages 的 Custom domain 必须设为 `ait-app.com`；默认的 `ait-app.github.io/ait-web/` 地址由 GitHub 跳转到主域名。
 
@@ -83,7 +90,7 @@ Docs 使用 `group: start | workflow | reference` 与数值 `order`。`getting-s
 
 Docs 首页包含直接可见的客服邮箱、反馈与隐私入口；`docs/support/` 提供排障和反馈指引。客服邮箱统一为 `support@ait-app.com`，界面入口由 `src/lib/site.ts` 管理，Markdown 中的可见地址也需同步维护。
 
-部署后可使用以下地址填写商店资料，中文版本对应 `https://aitapp.cn/zh/` 下的相同路径：
+部署后可使用以下地址填写商店资料，中文版本对应 `https://ait-app.com/zh/` 下的相同路径：
 
 | 用途 | 英文地址 |
 | --- | --- |
