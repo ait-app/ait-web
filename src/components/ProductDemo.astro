@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import ProviderIcon from './ProviderIcon.astro';
 import { t } from '../lib/i18n';
 import type { Language } from '../lib/site';
 interface Props { lang: Language; }
@@ -24,7 +25,7 @@ const tasks = zh ? ['构建个人主页', '检查登录流程', '整理项目文
       </aside>
       <div class="demo-panel" id="demo-panel-0" role="tabpanel" aria-labelledby="demo-tab-0" data-demo-panel="0">
         <div class="app-chat">
-          <div class="app-pane-heading"><span class="provider-dot">✳</span><strong>Claude Code</strong><span class="app-model">Sonnet</span><span class="pane-more">•••</span></div>
+          <div class="app-pane-heading"><ProviderIcon provider="claude" size={18} /><strong>Claude Code</strong><span class="app-model">Sonnet</span><span class="pane-more">•••</span></div>
           <div class="chat-body"><div class="chat-user"><span class="avatar">Y</span><div><strong>{zh ? '你' : 'You'}</strong><p>{zh ? '帮我做一个简洁的个人主页。暖白背景，留一点空间给想法。' : 'Build me a simple personal website. Warm white, with a little room for ideas.'}</p></div></div>
           <div class="chat-assistant"><img src="/brand/ait-mark.svg" alt="" width="23" height="17"/><div><strong>Claude Code</strong><p>{zh ? '我会先看看项目结构，然后把首页和样式一起完成。' : 'I’ll take a look at the project, then build the homepage and styles together.'}</p><div class="tool-call"><Icon name="file" size={13}/><span>Read <code>src/pages/index.astro</code></span><Icon name="check" size={13}/></div><div class="tool-call"><Icon name="terminal" size={13}/><span>Run <code>npm run build</code></span><Icon name="check" size={13}/></div><p class="chat-result">{zh ? '首页已经准备好了。' : 'Your homepage is ready.'}</p><ul><li>{zh ? '响应式布局，适配桌面与手机' : 'Responsive layout for desktop and mobile'}</li><li>{zh ? '清晰的排版与暖白背景' : 'Clear typography on a warm white canvas'}</li><li>{zh ? '构建检查通过，可以开始审查' : 'Build passed. Ready for your review'}</li></ul><div class="chat-change"><Icon name="git" size={14}/><span>2 {zh ? '个文件已修改' : 'files changed'}</span><span class="diff-plus">+128</span><span class="diff-minus">−12</span></div></div></div></div>
           <div class="app-composer"><span>{zh ? '继续聊聊你的想法…' : 'Keep the ideas coming…'}</span><div><span><Icon name="plus" size={14}/> Claude Code <span class="composer-mode">Default</span></span><span class="send-icon">↑</span></div></div>

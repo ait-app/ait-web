@@ -59,6 +59,13 @@ for (const target of targets) {
   }
   const homepage = cache.get(path.join(root, 'index.html'));
   check(homepage?.includes(`0;url=/${target.lang}/`), `${target.name}: incorrect default-language redirect`);
+  const privacyRedirect = cache.get(path.join(root, 'privacy/index.html'));
+  check(privacyRedirect?.includes(`0;url=/${target.lang}/privacy/`), `${target.name}: missing or incorrect privacy redirect`);
+  check(privacyRedirect?.includes(`href="/${target.lang}/privacy/"`), `${target.name}: missing privacy fallback link`);
+  for (const lang of ['zh', 'en']) {
+    const policy = cache.get(path.join(root, lang, 'privacy/index.html'));
+    check(policy?.includes('id="data-deletion"'), `${target.name}/${lang}: missing privacy policy or deletion section`);
+  }
   const robots = await readFile(path.join(root, 'robots.txt'), 'utf8');
   check(robots.includes(`${target.origin}/sitemap.xml`), `${target.name}: incorrect robots sitemap`);
   const sitemap = await readFile(path.join(root, 'sitemap.xml'), 'utf8');
@@ -73,6 +80,6 @@ for (const target of targets) {
     const rss = await readFile(path.join(root,lang,'rss.xml'), 'utf8');
     check((rss.match(/<item>/g) ?? []).length >= 3, `${target.name}/${lang}: missing RSS posts`);
   }
-  console.log(`${target.name}: checked ${htmlFiles.length} HTML pages, ${references} local references, language redirects, SEO, search, and RSS`);
+  console.log(`${target.name}: checked ${htmlFiles.length} HTML pages, ${references} local references, language and privacy redirects, SEO, search, and RSS`);
 }
 if (errors.length) { console.error(errors.join('\n')); process.exitCode = 1; } else console.log('All generated-site checks passed.');

@@ -32,6 +32,8 @@ npm run verify
 
 两个构建都包含中英页面。语言切换保留当前文章或文档路径，不要求用户切换域名。SEO 的主地址按语言固定：中文 canonical 指向 `aitapp.cn`，英文指向 `ait-app.com`，两个域名不会争夺同一语言的主地址。每份 sitemap 只列出本域名的主要语言，并包含另一个语言的 alternate。
 
+无语言前缀的 `/privacy`（或 `/privacy/`）跳转到当前域名的默认语言隐私政策：中文站进入 `/zh/privacy/`，英文站进入 `/en/privacy/`。启用 JavaScript 时保留查询参数与锚点，例如账户删除入口 `#data-deletion`；禁用 JavaScript 时通过 HTML 自动跳转，并提供可点击链接。
+
 `npm run build` 默认输出 `dist/`。可设置 `SITE_URL=https://ait-app.com` 改为英文默认站。`SITE_URL` 只接受两个正式 HTTPS 域名，防止误生成错误的 SEO 地址。
 
 将对应目录发布到支持静态目录的托管服务，配置 `index.html` 与 `404.html`。不使用把全部地址改写成首页的 SPA fallback。域名解析、TLS 与托管账户由最终部署环境配置；本次项目初始化没有发布线上站点。

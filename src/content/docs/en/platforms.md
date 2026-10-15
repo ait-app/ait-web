@@ -9,9 +9,20 @@ order: 2
 
 Ait’s desktop, Web, and mobile clients reuse a shared interface and Rust protocol. Installation and connection methods differ by platform. Use the current capabilities below to choose your entry point.
 
+## App Store / Google Play beta testing
+
+Interested in testing Ait through the App Store or Google Play? Email the **email address for your testing account** to **[support@ait-app.com](mailto:support@ait-app.com)** and clearly label the account type to request beta access:
+
+- **Apple ID**: for App Store beta testing.
+- **Google account**: for Google Play beta testing.
+
+Google Play testing link: [Join the Ait internal test](https://play.google.com/apps/internaltest/4699903411589312271). Once you have access, open the link with the Google account you supplied to install the app.
+
 ## Desktop
 
 Official [GitHub releases](https://github.com/ait-app/ait/releases/latest) provide installers for Apple Silicon macOS and Linux x86_64. The desktop shell includes the daemon and manages its lifecycle.
+
+For Apple Silicon Macs in China, use the [China download mirror (DMG, v0.1.3)](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/Ait-0.1.3-macos-arm64.dmg).
 
 Desktop supports account sign-in and online host connections as well as local workspaces. The download page does not offer unverified Windows or Intel Mac installers.
 

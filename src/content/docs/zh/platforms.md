@@ -9,9 +9,20 @@ order: 2
 
 Ait 的桌面、Web 与移动端复用共享界面和 Rust 协议。不同平台的安装与连接方式有所区别，请按下面的当前能力选择入口。
 
+## App Store / Google Play 内测
+
+如果你对 App Store 或 Google Play 内测感兴趣，请将参加内测的**账号邮箱**发送至 **[support@ait-app.com](mailto:support@ait-app.com)**，并明确标注账号类型，以申请内测资格：
+
+- **Apple ID**：用于参加 App Store 内测。
+- **Google 账号**：用于参加 Google Play 内测。
+
+Google Play 内测安装入口：[加入 Ait 内测](https://play.google.com/apps/internaltest/4699903411589312271)。获得资格后，请使用申请时提供的 Google 账号打开链接并安装。
+
 ## 桌面
 
 官方 [GitHub Release](https://github.com/ait-app/ait/releases/latest) 提供 Apple Silicon macOS 和 Linux x86_64 安装包。桌面壳内置 daemon，并管理本机服务生命周期。
+
+macOS Apple Silicon 用户也可以使用[国内加速下载（DMG，v0.1.3）](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/Ait-0.1.3-macos-arm64.dmg)。
 
 桌面支持账户登录与在线主机连接，也可以连接本机工作空间。目前下载页不提供未经发布验证的 Windows 或 Intel Mac 安装包。
 

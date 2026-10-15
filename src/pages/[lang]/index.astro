@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
+import ProviderIcon from '../../components/ProviderIcon.astro';
 import ProductDemo from '../../components/ProductDemo.astro';
 import BlogCard from '../../components/BlogCard.astro';
 import { languages, pathFor, type Language } from '../../lib/site';
@@ -20,7 +21,7 @@ const posts = (await getCollection('blog', post => post.data.lang === lang && !p
       <p class="hero-description">{copy.description}</p>
       <div class="hero-actions"><a class="button button-primary" href={pathFor(lang, 'download')}><Icon name="download" size={18}/>{copy.cta}</a><a class="button button-outline" href={pathFor(lang, 'docs')}><Icon name="book" size={18}/>{copy.secondary}</a></div>
       <p class="hero-platforms">{copy.note}<span class="platform-note">{zh ? '为开发者而造' : 'Made for developers'}</span></p>
-      <div class="provider-strip"><span class="provider-name"><span class="claude-symbol">✳</span>Claude Code</span><span class="provider-name"><span class="codex-symbol">◉</span>Codex</span><span class="provider-name"><span class="opencode-symbol">▰</span>OpenCode</span></div>
+      <div class="provider-strip"><span class="provider-name"><ProviderIcon provider="claude" />Claude Code</span><span class="provider-name"><ProviderIcon provider="codex" />Codex</span><span class="provider-name"><ProviderIcon provider="opencode" />OpenCode</span></div>
       <p class="providers-caption">{copy.providers}</p>
     </section>
     <ProductDemo lang={lang}/>

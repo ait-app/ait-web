@@ -13,6 +13,12 @@ Email **[support@ait-app.com](mailto:support@ait-app.com)** for app issues, acco
 
 For privacy questions and account or data deletion, see the [Privacy policy](/en/privacy/) and [deletion instructions](/en/privacy/#data-deletion).
 
+## Request App Store / Google Play beta access
+
+To join the App Store or Google Play beta, email the address for your testing account to **[support@ait-app.com](mailto:support@ait-app.com)**. Clearly label it as an **Apple ID (App Store)** or a **Google account (Google Play)** to request beta access.
+
+After receiving Google Play beta access, open the [internal testing link](https://play.google.com/apps/internaltest/4699903411589312271) with that Google account. See [Platform support](/en/docs/platforms/) for more platform and installation details.
+
 ## Before sending a report
 
 Include the following so we can investigate:

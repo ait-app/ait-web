@@ -101,9 +101,7 @@
   .platform-note { padding-left: 15px; margin-left: 15px; border-left: 1px solid var(--brand-border); }
   .provider-strip { display: flex; justify-content: center; gap: 32px; margin-top: 45px; font-size: 15px; }
   .provider-name { display: inline-flex; align-items: center; gap: 8px; font-weight: 550; }
-  .claude-symbol { color: #bd7155; font-size: 27px; line-height: 1; }
-  .codex-symbol { font-size: 25px; line-height: 1; }
-  .opencode-symbol { font-size: 23px; line-height: 1; }
+  .provider-strip .provider-icon { width: 24px; height: 24px; }
   .providers-caption { font-size: 12px; color: var(--text-soft); margin-top: 9px; }
   /* Product workflow demonstration */
   .demo-section { margin-top: 52px; }
@@ -144,7 +142,6 @@
   .app-chat { flex: 1.5; min-width: 0; display: flex; flex-direction: column; }
   .app-pane-heading { height: 41px; border-bottom: 1px solid var(--line); display: flex; align-items: center; padding: 0 14px; gap: 7px; font-size: 10px; flex: none; }
   .app-pane-heading strong { font-weight: 550; }
-  .provider-dot { font-size: 18px; color: #bd7155; }
   .app-model { padding: 1px 6px; font-size: 9px; border: 1px solid var(--line); border-radius: 4px; color: var(--text-soft); }
   .pane-more { margin-left: auto; letter-spacing: 2px; font-size: 8px; }
   .chat-body { flex: 1; padding: 20px 22px 10px; font-size: 11px; line-height: 1.75; }
@@ -353,6 +350,8 @@
   .download-icon { display: inline-flex; padding: 16px; background: #f4f4f0; border-radius: 13px; margin-bottom: 25px; }
   .download-card h2 { font-size: 29px; }
   .download-card p { color: var(--text-muted); font-size: 14px; margin: 10px 0 28px; }
+  .download-mirror { display: grid; justify-items: start; gap: 6px; margin-top: 18px; }
+  .download-mirror small { color: var(--text-soft); font-size: 12px; }
   .release-note { color: var(--text-soft); font-size: 12px; margin-top: 16px; }
   .platform-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
   .platform-grid > article { padding: 30px; border: 1px solid var(--line); border-radius: 8px; }
@@ -536,9 +535,7 @@
     .platform-note { padding-left: 10px; margin-left: 10px; }
     .provider-strip { gap: 21px; margin-top: 34px; font-size: 12px; }
     .provider-name { gap: 5px; }
-    .claude-symbol { font-size: 23px; }
-    .codex-symbol { font-size: 21px; }
-    .opencode-symbol { font-size: 21px; }
+    .provider-strip .provider-icon { width: 21px; height: 21px; }
     .providers-caption { font-size: 10px; }
     .demo-section { margin-top: 33px; }
     .demo-toolbar { margin-bottom: 11px; }

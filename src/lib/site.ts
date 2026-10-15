@@ -10,6 +10,10 @@ export const product = {
   websiteRepository: 'https://github.com/ait-app/ait-web',
   releases: 'https://github.com/ait-app/ait/releases',
   latestRelease: 'https://github.com/ait-app/ait/releases/latest',
+  macDmgMirror: {
+    url: 'https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/Ait-0.1.3-macos-arm64.dmg',
+    version: '0.1.3',
+  },
 };
 export const pathFor = (lang: Language, path = '') => `/${lang}/${path ? `${path.replace(/^\/+|\/+$/g, '')}/` : ''}`;
 export const canonicalFor = (lang: Language, path = '') => new URL(pathFor(lang, path), domains[lang]).href;

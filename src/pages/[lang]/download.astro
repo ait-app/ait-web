@@ -7,4 +7,29 @@ export function getStaticPaths() { return languages.map(lang => ({ params: { lan
 const lang = Astro.params.lang as Language;
 const copy = t(lang).download;
 ---
-<Base lang={lang} title={t(lang).nav.download} description={copy.description} path="download"><main id="main-content" class="download-page container"><div class="page-intro"><p class="eyebrow">{copy.eyebrow}</p><h1>{copy.title}</h1><p>{copy.description}</p></div><h2 class="download-group-title">{copy.desktop}</h2><div class="download-grid"><article class="download-card"><span class="download-icon"><Icon name="apple" size={32}/></span><h2>{copy.mac}</h2><p>{copy.macDetail}</p><a class="button button-primary" href={product.latestRelease} target="_blank" rel="noopener noreferrer"><Icon name="download" size={17}/>{copy.latest}</a></article><article class="download-card"><span class="download-icon"><Icon name="terminal" size={32}/></span><h2>{copy.linux}</h2><p>{copy.linuxDetail}</p><a class="button button-dark" href={product.latestRelease} target="_blank" rel="noopener noreferrer"><Icon name="download" size={17}/>{copy.latest}</a></article></div><p class="release-note">{copy.releaseNote}</p><h2 class="download-group-title">{copy.mobile}</h2><div class="platform-grid">{[{title:copy.android,description:copy.androidDetail,icon:'phone'},{title:copy.ios,description:copy.iosDetail,icon:'phone'},{title:copy.web,description:copy.webDetail,icon:'globe'}].map(platform => <article><Icon name={platform.icon} size={26}/><h3>{platform.title}</h3><p>{platform.description}</p><a class="text-link" href={pathFor(lang,'docs/platforms')}>{copy.guide}<Icon name="arrow" size={16}/></a></article>)}</div><div class="download-prerequisite"><Icon name="layers" size={28}/><div><h3>{copy.prerequisite}</h3><p>{copy.prerequisiteDetail}</p></div><a class="text-link" href={pathFor(lang,'docs/providers')}>{copy.prerequisiteLink}<Icon name="arrow" size={16}/></a></div></main></Base>
+<Base lang={lang} title={t(lang).nav.download} description={copy.description} path="download">
+  <main id="main-content" class="download-page container">
+    <div class="page-intro"><p class="eyebrow">{copy.eyebrow}</p><h1>{copy.title}</h1><p>{copy.description}</p></div>
+    <h2 class="download-group-title">{copy.desktop}</h2>
+    <div class="download-grid">
+      <article class="download-card">
+        <span class="download-icon"><Icon name="apple" size={32}/></span>
+        <h2>{copy.mac}</h2><p>{copy.macDetail}</p>
+        <a class="button button-primary" href={product.latestRelease} target="_blank" rel="noopener noreferrer"><Icon name="download" size={17}/>{copy.latest}</a>
+        <div class="download-mirror">
+          <a class="text-link" href={product.macDmgMirror.url} target="_blank" rel="noopener noreferrer">{copy.chinaDownload}<Icon name="download" size={16}/></a>
+          <small>Apple Silicon · DMG · v{product.macDmgMirror.version}</small>
+        </div>
+      </article>
+      <article class="download-card">
+        <span class="download-icon"><Icon name="terminal" size={32}/></span>
+        <h2>{copy.linux}</h2><p>{copy.linuxDetail}</p>
+        <a class="button button-dark" href={product.latestRelease} target="_blank" rel="noopener noreferrer"><Icon name="download" size={17}/>{copy.latest}</a>
+      </article>
+    </div>
+    <p class="release-note">{copy.releaseNote}</p>
+    <h2 class="download-group-title">{copy.mobile}</h2>
+    <div class="platform-grid">{[{title:copy.android,description:copy.androidDetail,icon:'phone'},{title:copy.ios,description:copy.iosDetail,icon:'phone'},{title:copy.web,description:copy.webDetail,icon:'globe'}].map(platform => <article><Icon name={platform.icon} size={26}/><h3>{platform.title}</h3><p>{platform.description}</p><a class="text-link" href={pathFor(lang,'docs/platforms')}>{copy.guide}<Icon name="arrow" size={16}/></a></article>)}</div>
+    <div class="download-prerequisite"><Icon name="layers" size={28}/><div><h3>{copy.prerequisite}</h3><p>{copy.prerequisiteDetail}</p></div><a class="text-link" href={pathFor(lang,'docs/providers')}>{copy.prerequisiteLink}<Icon name="arrow" size={16}/></a></div>
+  </main>
+</Base>
