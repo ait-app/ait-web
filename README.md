@@ -25,6 +25,8 @@ npm run verify
 
 ## 双域名部署
 
+`ait-app.com` 使用 GitHub Pages，通过本仓库的 GitHub Actions 自动发布。部署与 Cloudflare DNS 配置见 [GitHub Pages 部署说明](docs/github-pages.md)。
+
 | 域名 | 根路径默认进入 | 构建命令 | 上传目录 |
 | --- | --- | --- | --- |
 | `aitapp.cn` | `/zh/` | `npm run build:cn` | `dist/cn/` |
@@ -36,9 +38,11 @@ npm run verify
 
 `npm run build` 默认输出 `dist/`。可设置 `SITE_URL=https://ait-app.com` 改为英文默认站。`SITE_URL` 只接受两个正式 HTTPS 域名，防止误生成错误的 SEO 地址。
 
-将对应目录发布到支持静态目录的托管服务，配置 `index.html` 与 `404.html`。不使用把全部地址改写成首页的 SPA fallback。域名解析、TLS 与托管账户由最终部署环境配置；本次项目初始化没有发布线上站点。
+GitHub Pages 发布 `dist/com/`，保留中英文内容及英文默认入口。`dist/cn/` 仍可单独用于 `aitapp.cn` 的中文默认站；同一个仓库的 Pages 站点只配置一个主域名，不能直接用这一份部署同时实现两个域名的不同默认语言。
 
-CI 在 `.github/workflows/ci.yml` 中生成两份通过校验的部署产物，不自动上线。
+CI 在 `.github/workflows/ci.yml` 中对 PR 运行类型检查、双域名构建与站内校验。推送 `main` 或手动运行工作流时，校验通过后自动发布 GitHub Pages。工作流还保留 `ait-web-cn` 和 `ait-web-com` 两份可下载产物。
+
+本项目按自定义域名根路径部署，`astro.config.mjs` 不设置 `/ait-web` 的 `base`。GitHub Pages 的 Custom domain 必须设为 `ait-app.com`；默认的 `ait-app.github.io/ait-web/` 地址由 GitHub 跳转到主域名。
 
 ## 内容维护
 
@@ -99,4 +103,4 @@ Apple 的 [Support URL 定义](https://developer.apple.com/help/app-store-connec
 
 官网演示明确标注为交互演示，切换构建、审查与连接场景；不调用真实 Agent。官网不是 Ait Agent Web 客户端。
 
-下载链接使用 `ait-app/ait` 的官方最新 Release，避免固定版本过期。移动与 Web 入口指向能力与构建文档，不宣称当前未发布的安装渠道。
+官方下载链接使用 `ait-app/ait` 的最新 Release。macOS Apple Silicon 另有注明版本的国内 DMG 加速入口，维护时同步更新 `src/lib/site.ts` 和中英文平台文档。移动与 Web 入口指向平台文档，其中包含 Google Play 内测链接，以及通过 `support@ait-app.com` 申请 App Store / Google Play 内测资格的说明。
