@@ -24,7 +24,7 @@
 
 ## Cloudflare DNS
 
-先在 GitHub Pages 中添加主域名并完成首次部署，再切换 Cloudflare 的主域名记录。将 `ait-app.com` 的 `@` A 记录替换为下列四条，TTL 使用自动：
+先在 GitHub Pages 中添加主域名并完成首次部署，再切换 Cloudflare 的主域名记录。首次配置时，将 `ait-app.com` 的 `@` A 记录替换为下列四条，TTL 使用自动，暂用仅 DNS 完成 GitHub 的域名检查和证书申请：
 
 | 类型 | 名称 | 内容 | 代理状态 |
 | --- | --- | --- | --- |
@@ -32,6 +32,8 @@
 | A | `@` | `185.199.109.153` | 仅 DNS |
 | A | `@` | `185.199.110.153` | 仅 DNS |
 | A | `@` | `185.199.111.153` | 仅 DNS |
+
+当前生产环境已按需为上述四条记录开启 **Cloudflare 代理（橙云）**。源站仍是 GitHub Pages，Cloudflare 提供对外 HTTPS 与代理服务；仅 DNS 是首次验证时的临时配置。Cloudflare 的 SSL/TLS 加密模式保持现有的“完全”，证书校验与签发进度可在 GitHub Pages 设置中检查。
 
 同一主域名不要同时保留原托管的 A 记录，以免流量随机到达不同站点。MX、SPF、DKIM、其他 TXT 和应用子域名维持原配置。
 
