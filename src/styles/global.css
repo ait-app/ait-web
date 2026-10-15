@@ -99,8 +99,8 @@
   .hero-actions { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 28px; }
   .hero-platforms { font-size: 12px; color: var(--text-soft); margin-top: 14px; }
   .platform-note { padding-left: 15px; margin-left: 15px; border-left: 1px solid var(--brand-border); }
-  .provider-strip { display: flex; justify-content: center; gap: 32px; margin-top: 45px; font-size: 15px; }
-  .provider-name { display: inline-flex; align-items: center; gap: 8px; font-weight: 550; }
+  .provider-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px 28px; margin-top: 45px; font-size: 15px; }
+  .provider-name { display: inline-flex; align-items: center; gap: 8px; font-weight: 550; white-space: nowrap; }
   .provider-strip .provider-icon { width: 24px; height: 24px; }
   .providers-caption { font-size: 12px; color: var(--text-soft); margin-top: 9px; }
   /* Product workflow demonstration */
@@ -533,7 +533,7 @@
     .hero-actions .button { padding-inline: 18px; font-size: 13px; }
     .hero-platforms { font-size: 10px; }
     .platform-note { padding-left: 10px; margin-left: 10px; }
-    .provider-strip { gap: 21px; margin-top: 34px; font-size: 12px; }
+    .provider-strip { gap: 14px 18px; margin-top: 34px; font-size: 12px; }
     .provider-name { gap: 5px; }
     .provider-strip .provider-icon { width: 21px; height: 21px; }
     .providers-caption { font-size: 10px; }

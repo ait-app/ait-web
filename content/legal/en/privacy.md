@@ -3,10 +3,10 @@ title: Privacy policy
 description: How Ait handles your information, connects your devices, and helps you manage your data.
 lang: en
 slug: privacy
-updated: 2026-10-14
+updated: 2026-10-16
 ---
 
-This policy covers the **Ait** desktop and mobile apps, Ait-operated account and relay services, and the websites **ait-app.com** and **aitapp.cn**. Ait is a workspace for running and connecting AI agents on a working computer. For questions about this policy, contact **[support@ait-app.com](mailto:support@ait-app.com)**.
+This policy covers the **Ait** desktop and mobile apps, Ait-operated account and relay services, and the website **ait-app.com**. Ait is a workspace for running and connecting AI agents on a working computer. For questions about this policy, contact **[support@ait-app.com](mailto:support@ait-app.com)**.
 
 ## Information Ait processes
 

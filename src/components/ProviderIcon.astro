@@ -1,7 +1,14 @@
 ---
-interface Props { provider: 'claude' | 'codex' | 'opencode'; size?: number; }
+import type { AgentProvider } from '../lib/site';
+interface Props { provider: AgentProvider; size?: number; }
 const { provider, size = 24 } = Astro.props;
-const assets = { claude: 'claude.png', codex: 'codex.png', opencode: 'opencode.svg' };
+const assets = {
+  codex: 'codex.png',
+  'deepseek-harness': 'deepseek-harness.svg',
+  opencode: 'opencode.svg',
+  antigravity: 'antigravity.svg',
+  claude: 'claude.png',
+} satisfies Record<AgentProvider, string>;
 ---
 <img class="provider-icon" src={`/providers/${assets[provider]}`} width={size} height={size} alt="" aria-hidden="true" />
 <style>

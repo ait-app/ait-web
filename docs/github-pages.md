@@ -1,6 +1,6 @@
 # GitHub Pages 部署
 
-主站：`https://ait-app.com`。本仓库使用 GitHub Actions 构建 Astro 静态文件，并发布 `dist/com/`；英文为默认语言，中英文内容均可访问。
+唯一站点域名：`https://ait-app.com`。本仓库使用 GitHub Actions 构建 Astro 静态文件，并发布 `dist/`；英文为默认语言，中英文内容均可访问。
 
 ## 仓库设置
 
@@ -16,11 +16,11 @@
 
 `.github/workflows/ci.yml` 同时负责验证与部署：
 
-1. PR：安装锁定依赖，运行 `npm run check`、`npm run build:all`、`npm run verify`。
-2. `main` 推送：完成上述检查，上传 `dist/com/` 为 Pages 产物，再通过 `github-pages` 环境发布。
+1. PR：安装锁定依赖，运行 `npm run check`、`npm run build`、`npm run verify`。
+2. `main` 推送：完成上述检查，上传 `dist/` 为 Pages 产物，再通过 `github-pages` 环境发布。
 3. 手动重发：在 Actions 中选择 **Verify and deploy website → Run workflow → main**。
 
-发布作业使用工作流自带的 `GITHUB_TOKEN` 与 OIDC，不需要额外保存部署令牌。PR 不运行发布作业。两份常规构建产物仍保留供下载；`dist/cn/` 可单独用于中文默认站。
+发布作业使用工作流自带的 `GITHUB_TOKEN` 与 OIDC，不需要额外保存部署令牌。PR 不运行发布作业。常规构建产物 `ait-web` 保留供下载，同一份产物包含 `/en/` 和 `/zh/`。
 
 ## Cloudflare DNS
 
@@ -48,7 +48,7 @@ GitHub Pages 官方配置说明：[管理自定义域名](https://docs.github.co
 ```sh
 npm ci
 npm run check
-npm run build:all
+npm run build
 npm run verify
 ```
 

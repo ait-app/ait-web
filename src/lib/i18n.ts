@@ -6,7 +6,7 @@ const zh = {
   home: {
     eyebrow: '本地优先的多 Agent 工作空间',
     title: '你的 Agent，', titleAccent: '随时在场。',
-    description: '把 Claude Code、Codex 和 OpenCode 带进同一个工作空间。\n在电脑上开始，从另一块屏幕继续。',
+    description: '把你熟悉的 Agent 带进同一个工作空间。\n在电脑上开始，从另一块屏幕继续。',
     cta: '下载 Ait', secondary: '阅读文档', note: 'macOS · Linux · Android',
     providers: '熟悉的 Agent，全新的连接方式',
     demoCaption: '从一句想法，到一次提交。', demoHint: '探索 Ait 的工作流', demoLabel: '交互演示',
@@ -42,7 +42,7 @@ const en = {
   home: {
     eyebrow: 'A local-first workspace for your agents',
     title: 'Your agents.', titleAccent: 'Within reach.',
-    description: 'Bring Claude Code, Codex, and OpenCode into one workspace.\nStart on your computer. Pick up on another screen.',
+    description: 'Bring your favorite agents into one workspace.\nStart on your computer. Pick up on another screen.',
     cta: 'Get Ait', secondary: 'Read the docs', note: 'macOS · Linux · Android',
     providers: 'The agents you know. A more connected workflow.',
     demoCaption: 'From a first thought to a code change.', demoHint: 'Explore the Ait workflow', demoLabel: 'Interactive demo',

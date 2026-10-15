@@ -8,9 +8,6 @@
     "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev --host 127.0.0.1",
     "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
     "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
-    "build:cn": "ASTRO_TELEMETRY_DISABLED=1 SITE_URL=https://aitapp.cn BUILD_TARGET=cn astro build",
-    "build:com": "ASTRO_TELEMETRY_DISABLED=1 SITE_URL=https://ait-app.com BUILD_TARGET=com astro build",
-    "build:all": "npm run build:cn && npm run build:com",
     "verify": "node scripts/verify-build.mjs",
     "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview --host 127.0.0.1"
   },

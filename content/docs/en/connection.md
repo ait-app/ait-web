@@ -11,7 +11,7 @@ Ait separates execution from access. The working host runs the daemon and agents
 
 ## Connect through an account
 
-Desktop, Android, and iOS use `https://aitapp.cn:8443/api` as the default account service. The Web client in an account console uses that console’s same-origin `/api` service.
+Desktop, Android, and iOS use the account service address configured in the app; check **Service settings** for the current configuration. The Web client in an account console uses that console’s same-origin `/api` service. The website `https://ait-app.com` provides product information and documentation; it is not an account API address.
 
 1. Open **Online service → Sign in / Register** on the working computer. Complete hosted sign-in and return to Ait.
 2. Check that the working host is synchronized with the online service. If synchronization was stopped, enable it in the host’s connection settings.

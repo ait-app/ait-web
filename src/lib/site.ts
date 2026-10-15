@@ -1,9 +1,14 @@
 export const languages = ['zh', 'en'] as const;
 export type Language = typeof languages[number];
-export const domains: Record<Language, string> = {
-  zh: 'https://aitapp.cn',
-  en: 'https://ait-app.com',
-};
+export const siteOrigin = 'https://ait-app.com';
+export const featuredAgents = [
+  { id: 'codex', name: 'Codex' },
+  { id: 'deepseek-harness', name: 'DeepSeek Harness' },
+  { id: 'opencode', name: 'OpenCode' },
+  { id: 'antigravity', name: 'Antigravity' },
+  { id: 'claude', name: 'Claude Code' },
+] as const;
+export type AgentProvider = typeof featuredAgents[number]['id'];
 export const product = {
   supportEmail: 'support@ait-app.com',
   repository: 'https://github.com/ait-app/ait',
@@ -16,7 +21,7 @@ export const product = {
   },
 };
 export const pathFor = (lang: Language, path = '') => `/${lang}/${path ? `${path.replace(/^\/+|\/+$/g, '')}/` : ''}`;
-export const canonicalFor = (lang: Language, path = '') => new URL(pathFor(lang, path), domains[lang]).href;
+export const canonicalFor = (lang: Language, path = '') => new URL(pathFor(lang, path), siteOrigin).href;
 export const docPath = (slug: string) => slug === 'getting-started' ? 'docs' : `docs/${slug}`;
 export const isLanguage = (value: string | undefined): value is Language => languages.includes(value as Language);
 export const dateLabel = (date: Date, lang: Language) => new Intl.DateTimeFormat(lang === 'zh' ? 'zh-CN' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' }).format(date);

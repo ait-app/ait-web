@@ -30,21 +30,17 @@ jobs:
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - run: npm ci
       - run: npm run check
-      - run: npm run build:all
+      - run: npm run build
       - run: npm run verify
       - uses: actions/upload-artifact@v6
         with:
-          name: ait-web-cn
-          path: dist/cn/
-      - uses: actions/upload-artifact@v6
-        with:
-          name: ait-web-com
-          path: dist/com/
+          name: ait-web
+          path: dist/
       - name: Upload GitHub Pages artifact
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:
-          path: dist/com/
+          path: dist/
 
   deploy:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'

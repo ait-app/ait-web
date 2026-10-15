@@ -4,7 +4,7 @@ import Footer from '../components/Footer.astro';
 import { canonicalFor, type Language } from '../lib/site';
 import '../styles/global.css';
 interface Props { lang: Language; title?: string; description?: string; path?: string; docs?: boolean; noindex?: boolean; }
-const { lang, title, description = lang === 'zh' ? 'Ait 是本地优先的多 Agent 工作空间。统一管理 Claude Code、Codex、OpenCode，从多端连接你的工作主机。' : 'Ait is a local-first workspace for your agents. Manage Claude Code, Codex, and OpenCode and connect to your working host across devices.', path = '', docs = false, noindex = false } = Astro.props;
+const { lang, title, description = lang === 'zh' ? 'Ait 是本地优先的多 Agent 工作空间。统一管理 Codex、DeepSeek Harness、OpenCode、Antigravity 和 Claude Code，从多端连接你的工作主机。' : 'Ait brings Codex, DeepSeek Harness, OpenCode, Antigravity, and Claude Code into one local-first workspace, accessible across devices.', path = '', docs = false, noindex = false } = Astro.props;
 const pageTitle = title ? `${title} — Ait` : (lang === 'zh' ? 'Ait — 你的 Agent，随时在场。' : 'Ait — Your agents. Within reach.');
 const canonical = canonicalFor(lang, path);
 ---
