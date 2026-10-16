@@ -43,9 +43,9 @@ Android connects to a working computer as a client. It does not run a daemon on 
 
 Open **Online service → Sign in / Register**, complete sign-in in the system browser, and return to Ait. Use the same account and service as the desktop app, then choose an online computer. See [Connections & data](/en/docs/connection/) for host synchronization.
 
-Connections pause in the background and resume in the foreground. See the [mobile guide](https://github.com/ait-app/ait/blob/main/apps/mobile/README.md) and [Android release guide](https://github.com/ait-app/ait/blob/main/docs/operations/android-releases.md) for implementation boundaries and build commands.
+Newer clients try to retain account relay connections and downloads for up to two minutes in the background before pausing network activity. The operating system may suspend the app sooner. Connections resume in the foreground; see [Connections & data](/en/docs/connection/). For source builds, see the [mobile guide](https://github.com/ait-app/ait/blob/main/apps/mobile/README.md) and [Android release guide](https://github.com/ait-app/ait/blob/main/docs/operations/android-releases.md).
 
-> The source documentation records physical-device verification of the account entry and sign-in form. The complete relay flow from a real account to a remote computer has not yet completed physical-device acceptance. Check the latest product documentation and release notes.
+> Available store test builds, regions, and features follow their release notes. For sign-in or relay problems, include your app version and device details when contacting [support](/en/docs/support/).
 
 ## iOS
 
@@ -57,7 +57,7 @@ From the Ait repository root, build for the simulator:
 npm run build:ios:simulator
 ```
 
-The iOS simulator can access the host through loopback. A physical device needs network access to the working computer; `127.0.0.1` on the device refers to the device itself.
+The iOS simulator can access the host through loopback. Direct connections from a physical device need a reachable computer address; `127.0.0.1` refers to the phone itself. Account relay does not require a local host address. Newer iOS clients use the same background connection window as Android; see [Connections & data](/en/docs/connection/).
 
 ## Web
 
@@ -82,7 +82,7 @@ The development script builds shared dependencies and the daemon, configures loc
 | Platform | Runs a local daemon | Account / relay | Direct connection |
 | --- | --- | --- | --- |
 | macOS / Linux desktop | Yes | Yes | Yes |
-| Android | No | Yes; acceptance boundaries above | Yes |
-| iOS | No | Yes; see sign-in guide | Yes |
+| Android | No | Yes | Yes |
+| iOS / iPadOS | No | Yes | Yes |
 | Web console client | No | Yes; console build | No |
 | Local Web client | Requires a separate service | No | Yes |

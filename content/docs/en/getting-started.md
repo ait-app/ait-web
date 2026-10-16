@@ -21,7 +21,7 @@ The desktop package includes the Rust daemon. The desktop app starts it for you,
 
 Ait does not include a model subscription. Before starting, install and sign in to at least one supported agent CLI on the working host, such as Claude Code, Codex, or OpenCode.
 
-If you already use these tools in your terminal, keep your existing sign-in. Model access, subscriptions, and costs are managed by the respective providers. See [Agent setup](/en/docs/providers/) for the capabilities of each adapter.
+If you already use these tools in your terminal, keep your existing sign-in. Ait also supports DeepSeek Harness and Antigravity CLI. Available models and permissions depend on the version installed on the working computer. See [Agent setup](/en/docs/providers/) for setup and differences between the integrations.
 
 ## Start your first workspace
 
@@ -35,7 +35,13 @@ Read [Workspaces](/en/docs/workspaces/) for project organization and Git worktre
 
 ## Connect another device
 
-Desktop, Android, and iOS can sign in to the same account and select the working computer from the online host list. The Web client built into the account console uses that console’s online service; the local development Web client uses direct connections. Connection capabilities differ by platform and build.
+Desktop, Android, and iOS can sign in to the same account and select the working computer through account relay. Web users can sign in at [aitapp.cn](https://aitapp.cn/) and open the client. Keep the computer awake with its Ait service and agents available.
+
+- Android: request Google Play closed-test access, then open the [opt-in link](https://play.google.com/apps/testing/dev.ait.mobile).
+- iPhone / iPad: join through the [public TestFlight invitation](https://testflight.apple.com/join/fjc7g46u), without an email request first.
+- Linux/macOS without a desktop environment: build and authorize a headless daemon using [Server configuration](/en/docs/configuration/).
+
+Google Play eligibility uses your Google account; signing in inside the app uses your Ait account. They serve different purposes. See [Platform support](/en/docs/platforms/) for store eligibility and installation steps.
 
 Read [Connections & data](/en/docs/connection/) and [Platform support](/en/docs/platforms/) to choose a connection method.
 

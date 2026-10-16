@@ -21,7 +21,7 @@ Ait 是一个本地优先的多 Agent 管理器。Agent 在你的工作主机上
 
 Ait 不包含模型订阅。开始之前，在工作主机上安装并登录至少一个支持的 Agent CLI，例如 Claude Code、Codex 或 OpenCode。
 
-如果已经在终端使用这些工具，可以继续使用现有登录。各服务的模型权限、订阅和费用由相应供应商管理。不同 Provider 的可用能力见 [Agent 接入](/zh/docs/providers/)。
+如果已经在终端使用这些工具，可以继续使用现有登录。Ait 也支持 DeepSeek Harness 与 Antigravity CLI；可用模型和权限取决于工作电脑安装的版本。接入步骤和各工具的区别见 [Agent 接入](/zh/docs/providers/)。
 
 ## 开始第一个工作区
 
@@ -35,7 +35,13 @@ Ait 不包含模型订阅。开始之前，在工作主机上安装并登录至�
 
 ## 连接另一台设备
 
-桌面、Android 与 iOS 可以登录同一账户，从在线主机列表选择工作电脑。账户控制台内置的 Web 客户端使用该控制台的在线服务，本地开发的 Web 客户端使用直接连接。各端的连接能力有所区别。
+桌面、Android 与 iOS 可以登录同一账户，通过中继从在线主机列表选择工作电脑。Web 用户可直接从 [aitapp.cn](https://aitapp.cn/) 登录并进入客户端。工作电脑需要保持唤醒，Ait 服务与 Agent 也需要保持可用。
+
+- Android：先申请 Google Play 封测资格，再打开[加入测试链接](https://play.google.com/apps/testing/dev.ait.mobile)。
+- iPhone / iPad：通过 [TestFlight 公开邀请](https://testflight.apple.com/join/fjc7g46u)加入，无需先邮件申请。
+- 没有桌面环境的 Linux/macOS 主机：按[服务配置](/zh/docs/configuration/)构建并授权 headless daemon。
+
+Google Play 封测名单使用 Google 账号，Ait 应用内使用 Ait 账户，两者用途不同。商店资格和安装步骤见[平台支持](/zh/docs/platforms/)。
 
 继续阅读 [连接与数据](/zh/docs/connection/) 和 [平台支持](/zh/docs/platforms/)，选择适合你的连接方式。
 

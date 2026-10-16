@@ -43,9 +43,9 @@ Android 作为客户端连接工作电脑，不在手机上运行 daemon，也�
 
 打开 **在线服务 → 登录 / 注册**，在系统浏览器完成登录并返回 Ait。使用和桌面相同的账户及服务，再选择在线电脑。主机同步步骤见[连接与数据](/zh/docs/connection/)。
 
-进入后台后连接暂停，回到前台后恢复。相关实现边界与构建命令见 [移动端说明](https://github.com/ait-app/ait/blob/main/apps/mobile/README.md) 和 [Android 发布说明](https://github.com/ait-app/ait/blob/main/docs/operations/android-releases.md)。
+新版客户端切到后台后会尝试保留账户中继连接与下载最多 2 分钟，再暂停网络活动；系统可能提前挂起应用。回到前台后恢复连接，详情见[连接与数据](/zh/docs/connection/)。源码构建见 [移动端说明](https://github.com/ait-app/ait/blob/main/apps/mobile/README.md) 和 [Android 发布说明](https://github.com/ait-app/ait/blob/main/docs/operations/android-releases.md)。
 
-> 当前源码文档记录：账户入口与登录表单已经过实体设备验证；真实账户到远程电脑的完整中继流程尚未完成真机验收。请以最新产品文档与 Release 为准。
+> 商店测试版的可安装版本、地区与功能以相应发布说明为准。遇到登录或中继问题，请提供 App 版本和设备信息，通过[支持页面](/zh/docs/support/)反馈。
 
 ## iOS
 
@@ -57,7 +57,7 @@ iOS 支持账户登录、中继与直接连接。在 **在线服务 → 登录 /
 npm run build:ios:simulator
 ```
 
-iOS simulator 可通过 loopback 访问宿主服务。真机需要能够访问工作主机，不能使用真机自身的 `127.0.0.1` 指代电脑。
+iOS simulator 可通过 loopback 访问宿主服务。真机直接连接时需要可达的电脑地址，不能使用手机自己的 `127.0.0.1` 指代电脑；通过账户中继连接无需填写本机地址。新版 iOS 客户端采用与 Android 相同的后台连接保留窗口，见[连接与数据](/zh/docs/connection/)。
 
 ## Web
 
@@ -82,7 +82,7 @@ npm run dev:mobile
 | 平台 | 本机运行 daemon | 账户 / Relay | 直接连接 |
 | --- | --- | --- | --- |
 | macOS / Linux 桌面 | 支持 | 支持 | 支持 |
-| Android | 不支持 | 支持，验收边界见上文 | 支持 |
-| iOS | 不支持 | 支持，见统一登录说明 | 支持 |
+| Android | 不支持 | 支持 | 支持 |
+| iOS / iPadOS | 不支持 | 支持 | 支持 |
 | Web 控制台客户端 | 不支持 | 支持，控制台构建 | 不支持 |
 | 本地 Web 客户端 | 需要独立服务 | 不支持 | 支持 |

@@ -1,29 +1,23 @@
 ---
 title: Agent setup
-description: Bring native CLIs, existing sign-ins, and model settings, with clear provider boundaries.
+description: Set up Codex, Claude Code, OpenCode, DeepSeek Harness, and Antigravity with native sign-ins and model settings.
 lang: en
 slug: providers
 group: start
 order: 3
 ---
 
-Ait connects to agents installed on the working host through native provider adapters. Each agent manages its own sign-in. Ait connection tokens and model service credentials serve different purposes.
+Install and authenticate your agents on the working computer, then select one when creating an Ait session. Phones and the Web app connect to that computer; they do not need their own agent CLI. Ait does not include a model subscription. Models, quotas, and costs depend on the services you configure.
 
 ## Codex
 
-The Codex integration uses the local `codex app-server`. Confirm that Codex is installed and signed in through its own CLI before using it in Ait.
+Ait uses the local `codex app-server`. Confirm that Codex runs independently in the working computer’s terminal and complete its native sign-in. Available models, reasoning levels, permissions, and other controls come from that installation.
 
-If the desktop process cannot find the executable, set an absolute path before starting the daemon or development entry:
-
-```sh
-export AIT_SERVER_CODEX_BIN=/absolute/path/to/codex
-```
-
-Choose Codex when creating an agent and use the available models and settings returned by the interface.
+Codex retains ownership of its instructions, skills, tools, authentication, and native sessions. Version-dependent features follow the installed CLI. Another agent’s file rewind feature does not imply that Codex supports it.
 
 ## Claude Code
 
-Install and sign in to Claude Code on the machine running the daemon:
+After installing Claude Code on the working computer, check its sign-in:
 
 ```sh
 claude --version
@@ -31,30 +25,58 @@ claude auth login
 claude auth status
 ```
 
-Select **Claude Code** when creating an agent. Models and reasoning levels come from the local CLI. The default approval mode is `default`; tool approvals and Claude’s questions appear in the conversation.
+Select **Claude Code** in Ait. It uses the native `default` approval mode unless you choose another available mode. Models and reasoning levels come from the local CLI. Tool approvals and Claude’s questions appear in the conversation.
 
-Claude Code keeps its own authentication and loads user, project, and local settings, including `CLAUDE.md`, skills, and MCP configuration. You do not need to put an API key in the Ait configuration.
-
-```sh
-export AIT_SERVER_CLAUDE_BIN=/absolute/path/to/claude
-```
-
-Read the [Claude Code manual](https://github.com/ait-app/ait/blob/main/docs/operations/claude-code.md) for attachments, rewind, and native session behavior.
+Claude Code keeps its authentication and loads user, project, and local settings, including `CLAUDE.md`, skills, and MCP. Ait supports image and text attachments, session recovery, and native checkpoint rewind. File rewind covers only files tracked by Claude’s checkpoints. See the [Claude Code manual](https://github.com/ait-app/ait/blob/main/docs/operations/claude-code.md).
 
 ## OpenCode
 
-Use a locally installed, signed-in `opencode`. Override the executable path with:
+Install, configure, and sign in to `opencode` on the working computer. Ait connects through the official **`opencode acp`** interface. Models, reasoning options, and modes come from the current project’s native catalog, including Build, Plan, or custom primary agents when provided by that installation.
+
+Text conversations, tool progress, native permission requests, cancellation, and recovery are supported. Native session listing and import, image input, and question forms depend on the installed version’s ACP capabilities. Permissions can include one-time approval, persistent approval, or rejection when the native request offers them. Older CLIs may not provide every option.
+
+OpenCode manages authentication, project settings, and history. It loads the project’s native MCP configuration; Ait does not inject MCP servers dynamically per session or provide OpenCode native rewind. If catalog loading fails, check app diagnostics and the CLI, then refresh the provider. A first launch may need time to initialize the native catalog.
+
+See the [OpenCode ACP integration](https://github.com/ait-app/ait/blob/main/docs/decisions/providers/adr-115-opencode-acp-provider.md) for protocol and version differences.
+
+## DeepSeek Harness
+
+Install and configure DeepSeek Harness so that `dsh` runs on the working computer. Ait looks for the CLI first and can also detect supported DSH desktop installations that include it. Restart the Ait daemon after installing or upgrading DSH.
+
+By default, Ait uses the **native interactive Host in the web profile**. Models and reasoning options come from local configuration. Modes come from that profile’s plugin presets, with permission presets selected separately. Conversations, attachments, images allowed by native capabilities, approvals, questions, recovery, and native session import are supported.
+
+Plugins in the desktop profile are not automatically copied into the web profile. To use another profile already configured with a Web Host, set this before starting the daemon:
 
 ```sh
-export AIT_SERVER_OPENCODE_BIN=/absolute/path/to/opencode
+export AIT_SERVER_DEEPSEEK_HARNESS_PROFILE=team-web
 ```
 
-The current adapter provides **Build mode, dynamic model discovery, text conversations, one-time approvals, cancellation, and recovery**. Authentication stays with the native CLI.
+Manage MCP and plugins in the corresponding DSH profile. If the DSH desktop app owns a native session’s write lock, release it there before continuing in Ait. Importing history does not take over an active session. See the [DeepSeek Harness manual](https://github.com/ait-app/ait/blob/main/docs/operations/deepseek-harness.md).
 
-Plan mode, custom agents, steer, attachments, forms, rewind, external session import, MCP configuration, and background tasks are not claimed as supported. See the [OpenCode adapter decision](https://github.com/ait-app/ait/blob/main/docs/decisions/providers/adr-074-opencode-native-provider.md) for full boundaries.
+## Antigravity CLI
+
+Ait uses the **AGY CLI**. Installing the Antigravity IDE alone is not sufficient. After installing the CLI, run `agy` in the working computer’s terminal to complete native sign-in, then select Antigravity in Ait.
+
+Models come from `agy models`. Multi-turn text, text attachments, tool progress, usage, and conversation recovery are supported. Local permissions are preserved by default. The native headless interface has no interactive approval callback, so tools that require a question may be denied. Configure AGY’s native permissions for your task; Ait does not automatically change global rules.
+
+Image input, guidance during an active turn, full native history import, and rewind are not integrated. See the [Antigravity CLI manual](https://github.com/ait-app/ait/blob/main/docs/operations/antigravity.md) for installation, permissions, and diagnostics.
+
+## Select executable paths
+
+If the desktop process cannot find a CLI, or you use a nonstandard installation, set the appropriate variable before starting the daemon or development entry. Set only the variables you need and replace each example with a real executable path:
+
+```sh
+export AIT_SERVER_CODEX_BIN=/absolute/path/to/codex
+export AIT_SERVER_CLAUDE_BIN=/absolute/path/to/claude
+export AIT_SERVER_OPENCODE_BIN=/absolute/path/to/opencode
+export AIT_SERVER_DEEPSEEK_HARNESS_BIN=/absolute/path/to/dsh
+export AIT_SERVER_ANTIGRAVITY_BIN=/absolute/path/to/agy
+```
+
+These variables select programs; they do not store model service credentials. Restart the corresponding daemon after changing them. Reopening a browser or phone screen does not change the working host’s environment.
 
 ## Choose a provider
 
-Each provider’s capabilities depend on its native CLI and the current adapter. Check available models and modes before creating a session. One agent’s advanced features are not automatically shared by all agents.
+Check the models, modes, and permissions returned by the working host before creating or continuing a session. Each provider’s capabilities depend on both its native program and Ait’s adapter. Permission modes do not provide operating-system isolation.
 
-Once an agent is ready, [create a workspace](/en/docs/workspaces/).
+Continue with [Workspaces](/en/docs/workspaces/). For availability, sign-in, or quota problems, see [Troubleshooting & support](/en/docs/support/).

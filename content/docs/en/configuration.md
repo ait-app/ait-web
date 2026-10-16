@@ -9,7 +9,7 @@ order: 6
 
 The desktop app manages its bundled daemon. The configuration below is for standalone services, source development, or custom connections.
 
-## Start a standalone service
+## Local or direct-connection service
 
 Run from the Ait source repository root:
 
@@ -18,7 +18,23 @@ export AIT_SERVER_TOKEN="$(openssl rand -hex 32)"
 cargo run -p daemon --bin daemon -- --listen 127.0.0.1:7316
 ```
 
-Credentials are read only from `AIT_SERVER_TOKEN`. The value must contain 32–256 bytes of visible ASCII without spaces. Credentials are not automatically loaded from command arguments, URLs, TOML, or `.env` files.
+This ordinary startup mode reads credentials from `AIT_SERVER_TOKEN`. The value must contain 32–256 bytes of visible ASCII without spaces. Local API credentials are not automatically loaded from command arguments, URLs, TOML, or `.env` files. Headless mode, described below, can generate and persist its own local API credential.
+
+## Unattended online host
+
+A Linux or macOS machine can join account relay without running the desktop interface. Build and run from the Ait source root:
+
+```sh
+cargo build --locked --release -p daemon --bin daemon
+./target/release/daemon login
+./target/release/daemon run --headless
+```
+
+Use the same system user and data directory for sign-in and execution. The first sign-in displays a web address and verification code; complete authorization in a browser. Later `run --headless` starts restore valid machine authorization. Stop a daemon using the same data directory before signing in or out.
+
+This mode connects to the official account center at `https://aitapp.cn/api` and requires its machine authorization service. Without `AIT_SERVER_TOKEN`, the first start generates `<data-dir>/local-api.token` and subsequent starts reuse it. An explicit environment variable takes priority without overwriting that file. The local token and machine authorization are separate credentials.
+
+Use your operating system’s process manager for persistent background operation. There is no `service install` subcommand. See the [headless daemon manual](https://github.com/ait-app/ait/blob/main/docs/operations/headless-daemon.md) for configuration and reauthorization.
 
 ## Common settings
 
@@ -26,7 +42,7 @@ Credentials are read only from `AIT_SERVER_TOKEN`. The value must contain 32–2
 | --- | --- | --- |
 | `--data-dir` | `AIT_SERVER_DATA_DIR` | `~/.ait-server` |
 | `--listen` | `AIT_SERVER_LISTEN` | `127.0.0.1:7316` |
-| `--config` | None | `config.toml` in the data directory |
+| `--config` | None | `config.toml` in the data directory, skipped if absent |
 | `--log-level` | `AIT_SERVER_LOG_LEVEL` | `info` |
 | `--web-origin` | None | No additional browser origins |
 
@@ -60,6 +76,14 @@ curl -H "Authorization: Bearer $AIT_SERVER_TOKEN" \
 export AIT_SERVER_CODEX_BIN=/absolute/path/to/codex
 export AIT_SERVER_CLAUDE_BIN=/absolute/path/to/claude
 export AIT_SERVER_OPENCODE_BIN=/absolute/path/to/opencode
+export AIT_SERVER_DEEPSEEK_HARNESS_BIN=/absolute/path/to/dsh
+export AIT_SERVER_ANTIGRAVITY_BIN=/absolute/path/to/agy
 ```
 
-These variables select native executables on the working host. Read [Agent setup](/en/docs/providers/) for provider authentication and capabilities.
+Set only the variables you need, replace the example paths, and restart the daemon. See [Agent setup](/en/docs/providers/) for authentication and capabilities.
+
+## Connect an MCP client
+
+With MCP enabled, the daemon provides `/mcp/agents` on its own listener, for example `http://127.0.0.1:7316/mcp/agents`. Configure the endpoint explicitly in your MCP client and supply the local API token in an `Authorization: Bearer` header.
+
+This endpoint can manage agents, workspaces, terminals, and schedules. It is not automatically injected into each agent’s native configuration. See the [MCP manual](https://github.com/ait-app/ait/blob/main/docs/operations/mcp.md) for connection details and tool parameters.

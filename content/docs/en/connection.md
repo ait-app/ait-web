@@ -7,7 +7,18 @@ group: workflow
 order: 5
 ---
 
-Ait separates execution from access. The working host runs the daemon and agents. Clients connect to that host to access workspaces and conversations.
+Ait separates execution from access. The working host runs the daemon and agents. Clients connect to that host to access workspaces and conversations. Keep the working computer and its service online for remote access.
+
+## Choose the right address
+
+| Purpose | Address |
+| --- | --- |
+| Website, downloads, and docs | [ait-app.com](https://ait-app.com/) |
+| Account and Web app entry | [aitapp.cn](https://aitapp.cn/) |
+| Default account API | `https://aitapp.cn/api` |
+| Local development daemon | `127.0.0.1:7316` |
+
+The marketing website is not the account API. The `/hosts` management page is not an API address either.
 
 ## Connect through an account
 
@@ -18,9 +29,9 @@ Desktop, Android, and iOS use the account service address configured in the app;
 3. Sign in to the same account and service on another desktop device, Android, or iOS. Open **Online service** or **Add Host**.
 4. Select the working computer from the online host list and add it to your saved hosts.
 
-The host list refreshes periodically and does not show the current machine. Mobile devices are clients and do not publish the phone as a working host. Hosted sign-in uses the system browser on desktop and Android and the system authentication window on iOS. See [Platform support](/en/docs/platforms/) for current mobile verification boundaries.
+The host list refreshes periodically and does not show the current machine. Phones are clients and are not published as working hosts. Hosted sign-in uses the system browser on desktop and Android and the system authentication window on iOS. For browser access, sign in at [aitapp.cn](https://aitapp.cn/) and open the Web client. Account relay does not require the devices to share a local network or the working computer to expose forwarded public ports.
 
-For a self-hosted account service, enter its API base address in **Service settings**. An empty field uses the default. `/hosts` is a management page, not an API base address. Saved accounts continue using their originally configured service address.
+For a self-hosted account service, enter its API base address in **Service settings**. An empty field uses `https://aitapp.cn/api`. Newer clients migrate saved legacy official addresses, including addresses using `:8443`; custom service addresses are preserved. Both devices must use the same service and account.
 
 ## Direct connections
 
@@ -32,7 +43,7 @@ The default local development listener is `127.0.0.1:7316`. That address only wo
 
 - **Ait connection tokens** authenticate clients to the daemon.
 - **Agent service credentials** are saved by native programs such as Codex, Claude Code, and OpenCode to access their services.
-- **Account credentials** use platform secure storage. If secure storage is unavailable, a restart requires signing in again.
+- **Account credentials** use platform secure storage in native clients. If secure storage is unavailable, a restart may require signing in again. The Web client uses browser storage to retain sign-in.
 
 Browsers first exchange a short-lived, one-time connection ticket before upgrading to WebSocket. The service Bearer token is not placed in the URL.
 
@@ -44,6 +55,10 @@ Local execution does not mean model requests never leave the network. Agents com
 
 ## Disconnect and reconnect
 
-WebSocket subscriptions belong to the current connection. They are released on disconnect and must be renewed after reconnecting. Android pauses its connection in the background and revalidates the account node on returning to the foreground.
+Newer Android and iOS clients try to retain account relay connections and active downloads for up to two minutes after entering the background. Returning within that window can reuse a healthy connection. After the window, account network activity pauses and is revalidated when the app returns. The operating system may suspend the app or interrupt networking sooner; this is not a guarantee of background execution.
+
+A disconnected phone does not move or automatically cancel an agent running on the working computer. Reconnect and inspect the session before resending a task whose delivery is uncertain.
+
+Access after quitting the desktop app depends on the host’s service and online authorization. **Keep daemon running after quit** keeps the local daemon alive. For a host that must remain online unattended, use headless mode as described in [Server configuration](/en/docs/configuration/).
 
 Read the [daemon manual](https://github.com/ait-app/ait/blob/main/docs/operations/daemon.md) for the protocol, shutdown behavior, and data directories.

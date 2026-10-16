@@ -36,7 +36,19 @@ The homepage demo illustrates this workflow. It does not run real tasks or modif
 
 Use the project’s Git worktree workflow when you need separate directories for parallel tasks. A worktree gives the same Git repository multiple working directories, each with its own branch and file state.
 
-Check the repository state and target branch before starting, then review changes before merging. Worktrees separate directories and branches; they are not an operating-system security sandbox.
+Check the repository state and target branch before starting, then review changes before merging. Worktrees separate directories and branches; they are not an operating-system security sandbox. Project setup may still be running after workspace creation. Wait for dependency installation and initialization before starting work.
+
+## Commits and pull requests
+
+The primary workspace action follows the actual Git and PR state, offering actions such as commit, create PR, push, or view PR. GitHub/GitLab operations also require Git and the appropriate `gh` / `glab` authentication on the working host.
+
+“View PR” opens the existing request; it does not push commits. Resolve conflicts, divergence, or a behind branch before continuing. After merging, check for active agents and unanswered approvals before archiving the workspace.
+
+## Scheduled tasks
+
+Open schedules from the workspace’s new-item menu. Choose an existing agent or a new agent for each run, then configure the prompt, interval or Cron expression, timezone, and run count. A task belongs to that workspace. Create a worktree workspace first if it needs an isolated directory.
+
+Tasks run on the working host’s daemon. Closing a client tab does not stop an online daemon’s scheduler. Tasks do not execute while the host or daemon is offline, and recurring schedules do not replay every missed occurrence. Pausing prevents future automatic triggers; cancel an active run separately.
 
 ## Pick up on another device
 
