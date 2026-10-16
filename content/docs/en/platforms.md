@@ -21,11 +21,13 @@ Ait’s desktop, Web, and mobile clients reuse a shared interface and Rust proto
 
 Available builds and tester spaces are shown in TestFlight. If you cannot join or install the beta, contact [support@ait-app.com](mailto:support@ait-app.com).
 
-### Android
+### Google Play closed testing
 
-Google Play internal testing still requires access: email your **Google account email address** to **[support@ait-app.com](mailto:support@ait-app.com)** and mention that you are requesting Google Play beta access.
+1. Send the **Google account email address** you use for Google Play to **[support@ait-app.com](mailto:support@ait-app.com)** and mention that you are requesting Android closed-test access.
+2. Once you have access, use that same Google account to open [Join the Ait closed test](https://play.google.com/apps/testing/dev.ait.mobile).
+3. Choose to join the test on the Google Play page, then follow its instructions to install Ait.
 
-Once approved, open [Join the Ait internal test](https://play.google.com/apps/internaltest/4699903411589312271) with that Google account to install the app.
+The closed test currently uses an email list; opening the link does not grant access automatically. Availability depends on your Play account country or region and device compatibility. If you cannot join, check that you are signed in with the approved Google account. If you previously joined the internal test, leave it on its original testing page before joining the closed test through the link above.
 
 ## Desktop
 
@@ -58,6 +60,8 @@ npm run build:ios:simulator
 The iOS simulator can access the host through loopback. A physical device needs network access to the working computer; `127.0.0.1` on the device refers to the device itself.
 
 ## Web
+
+Open the **[Ait Web app](https://aitapp.cn/)** and sign in with the same Ait account as your desktop app to connect to an online host and continue in your browser. No client installation is needed on this device; the computer running your agents must stay online.
 
 This marketing website is separate from the Agent Web client. An account console can host the client at `/client/`; that build shares the console’s sign-in and uses online-service connections. See the [Web console client documentation](https://github.com/ait-app/ait/blob/main/docs/decisions/clients/adr-132-web-console-client.md).
 

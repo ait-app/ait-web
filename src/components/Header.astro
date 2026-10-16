@@ -17,6 +17,7 @@ const links = [
     <a class="brand" href={pathFor(lang)} aria-label="Ait"><img src="/brand/ait-lockup-horizontal.svg" width="114" height="43" alt="AIT" /></a>
     <nav class="desktop-nav" aria-label={lang === 'zh' ? '主导航' : 'Main navigation'}>
       {links.map(link => <a href={pathFor(lang, link.path)} aria-current={link.active ? 'page' : undefined}>{link.label}</a>)}
+      <a href={product.webApp} target="_blank" rel="noopener noreferrer">{copy.nav.webApp}</a>
     </nav>
     <div class="header-actions">
       <a class="language-switch" href={pathFor(otherLang, path)} aria-label={copy.nav.language} lang={otherLang === 'zh' ? 'zh-CN' : 'en'}><Icon name="globe" size={16} /><span>{otherLang === 'zh' ? '中文' : 'EN'}</span></a>
@@ -24,7 +25,7 @@ const links = [
       <a class="button button-small button-dark header-download" href={pathFor(lang, 'download')}>{copy.nav.download}<Icon name="download" size={15}/></a>
       <details class="mobile-nav">
         <summary aria-label={copy.nav.menu}><span></span><span></span></summary>
-        <nav aria-label={copy.nav.menu}>{links.map(link => <a href={pathFor(lang, link.path)} aria-current={link.active ? 'page' : undefined}>{link.label}</a>)}<a href={pathFor(lang, 'download')}>{copy.nav.download}</a></nav>
+        <nav aria-label={copy.nav.menu}>{links.map(link => <a href={pathFor(lang, link.path)} aria-current={link.active ? 'page' : undefined}>{link.label}</a>)}<a href={product.webApp} target="_blank" rel="noopener noreferrer">{copy.nav.webApp}</a><a href={pathFor(lang, 'download')}>{copy.nav.download}</a></nav>
       </details>
     </div>
   </div>

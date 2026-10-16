@@ -29,18 +29,24 @@ const copy = t(lang).download;
     </div>
     <p class="release-note">{copy.releaseNote}</p>
     <h2 class="download-group-title">{copy.mobile}</h2>
-    <div class="platform-grid">{[
-      {id:'android',title:copy.android,description:copy.androidDetail,icon:'phone'},
-      {id:'ios',title:copy.ios,description:copy.iosDetail,icon:'phone'},
-      {id:'web',title:copy.web,description:copy.webDetail,icon:'globe'},
-    ].map(platform => <article id={platform.id}>
-      <Icon name={platform.icon} size={26}/><h3>{platform.title}</h3><p>{platform.description}</p>
-      <div class="platform-actions">
-        {platform.id === 'ios' && <a class="button button-small button-dark" href={product.testFlightPublicUrl} target="_blank" rel="noopener noreferrer">{copy.testFlight}<Icon name="external" size={15}/></a>}
-        <a class="text-link" href={pathFor(lang,'docs/platforms')}>{copy.guide}<Icon name="arrow" size={16}/></a>
-      </div>
-      {platform.id === 'ios' && <small class="platform-note">{copy.testFlightNote}</small>}
-    </article>)}</div>
+    <div class="platform-grid">
+      <article id="android">
+        <Icon name="phone" size={26}/><h3>{copy.android}</h3><p>{copy.androidDetail}</p>
+        <div class="platform-actions">
+          <a class="button button-primary button-small" href={product.googlePlayTesting} target="_blank" rel="noopener noreferrer">{copy.androidTesting}<Icon name="external" size={16}/></a>
+          <a class="text-link" href={pathFor(lang,'docs/platforms')}>{copy.androidGuide}<Icon name="arrow" size={16}/></a>
+        </div>
+      </article>
+      <article id="ios">
+        <Icon name="phone" size={26}/><h3>{copy.ios}</h3><p>{copy.iosDetail}</p>
+        <div class="platform-actions">
+          <a class="button button-small button-dark" href={product.testFlightPublicUrl} target="_blank" rel="noopener noreferrer">{copy.testFlight}<Icon name="external" size={15}/></a>
+          <a class="text-link" href={pathFor(lang,'docs/platforms')}>{copy.guide}<Icon name="arrow" size={16}/></a>
+        </div>
+        <small class="platform-note">{copy.testFlightNote}</small>
+      </article>
+      <article id="web"><Icon name="globe" size={26}/><h3>{copy.web}</h3><p>{copy.webDetail}</p><a class="text-link" href={product.webApp} target="_blank" rel="noopener noreferrer">{copy.openWeb}<Icon name="external" size={16}/></a></article>
+    </div>
     <div class="download-prerequisite"><Icon name="layers" size={28}/><div><h3>{copy.prerequisite}</h3><p>{copy.prerequisiteDetail}</p></div><a class="text-link" href={pathFor(lang,'docs/providers')}>{copy.prerequisiteLink}<Icon name="arrow" size={16}/></a></div>
   </main>
 </Base>

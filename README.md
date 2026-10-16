@@ -102,4 +102,10 @@ Apple 的 [Support URL 定义](https://developer.apple.com/help/app-store-connec
 
 官网演示明确标注为交互演示，切换构建、审查与连接场景；不调用真实 Agent。官网不是 Ait Agent Web 客户端。
 
-官方下载链接使用 `ait-app/ait` 的最新 Release。macOS Apple Silicon 另有注明版本的国内 DMG 加速入口，维护时同步更新 `src/lib/site.ts` 和中英文平台文档。iOS / iPadOS 下载卡片提供 TestFlight 公开测试入口，中英文平台文档包含相同邀请链接与安装步骤，无需先邮件申请。公开链接在 `src/lib/site.ts` 的 `product.testFlightPublicUrl` 中维护，更换时同步更新两种语言的平台文档；公开测试的构建、名额和开放状态由 App Store Connect 的外部测试组管理。Android 与 Web 保留文档入口，Google Play 内测仍通过 `support@ait-app.com` 申请资格。
+官方下载链接使用 `ait-app/ait` 的最新 Release。macOS Apple Silicon 另有注明版本的国内 DMG 加速入口，维护时同步更新 `src/lib/site.ts` 和中英文平台文档。
+
+iOS / iPadOS 下载卡片提供 TestFlight 公开测试入口，中英文平台文档包含相同邀请链接与安装步骤，无需先邮件申请。公开链接在 `src/lib/site.ts` 的 `product.testFlightPublicUrl` 中维护，更换时同步更新两种语言的平台文档；公开测试的构建、名额和开放状态由 App Store Connect 的外部测试组管理。
+
+下载页的 Android 卡片提供 Google Play 封闭测试入口，地址在 `src/lib/site.ts` 的 `product.googlePlayTesting` 中维护，并同步到中英文平台文档。目前封测仍使用邮箱名单，用户需先通过 `support@ait-app.com` 申请资格，再使用同一 Google 账号加入；网站链接不会自动将用户加入名单。
+
+Web 界面地址统一由 `src/lib/site.ts` 中的 `product.webApp` 管理，导航、首页、下载页和页脚均直接链接到 `https://aitapp.cn/`；中英文平台文档也提供此入口及在线主机使用说明。

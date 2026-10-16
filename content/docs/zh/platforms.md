@@ -21,11 +21,13 @@ Ait 的桌面、Web 与移动端复用共享界面和 Rust 协议。不同平台
 
 可安装的版本和剩余名额以 TestFlight 邀请页为准。遇到加入或安装问题，请联系 [support@ait-app.com](mailto:support@ait-app.com)。
 
-### Android
+### Google Play 封闭式测试
 
-Google Play 内测仍需申请资格：将参加测试的 **Google 账号邮箱**发送至 **[support@ait-app.com](mailto:support@ait-app.com)**，并注明申请 Google Play 内测。
+1. 将你在 Google Play 使用的 **Google 账号邮箱**发送至 **[support@ait-app.com](mailto:support@ait-app.com)**，注明申请 Android 封闭式测试。
+2. 获得测试资格后，使用同一 Google 账号打开 [加入 Ait 封闭测试](https://play.google.com/apps/testing/dev.ait.mobile)。
+3. 在 Google Play 页面选择加入测试，再按页面指引安装 Ait。
 
-获得资格后，使用该 Google 账号打开[加入 Ait 内测](https://play.google.com/apps/internaltest/4699903411589312271)并安装。
+当前封测使用邮箱名单，打开链接不会自动获得测试资格。可用性受发布国家/地区及设备兼容性限制；如果提示无法参与，请确认登录的是已获资格的 Google 账号。此前参加内部测试的账号，需要先在原测试页面退出内部测试，再通过上面的链接加入封测。
 
 ## 桌面
 
@@ -58,6 +60,8 @@ npm run build:ios:simulator
 iOS simulator 可通过 loopback 访问宿主服务。真机需要能够访问工作主机，不能使用真机自身的 `127.0.0.1` 指代电脑。
 
 ## Web
+
+打开 **[Ait Web 界面](https://aitapp.cn/)**，登录与桌面端相同的 Ait 账户，即可在浏览器中连接在线主机、继续工作。无需在当前设备安装客户端；运行 Agent 的工作电脑仍需保持在线。
 
 这里的宣传网站与 Agent Web 客户端分别运行。账户控制台可以在 `/client/` 提供 Web 客户端；此构建共享控制台登录，使用在线服务连接。说明见 [Web 控制台客户端](https://github.com/ait-app/ait/blob/main/docs/decisions/clients/adr-132-web-console-client.md)。
 

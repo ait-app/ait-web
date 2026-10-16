@@ -5,7 +5,7 @@ import Icon from '../../components/Icon.astro';
 import ProviderIcon from '../../components/ProviderIcon.astro';
 import ProductDemo from '../../components/ProductDemo.astro';
 import BlogCard from '../../components/BlogCard.astro';
-import { featuredAgents, languages, pathFor, type Language } from '../../lib/site';
+import { featuredAgents, languages, pathFor, product, type Language } from '../../lib/site';
 import { t } from '../../lib/i18n';
 export function getStaticPaths() { return languages.map(lang => ({ params: { lang } })); }
 const lang = Astro.params.lang as Language;
@@ -19,7 +19,7 @@ const posts = (await getCollection('blog', post => post.data.lang === lang && !p
       <p class="hero-eyebrow"><span class="eyebrow-mark"><img src="/brand/ait-mark.svg" alt="" width="20" height="14"/></span>{copy.eyebrow}</p>
       <h1>{copy.title}<br/><span>{copy.titleAccent}</span></h1>
       <p class="hero-description">{copy.description}</p>
-      <div class="hero-actions"><a class="button button-primary" href={pathFor(lang, 'download')}><Icon name="download" size={18}/>{copy.cta}</a><a class="button button-outline" href={pathFor(lang, 'docs')}><Icon name="book" size={18}/>{copy.secondary}</a></div>
+      <div class="hero-actions"><a class="button button-primary" href={pathFor(lang, 'download')}><Icon name="download" size={18}/>{copy.cta}</a><a class="button button-outline" href={product.webApp} target="_blank" rel="noopener noreferrer"><Icon name="globe" size={18}/>{copy.secondary}</a></div>
       <p class="hero-platforms">{copy.note}<span class="platform-note">{zh ? '为开发者而造' : 'Made for developers'}</span></p>
       <div class="provider-strip" role="list" aria-label={zh ? '支持的 Agent' : 'Supported agents'}>{featuredAgents.map(agent => <span class="provider-name" role="listitem"><ProviderIcon provider={agent.id} />{agent.name}</span>)}</div>
       <p class="providers-caption">{copy.providers}</p>

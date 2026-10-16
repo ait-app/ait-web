@@ -10,12 +10,14 @@ export const featuredAgents = [
 ] as const;
 export type AgentProvider = typeof featuredAgents[number]['id'];
 export const product = {
+  webApp: 'https://aitapp.cn/',
   supportEmail: 'support@ait-app.com',
   testFlightPublicUrl: 'https://testflight.apple.com/join/fjc7g46u',
   repository: 'https://github.com/ait-app/ait',
   websiteRepository: 'https://github.com/ait-app/ait-web',
   releases: 'https://github.com/ait-app/ait/releases',
   latestRelease: 'https://github.com/ait-app/ait/releases/latest',
+  googlePlayTesting: 'https://play.google.com/apps/testing/dev.ait.mobile',
   macDmgMirror: {
     url: 'https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/Ait-0.1.3-macos-arm64.dmg',
     version: '0.1.3',
