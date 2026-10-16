@@ -13,11 +13,11 @@ order: 3.5
 
 隐私问题及账户、数据删除申请，请查看[隐私政策](/zh/privacy/)和[删除申请指引](/zh/privacy/#data-deletion)。
 
-## 申请 App Store / Google Play 内测
+## 参加 Ait 测试
 
-想参与 App Store 或 Google Play 内测，请将参加内测的账号邮箱发送至 **[support@ait-app.com](mailto:support@ait-app.com)**，并标注清楚是 **Apple ID（App Store）** 还是 **Google 账号（Google Play）**，以申请内测资格。
+**Android / Google Play 封闭式测试**：将你在 Google Play 使用的 Google 账号邮箱发送至 **[support@ait-app.com](mailto:support@ait-app.com)**，注明申请 Android 封测。获得资格后，使用同一账号打开[加入 Ait 封闭测试](https://play.google.com/apps/testing/dev.ait.mobile)，选择加入测试并安装。打开链接不会自动获得测试资格；已参加内部测试的账号需先退出内部测试。
 
-获得 Google Play 内测资格后，使用对应 Google 账号打开[内测安装链接](https://play.google.com/apps/internaltest/4699903411589312271)。更多平台与安装说明见[平台支持](/zh/docs/platforms/)。
+**iOS / iPadOS**：通过[平台支持](/zh/docs/platforms/)中的 TestFlight 公开邀请加入，无需先邮件申请。各平台的安装步骤与参加条件也可在该页面查看。
 
 ## 反馈时提供什么
 

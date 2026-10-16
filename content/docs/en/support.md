@@ -13,11 +13,11 @@ Email **[support@ait-app.com](mailto:support@ait-app.com)** for app issues, acco
 
 For privacy questions and account or data deletion, see the [Privacy policy](/en/privacy/) and [deletion instructions](/en/privacy/#data-deletion).
 
-## Request App Store / Google Play beta access
+## Join the Ait beta
 
-To join the App Store or Google Play beta, email the address for your testing account to **[support@ait-app.com](mailto:support@ait-app.com)**. Clearly label it as an **Apple ID (App Store)** or a **Google account (Google Play)** to request beta access.
+**Android / Google Play closed testing**: Send the Google account email address you use for Google Play to **[support@ait-app.com](mailto:support@ait-app.com)** and request Android closed-test access. Once approved, use that same account to [join the Ait closed test](https://play.google.com/apps/testing/dev.ait.mobile), opt in, and install the app. Opening the link does not grant access automatically. If you are in the internal test, leave it before joining the closed test.
 
-After receiving Google Play beta access, open the [internal testing link](https://play.google.com/apps/internaltest/4699903411589312271) with that Google account. See [Platform support](/en/docs/platforms/) for more platform and installation details.
+**iOS / iPadOS**: Join through the public TestFlight invitation in [Platform support](/en/docs/platforms/); no email request is needed. That page also explains installation steps and eligibility for each platform.
 
 ## Before sending a report
 
