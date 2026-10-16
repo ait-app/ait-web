@@ -358,6 +358,8 @@
   .platform-grid > article > svg { color: var(--brand-text); }
   .platform-grid h3 { font-size: 21px; margin-top: 17px; }
   .platform-grid p { color: var(--text-muted); font-size: 14px; margin: 11px 0 20px; min-height: 74px; }
+  .platform-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+  .platform-note { display: block; color: var(--text-muted); font-size: 12px; line-height: 1.65; margin-top: 14px; }
   .download-prerequisite { display: flex; align-items: center; gap: 22px; padding: 27px 30px; background: #f1f1eb; border-radius: 7px; margin-top: 40px; }
   .download-prerequisite > svg { flex: none; color: var(--brand-text); }
   .download-prerequisite h3 { font-size: 17px; }

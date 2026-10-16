@@ -9,14 +9,23 @@ order: 2
 
 Ait’s desktop, Web, and mobile clients reuse a shared interface and Rust protocol. Installation and connection methods differ by platform. Use the current capabilities below to choose your entry point.
 
-## App Store / Google Play beta testing
+## TestFlight / Google Play beta testing
 
-Interested in testing Ait through the App Store or Google Play? Email the **email address for your testing account** to **[support@ait-app.com](mailto:support@ait-app.com)** and clearly label the account type to request beta access:
+### iPhone and iPad
 
-- **Apple ID**: for App Store beta testing.
-- **Google account**: for Google Play beta testing.
+[Join the Ait TestFlight beta](https://testflight.apple.com/join/fjc7g46u) through the public invitation link. You do not need to request access by email first.
 
-Google Play testing link: [Join the Ait internal test](https://play.google.com/apps/internaltest/4699903411589312271). Once you have access, open the link with the Google account you supplied to install the app.
+1. Install Apple's TestFlight on your iPhone or iPad.
+2. Open the invitation link on the same device, accept the invitation, and install Ait.
+3. Install Ait and configure an agent on your working computer, then connect from your mobile device.
+
+Available builds and tester spaces are shown in TestFlight. If you cannot join or install the beta, contact [support@ait-app.com](mailto:support@ait-app.com).
+
+### Android
+
+Google Play internal testing still requires access: email your **Google account email address** to **[support@ait-app.com](mailto:support@ait-app.com)** and mention that you are requesting Google Play beta access.
+
+Once approved, open [Join the Ait internal test](https://play.google.com/apps/internaltest/4699903411589312271) with that Google account to install the app.
 
 ## Desktop
 

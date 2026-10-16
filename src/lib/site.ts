@@ -11,6 +11,7 @@ export const featuredAgents = [
 export type AgentProvider = typeof featuredAgents[number]['id'];
 export const product = {
   supportEmail: 'support@ait-app.com',
+  testFlightPublicUrl: 'https://testflight.apple.com/join/fjc7g46u',
   repository: 'https://github.com/ait-app/ait',
   websiteRepository: 'https://github.com/ait-app/ait-web',
   releases: 'https://github.com/ait-app/ait/releases',

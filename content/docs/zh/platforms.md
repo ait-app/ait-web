@@ -9,14 +9,23 @@ order: 2
 
 Ait 的桌面、Web 与移动端复用共享界面和 Rust 协议。不同平台的安装与连接方式有所区别，请按下面的当前能力选择入口。
 
-## App Store / Google Play 内测
+## TestFlight / Google Play 测试
 
-如果你对 App Store 或 Google Play 内测感兴趣，请将参加内测的**账号邮箱**发送至 **[support@ait-app.com](mailto:support@ait-app.com)**，并明确标注账号类型，以申请内测资格：
+### iPhone 和 iPad
 
-- **Apple ID**：用于参加 App Store 内测。
-- **Google 账号**：用于参加 Google Play 内测。
+通过公开邀请链接[加入 Ait TestFlight 测试](https://testflight.apple.com/join/fjc7g46u)，无需先通过邮件申请资格。
 
-Google Play 内测安装入口：[加入 Ait 内测](https://play.google.com/apps/internaltest/4699903411589312271)。获得资格后，请使用申请时提供的 Google 账号打开链接并安装。
+1. 在 iPhone 或 iPad 上安装 Apple 的 TestFlight。
+2. 用同一台设备打开上方邀请链接，接受邀请并安装 Ait。
+3. 在工作电脑安装 Ait 并配置 Agent，再从移动端连接电脑。
+
+可安装的版本和剩余名额以 TestFlight 邀请页为准。遇到加入或安装问题，请联系 [support@ait-app.com](mailto:support@ait-app.com)。
+
+### Android
+
+Google Play 内测仍需申请资格：将参加测试的 **Google 账号邮箱**发送至 **[support@ait-app.com](mailto:support@ait-app.com)**，并注明申请 Google Play 内测。
+
+获得资格后，使用该 Google 账号打开[加入 Ait 内测](https://play.google.com/apps/internaltest/4699903411589312271)并安装。
 
 ## 桌面
 
