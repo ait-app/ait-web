@@ -68,7 +68,7 @@ curl -H "Authorization: Bearer $AIT_SERVER_TOKEN" \
   http://127.0.0.1:7316/v1/server/info
 ```
 
-`/healthz` 是存活检查，`/readyz` 是就绪检查。服务信息与 WebSocket 需要认证，客户端还需完成协议协商。
+`/healthz` 是存活检查，`/readyz` 是就绪检查。服务信息与 WebSocket 需要认证，客户端还需完成协议协商。上面的认证示例使用普通启动模式的环境变量；headless 自动生成令牌时，请使用该数据目录中保存的本地 API 令牌。
 
 ## 指定 Provider 程序
 

@@ -52,6 +52,6 @@ npm run build
 npm run verify
 ```
 
-上线后检查 `/` 默认进入 `/en/`，以及 `/zh/`、Blog、Docs、搜索、下载和 `/privacy/#data-deletion`。DNS 生效且证书可用后，在 Pages 设置中强制 HTTPS。
+上线后检查 `/` 默认进入 `/en/`，以及 `/zh/`、Blog、Docs、搜索、下载和 `/privacy/#data-deletion`。中英文下载及平台文档都应提供一致的 Google Play / TestFlight 入口，Google Play 页面要保留先申请名单资格的说明；搜索中也应能找到新增的 Agent、无人值守配置和诊断内容。DNS 生效且证书可用后，在 Pages 设置中强制 HTTPS。
 
 如某次源码更新有误，使用 `git revert` 回退对应提交并推送 `main`，工作流会重新构建发布。切换托管期间可保留旧站作为回退目标；故障时先恢复原主域名 A 记录，再处理部署。

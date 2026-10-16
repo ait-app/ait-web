@@ -78,6 +78,8 @@ content/blog/en/2026-10-16-a-new-post.md
 
 Docs 使用 `group: start | workflow | reference` 与数值 `order`。`getting-started` 对应 `/zh/docs/` 与 `/en/docs/`，其他页面使用 `/[lang]/docs/[slug]/`。搜索索引在构建时从全部文档正文生成。
 
+当前文档覆盖快速开始、平台安装、5 个 Agent 接入、支持与诊断、工作区及定时任务、连接与数据、独立服务及无人值守配置、品牌规范。能力更新时先对照最新源码和运维说明，再同步中英正文及首页相关文案，并在 [内容来源](docs/content-sources.md)记录提交与核验范围。源码具备能力不代表每个商店测试版都已包含，也不代表已经完成实机验收。
+
 ## 商店支持与隐私页面
 
 Docs 首页包含直接可见的客服邮箱、反馈与隐私入口；`docs/support/` 提供排障和反馈指引。客服邮箱统一为 `support@ait-app.com`，界面入口由 `src/lib/site.ts` 管理，Markdown 中的可见地址也需同步维护。
@@ -96,7 +98,7 @@ Apple 的 [Support URL 定义](https://developer.apple.com/help/app-store-connec
 
 ## 内容和品牌来源
 
-首批三篇双语 Blog 是为本站编写的起始文案，后续可在 Markdown 中编辑日期、作者与内容。Docs 根据 Ait 源码说明整理，具体来源记录在 [内容来源](docs/content-sources.md)。
+首批三篇双语 Blog 是为本站编写的文章。已发布文章保留首次发布日期与 `slug`；能力变化时增加带日期的更新提示，并链接到当前 Docs。Docs 根据 Ait 源码说明整理，具体来源记录在 [内容来源](docs/content-sources.md)。
 
 品牌资源来自 `Documents/ait/assets/brand` 的正式生产资产，并保持原样。修改 Logo 应在 Ait 的共同矢量源中进行后重新导出，不能在官网里另画一个近似 Logo。
 
@@ -104,8 +106,8 @@ Apple 的 [Support URL 定义](https://developer.apple.com/help/app-store-connec
 
 官方下载链接使用 `ait-app/ait` 的最新 Release。macOS Apple Silicon 另有注明版本的国内 DMG 加速入口，维护时同步更新 `src/lib/site.ts` 和中英文平台文档。
 
-iOS / iPadOS 下载卡片提供 TestFlight 公开测试入口，中英文平台文档包含相同邀请链接与安装步骤，无需先邮件申请。公开链接在 `src/lib/site.ts` 的 `product.testFlightPublicUrl` 中维护，更换时同步更新两种语言的平台文档；公开测试的构建、名额和开放状态由 App Store Connect 的外部测试组管理。
+iOS / iPadOS 下载卡片提供 TestFlight 公开测试入口，中英文平台文档包含相同邀请链接与安装步骤，无需先邮件申请。公开链接在 `src/lib/site.ts` 的 `product.testFlightPublicUrl` 中维护，更换时同步更新两种语言的平台文档及快速开始中的直接链接；公开测试的构建、名额和开放状态由 App Store Connect 的外部测试组管理。
 
-下载页的 Android 卡片提供 Google Play 封闭测试入口，地址在 `src/lib/site.ts` 的 `product.googlePlayTesting` 中维护，并同步到中英文平台文档。目前封测仍使用邮箱名单，用户需先通过 `support@ait-app.com` 申请资格，再使用同一 Google 账号加入；网站链接不会自动将用户加入名单。
+下载页的 Android 卡片提供 Google Play 封闭测试入口，地址在 `src/lib/site.ts` 的 `product.googlePlayTesting` 中维护，并同步到中英文平台、快速开始与支持文档。目前封测仍使用邮箱名单，用户需先通过 `support@ait-app.com` 申请资格，再使用同一 Google 账号加入；网站链接不会自动将用户加入名单。
 
-Web 界面地址统一由 `src/lib/site.ts` 中的 `product.webApp` 管理，导航、首页、下载页和页脚均直接链接到 `https://aitapp.cn/`；中英文平台文档也提供此入口及在线主机使用说明。
+Web 界面地址统一由 `src/lib/site.ts` 中的 `product.webApp` 管理，导航、首页、下载页和页脚均直接链接到 `https://aitapp.cn/`；中英文平台、快速开始、连接与支持文档也提供此入口或账户 API 说明，维护时一起核对。宣传官网域名、Web 界面地址与账户 API 不可互换。

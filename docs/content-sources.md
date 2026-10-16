@@ -1,27 +1,51 @@
 # 内容来源
 
-资料读取时间：2026-10-05。产品仓库：`git@github.com:ait-app/ait.git`，本地读取目录：`/Users/necokeine/Documents/ait`，源码 HEAD：`3a13d02bea2c63592f61727e382678f76566a40c`。
+## 当前文档基线（2026-10-16）
 
-| 官网内容 | Ait 原始资料 |
+本轮对照 [Ait `main` 源码快照](https://github.com/ait-app/ait/tree/5145d3ebc8f87216c47d7e960db04dac7d37058e)校对官网全部 8 类中英文 Docs，以及相关首页、支持、隐私与下载入口。提交为 `5145d3ebc8f87216c47d7e960db04dac7d37058e`；核对时从已 fetch 的 `origin/main` 导出独立快照，未以滞后的本地主分支作为依据。
+
+这是源码与内容一致性校对，不是所有平台的安装或端到端验收。GitHub Release、Google Play 与 TestFlight 中的已发布构建可能早于该提交；官网不能把 `main` 中的新能力等同于每个商店构建都已包含，也不能把测试入口可见写成审核已通过或安装已验证。
+
+| 官网内容 | Ait 原始资料（上述提交） |
 | --- | --- |
-| 产品定位、开发命令、账户主机 | `README.md` |
-| 平台支持、Android 验收范围、Web 入口 | `apps/mobile/README.md` |
-| daemon、配置、凭据、订阅、数据目录 | `docs/operations/daemon.md` |
-| Claude 原生登录与能力 | `docs/operations/claude-code.md` |
-| OpenCode 能力与限制 | `docs/decisions/providers/adr-074-opencode-native-provider.md` |
-| BI、Logo、留白与品牌色 | `docs/decisions/branding/adr-051-ait-brand-identity.md` |
-| 生产 SVG 来源 | `assets/brand/README.md` |
-| 官方桌面安装格式 | `ait-app/ait` GitHub Release，查询时为 `v0.0.17` |
+| 快速开始、桌面安装、开发命令 | `README.md`、根目录 `package.json`、`apps/mobile/README.md` |
+| 平台连接能力、Web 客户端与账户登录 | `apps/mobile/README.md`、`docs/operations/authing-client-login.md`、`apps/mobile/src/runtime/browser-account.web.ts` |
+| 默认账户 API 与旧官方地址迁移 | `packages/client/src/account-session.ts`、`apps/mobile/src/runtime/native-account.native.ts` |
+| Android / iOS 后台连接窗口 | `apps/mobile/src/runtime/native-account.native.ts`（`BACKGROUND_CONNECTION_GRACE_MS`） |
+| 主机中继与凭据边界 | `docs/decisions/clients/adr-074-account-host-relay.md`、`docs/decisions/clients/adr-084-ios-account-relay.md` |
+| daemon 监听、配置、数据目录与 token | `docs/operations/daemon.md` |
+| Linux / macOS 无人值守主机、机器授权、持久 token | `docs/operations/headless-daemon.md` |
+| 外部 MCP 入口与认证 | `docs/operations/mcp.md` |
+| Codex 与 Claude 原生配置、能力差异 | `docs/reports/providers/provider-parity.md`、`docs/operations/claude-code.md`、`crates/provider/src/local/` |
+| OpenCode 官方 ACP、版本相关能力与冷启动 | `docs/decisions/providers/adr-115-opencode-acp-provider.md`、`crates/provider/src/local/opencode/`；不再使用旧 ADR-074 的能力列表作为当前说明 |
+| DeepSeek Harness 的 Web Host、profile 与写入所有权 | `docs/operations/deepseek-harness.md` |
+| Antigravity AGY CLI、权限与能力限制 | `docs/operations/antigravity.md` |
+| Worktree、Git / PR 主操作、工作区定时任务 | `docs/decisions/workspace/adr-060-workspace-create-worktree.md`、`adr-084-workspace-primary-git-action.md`、`adr-138-workspace-owned-schedules.md`（后两者位于同一目录） |
+| 诊断导出、本地自动证据与滚动清理 | `docs/operations/diagnostics.md` |
+| BI、Logo、留白、品牌色和生产 SVG | `docs/decisions/branding/adr-051-ait-brand-identity.md`、`assets/brand/README.md`；本轮核对后无需改动品牌规范 |
 
-本站的 Blog 是新编写的起始文案，不是从 Paseo 复制的文章，也不是 Ait 历史发布记录。对外上线前可以根据发布节奏调整日期、署名与 `draft` 状态。
+## 测试、下载与服务入口
 
-设计参考 `https://paseo.sh/` 的产品导向展示与 Blog / Docs 信息架构；未复制 Paseo 的品牌、代码、用户评价、使用数据或功能宣称。
+- Google Play 封测链接为 `https://play.google.com/apps/testing/dev.ait.mobile`。2026-10-16 Console 核对仍为邮箱名单准入，未配置可自行加入的 Google Group。公开文案说明先申请、获资格后使用同一 Google 账号加入；名单成员和具体人数不写进官网。
+- Google Play 目标受众按运营方确认设为 18 岁及以上，地区内容分级可能更高。链接不代表全球开放，实际可用性还取决于轨道发布状态、国家/地区、账号资格和设备。
+- TestFlight 公开邀请为 `https://testflight.apple.com/join/fjc7g46u`；用户无需先邮件申请。链接来自现有网站配置，本轮没有核验 App Store Connect 的外部审核、剩余名额或实际安装。
+- 桌面下载使用 [GitHub 最新 Release](https://github.com/ait-app/ait/releases/latest)入口，不在长期文档中写死“最新版本号”。国内 DMG 镜像当前明确标为 `0.1.3`，不把它当作动态最新版本。
+- `https://ait-app.com` 是宣传与文档网站，`https://aitapp.cn/` 是账户与 Web 客户端入口，原生客户端默认账户 API 为 `https://aitapp.cn/api`。
+- Google Play 资格与 opt-in 行为依据 [Google 官方测试说明](https://support.google.com/googleplay/android-developer/answer/9845334?hl=en)。商店审核与实机测试需要单独确认。
 
-网站中具体支持范围以此版本的源码说明为准。产品能力调整后同步更新中文与英文 Markdown。
+更改入口时，同时更新 `src/lib/site.ts`、中英文 `platforms.md`、`getting-started.md`、`support.md` 与相关界面文案；本轮已核对这些位置的一致性。
+
+## 历史内容与维护方式
+
+首批三篇双语 Blog 是为本站编写的文章，不是 Ait 的版本发布记录。保留已发布文章的日期与 URL；跨端与介绍文章已添加带日期的更新提示，引导读者查看当前 Docs，避免把历史能力当成现在的限制。
+
+设计参考 `https://paseo.sh/` 的产品展示与 Blog / Docs 信息架构；未复制其品牌、代码、用户评价、使用数据或功能宣称。Logo 始终来自 Ait 正式生产素材。
+
+每次能力变化先核对实现及对应运维说明，再同步中英文 Markdown、搜索可见正文和相关界面文案。发生冲突时记录实际源码证据，不把过时 ADR、未执行的验收清单或计划中的功能当成已交付能力。完成后运行 `npm run check`、`npm run build`、`npm run verify` 并检查关键页面；网站检查通过不等于 Ait 产品实机验收通过。
 
 ## Privacy 与支持页面（2026-10-14）
 
-Privacy 新增内容对照本地 Ait `0f079a35` 与 ait-server `6eec893` 阅读；同步修正 Docs、首页与下载页的账户连接说明，包括 iOS 登录、Web 控制台构建及默认账户服务地址。其余首批内容仍以上述来源为基础，历史 Blog 保留发布时的描述。
+Privacy 新增内容对照本地 Ait `0f079a35` 与 ait-server `6eec893` 阅读；同步修正 Docs、首页与下载页的账户连接说明，包括 iOS 登录、Web 控制台构建及默认账户服务地址。这是隐私政策初次补充时的来源记录；本轮产品能力校对以本页顶部的新基线为准。
 
 | 内容 | 来源 |
 | --- | --- |

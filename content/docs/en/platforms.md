@@ -23,6 +23,8 @@ Available builds and tester spaces are shown in TestFlight. If you cannot join o
 
 ### Google Play closed testing
 
+The Google Play version targets adults aged 18 and over; regional content ratings may require a higher age.
+
 1. Send the **Google account email address** you use for Google Play to **[support@ait-app.com](mailto:support@ait-app.com)** and mention that you are requesting Android closed-test access.
 2. Once you have access, use that same Google account to open [Join the Ait closed test](https://play.google.com/apps/testing/dev.ait.mobile).
 3. Choose to join the test on the Google Play page, then follow its instructions to install Ait.

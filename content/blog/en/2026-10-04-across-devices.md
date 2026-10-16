@@ -8,6 +8,8 @@ category: engineering
 visual: connection
 ---
 
+> Update (2026-10-16): This article preserves the product description at publication. iOS and Web now support account relay, and mobile background connection behavior has changed. See [Platform support](/en/docs/platforms/) and [Agent setup](/en/docs/providers/) for current installation and capabilities.
+
 When an agent works on your computer, your phone does not need a second development environment just to check the progress. Ait separates running the work from accessing it. The host executes; the client connects.
 
 ## The working host holds the context

@@ -68,7 +68,7 @@ curl -H "Authorization: Bearer $AIT_SERVER_TOKEN" \
   http://127.0.0.1:7316/v1/server/info
 ```
 
-`/healthz` checks liveness; `/readyz` checks readiness. Server information and WebSocket access require authentication, and clients must complete protocol negotiation.
+`/healthz` checks liveness; `/readyz` checks readiness. Server information and WebSocket access require authentication, and clients must complete protocol negotiation. The authenticated example uses the ordinary startup environment variable. If headless mode generated a token, use the local API token saved in that data directory instead.
 
 ## Select provider executables
 

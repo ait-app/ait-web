@@ -54,6 +54,8 @@ The marketing website uses no analytics scripts, advertising pixels, or non-esse
 
 Project and agent data on your working host remains under your control until you remove it. Removing a mobile app does not remove files, conversations, or provider records from that host.
 
+Local incident evidence generated automatically by the daemon is rotated, with limits of seven days, 20 files, and 5 MiB; capacity limits may remove it sooner. It is not uploaded automatically. Exported diagnostic files and native agent logs are outside this cleanup policy and are managed by you or the corresponding tool.
+
 Ait-operated online services do not have fixed retention periods for account records, logs, or backups. This information is retained as needed to provide the service and manage access. You can email **[support@ait-app.com](mailto:support@ait-app.com)** to request deletion of your account or associated data; see [Account and data deletion](#data-deletion) for the steps.
 
 Device and host records are retained as needed to provide the online service and manage access. Short-lived login tickets and sessions expire; expiry or signing out is not account deletion. Support correspondence is retained as needed to handle the request and follow-up.
@@ -80,7 +82,7 @@ The operated account service uses HTTPS/WSS and access controls. Native clients 
 
 ## Children
 
-Ait is intended for people using developer tools and is not directed at children under 13. If you believe a child has provided personal information to an Ait-operated service, contact support so we can investigate and address the request.
+Ait is intended for people using developer tools and is not directed at children under 13. The Google Play version targets adults aged 18 and over; regional store content ratings may require a higher age. If you believe a child has provided personal information to an Ait-operated service, contact support so we can investigate and address the request.
 
 ## Changes and contact
 

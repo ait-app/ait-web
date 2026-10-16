@@ -23,6 +23,8 @@ Ait 的桌面、Web 与移动端复用共享界面和 Rust 协议。不同平台
 
 ### Google Play 封闭式测试
 
+Google Play 版本面向 18 岁及以上用户；部分地区的内容分级可能要求更高年龄。
+
 1. 将你在 Google Play 使用的 **Google 账号邮箱**发送至 **[support@ait-app.com](mailto:support@ait-app.com)**，注明申请 Android 封闭式测试。
 2. 获得测试资格后，使用同一 Google 账号打开 [加入 Ait 封闭测试](https://play.google.com/apps/testing/dev.ait.mobile)。
 3. 在 Google Play 页面选择加入测试，再按页面指引安装 Ait。
