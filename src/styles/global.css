@@ -290,8 +290,8 @@
   .doc-step { display: flex; align-items: center; gap: 10px; font: 10px var(--mono); color: var(--text-soft); border-top: 1px solid var(--line); padding: 10px 0; }
   .doc-step > span { font: 11px var(--sans); color: var(--brand-ink); }
   .doc-step > svg { margin-left: auto; color: var(--brand-text); }
-  .faq-section { padding-block: 105px 110px; display: grid; grid-template-columns: 1fr 1.4fr; gap: 70px; }
-  .faq-section h2 { font-size: 30px; }
+  .faq-section { padding-block: 105px 110px; display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 1fr); gap: 40px; }
+  .faq-section h2 { font-size: 26px; }
   .faq-list { border-top: 1px solid var(--line); }
   .faq-list details { border-bottom: 1px solid var(--line); padding: 19px 0; }
   .faq-list summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 15px; font-size: 15px; font-weight: 550; }
@@ -509,8 +509,8 @@
     .blog-card h3 { font-size: 17px; }
     .docs-callout { grid-template-columns: 1fr 250px; padding: 40px; gap: 25px; }
     .docs-callout h2 { font-size: 32px; }
-    .faq-section { gap: 35px; }
-    .faq-section h2 { font-size: 25px; }
+    .faq-section { grid-template-columns: minmax(0, 220px) minmax(0, 1fr); gap: 28px; }
+    .faq-section h2 { font-size: 24px; }
     .docs-layout { grid-template-columns: 210px minmax(0,1fr); gap: 35px; }
     .docs-toc { display: none; }
     .download-prerequisite { flex-wrap: wrap; }
@@ -603,7 +603,7 @@
     .docs-callout > div > p:not(.eyebrow) { font-size: 13px; white-space: normal; }
     .docs-callout-graphic { display: none; }
     .faq-section { grid-template-columns: 1fr; padding-block: 65px; gap: 25px; }
-    .faq-section h2 { font-size: 26px; }
+    .faq-section h2 { font-size: 24px; }
     .faq-list summary { font-size: 14px; }
     .faq-list details p { font-size: 13px; }
     .footer-main { grid-template-columns: 1fr 1fr; padding-block: 35px; gap: 28px 40px; }

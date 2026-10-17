@@ -1,8 +1,8 @@
 import type { Language } from './site';
 
 const zh = {
-  nav: { product: '产品', blog: '博客', docs: '文档', webApp: 'Web 界面', download: '下载 Ait', menu: '打开导航', close: '关闭', language: 'Switch to English' },
-  footer: { tagline: '让想法行动起来。', product: '产品', resources: '探索', source: '源代码', releases: '版本发布', start: '快速开始', brand: '品牌与设计', copyright: '为行动而生。', status: '本地优先 · 多端连接', rss: '订阅 RSS', support: '联系支持', privacy: '隐私政策' },
+  nav: { product: '产品', blog: '博客', docs: '文档', webApp: 'Web 界面', download: '获取 Ait', menu: '打开导航', close: '关闭', language: 'Switch to English' },
+  footer: { tagline: '时刻准备着', product: '产品', resources: '探索', source: '源代码', releases: '版本发布', start: '快速开始', copyright: '为行动而生。', status: '本地优先 · 多端连接', rss: '订阅 RSS', support: '联系支持', privacy: '隐私政策' },
   home: {
     eyebrow: '本地优先的多 Agent 工作空间',
     title: '你的 Agent，', titleAccent: '随时在场。',
@@ -32,13 +32,13 @@ const zh = {
   docs: { label: '文档', search: '搜索文档', searchPlaceholder: '搜索安装、Agent、工作区…', noResults: '没有找到相关内容，试试其他关键词。', searchHint: '输入关键词，查找文档内容。', toc: '本页内容', previous: '上一篇', next: '下一篇', edit: '在 GitHub 上编辑此页', copy: '复制', copied: '已复制', copyError: '请手动复制', navigation: '文档目录', breadcrumb: '文档', back: '返回首页' },
   support: { title: '需要帮助？', description: '安装、登录或连接遇到问题，或想反馈建议，都可以联系我们。', email: '发送邮件', guide: '常见问题与反馈', privacy: '隐私政策', hint: '请附上 Ait 版本、设备系统和复现步骤，并移除密码、令牌及私人代码。' },
   privacy: { label: 'PRIVACY', updated: '更新日期', support: '文档与支持', deletion: '申请删除账户与数据', contents: '政策目录' },
-  download: { eyebrow: 'LET’S BUILD', title: '下一步，交给 Ait。', description: '选择你的平台，让 Agent 进入工作空间。', desktop: '桌面应用', mobile: '移动与 Web', mac: 'macOS', macDetail: 'Apple Silicon · 官方 Release', chinaDownload: '国内加速下载', linux: 'Linux', linuxDetail: 'x86_64 · AppImage / tar.gz', latest: '前往官方下载', releaseNote: '安装包与校验信息以 GitHub 最新 Release 为准。', android: 'Android', androidDetail: '通过 Google Play 参加封闭测试。请先申请测试资格，再使用名单中的 Google 账号加入。', androidTesting: '加入 Google Play 封测', androidGuide: '申请资格与安装说明', ios: 'iOS / iPadOS', iosDetail: '通过 TestFlight 安装测试版，连接工作电脑继续 Agent 任务。', testFlight: '加入 TestFlight 测试', testFlightNote: '先安装 TestFlight，再接受邀请并安装 Ait。', web: 'Web', webDetail: '在 aitapp.cn 登录同一账户，通过浏览器连接在线主机，无需安装客户端。', openWeb: '打开 Web 界面', guide: '查看使用文档', prerequisite: '准备好你的 Agent', prerequisiteDetail: '在工作主机上安装并登录至少一个 Agent CLI。Ait 复用现有认证，不包含模型订阅。', prerequisiteLink: '了解 Agent 接入' },
+  download: { eyebrow: 'LET’S BUILD', title: '下一步，交给 Ait。', description: '选择你的平台，让 Agent 进入工作空间。', desktop: '桌面应用', mobile: '移动与 Web', mac: 'macOS', macDetail: 'Apple Silicon · 官方 Release', chinaDownload: '国内加速下载', linux: 'Linux', linuxDetail: 'x86_64 · AppImage / tar.gz', latest: '前往官方下载', releaseNote: '安装包与校验信息以 GitHub 最新 Release 为准。', android: 'Android', androidDetail: '通过 Google Play 参加封闭测试。请先申请测试资格，再使用名单中的 Google 账号加入。', androidTesting: '加入 Google Play 封测', androidGuide: '申请资格与安装说明', ios: 'iOS / iPadOS', iosDetail: '通过 TestFlight 安装测试版，连接工作电脑继续 Agent 任务。', testFlight: '加入 TestFlight 测试', testFlightNote: '先安装 TestFlight，再接受邀请并安装 Ait。', web: 'Web', webDetail: '在 aitapp.cn 登录同一账户，通过浏览器连接在线主机，无需安装客户端。', openWeb: '打开 Web 界面', guide: '申请资格与安装说明', prerequisite: '准备好你的 Agent', prerequisiteDetail: '在工作主机上安装并登录至少一个 Agent CLI。Ait 复用现有认证，不包含模型订阅。', prerequisiteLink: '了解 Agent 接入' },
   notFound: { title: '这页还没有着陆。', description: '页面可能已移动，或者地址有误。', cta: '返回首页' },
 };
 
 const en = {
   nav: { product: 'Product', blog: 'Blog', docs: 'Docs', webApp: 'Web app', download: 'Get Ait', menu: 'Open navigation', close: 'Close', language: '切换到中文' },
-  footer: { tagline: 'Put your ideas in motion.', product: 'Product', resources: 'Explore', source: 'Source code', releases: 'Releases', start: 'Quick start', brand: 'Brand & design', copyright: 'Built for doing.', status: 'Local first · Connected across devices', rss: 'Subscribe via RSS', support: 'Contact support', privacy: 'Privacy policy' },
+  footer: { tagline: 'always ready', product: 'Product', resources: 'Explore', source: 'Source code', releases: 'Releases', start: 'Quick start', copyright: 'Built for doing.', status: 'Local first · Connected across devices', rss: 'Subscribe via RSS', support: 'Contact support', privacy: 'Privacy policy' },
   home: {
     eyebrow: 'A local-first workspace for your agents',
     title: 'Your agents.', titleAccent: 'Within reach.',

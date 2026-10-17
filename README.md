@@ -61,6 +61,7 @@ src/lib/i18n.ts                 界面与主页文案
 src/lib/site.ts                 域名、路由和产品仓库入口
 src/styles/global.css          BI 令牌和页面样式
 public/brand/                  从 Ait 复用的生产素材
+docs/internal/brand/{zh,en}.md  品牌设计维护说明，不参与网站发布
 ```
 
 全部正文统一存放在根目录 `content/`，以 Markdown 文件维护。新增内容时同时添加中英文件，使用相同的 `slug`。Markdown 内站内链接使用对应语言前缀。
@@ -78,7 +79,7 @@ content/blog/en/2026-10-16-a-new-post.md
 
 Docs 使用 `group: start | workflow | reference` 与数值 `order`。`getting-started` 对应 `/zh/docs/` 与 `/en/docs/`，其他页面使用 `/[lang]/docs/[slug]/`。搜索索引在构建时从全部文档正文生成。
 
-当前文档覆盖快速开始、平台安装、5 个 Agent 接入、支持与诊断、工作区及定时任务、连接与数据、独立服务及无人值守配置、品牌规范。能力更新时先对照最新源码和运维说明，再同步中英正文及首页相关文案，并在 [内容来源](docs/content-sources.md)记录提交与核验范围。源码具备能力不代表每个商店测试版都已包含，也不代表已经完成实机验收。
+当前公开文档覆盖快速开始、平台安装、5 个 Agent 接入、支持与诊断、工作区及定时任务、连接与数据、独立服务及无人值守配置。能力更新时先对照最新源码和运维说明，再同步中英正文及首页相关文案，并在 [内容来源](docs/content-sources.md)记录提交与核验范围。源码具备能力不代表每个商店测试版都已包含，也不代表已经完成实机验收。
 
 ## 商店支持与隐私页面
 
