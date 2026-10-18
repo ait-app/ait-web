@@ -22,7 +22,7 @@ This ordinary startup mode reads credentials from `AIT_SERVER_TOKEN`. The value 
 
 ## Unattended online host
 
-A Linux or macOS machine can join account relay without running the desktop interface. We recommend downloading the released [standalone daemon](/en/docs/daemon/), which covers installation, verification, and background service examples. You can also build and run from the Ait source root:
+A Linux or macOS machine can join account relay without running the desktop interface. We recommend downloading the released [standalone daemon](/en/docs/daemon/), which covers download, verification, and installation. You can also build and run from the Ait source root:
 
 ```sh
 cargo build --locked --release -p daemon --bin daemon

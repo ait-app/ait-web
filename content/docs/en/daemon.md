@@ -69,7 +69,7 @@ A successful check prints `OK`. If it prints nothing or reports `FAILED`, delete
 
 ## Sign in and run
 
-Run these commands as the same system user that will run the service:
+Run these commands as the same system user that will run the daemon:
 
 ```sh
 ait-daemon login --name my-server
@@ -94,99 +94,16 @@ ait-daemon status --json
 
 The default data directory is `~/.ait-server`. It holds the machine authorization, the local API token, and work data. See [Server configuration](/en/docs/configuration/) for the listen address, data directory, and other options.
 
-## Run in the background
-
-The daemon has no built-in service installer. Use your system's process manager, and run the service as the same user that completed `login`.
-
-### Linux: systemd user service
-
-```sh
-mkdir -p ~/.config/systemd/user
-cat > ~/.config/systemd/user/ait-daemon.service <<'EOF'
-[Unit]
-Description=Ait daemon
-
-[Service]
-ExecStart=/usr/local/bin/ait-daemon run --headless
-Restart=on-failure
-RestartSec=5
-Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin:/bin
-
-[Install]
-WantedBy=default.target
-EOF
-systemctl --user daemon-reload
-systemctl --user enable --now ait-daemon
-sudo loginctl enable-linger "$USER"
-```
-
-`enable-linger` starts the service at boot even when the user is not logged in. Follow its logs with `journalctl --user -u ait-daemon -f`.
-
-### macOS: launchd
-
-```sh
-mkdir -p ~/Library/LaunchAgents ~/Library/Logs
-cat > ~/Library/LaunchAgents/com.ait-app.daemon.plist <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-  <key>Label</key><string>com.ait-app.daemon</string>
-  <key>ProgramArguments</key>
-  <array>
-    <string>/usr/local/bin/ait-daemon</string>
-    <string>run</string>
-    <string>--headless</string>
-  </array>
-  <key>EnvironmentVariables</key>
-  <dict>
-    <key>PATH</key><string>$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
-  </dict>
-  <key>RunAtLoad</key><true/>
-  <key>KeepAlive</key><true/>
-  <key>StandardOutPath</key><string>$HOME/Library/Logs/ait-daemon.log</string>
-  <key>StandardErrorPath</key><string>$HOME/Library/Logs/ait-daemon.log</string>
-</dict>
-</plist>
-EOF
-launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.ait-app.daemon.plist
-```
-
-A LaunchAgent runs after its user logs in. To keep a Mac online with nobody logged in, turn on automatic login for that user.
-
-### PATH for agent programs
-
-Background services do not read shell configuration such as `~/.bashrc` or `~/.zshrc`, so their PATH may differ from your terminal. If an agent is installed elsewhere (for example, a global npm directory or nvm), add that directory to the `PATH` above, or set an absolute program path with variables such as `AIT_SERVER_CODEX_BIN`; see [Server configuration](/en/docs/configuration/).
-
 ## Upgrade
 
-Repeat the installation steps with the new `VERSION`, then restart the service:
-
-```sh
-systemctl --user restart ait-daemon                      # Linux
-launchctl kickstart -k "gui/$(id -u)/com.ait-app.daemon"  # macOS
-```
-
-Upgrading keeps the machine authorization and data directory. You do not need to sign in again.
+Repeat the installation steps with the new `VERSION`, then restart the running `ait-daemon`. Upgrading keeps the machine authorization and data directory. You do not need to sign in again.
 
 ## Reauthorize, sign out, and uninstall
 
-Stop the service that uses the same data directory before signing in, reauthorizing, or signing out:
+Stop any `ait-daemon` that uses the same data directory before signing in, reauthorizing, or signing out, then run `ait-daemon run --headless` again when you are done.
 
-```sh
-systemctl --user stop ait-daemon                          # Linux
-launchctl bootout "gui/$(id -u)/com.ait-app.daemon"       # macOS
-```
-
-Start it again when you are done:
-
-```sh
-systemctl --user start ait-daemon                                                    # Linux
-launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.ait-app.daemon.plist   # macOS
-```
-
-- When authorization is no longer valid, status shows `reauthorization_required`. Stop the service, run `ait-daemon login`, then start the service. Use `ait-daemon login --force` to replace an authorization deliberately.
+- When authorization is no longer valid, status shows `reauthorization_required`. Stop the daemon, run `ait-daemon login`, then start it again. Use `ait-daemon login --force` to replace an authorization deliberately.
 - `ait-daemon logout` revokes this machine's authorization and clears local credentials. If the account service is unreachable, follow the prompt to revoke it from the host details page on the web.
-- To uninstall, sign out, disable the service, and delete the service file and `/usr/local/bin/ait-daemon`. The `~/.ait-server` data directory is not deleted automatically; remove it manually when you no longer need it.
+- To uninstall, sign out, then delete `/usr/local/bin/ait-daemon`. The `~/.ait-server` data directory is not deleted automatically; remove it manually when you no longer need it.
 
 See the [unattended daemon guide](https://github.com/ait-app/ait/blob/main/docs/operations/headless-daemon.md) for authorization recovery, credential files, and status fields.

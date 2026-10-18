@@ -69,7 +69,7 @@ ait-daemon --version
 
 ## 登录并运行
 
-用之后运行服务的同一个系统用户执行：
+用之后运行 daemon 的同一个系统用户执行：
 
 ```sh
 ait-daemon login --name my-server
@@ -94,99 +94,16 @@ ait-daemon status --json
 
 默认数据目录为 `~/.ait-server`，机器授权、本地 API 令牌和工作数据都保存在这里。监听地址、数据目录等参数见[服务配置](/zh/docs/configuration/)。
 
-## 后台常驻
-
-daemon 没有内置的服务安装命令，请使用系统自带的进程管理。服务必须以完成 `login` 的同一用户运行。
-
-### Linux：systemd 用户服务
-
-```sh
-mkdir -p ~/.config/systemd/user
-cat > ~/.config/systemd/user/ait-daemon.service <<'EOF'
-[Unit]
-Description=Ait daemon
-
-[Service]
-ExecStart=/usr/local/bin/ait-daemon run --headless
-Restart=on-failure
-RestartSec=5
-Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin:/bin
-
-[Install]
-WantedBy=default.target
-EOF
-systemctl --user daemon-reload
-systemctl --user enable --now ait-daemon
-sudo loginctl enable-linger "$USER"
-```
-
-`enable-linger` 让服务在用户未登录时也随系统启动。查看日志使用 `journalctl --user -u ait-daemon -f`。
-
-### macOS：launchd
-
-```sh
-mkdir -p ~/Library/LaunchAgents ~/Library/Logs
-cat > ~/Library/LaunchAgents/com.ait-app.daemon.plist <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-  <key>Label</key><string>com.ait-app.daemon</string>
-  <key>ProgramArguments</key>
-  <array>
-    <string>/usr/local/bin/ait-daemon</string>
-    <string>run</string>
-    <string>--headless</string>
-  </array>
-  <key>EnvironmentVariables</key>
-  <dict>
-    <key>PATH</key><string>$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
-  </dict>
-  <key>RunAtLoad</key><true/>
-  <key>KeepAlive</key><true/>
-  <key>StandardOutPath</key><string>$HOME/Library/Logs/ait-daemon.log</string>
-  <key>StandardErrorPath</key><string>$HOME/Library/Logs/ait-daemon.log</string>
-</dict>
-</plist>
-EOF
-launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.ait-app.daemon.plist
-```
-
-LaunchAgent 在该用户登录后运行。需要在无人登录时保持在线的 Mac，请为该用户开启自动登录。
-
-### Agent 程序的 PATH
-
-后台服务不会读取 `~/.bashrc`、`~/.zshrc` 等 shell 配置，因此 PATH 可能与终端不同。如果 Agent 安装在其他目录（例如 npm 全局目录或 nvm），请把该目录加入上面的 `PATH`，或按[服务配置](/zh/docs/configuration/)用 `AIT_SERVER_CODEX_BIN` 等环境变量指定程序的绝对路径。
-
 ## 升级
 
-按上面的安装步骤，把 `VERSION` 改为新版本重新下载并安装，然后重启服务：
-
-```sh
-systemctl --user restart ait-daemon                      # Linux
-launchctl kickstart -k "gui/$(id -u)/com.ait-app.daemon"  # macOS
-```
-
-升级不会改变机器授权和数据目录，不需要重新登录。
+按上面的安装步骤，把 `VERSION` 改为新版本重新下载并安装，然后重启正在运行的 `ait-daemon`。升级不会改变机器授权和数据目录，不需要重新登录。
 
 ## 重新授权、退出与卸载
 
-登录、重新授权或退出前，先停止正在使用同一数据目录的服务：
+登录、重新授权或退出前，先停止正在使用同一数据目录的 `ait-daemon`，完成后再重新运行 `ait-daemon run --headless`。
 
-```sh
-systemctl --user stop ait-daemon                          # Linux
-launchctl bootout "gui/$(id -u)/com.ait-app.daemon"       # macOS
-```
-
-完成操作后再启动服务：
-
-```sh
-systemctl --user start ait-daemon                                                    # Linux
-launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.ait-app.daemon.plist   # macOS
-```
-
-- 授权失效时，状态显示 `reauthorization_required`。停止服务后执行 `ait-daemon login`，再启动服务。需要主动更换授权时使用 `ait-daemon login --force`。
+- 授权失效时，状态显示 `reauthorization_required`。停止 daemon 后执行 `ait-daemon login`，再重新启动。需要主动更换授权时使用 `ait-daemon login --force`。
 - 执行 `ait-daemon logout` 会撤销这台机器的授权并清除本地凭据。中心不可达时，按提示到网页的 Host 详情中撤销。
-- 卸载时先退出，再停用服务，删除服务配置文件和 `/usr/local/bin/ait-daemon`。数据目录 `~/.ait-server` 不会自动删除，确认不再需要后可手动删除。
+- 卸载时先退出，再删除 `/usr/local/bin/ait-daemon`。数据目录 `~/.ait-server` 不会自动删除，确认不再需要后可手动删除。
 
 授权恢复、凭据文件与状态字段的完整说明见 [无人值守 daemon 手册](https://github.com/ait-app/ait/blob/main/docs/operations/headless-daemon.md)。
