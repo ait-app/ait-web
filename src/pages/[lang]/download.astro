@@ -42,9 +42,8 @@ const copy = t(lang).download;
         <Icon name="phone" size={26}/><h3>{copy.ios}</h3><p>{copy.iosDetail}</p>
         <div class="platform-actions">
           <a class="button button-small button-dark" href={product.testFlightPublicUrl} target="_blank" rel="noopener noreferrer">{copy.testFlight}<Icon name="external" size={15}/></a>
-          <a class="text-link" href={`${pathFor(lang,'docs/platforms')}${lang === 'zh' ? '#iphone-和-ipad' : ''}`}>{copy.guide}<Icon name="arrow" size={16}/></a>
+          <a class="text-link" href={`${pathFor(lang,'docs/platforms')}#${lang === 'zh' ? 'iphone-和-ipad' : 'iphone-and-ipad'}`}>{copy.guide}<Icon name="arrow" size={16}/></a>
         </div>
-        {lang !== 'zh' && <small class="platform-note">{copy.testFlightNote}</small>}
       </article>
       <article id="web"><Icon name="globe" size={26}/><h3>{copy.web}</h3><p>{copy.webDetail}</p><a class="text-link" href={product.webApp} target="_blank" rel="noopener noreferrer">{copy.openWeb}<Icon name="external" size={16}/></a></article>
     </div>
