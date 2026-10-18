@@ -30,26 +30,25 @@ You also need:
 - An Ait account. Use the same account on the clients that connect to this host.
 - At least one agent CLI installed and signed in on this host. See [Agent setup](/en/docs/providers/).
 
-## Download (v0.1.8)
+## Download
 
 | Platform | GitHub release | China download mirror |
 | --- | --- | --- |
-| Linux x86_64 | [Ait-0.1.8-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.8/Ait-0.1.8-daemon-linux-x64.tar.gz) | [COS download](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/Ait-0.1.8-daemon-linux-x64.tar.gz) |
-| macOS Apple Silicon | [Ait-0.1.8-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.8/Ait-0.1.8-daemon-macos-arm64.tar.gz) | [COS download](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/Ait-0.1.8-daemon-macos-arm64.tar.gz) |
+| Linux x86_64 | [Ait-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/latest/download/Ait-daemon-linux-x64.tar.gz) | [COS download](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/Ait-daemon-linux-x64.tar.gz) |
+| macOS Apple Silicon | [Ait-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/latest/download/Ait-daemon-macos-arm64.tar.gz) | [COS download](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/Ait-daemon-macos-arm64.tar.gz) |
 
-Both locations serve identical files. The `SHA256SUMS` checksum file is published only on the [GitHub release](https://github.com/ait-app/ait/releases/tag/v0.1.8). Archives for other versions use the same names on [all releases](https://github.com/ait-app/ait/releases).
+These links always point to the latest stable release; see the [latest GitHub release](https://github.com/ait-app/ait/releases/latest) for its version and release notes. Both locations serve identical files, and the China mirror usually catches up within a few minutes of a new release. The `SHA256SUMS` checksum file is published only on the GitHub release. For a specific version, download `Ait-<version>-daemon-<platform>.tar.gz` from [all releases](https://github.com/ait-app/ait/releases).
 
 ## Install
 
-These commands download the archive from GitHub, verify its checksum, and install `ait-daemon` to `/usr/local/bin`. In mainland China, you can replace the first `curl` URL with `https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/${ASSET}`.
+These commands download the latest stable archive from GitHub, verify its checksum, and install `ait-daemon` to `/usr/local/bin`. In mainland China, you can replace the first `curl` URL with `https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/${ASSET}`.
 
 ### Linux
 
 ```sh
-VERSION=0.1.8
-ASSET="Ait-${VERSION}-daemon-linux-x64.tar.gz"
-curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/${ASSET}"
-curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
+ASSET=Ait-daemon-linux-x64.tar.gz
+curl -fLO "https://github.com/ait-app/ait/releases/latest/download/${ASSET}"
+curl -fLO "https://github.com/ait-app/ait/releases/latest/download/SHA256SUMS"
 grep -F "  ${ASSET}" SHA256SUMS | sha256sum -c -
 tar -xzf "${ASSET}"
 sudo install -m 0755 ait-daemon /usr/local/bin/ait-daemon
@@ -59,10 +58,9 @@ ait-daemon --version
 ### macOS
 
 ```sh
-VERSION=0.1.8
-ASSET="Ait-${VERSION}-daemon-macos-arm64.tar.gz"
-curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/${ASSET}"
-curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
+ASSET=Ait-daemon-macos-arm64.tar.gz
+curl -fLO "https://github.com/ait-app/ait/releases/latest/download/${ASSET}"
+curl -fLO "https://github.com/ait-app/ait/releases/latest/download/SHA256SUMS"
 grep -F "  ${ASSET}" SHA256SUMS | shasum -a 256 -c -
 tar -xzf "${ASSET}"
 sudo mkdir -p /usr/local/bin
@@ -70,7 +68,7 @@ sudo install -m 0755 ait-daemon /usr/local/bin/ait-daemon
 ait-daemon --version
 ```
 
-A successful check prints `OK`. If it prints nothing or reports `FAILED`, delete the downloaded files and download them again before installing.
+A successful check prints `OK`. If it prints nothing or reports `FAILED`, delete the downloaded files and download them again before installing. Right after a new release, the China mirror may not have synced yet; wait a few minutes and retry.
 
 `ait-daemon --help` shows the program name as `daemon`; it is the same program.
 

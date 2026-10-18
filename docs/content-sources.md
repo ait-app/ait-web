@@ -29,7 +29,7 @@
 - Google Play 封测链接为 `https://play.google.com/apps/testing/dev.ait.mobile`。2026-10-16 Console 核对仍为邮箱名单准入，未配置可自行加入的 Google Group。公开文案说明先申请、获资格后使用同一 Google 账号加入；名单成员和具体人数不写进官网。
 - Google Play 目标受众按运营方确认设为 18 岁及以上，地区内容分级可能更高。链接不代表全球开放，实际可用性还取决于轨道发布状态、国家/地区、账号资格和设备。
 - TestFlight 公开邀请为 `https://testflight.apple.com/join/fjc7g46u`；用户无需先邮件申请。链接来自现有网站配置，本轮没有核验 App Store Connect 的外部审核、剩余名额或实际安装。
-- 桌面下载使用 [GitHub 最新 Release](https://github.com/ait-app/ait/releases/latest)入口，不在长期文档中写死“最新版本号”。国内 DMG 镜像当前明确标为 `0.1.3`，不把它当作动态最新版本。
+- 桌面下载使用 [GitHub 最新 Release](https://github.com/ait-app/ait/releases/latest)入口，不在长期文档中写死“最新版本号”。国内 DMG 镜像使用固定文件名 `Ait-macos-arm64.dmg`，由 ait 的 Release CI 在每次正式版发布后覆盖为最新版，页面只标注“最新正式版”。
 - `https://ait-app.com` 是宣传与文档网站，`https://aitapp.cn/` 是账户与 Web 客户端入口，原生客户端默认账户 API 为 `https://aitapp.cn/api`。
 - Google Play 资格与 opt-in 行为依据 [Google 官方测试说明](https://support.google.com/googleplay/android-developer/answer/9845334?hl=en)。商店审核与实机测试需要单独确认。
 
@@ -48,7 +48,7 @@
 
 术语约定：**独立 daemon** 指单独发布的 `ait-daemon` 程序（获取方式）；**无人值守模式** 指 `login` 授权后以 `run --headless` 运行（运行方式），英文为 unattended mode。桌面内置的 daemon 与独立 daemon 是同一程序，但由桌面管理，不使用无人值守模式。中英文 Docs 统一使用这组用词，不再单独称作“headless 模式”。
 
-下载表中的 GitHub 与 COS 链接、`VERSION=` 和 `v<版本>` 标签带有明确版本号，不使用“最新”动态入口。每次正式版由 [ait-realease](https://github.com/ait-app/ait-realease) 的发布编排在 COS 上传验证后同步更新，版本独立于国内 DMG 入口；手动修改时须保持中英文版本一致，否则编排会停止。SHA256SUMS 只在 GitHub Release 提供，COS 不镜像无版本号的校验文件。
+下载表和安装命令使用不带版本号的固定链接：GitHub `releases/latest/download/Ait-daemon-<平台>.tar.gz` 与同名 COS 对象。ait 的 Release 为正式版附带这些副本并写入 `SHA256SUMS`，Release 转为正式版时 `release-mirror.yml` 覆盖 COS 同名对象，发版后官网无需修改（见 ait 的 `docs/operations/releasing.md`）。SHA256SUMS 只在 GitHub Release 提供，COS 不镜像校验文件；COS 同步完成前的几分钟内两者可能不一致。
 
 ## 历史内容与维护方式
 

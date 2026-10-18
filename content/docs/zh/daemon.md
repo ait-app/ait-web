@@ -30,26 +30,25 @@ order: 5.5
 - 一个 Ait 账户，与要连接这台主机的客户端使用同一账户。
 - 在这台主机上安装并登录至少一个 Agent CLI，见 [Agent 接入](/zh/docs/providers/)。
 
-## 下载（v0.1.8）
+## 下载
 
 | 平台 | GitHub Release | 国内加速下载 |
 | --- | --- | --- |
-| Linux x86_64 | [Ait-0.1.8-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.8/Ait-0.1.8-daemon-linux-x64.tar.gz) | [COS 下载](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/Ait-0.1.8-daemon-linux-x64.tar.gz) |
-| macOS Apple Silicon | [Ait-0.1.8-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.8/Ait-0.1.8-daemon-macos-arm64.tar.gz) | [COS 下载](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/Ait-0.1.8-daemon-macos-arm64.tar.gz) |
+| Linux x86_64 | [Ait-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/latest/download/Ait-daemon-linux-x64.tar.gz) | [COS 下载](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/Ait-daemon-linux-x64.tar.gz) |
+| macOS Apple Silicon | [Ait-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/latest/download/Ait-daemon-macos-arm64.tar.gz) | [COS 下载](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/Ait-daemon-macos-arm64.tar.gz) |
 
-两个地址的文件完全相同。校验文件 `SHA256SUMS` 只在 [GitHub Release](https://github.com/ait-app/ait/releases/tag/v0.1.8) 发布。其他版本可在 [全部 Release](https://github.com/ait-app/ait/releases) 中找到同名归档。
+以上链接始终指向最新正式版，版本号和更新说明见 [GitHub 最新 Release](https://github.com/ait-app/ait/releases/latest)。两个地址的文件相同，新版本发布后国内地址通常在几分钟内完成同步。校验文件 `SHA256SUMS` 只在 GitHub Release 发布。需要指定版本时，在 [全部 Release](https://github.com/ait-app/ait/releases) 中下载 `Ait-<版本>-daemon-<平台>.tar.gz`。
 
 ## 安装
 
-下面的命令从国内镜像下载、核对校验值，并把 `ait-daemon` 安装到 `/usr/local/bin`。可以直接访问 GitHub 时，把第一条 `curl` 的地址换成 `https://github.com/ait-app/ait/releases/download/v${VERSION}/${ASSET}`。
+下面的命令从国内镜像下载最新正式版、核对校验值，并把 `ait-daemon` 安装到 `/usr/local/bin`。可以直接访问 GitHub 时，把第一条 `curl` 的地址换成 `https://github.com/ait-app/ait/releases/latest/download/${ASSET}`。
 
 ### Linux
 
 ```sh
-VERSION=0.1.8
-ASSET="Ait-${VERSION}-daemon-linux-x64.tar.gz"
+ASSET=Ait-daemon-linux-x64.tar.gz
 curl -fLO "https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/${ASSET}"
-curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
+curl -fLO "https://github.com/ait-app/ait/releases/latest/download/SHA256SUMS"
 grep -F "  ${ASSET}" SHA256SUMS | sha256sum -c -
 tar -xzf "${ASSET}"
 sudo install -m 0755 ait-daemon /usr/local/bin/ait-daemon
@@ -59,10 +58,9 @@ ait-daemon --version
 ### macOS
 
 ```sh
-VERSION=0.1.8
-ASSET="Ait-${VERSION}-daemon-macos-arm64.tar.gz"
+ASSET=Ait-daemon-macos-arm64.tar.gz
 curl -fLO "https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/${ASSET}"
-curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
+curl -fLO "https://github.com/ait-app/ait/releases/latest/download/SHA256SUMS"
 grep -F "  ${ASSET}" SHA256SUMS | shasum -a 256 -c -
 tar -xzf "${ASSET}"
 sudo mkdir -p /usr/local/bin
@@ -70,7 +68,7 @@ sudo install -m 0755 ait-daemon /usr/local/bin/ait-daemon
 ait-daemon --version
 ```
 
-校验通过时会输出 `OK`。如果没有输出或提示 `FAILED`，删除下载的文件并重新下载，不要继续安装。
+校验通过时会输出 `OK`。如果没有输出或提示 `FAILED`，删除下载的文件并重新下载，不要继续安装；新版本刚发布时，国内镜像可能尚未同步，稍等几分钟再试。
 
 `ait-daemon --help` 中显示的程序名为 `daemon`，与 `ait-daemon` 是同一个程序。
 
