@@ -15,7 +15,7 @@ const copy = t(lang).download;
       <article class="download-card">
         <span class="download-icon"><Icon name="apple" size={32}/></span>
         <h2>{copy.mac}</h2><p>{copy.macDetail}</p>
-        <a class="button button-primary" href={product.latestRelease} target="_blank" rel="noopener noreferrer"><Icon name="download" size={17}/>{copy.latest}</a>
+        <a class="button button-primary" href={product.macDmgMirror.url} target="_blank" rel="noopener noreferrer"><Icon name="download" size={17}/>{copy.latest}</a>
         <div class="download-mirror">
           <a class="text-link" href={product.macDmgMirror.url} target="_blank" rel="noopener noreferrer">{copy.chinaDownload}<Icon name="download" size={16}/></a>
           <small>Apple Silicon · DMG · v{product.macDmgMirror.version}</small>
