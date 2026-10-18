@@ -105,7 +105,7 @@ Apple 的 [Support URL 定义](https://developer.apple.com/help/app-store-connec
 
 官网演示明确标注为交互演示，切换构建、审查与连接场景；不调用真实 Agent。官网不是 Ait Agent Web 客户端。
 
-官方下载链接使用 `ait-app/ait` 的最新 Release。macOS Apple Silicon 另有注明版本的国内 DMG 加速入口，维护时同步更新 `src/lib/site.ts` 和中英文平台文档。
+官方下载链接使用 `ait-app/ait` 的最新 Release。macOS Apple Silicon 另有国内 DMG 加速入口，使用 COS 上的固定文件名 `Ait-macos-arm64.dmg`，由 ait 的 Release CI 在每次正式版发布后更新，官网发版时无需修改；地址在 `src/lib/site.ts` 维护，并与中英文平台文档保持一致。
 
 iOS / iPadOS 下载卡片提供 TestFlight 公开测试入口，中英文平台文档包含相同邀请链接与安装步骤，无需先邮件申请。公开链接在 `src/lib/site.ts` 的 `product.testFlightPublicUrl` 中维护，更换时同步更新两种语言的平台文档及快速开始中的直接链接；公开测试的构建、名额和开放状态由 App Store Connect 的外部测试组管理。
 

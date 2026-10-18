@@ -18,10 +18,8 @@ export const product = {
   releases: 'https://github.com/ait-app/ait/releases',
   latestRelease: 'https://github.com/ait-app/ait/releases/latest',
   googlePlayTesting: 'https://play.google.com/apps/testing/dev.ait.mobile',
-  macDmgMirror: {
-    url: 'https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/Ait-0.1.7-macos-arm64.dmg',
-    version: '0.1.7',
-  },
+  // Fixed-name COS object that ait's release CI refreshes to each new stable release.
+  macDmgMirror: 'https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/Ait-macos-arm64.dmg',
 };
 export const pathFor = (lang: Language, path = '') => `/${lang}/${path ? `${path.replace(/^\/+|\/+$/g, '')}/` : ''}`;
 export const canonicalFor = (lang: Language, path = '') => new URL(pathFor(lang, path), siteOrigin).href;
