@@ -15,7 +15,7 @@ Computers with the desktop app do not need it. The desktop app includes the daem
 
 | Platform | Archive | Requirements |
 | --- | --- | --- |
-| Linux x86_64 | `daemon-linux-x64` | glibc 2.39 or later, such as Ubuntu 24.04, Debian 13, Fedora 40, or newer |
+| Linux x86_64 | `daemon-linux-x64` | glibc 2.28 or later, such as Ubuntu 20.04, Debian 10, RHEL / Rocky / AlmaLinux 8, or newer |
 | macOS Apple Silicon | `daemon-macos-arm64` | macOS 13 or later; the executable is signed and notarized by Apple |
 
 You also need:

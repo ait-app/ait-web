@@ -15,7 +15,7 @@ order: 5.5
 
 | 平台 | 归档 | 要求 |
 | --- | --- | --- |
-| Linux x86_64 | `daemon-linux-x64` | glibc 2.39 及以上，例如 Ubuntu 24.04、Debian 13、Fedora 40 或更新版本 |
+| Linux x86_64 | `daemon-linux-x64` | glibc 2.28 及以上，例如 Ubuntu 20.04、Debian 10、RHEL / Rocky / AlmaLinux 8 或更新版本 |
 | macOS Apple Silicon | `daemon-macos-arm64` | macOS 13 及以上；可执行文件已签名并经过 Apple 公证 |
 
 你还需要：
