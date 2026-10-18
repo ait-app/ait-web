@@ -48,7 +48,7 @@
 
 术语约定：**独立 daemon** 指单独发布的 `ait-daemon` 程序（获取方式）；**无人值守模式** 指 `login` 授权后以 `run --headless` 运行（运行方式），英文为 unattended mode。桌面内置的 daemon 与独立 daemon 是同一程序，但由桌面管理，不使用无人值守模式。中英文 Docs 统一使用这组用词，不再单独称作“headless 模式”。
 
-下载表和安装命令使用不带版本号的固定链接：GitHub `releases/latest/download/Ait-daemon-<平台>.tar.gz` 与同名 COS 对象。ait 的 Release 为正式版附带这些副本并写入 `SHA256SUMS`，Release 转为正式版时 `release-mirror.yml` 覆盖 COS 同名对象，发版后官网无需修改（见 ait 的 `docs/operations/releasing.md`）。SHA256SUMS 只在 GitHub Release 提供，COS 不镜像校验文件；COS 同步完成前的几分钟内两者可能不一致。
+下载表和安装命令使用不带版本号的固定链接：GitHub 滚动 Release `latest` 的 `releases/download/latest/Ait-daemon-<平台>.tar.gz` 与同名 COS 对象。Release 转为正式版时，ait 的 `release-latest.yml` 更新 `latest` Release（含其 `SHA256SUMS`）并覆盖 COS 同名对象，发版后官网无需修改（见 ait 的 `docs/operations/releasing.md`）。SHA256SUMS 只在 GitHub Release 提供，COS 不镜像校验文件；COS 同步完成前的几分钟内两者可能不一致。
 
 ## 历史内容与维护方式
 

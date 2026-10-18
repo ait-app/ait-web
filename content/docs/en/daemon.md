@@ -34,8 +34,8 @@ You also need:
 
 | Platform | GitHub release | China download mirror |
 | --- | --- | --- |
-| Linux x86_64 | [Ait-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/latest/download/Ait-daemon-linux-x64.tar.gz) | [COS download](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/Ait-daemon-linux-x64.tar.gz) |
-| macOS Apple Silicon | [Ait-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/latest/download/Ait-daemon-macos-arm64.tar.gz) | [COS download](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/Ait-daemon-macos-arm64.tar.gz) |
+| Linux x86_64 | [Ait-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/latest/Ait-daemon-linux-x64.tar.gz) | [COS download](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/Ait-daemon-linux-x64.tar.gz) |
+| macOS Apple Silicon | [Ait-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/latest/Ait-daemon-macos-arm64.tar.gz) | [COS download](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/Ait-daemon-macos-arm64.tar.gz) |
 
 These links always point to the latest stable release; see the [latest GitHub release](https://github.com/ait-app/ait/releases/latest) for its version and release notes. Both locations serve identical files, and the China mirror usually catches up within a few minutes of a new release. The `SHA256SUMS` checksum file is published only on the GitHub release. For a specific version, download `Ait-<version>-daemon-<platform>.tar.gz` from [all releases](https://github.com/ait-app/ait/releases).
 
@@ -47,8 +47,8 @@ These commands download the latest stable archive from GitHub, verify its checks
 
 ```sh
 ASSET=Ait-daemon-linux-x64.tar.gz
-curl -fLO "https://github.com/ait-app/ait/releases/latest/download/${ASSET}"
-curl -fLO "https://github.com/ait-app/ait/releases/latest/download/SHA256SUMS"
+curl -fLO "https://github.com/ait-app/ait/releases/download/latest/${ASSET}"
+curl -fLO "https://github.com/ait-app/ait/releases/download/latest/SHA256SUMS"
 grep -F "  ${ASSET}" SHA256SUMS | sha256sum -c -
 tar -xzf "${ASSET}"
 sudo install -m 0755 ait-daemon /usr/local/bin/ait-daemon
@@ -59,8 +59,8 @@ ait-daemon --version
 
 ```sh
 ASSET=Ait-daemon-macos-arm64.tar.gz
-curl -fLO "https://github.com/ait-app/ait/releases/latest/download/${ASSET}"
-curl -fLO "https://github.com/ait-app/ait/releases/latest/download/SHA256SUMS"
+curl -fLO "https://github.com/ait-app/ait/releases/download/latest/${ASSET}"
+curl -fLO "https://github.com/ait-app/ait/releases/download/latest/SHA256SUMS"
 grep -F "  ${ASSET}" SHA256SUMS | shasum -a 256 -c -
 tar -xzf "${ASSET}"
 sudo mkdir -p /usr/local/bin
