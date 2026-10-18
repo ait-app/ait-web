@@ -103,16 +103,103 @@ ait-daemon status --json
 
 The default data directory is `~/.ait-server`. It holds the machine authorization, the local API token, and work data. See [Server configuration](/en/docs/configuration/) for the listen address, data directory, and other options.
 
+## Keep it running
+
+`ait-daemon run --headless` runs in the foreground and exits when you close the terminal or the SSH connection drops.
+
+### Recommended: run it in tmux
+
+tmux is the simplest option. The daemon keeps working after you disconnect, and you can return to the session to read its logs:
+
+```sh
+tmux new -s ait-daemon
+ait-daemon run --headless
+```
+
+Press `Ctrl-b`, then `d`, to detach; the daemon keeps running. Reattach later with `tmux attach -t ait-daemon`, and press `Ctrl-c` in the session to stop it. If tmux is not installed, use your distribution's package manager on Linux (for example, `sudo apt install tmux`) or `brew install tmux` on macOS.
+
+tmux sessions do not survive a host restart. To start the daemon automatically at boot, use systemd or launchd instead.
+
+### Persistent start: systemd on Linux
+
+Create a systemd user service as the same user that completed `login`:
+
+```sh
+mkdir -p ~/.config/systemd/user
+cat > ~/.config/systemd/user/ait-daemon.service <<'EOF'
+[Unit]
+Description=Ait daemon
+
+[Service]
+ExecStart=/usr/local/bin/ait-daemon run --headless
+Restart=on-failure
+RestartSec=5
+Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin:/bin
+
+[Install]
+WantedBy=default.target
+EOF
+systemctl --user daemon-reload
+systemctl --user enable --now ait-daemon
+sudo loginctl enable-linger "$USER"
+```
+
+`enable-linger` starts the service at boot even when the user is not logged in. Follow its logs with `journalctl --user -u ait-daemon -f`.
+
+### Persistent start: launchd on macOS
+
+Create a LaunchAgent as the same user that completed `login`:
+
+```sh
+mkdir -p ~/Library/LaunchAgents ~/Library/Logs
+cat > ~/Library/LaunchAgents/com.ait-app.daemon.plist <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.ait-app.daemon</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/local/bin/ait-daemon</string>
+    <string>run</string>
+    <string>--headless</string>
+  </array>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key><string>$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+  </dict>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><true/>
+  <key>StandardOutPath</key><string>$HOME/Library/Logs/ait-daemon.log</string>
+  <key>StandardErrorPath</key><string>$HOME/Library/Logs/ait-daemon.log</string>
+</dict>
+</plist>
+EOF
+launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.ait-app.daemon.plist
+```
+
+A LaunchAgent runs after its user logs in. To keep a Mac online with nobody logged in, turn on automatic login for that user. Logs go to `~/Library/Logs/ait-daemon.log`.
+
+systemd and launchd do not read shell configuration such as `~/.bashrc` or `~/.zshrc`, so their PATH may differ from your terminal. If an agent is installed elsewhere (for example, a global npm directory or nvm), add that directory to the `PATH` above, or set an absolute program path with variables such as `AIT_SERVER_CODEX_BIN`; see [Server configuration](/en/docs/configuration/). tmux inherits your terminal environment and usually needs no extra setup.
+
+### Stop and start
+
+| Method | Stop | Start |
+| --- | --- | --- |
+| tmux | Press `Ctrl-c` in the session | Run `ait-daemon run --headless` in the session |
+| systemd | `systemctl --user stop ait-daemon` | `systemctl --user start ait-daemon` |
+| launchd | `launchctl bootout "gui/$(id -u)/com.ait-app.daemon"` | `launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.ait-app.daemon.plist` |
+
 ## Upgrade
 
-Repeat the installation steps with the new `VERSION`, then restart the running `ait-daemon`. Upgrading keeps the machine authorization and data directory. You do not need to sign in again.
+Repeat the installation steps with the new `VERSION`, then restart the daemon as described in [Stop and start](#stop-and-start); with systemd you can also run `systemctl --user restart ait-daemon`. Upgrading keeps the machine authorization and data directory. You do not need to sign in again.
 
 ## Reauthorize, sign out, and uninstall
 
-Stop any `ait-daemon` that uses the same data directory before signing in, reauthorizing, or signing out, then run `ait-daemon run --headless` again when you are done.
+Before signing in, reauthorizing, or signing out, stop the daemon that uses the same data directory as described in [Stop and start](#stop-and-start), then start it again when you are done.
 
 - When authorization is no longer valid, status shows `reauthorization_required`. Stop the daemon, run `ait-daemon login`, then start it again. Use `ait-daemon login --force` to replace an authorization deliberately.
 - `ait-daemon logout` revokes this machine's authorization and clears local credentials. If the account service is unreachable, follow the prompt to revoke it from the host details page on the web.
-- To uninstall, sign out, then delete `/usr/local/bin/ait-daemon`. The `~/.ait-server` data directory is not deleted automatically; remove it manually when you no longer need it.
+- To uninstall, sign out, disable any systemd or launchd service and delete its service file, then delete `/usr/local/bin/ait-daemon`. The `~/.ait-server` data directory is not deleted automatically; remove it manually when you no longer need it.
 
 See the [unattended daemon guide](https://github.com/ait-app/ait/blob/main/docs/operations/headless-daemon.md) for authorization recovery, credential files, and status fields.

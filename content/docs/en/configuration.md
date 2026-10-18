@@ -22,7 +22,7 @@ This ordinary startup mode reads credentials from `AIT_SERVER_TOKEN`. The value 
 
 ## Unattended mode
 
-Unattended mode (`run --headless`) lets a Linux or macOS machine join account relay without running the desktop interface. We recommend the released [standalone daemon](/en/docs/daemon/), whose guide covers download, verification, installation, and running. You can also build and run from the Ait source root:
+Unattended mode (`run --headless`) lets a Linux or macOS machine join account relay without running the desktop interface. We recommend the released [standalone daemon](/en/docs/daemon/), whose guide covers download, verification, installation, running, and keeping it running with tmux, systemd, or launchd. You can also build and run from the Ait source root:
 
 ```sh
 cargo build --locked --release -p daemon --bin daemon

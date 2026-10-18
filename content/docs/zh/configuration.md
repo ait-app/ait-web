@@ -22,7 +22,7 @@ cargo run -p daemon --bin daemon -- --listen 127.0.0.1:7316
 
 ## 无人值守模式
 
-无人值守模式（`run --headless`）让 Linux 或 macOS 主机不启动桌面界面也能接入账户中继。推荐使用已发布的[独立 daemon](/zh/docs/daemon/)，该文档包含下载、校验、安装与运行步骤。也可以从 Ait 源码根目录构建并运行：
+无人值守模式（`run --headless`）让 Linux 或 macOS 主机不启动桌面界面也能接入账户中继。推荐使用已发布的[独立 daemon](/zh/docs/daemon/)，该文档包含下载、校验、安装、运行，以及用 tmux、systemd 或 launchd 保持运行的方法。也可以从 Ait 源码根目录构建并运行：
 
 ```sh
 cargo build --locked --release -p daemon --bin daemon

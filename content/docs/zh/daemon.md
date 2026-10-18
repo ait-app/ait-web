@@ -103,16 +103,103 @@ ait-daemon status --json
 
 默认数据目录为 `~/.ait-server`，机器授权、本地 API 令牌和工作数据都保存在这里。监听地址、数据目录等参数见[服务配置](/zh/docs/configuration/)。
 
+## 保持运行
+
+`ait-daemon run --headless` 在前台运行，关闭终端或 SSH 断开后会随之退出。
+
+### 推荐：在 tmux 中运行
+
+用 tmux 运行最简单，断开连接后 daemon 继续工作，回到会话可以直接查看日志：
+
+```sh
+tmux new -s ait-daemon
+ait-daemon run --headless
+```
+
+按 `Ctrl-b` 再按 `d` 离开会话，daemon 保持运行。之后用 `tmux attach -t ait-daemon` 回到会话，在会话中按 `Ctrl-c` 停止。没有安装 tmux 时，Linux 使用发行版的包管理器安装（例如 `sudo apt install tmux`），macOS 使用 `brew install tmux`。
+
+tmux 会话不会在主机重启后自动恢复。需要开机自动启动时，改用下面的 systemd 或 launchd。
+
+### 持久启动：Linux 使用 systemd
+
+以完成 `login` 的同一用户创建 systemd 用户服务：
+
+```sh
+mkdir -p ~/.config/systemd/user
+cat > ~/.config/systemd/user/ait-daemon.service <<'EOF'
+[Unit]
+Description=Ait daemon
+
+[Service]
+ExecStart=/usr/local/bin/ait-daemon run --headless
+Restart=on-failure
+RestartSec=5
+Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin:/bin
+
+[Install]
+WantedBy=default.target
+EOF
+systemctl --user daemon-reload
+systemctl --user enable --now ait-daemon
+sudo loginctl enable-linger "$USER"
+```
+
+`enable-linger` 让服务在用户未登录时也随系统启动。查看日志使用 `journalctl --user -u ait-daemon -f`。
+
+### 持久启动：macOS 使用 launchd
+
+以完成 `login` 的同一用户创建 LaunchAgent：
+
+```sh
+mkdir -p ~/Library/LaunchAgents ~/Library/Logs
+cat > ~/Library/LaunchAgents/com.ait-app.daemon.plist <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.ait-app.daemon</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/local/bin/ait-daemon</string>
+    <string>run</string>
+    <string>--headless</string>
+  </array>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key><string>$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+  </dict>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><true/>
+  <key>StandardOutPath</key><string>$HOME/Library/Logs/ait-daemon.log</string>
+  <key>StandardErrorPath</key><string>$HOME/Library/Logs/ait-daemon.log</string>
+</dict>
+</plist>
+EOF
+launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.ait-app.daemon.plist
+```
+
+LaunchAgent 在该用户登录后运行。需要在无人登录时保持在线的 Mac，请为该用户开启自动登录。日志写入 `~/Library/Logs/ait-daemon.log`。
+
+systemd 和 launchd 不会读取 `~/.bashrc`、`~/.zshrc` 等 shell 配置，PATH 可能与终端不同。如果 Agent 安装在其他目录（例如 npm 全局目录或 nvm），请把该目录加入上面的 `PATH`，或按[服务配置](/zh/docs/configuration/)用 `AIT_SERVER_CODEX_BIN` 等环境变量指定程序的绝对路径。tmux 沿用当前终端的环境，通常不需要额外配置。
+
+### 停止与启动
+
+| 运行方式 | 停止 | 启动 |
+| --- | --- | --- |
+| tmux | 在会话中按 `Ctrl-c` | 在会话中运行 `ait-daemon run --headless` |
+| systemd | `systemctl --user stop ait-daemon` | `systemctl --user start ait-daemon` |
+| launchd | `launchctl bootout "gui/$(id -u)/com.ait-app.daemon"` | `launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.ait-app.daemon.plist` |
+
 ## 升级
 
-按上面的安装步骤，把 `VERSION` 改为新版本重新下载并安装，然后重启正在运行的 `ait-daemon`。升级不会改变机器授权和数据目录，不需要重新登录。
+按上面的安装步骤，把 `VERSION` 改为新版本重新下载并安装，然后按[停止与启动](#停止与启动)中对应的方式重启 daemon；systemd 也可以直接执行 `systemctl --user restart ait-daemon`。升级不会改变机器授权和数据目录，不需要重新登录。
 
 ## 重新授权、退出与卸载
 
-登录、重新授权或退出前，先停止正在使用同一数据目录的 `ait-daemon`，完成后再重新运行 `ait-daemon run --headless`。
+登录、重新授权或退出前，先按[停止与启动](#停止与启动)停止正在使用同一数据目录的 daemon，完成后再启动。
 
 - 授权失效时，状态显示 `reauthorization_required`。停止 daemon 后执行 `ait-daemon login`，再重新启动。需要主动更换授权时使用 `ait-daemon login --force`。
 - 执行 `ait-daemon logout` 会撤销这台机器的授权并清除本地凭据。中心不可达时，按提示到网页的 Host 详情中撤销。
-- 卸载时先退出，再删除 `/usr/local/bin/ait-daemon`。数据目录 `~/.ait-server` 不会自动删除，确认不再需要后可手动删除。
+- 卸载时先退出，停用 systemd 或 launchd 服务并删除对应的服务文件，再删除 `/usr/local/bin/ait-daemon`。数据目录 `~/.ait-server` 不会自动删除，确认不再需要后可手动删除。
 
 授权恢复、凭据文件与状态字段的完整说明见 [无人值守 daemon 手册](https://github.com/ait-app/ait/blob/main/docs/operations/headless-daemon.md)。
