@@ -39,6 +39,8 @@ macOS Apple Silicon 用户也可以使用[国内加速下载（DMG，v0.1.7）](
 
 桌面支持账户登录与在线主机连接，也可以连接本机工作空间。目前下载页不提供未经发布验证的 Windows 或 Intel Mac 安装包。
 
+没有桌面环境的 Linux x86_64 或 Apple Silicon macOS 主机，可以安装[独立 daemon](/zh/docs/daemon/)，以无人值守模式接入账户。
+
 ## Android
 
 Android 作为客户端连接工作电脑，不在手机上运行 daemon，也不把手机发布为工作主机。
@@ -84,6 +86,7 @@ npm run dev:mobile
 | 平台 | 本机运行 daemon | 账户 / Relay | 直接连接 |
 | --- | --- | --- | --- |
 | macOS / Linux 桌面 | 支持 | 支持 | 支持 |
+| 独立 daemon（Linux / macOS） | 支持 | 支持 | 支持 |
 | Android | 不支持 | 支持 | 支持 |
 | iOS / iPadOS | 不支持 | 支持 | 支持 |
 | Web 控制台客户端 | 不支持 | 支持，控制台构建 | 不支持 |

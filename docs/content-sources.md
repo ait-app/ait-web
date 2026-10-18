@@ -14,7 +14,7 @@
 | Android / iOS 后台连接窗口 | `apps/mobile/src/runtime/native-account.native.ts`（`BACKGROUND_CONNECTION_GRACE_MS`） |
 | 主机中继与凭据边界 | `docs/decisions/clients/adr-074-account-host-relay.md`、`docs/decisions/clients/adr-084-ios-account-relay.md` |
 | daemon 监听、配置、数据目录与 token | `docs/operations/daemon.md` |
-| Linux / macOS 无人值守主机、机器授权、持久 token | `docs/operations/headless-daemon.md` |
+| Linux / macOS 无人值守模式、机器授权、持久 token | `docs/operations/headless-daemon.md` |
 | 外部 MCP 入口与认证 | `docs/operations/mcp.md` |
 | Codex 与 Claude 原生配置、能力差异 | `docs/reports/providers/provider-parity.md`、`docs/operations/claude-code.md`、`crates/provider/src/local/` |
 | OpenCode 官方 ACP、版本相关能力与冷启动 | `docs/decisions/providers/adr-115-opencode-acp-provider.md`、`crates/provider/src/local/opencode/`；不再使用旧 ADR-074 的能力列表作为当前说明 |
@@ -33,7 +33,22 @@
 - `https://ait-app.com` 是宣传与文档网站，`https://aitapp.cn/` 是账户与 Web 客户端入口，原生客户端默认账户 API 为 `https://aitapp.cn/api`。
 - Google Play 资格与 opt-in 行为依据 [Google 官方测试说明](https://support.google.com/googleplay/android-developer/answer/9845334?hl=en)。商店审核与实机测试需要单独确认。
 
-更改入口时，同时更新 `src/lib/site.ts`、中英文 `platforms.md`、`getting-started.md`、`support.md` 与相关界面文案；本轮已核对这些位置的一致性。
+更改入口时，同时更新 `src/lib/site.ts`、中英文 `platforms.md`、`getting-started.md`、`support.md`、`daemon.md` 与相关界面文案；本轮已核对这些位置的一致性。
+
+## 独立 daemon 文档（2026-10-18）
+
+`/docs/daemon/` 对照 [ait-app/ait#362](https://github.com/ait-app/ait/pull/362) 编写；该 PR 合并并随正式版发布前，页面中的下载链接尚不可用。
+
+| 官网内容 | Ait 原始资料 |
+| --- | --- |
+| 归档文件名、内含 `ait-daemon` 与 `LICENSE`、正式版与 beta 发布范围 | `scripts/release-assets.mjs`、`docs/operations/releasing.md`、`docs/decisions/clients/adr-158-standalone-daemon-release.md` |
+| Linux glibc 2.28 基线 | `scripts/build-linux-daemon.sh`；本地在 Debian 10、Ubuntu 20.04、AlmaLinux 8 容器中启动验证，不等同于各发行版的完整实机验收 |
+| macOS 签名与公证 | `.github/workflows/release.yml`；首次在真实 release 工作流中执行前未经验证 |
+| 登录、`run --headless`、状态、重新授权与退出 | `docs/operations/headless-daemon.md`、`bins/daemon` 的 CLI 帮助 |
+
+术语约定：**独立 daemon** 指单独发布的 `ait-daemon` 程序（获取方式）；**无人值守模式** 指 `login` 授权后以 `run --headless` 运行（运行方式），英文为 unattended mode。桌面内置的 daemon 与独立 daemon 是同一程序，但由桌面管理，不使用无人值守模式。中英文 Docs 统一使用这组用词，不再单独称作“headless 模式”。
+
+下载表中的 GitHub 与 COS 链接、`VERSION=` 和 `v<版本>` 标签带有明确版本号，不使用“最新”动态入口。每次正式版由 [ait-realease](https://github.com/ait-app/ait-realease) 的发布编排在 COS 上传验证后同步更新，版本独立于国内 DMG 入口；手动修改时须保持中英文版本一致，否则编排会停止。SHA256SUMS 只在 GitHub Release 提供，COS 不镜像无版本号的校验文件。
 
 ## 历史内容与维护方式
 

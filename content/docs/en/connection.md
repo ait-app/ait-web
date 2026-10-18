@@ -59,6 +59,6 @@ Newer Android and iOS clients try to retain account relay connections and active
 
 A disconnected phone does not move or automatically cancel an agent running on the working computer. Reconnect and inspect the session before resending a task whose delivery is uncertain.
 
-Access after quitting the desktop app depends on the host’s service and online authorization. **Keep daemon running after quit** keeps the local daemon alive. For a host that must remain online unattended, use headless mode as described in [Server configuration](/en/docs/configuration/).
+Access after quitting the desktop app depends on the host’s service and online authorization. **Keep daemon running after quit** keeps the local daemon alive. For a host that must stay online, run the [standalone daemon](/en/docs/daemon/) in unattended mode.
 
 Read the [daemon manual](https://github.com/ait-app/ait/blob/main/docs/operations/daemon.md) for the protocol, shutdown behavior, and data directories.
