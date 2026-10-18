@@ -39,7 +39,7 @@ Desktop, Android, and iOS can sign in to the same account and select the working
 
 - Android: request Google Play closed-test access, then open the [opt-in link](https://play.google.com/apps/testing/dev.ait.mobile).
 - iPhone / iPad: join through the [public TestFlight invitation](https://testflight.apple.com/join/fjc7g46u), without an email request first.
-- Linux/macOS without a desktop environment: build and authorize a headless daemon using [Server configuration](/en/docs/configuration/).
+- Linux/macOS without a desktop environment: install and authorize the [standalone daemon](/en/docs/daemon/).
 
 Google Play eligibility uses your Google account; signing in inside the app uses your Ait account. They serve different purposes. See [Platform support](/en/docs/platforms/) for store eligibility and installation steps.
 

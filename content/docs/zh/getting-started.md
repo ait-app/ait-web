@@ -39,7 +39,7 @@ Ait 不包含模型订阅。开始之前，在工作主机上安装并登录至�
 
 - Android：先申请 Google Play 封测资格，再打开[加入测试链接](https://play.google.com/apps/testing/dev.ait.mobile)。
 - iPhone / iPad：通过 [TestFlight 公开邀请](https://testflight.apple.com/join/fjc7g46u)加入，无需先邮件申请。
-- 没有桌面环境的 Linux/macOS 主机：按[服务配置](/zh/docs/configuration/)构建并授权 headless daemon。
+- 没有桌面环境的 Linux/macOS 主机：安装并授权[独立 daemon](/zh/docs/daemon/)。
 
 Google Play 封测名单使用 Google 账号，Ait 应用内使用 Ait 账户，两者用途不同。商店资格和安装步骤见[平台支持](/zh/docs/platforms/)。
 

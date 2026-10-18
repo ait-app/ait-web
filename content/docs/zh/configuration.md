@@ -22,7 +22,7 @@ cargo run -p daemon --bin daemon -- --listen 127.0.0.1:7316
 
 ## 无人值守在线主机
 
-Linux 或 macOS 主机可独立接入账户中继，不需要启动桌面界面。从 Ait 源码根目录构建并运行：
+Linux 或 macOS 主机可独立接入账户中继，不需要启动桌面界面。推荐直接下载已发布的[独立 daemon](/zh/docs/daemon/)，其中包含安装、校验与后台常驻示例。也可以从 Ait 源码根目录构建并运行：
 
 ```sh
 cargo build --locked --release -p daemon --bin daemon

@@ -39,6 +39,8 @@ For Apple Silicon Macs in China, use the [China download mirror (DMG, v0.1.7)](h
 
 Desktop supports account sign-in and online host connections as well as local workspaces. The download page does not offer unverified Windows or Intel Mac installers.
 
+Linux x86_64 or Apple Silicon macOS hosts without a desktop environment can install the [standalone daemon](/en/docs/daemon/) and join your account as unattended hosts.
+
 ## Android
 
 Android connects to a working computer as a client. It does not run a daemon on the phone or publish the phone as a working host.
@@ -84,6 +86,7 @@ The development script builds shared dependencies and the daemon, configures loc
 | Platform | Runs a local daemon | Account / relay | Direct connection |
 | --- | --- | --- | --- |
 | macOS / Linux desktop | Yes | Yes | Yes |
+| Standalone daemon (Linux / macOS) | Yes | Yes | Yes |
 | Android | No | Yes | Yes |
 | iOS / iPadOS | No | Yes | Yes |
 | Web console client | No | Yes; console build | No |
