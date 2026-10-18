@@ -72,18 +72,20 @@ A successful check prints `OK`. If it prints nothing or reports `FAILED`, delete
 Run these commands as the same system user that will run the daemon:
 
 ```sh
-ait-daemon login --name my-server
+ait-daemon login
 ait-daemon run --headless
 ```
 
-`login` prints a web address and a verification code. Open the address in a browser on any device, sign in to your Ait account, enter the code, and confirm this machine. `--name` sets the name shown in the online host list; it defaults to the system hostname.
+`login` prints a web address and a verification code. Open the address in a browser on any device, sign in to your Ait account, enter the code, and confirm this machine.
+
+The online host list uses the system hostname as this machine's name by default. To use a different name, add `--name` when signing in, for example `ait-daemon login --name my-server`.
 
 After authorization, `run --headless` connects to the official account service at `https://aitapp.cn/api` and listens locally on `127.0.0.1:7316`. Later restarts restore the authorization without signing in again. Sign in to the same account on another device and choose this host from the online host list; see [Connections & data](/en/docs/connection/).
 
 If opening a browser is inconvenient, issue a single-use enrollment token from the host details page on the web, then sign in through standard input:
 
 ```sh
-ait-daemon login --token-stdin --name my-server
+ait-daemon login --token-stdin
 ```
 
 Check authorization and runtime status:

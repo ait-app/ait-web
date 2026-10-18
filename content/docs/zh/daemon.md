@@ -72,18 +72,20 @@ ait-daemon --version
 用之后运行 daemon 的同一个系统用户执行：
 
 ```sh
-ait-daemon login --name my-server
+ait-daemon login
 ait-daemon run --headless
 ```
 
-`login` 会在终端显示网页地址和验证码。在任意设备的浏览器打开地址，登录 Ait 账户，输入验证码并确认这台机器。`--name` 是在线主机列表中显示的名称，省略时使用系统 hostname。
+`login` 会在终端显示网页地址和验证码。在任意设备的浏览器打开地址，登录 Ait 账户，输入验证码并确认这台机器。
+
+在线主机列表默认使用系统 hostname 作为这台机器的名称。需要指定其他名称时，在登录时加上 `--name`，例如 `ait-daemon login --name my-server`。
 
 授权完成后，`run --headless` 连接官方账户中心 `https://aitapp.cn/api`，并在本机监听 `127.0.0.1:7316`。以后重新启动会自动恢复授权，不需要再次登录。随后在其他设备登录同一账户，从在线主机列表选择这台主机，步骤见[连接与数据](/zh/docs/connection/)。
 
 不方便打开浏览器时，也可以在网页的 Host 详情中签发一次性接入令牌，然后通过标准输入登录：
 
 ```sh
-ait-daemon login --token-stdin --name my-server
+ait-daemon login --token-stdin
 ```
 
 查看授权与运行状态：
