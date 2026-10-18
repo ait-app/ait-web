@@ -18,11 +18,11 @@ export AIT_SERVER_TOKEN="$(openssl rand -hex 32)"
 cargo run -p daemon --bin daemon -- --listen 127.0.0.1:7316
 ```
 
-这种普通启动模式从 `AIT_SERVER_TOKEN` 读取凭据，要求 32–256 字节可见 ASCII，无空格。不会从命令行、URL、TOML 或 `.env` 自动加载本地 API 凭据。下面的 headless 模式有独立的自动生成与持久保存机制。
+这种普通启动模式从 `AIT_SERVER_TOKEN` 读取凭据，要求 32–256 字节可见 ASCII，无空格。不会从命令行、URL、TOML 或 `.env` 自动加载本地 API 凭据。下面的无人值守模式有独立的自动生成与持久保存机制。
 
-## 无人值守在线主机
+## 无人值守模式
 
-Linux 或 macOS 主机可独立接入账户中继，不需要启动桌面界面。推荐直接下载已发布的[独立 daemon](/zh/docs/daemon/)，其中包含下载、校验与安装步骤。也可以从 Ait 源码根目录构建并运行：
+无人值守模式（`run --headless`）让 Linux 或 macOS 主机不启动桌面界面也能接入账户中继。推荐使用已发布的[独立 daemon](/zh/docs/daemon/)，该文档包含下载、校验、安装与运行步骤。也可以从 Ait 源码根目录构建并运行：
 
 ```sh
 cargo build --locked --release -p daemon --bin daemon
@@ -68,7 +68,7 @@ curl -H "Authorization: Bearer $AIT_SERVER_TOKEN" \
   http://127.0.0.1:7316/v1/server/info
 ```
 
-`/healthz` 是存活检查，`/readyz` 是就绪检查。服务信息与 WebSocket 需要认证，客户端还需完成协议协商。上面的认证示例使用普通启动模式的环境变量；headless 自动生成令牌时，请使用该数据目录中保存的本地 API 令牌。
+`/healthz` 是存活检查，`/readyz` 是就绪检查。服务信息与 WebSocket 需要认证，客户端还需完成协议协商。上面的认证示例使用普通启动模式的环境变量；无人值守模式自动生成令牌时，请使用该数据目录中保存的本地 API 令牌。
 
 ## 指定 Provider 程序
 

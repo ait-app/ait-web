@@ -1,15 +1,22 @@
 ---
 title: Standalone daemon
-description: Download, verify, and install ait-daemon on a Linux or macOS host without a desktop, then connect it to your Ait account as an unattended host.
+description: Download, verify, and install the separately released ait-daemon, then run it in unattended mode to connect a Linux or macOS host without a desktop to your Ait account.
 lang: en
 slug: daemon
 group: reference
 order: 5.5
 ---
 
-Every Ait stable release includes standalone daemon archives containing a single executable, `ait-daemon`. Use it on hosts that do not need a desktop interface, such as cloud servers, build machines, or an always-on Mac mini. After you sign in to your Ait account, the host appears in the online host list, and you can connect to it from the desktop, Android, iOS, or Web clients.
+Every Ait stable release includes standalone daemon archives containing a single executable, `ait-daemon`. Use it on hosts that do not need a desktop interface, such as cloud servers, build machines, or an always-on Mac mini. Once it runs in unattended mode and signs in to your Ait account, the host appears in the online host list, and you can connect to it from the desktop, Android, iOS, or Web clients.
 
-Computers with the desktop app do not need it. The desktop app includes the daemon and manages its lifecycle.
+This page uses two terms:
+
+- **Standalone daemon** is how you get it: the `ait-daemon` program, downloaded separately instead of installed with the desktop app. It is the same program the desktop app bundles.
+- **Unattended mode** (headless) is how it runs: authorize the machine with `ait-daemon login`, then start it with `ait-daemon run --headless`. The daemon stays online through account relay without anyone at the machine and reconnects automatically after restarts.
+
+Hosts without a desktop usually combine the two, and this page describes that setup. The standalone daemon can also start in ordinary mode without `--headless`; it then needs `AIT_SERVER_TOKEN` and supports direct connections only. See [Server configuration](/en/docs/configuration/).
+
+Computers with the desktop app do not need it. The desktop app includes the daemon, manages its lifecycle, and does not use unattended mode.
 
 ## Requirements
 
@@ -67,9 +74,9 @@ A successful check prints `OK`. If it prints nothing or reports `FAILED`, delete
 
 `ait-daemon --help` shows the program name as `daemon`; it is the same program.
 
-## Sign in and run
+## Run in unattended mode
 
-Run these commands as the same system user that will run the daemon:
+Authorize this machine first, then start the daemon in unattended mode. Run these commands as the same system user that will run the daemon:
 
 ```sh
 ait-daemon login

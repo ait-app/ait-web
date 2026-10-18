@@ -39,7 +39,7 @@ For Apple Silicon Macs in China, use the [China download mirror (DMG, v0.1.7)](h
 
 Desktop supports account sign-in and online host connections as well as local workspaces. The download page does not offer unverified Windows or Intel Mac installers.
 
-Linux x86_64 or Apple Silicon macOS hosts without a desktop environment can install the [standalone daemon](/en/docs/daemon/) and join your account as unattended hosts.
+Linux x86_64 or Apple Silicon macOS hosts without a desktop environment can install the [standalone daemon](/en/docs/daemon/) and join your account in unattended mode.
 
 ## Android
 

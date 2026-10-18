@@ -59,6 +59,6 @@ Ait 将运行和连接分开：工作主机运行 daemon 与 Agent，客户端�
 
 连接中断不会把工作电脑上的 Agent 搬到手机，也不等于取消主机上的任务。重新连接后查看会话状态，避免不确定上次是否发送成功时重复提交任务。
 
-桌面退出后能否继续使用取决于主机的服务和在线授权。**Keep daemon running after quit** 可以保留本地 daemon，但需要长期无人值守的在线主机时，应按[服务配置](/zh/docs/configuration/)使用 headless 模式。
+桌面退出后能否继续使用取决于主机的服务和在线授权。**Keep daemon running after quit** 可以保留本地 daemon，但需要长期在线的主机时，应使用[独立 daemon](/zh/docs/daemon/)并以无人值守模式运行。
 
 更完整的协议、关闭与数据目录说明见 [daemon 手册](https://github.com/ait-app/ait/blob/main/docs/operations/daemon.md)。

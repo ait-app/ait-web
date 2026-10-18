@@ -1,15 +1,22 @@
 ---
 title: 独立 daemon
-description: 在没有桌面环境的 Linux 或 macOS 主机上下载、校验、安装 ait-daemon，并以无人值守方式接入 Ait 账户。
+description: 下载、校验并安装单独发布的 ait-daemon，在没有桌面环境的 Linux 或 macOS 主机上以无人值守模式接入 Ait 账户。
 lang: zh
 slug: daemon
 group: reference
 order: 5.5
 ---
 
-每个 Ait 正式版都附带独立 daemon 归档，内含一个可执行文件 `ait-daemon`。它适合云服务器、构建机或常开的 Mac mini 这类不需要桌面界面的工作主机：登录 Ait 账户后，主机会出现在在线主机列表中，你可以从桌面、Android、iOS 或 Web 客户端连接它。
+每个 Ait 正式版都附带独立 daemon 归档，内含一个可执行文件 `ait-daemon`。它适合云服务器、构建机或常开的 Mac mini 这类不需要桌面界面的工作主机：以无人值守模式运行并登录 Ait 账户后，主机会出现在在线主机列表中，你可以从桌面、Android、iOS 或 Web 客户端连接它。
 
-已安装桌面版的电脑不需要单独安装。桌面应用自带 daemon 并管理它的生命周期。
+本文涉及两个概念：
+
+- **独立 daemon** 是获取方式：不随桌面应用安装、单独下载的 `ait-daemon` 程序。它与桌面应用内置的 daemon 是同一个程序。
+- **无人值守模式** 是运行方式：执行 `ait-daemon login` 授权这台机器后，用 `ait-daemon run --headless` 启动。daemon 通过账户中继保持在线，无需有人操作，重启后自动恢复连接。
+
+在没有桌面的主机上，通常把两者配合使用，本文也按这种方式介绍。独立 daemon 也可以不加 `--headless`，以普通模式启动：这时需要自行设置 `AIT_SERVER_TOKEN`，只支持直接连接，见[服务配置](/zh/docs/configuration/)。
+
+已安装桌面版的电脑不需要单独安装。桌面应用自带 daemon 并管理它的生命周期，不使用无人值守模式。
 
 ## 系统要求
 
@@ -67,9 +74,9 @@ ait-daemon --version
 
 `ait-daemon --help` 中显示的程序名为 `daemon`，与 `ait-daemon` 是同一个程序。
 
-## 登录并运行
+## 以无人值守模式运行
 
-用之后运行 daemon 的同一个系统用户执行：
+先授权这台机器，再以无人值守模式启动。用之后运行 daemon 的同一个系统用户执行：
 
 ```sh
 ait-daemon login

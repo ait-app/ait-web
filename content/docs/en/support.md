@@ -45,7 +45,7 @@ The daemon keeps automatic local incident evidence for up to seven days, with li
 
 Check that the working computer is awake, connected to the network, and has host synchronization enabled. Both devices must use the same Ait account and service address; the default account API is `https://aitapp.cn/api`. The host list excludes the current machine. If you stopped synchronization manually, enable it again and refresh the list. See [Connections & data](/en/docs/connection/) for setup details.
 
-Keeping only the local daemon running does not guarantee that account relay remains online after quitting the desktop app. For an independent Linux or macOS host, follow the [headless setup](/en/docs/configuration/) to authorize the machine and start the service.
+Keeping only the local daemon running does not guarantee that account relay remains online after quitting the desktop app. For a Linux or macOS host that must stay online, install the [standalone daemon](/en/docs/daemon/), authorize the machine, and start it in unattended mode.
 
 ### A direct connection fails
 

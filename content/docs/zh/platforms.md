@@ -39,7 +39,7 @@ macOS Apple Silicon 用户也可以使用[国内加速下载（DMG，v0.1.7）](
 
 桌面支持账户登录与在线主机连接，也可以连接本机工作空间。目前下载页不提供未经发布验证的 Windows 或 Intel Mac 安装包。
 
-没有桌面环境的 Linux x86_64 或 Apple Silicon macOS 主机，可以安装[独立 daemon](/zh/docs/daemon/)，以无人值守方式接入账户。
+没有桌面环境的 Linux x86_64 或 Apple Silicon macOS 主机，可以安装[独立 daemon](/zh/docs/daemon/)，以无人值守模式接入账户。
 
 ## Android
 
