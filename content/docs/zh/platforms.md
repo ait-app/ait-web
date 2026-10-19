@@ -35,7 +35,7 @@ Google Play 版本面向 18 岁及以上用户；部分地区的内容分级可�
 
 官方 [GitHub Release](https://github.com/ait-app/ait/releases/latest) 提供 Apple Silicon macOS 和 Linux x86_64 安装包。桌面壳内置 daemon，并管理本机服务生命周期。
 
-macOS Apple Silicon 用户也可以使用[国内加速下载（DMG，v0.1.9）](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.9/Ait-0.1.9-macos-arm64.dmg)。
+macOS Apple Silicon 用户也可以使用[国内加速下载（DMG，v0.1.10）](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.10/Ait-0.1.10-macos-arm64.dmg)。
 
 桌面支持账户登录与在线主机连接，也可以连接本机工作空间。目前下载页不提供未经发布验证的 Windows 或 Intel Mac 安装包。
 
