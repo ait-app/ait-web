@@ -15,7 +15,7 @@ npm ci
 npm run dev
 ```
 
-默认地址为 `http://localhost:4321`。中文主页 `/zh/`，英文主页 `/en/`。使用上述命令时，根路径默认进入英文，与线上站点一致。
+默认地址为 `http://localhost:4321`。中文主页 `/zh/`，英文主页 `/en/`。根路径按浏览器语言偏好顺序选择中文或英文（如 `zh-CN`、`zh-TW`、`en-US`）；未匹配到支持的语言时进入中文。关闭 JavaScript 时固定进入英文。本地和线上使用相同规则。
 
 ```sh
 npm run check
@@ -29,13 +29,13 @@ npm run verify
 
 网站使用 `ait-app.com`。使用 GitHub Pages 托管，通过本仓库的 GitHub Actions 自动发布，Cloudflare 提供 DNS 与代理。部署配置见 [GitHub Pages 部署说明](docs/github-pages.md)。
 
-| 域名 | 根路径默认进入 | 构建命令 | 上传目录 |
+| 域名 | 根路径语言选择 | 构建命令 | 上传目录 |
 | --- | --- | --- | --- |
-| `ait-app.com` | `/en/` | `npm run build` | `dist/` |
+| `ait-app.com` | 优先浏览器语言，未匹配时 `/zh/`，无 JavaScript 时 `/en/` | `npm run build` | `dist/` |
 
 同一份构建包含中英页面：英文位于 `https://ait-app.com/en/`，中文位于 `https://ait-app.com/zh/`。语言切换保留当前文章或文档路径。新增官网链接、商店资料和部署配置统一使用 `ait-app.com`，语言通过路径区分。
 
-无语言前缀的 `/privacy`（或 `/privacy/`）跳转到 `/en/privacy/`。启用 JavaScript 时保留查询参数与锚点，例如账户删除入口 `#data-deletion`；禁用 JavaScript 时通过 HTML 自动跳转，并提供可点击链接。中文隐私政策可直接访问 `/zh/privacy/`。
+无语言前缀的 `/privacy`（或 `/privacy/`）使用相同的浏览器语言选择规则，跳转到对应的隐私政策，并保留查询参数与锚点，例如账户删除入口 `#data-deletion`；关闭 JavaScript 时通过 HTML 自动跳转到 `/en/privacy/`，并提供可点击链接。带 `/zh/` 或 `/en/` 前缀的页面遵循链接指定的语言，不自动改写。
 
 单独生成官网发布产物：
 
