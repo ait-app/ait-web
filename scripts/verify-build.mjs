@@ -1,6 +1,7 @@
 import { readFile, readdir, access } from 'node:fs/promises';
 import path from 'node:path';
 import assert from 'node:assert/strict';
+import { runInNewContext } from 'node:vm';
 
 const workspace = process.cwd();
 const origin = 'https://ait-app.com';
@@ -46,6 +47,8 @@ for (const [file, html] of cache) {
       const alternateRoute = route.replace(/^\/(zh|en)\//, `/${alternate}/`);
       check(html.includes(`hreflang="${alternate === 'zh' ? 'zh-CN' : 'en'}" href="${origin}${alternateRoute}"`), `${relative}: incorrect ${alternate} language alternate`);
     }
+    const defaultRoute = route.replace(/^\/(zh|en)\//, '/zh/');
+    check(html.includes(`hreflang="x-default" href="${origin}${defaultRoute}"`), `${relative}: incorrect default language alternate`);
   }
   for (const match of html.matchAll(/\b(?:href|src)="([^"]+)"/g)) {
     const reference = decode(match[1]);
@@ -62,11 +65,40 @@ for (const [file, html] of cache) {
     }
   }
 }
-const homepage = cache.get(path.join(root, 'index.html'));
-check(homepage?.includes('0;url=/en/'), 'Incorrect default-language redirect');
-const privacyRedirect = cache.get(path.join(root, 'privacy/index.html'));
-check(privacyRedirect?.includes('0;url=/en/privacy/'), 'Missing or incorrect privacy redirect');
-check(privacyRedirect?.includes('href="/en/privacy/"'), 'Missing privacy fallback link');
+const languagePreferences = [
+  { name: 'Chinese first', navigator: { languages: ['zh-CN', 'en-US'] }, expected: 'zh' },
+  { name: 'English first', navigator: { languages: ['en-US', 'zh-CN'] }, expected: 'en' },
+  { name: 'Traditional Chinese', navigator: { languages: ['zh-TW'] }, expected: 'zh' },
+  { name: 'British English', navigator: { languages: ['en-GB'] }, expected: 'en' },
+  { name: 'secondary supported language', navigator: { languages: ['fr-FR', 'en-US', 'zh-CN'] }, expected: 'en' },
+  { name: 'unsupported languages', navigator: { languages: ['ja-JP', 'fr-FR'] }, expected: 'zh' },
+  { name: 'empty language list', navigator: { languages: [], language: 'en-GB' }, expected: 'en' },
+  { name: 'single browser language', navigator: { language: 'zh-HK' }, expected: 'zh' },
+  { name: 'no language preference', navigator: { languages: [], language: '' }, expected: 'zh' },
+];
+for (const page of ['', 'privacy/']) {
+  const file = path.join(root, page, 'index.html');
+  const html = cache.get(file);
+  if (!html) { check(false, `Missing language redirect page: /${page}`); continue; }
+  const noscript = html.match(/<noscript>([\s\S]*?)<\/noscript>/)?.[1];
+  check(noscript?.includes(`http-equiv="refresh" content="0;url=/en/${page}"`), `/${page}: missing English no-JavaScript redirect`);
+  check(!html.replace(/<noscript>[\s\S]*?<\/noscript>/g, '').includes('http-equiv="refresh"'), `/${page}: unconditional refresh overrides browser language`);
+  check(html.includes(`href="/en/${page}"`), `/${page}: missing English fallback link`);
+  const scripts = [...html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)].map(([, script]) => script);
+  check(scripts.length > 0, `/${page}: missing browser-language redirect script`);
+  for (const preference of languagePreferences) {
+    const redirects = [];
+    const search = '?source=language-check';
+    const hash = '#data-deletion';
+    try {
+      const context = { navigator: preference.navigator, window: { location: { search, hash, replace: destination => redirects.push(destination) } } };
+      for (const script of scripts) runInNewContext(script, context, { timeout: 1000 });
+      check(redirects.length === 1 && redirects[0] === `/${preference.expected}/${page}${search}${hash}`, `/${page}: incorrect redirect for ${preference.name}`);
+    } catch (error) {
+      check(false, `/${page}: language redirect failed for ${preference.name}: ${error.message}`);
+    }
+  }
+}
 for (const lang of languages) {
   const policy = cache.get(path.join(root, lang, 'privacy/index.html'));
   check(policy?.includes('id="data-deletion"'), `${lang}: missing privacy policy or deletion section`);

@@ -14,5 +14,5 @@ export default defineConfig({
   devToolbar: { enabled: false },
   outDir: './dist/',
   markdown: { shikiConfig: { theme: 'github-light', wrap: true } },
-  vite: { define: { __DEFAULT_LOCALE__: JSON.stringify('en') } },
+  vite: { define: { __DEFAULT_LOCALE__: JSON.stringify('zh') } },
 });
