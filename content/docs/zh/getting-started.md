@@ -13,7 +13,7 @@ Ait 是一个本地优先的多 Agent 管理器。Agent 在你的工作主机上
 
 在 [下载页](/zh/download/) 选择你的平台。目前官方桌面 Release 提供 **Apple Silicon macOS** 与 **Linux x86_64** 安装包。
 
-从 [Ait 官方 Release](https://github.com/ait-app/ait/releases/latest) 下载对应文件。macOS 打开 DMG，安装并启动 Ait；Linux 根据发行包格式解压运行，或使用 AppImage。Release 同时提供 `SHA256SUMS`，可核对下载文件。
+从 [Ait 官方 Release](https://github.com/ait-app/ait/releases/latest) 下载对应文件。macOS 打开 DMG，安装并启动 Ait；Linux 根据发行包格式解压运行，或使用 AppImage。Release 同时提供 `SHA256SUMS`，可核对下载文件。Arch Linux 用户也可以从 AUR 安装 `ait-bin` 或 `ait-git`，见[平台支持](/zh/docs/platforms/)。
 
 桌面安装包带有 Rust daemon，由桌面应用负责启动，无需额外安装一个 Ait 服务。
 

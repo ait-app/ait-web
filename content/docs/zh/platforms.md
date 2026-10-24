@@ -39,6 +39,20 @@ macOS Apple Silicon 用户也可以使用[国内加速下载（DMG，v0.1.17）]
 
 桌面支持账户登录与在线主机连接，也可以连接本机工作空间。目前下载页不提供未经发布验证的 Windows 或 Intel Mac 安装包。
 
+### Arch Linux
+
+Arch Linux 用户可以从 AUR 安装，两个包任选其一：
+
+- [`ait-bin`](https://aur.archlinux.org/packages/ait-bin)：官方正式版 Release 的预编译桌面应用，随每次正式版自动更新，推荐大多数用户使用。
+- [`ait-git`](https://aur.archlinux.org/packages/ait-git)：在本机从 `main` 分支源码编译，包含尚未发布的改动；编译需要 Rust、Node.js 和网络，耗时较长。
+
+```bash
+paru -S ait-bin   # 或 yay -S ait-bin
+paru -S ait-git   # 跟随 main 分支
+```
+
+两个包互相冲突，安装其中一个会替换另一个。安装后从应用菜单打开 Ait，或在终端运行 `ait`；升级由 pacman / AUR helper 管理，不使用应用内更新。
+
 没有桌面环境的 Linux x86_64 或 Apple Silicon macOS 主机，可以安装[独立 daemon](/zh/docs/daemon/)，以无人值守模式接入账户。
 
 ## Android

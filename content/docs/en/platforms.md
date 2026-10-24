@@ -39,6 +39,20 @@ For Apple Silicon Macs in China, use the [China download mirror (DMG, v0.1.17)](
 
 Desktop supports account sign-in and online host connections as well as local workspaces. The download page does not offer unverified Windows or Intel Mac installers.
 
+### Arch Linux
+
+Arch Linux users can install Ait from the AUR. Pick one of two packages:
+
+- [`ait-bin`](https://aur.archlinux.org/packages/ait-bin): the prebuilt desktop app from the official stable release, updated with every stable release. Recommended for most users.
+- [`ait-git`](https://aur.archlinux.org/packages/ait-git): builds the `main` branch from source on your machine, including unreleased changes. Building needs Rust, Node.js and network access, and takes a while.
+
+```bash
+paru -S ait-bin   # or yay -S ait-bin
+paru -S ait-git   # follows the main branch
+```
+
+The two packages conflict; installing one replaces the other. After installing, open Ait from the app menu or run `ait` in a terminal. pacman or your AUR helper handles upgrades instead of the in-app updater.
+
 Linux x86_64 or Apple Silicon macOS hosts without a desktop environment can install the [standalone daemon](/en/docs/daemon/) and join your account in unattended mode.
 
 ## Android
