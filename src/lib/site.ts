@@ -12,6 +12,11 @@ export type AgentProvider = typeof featuredAgents[number]['id'];
 export const product = {
   webApp: 'https://aitapp.cn/',
   supportEmail: 'support@ait-app.com',
+  telegramGroup: 'https://t.me/ait_users',
+  wechatGroup: {
+    qrCode: '/community/wechat-group-2026-10-31.png',
+    expiresAt: '2026-10-31',
+  },
   testFlightPublicUrl: 'https://testflight.apple.com/join/fjc7g46u',
   repository: 'https://github.com/ait-app/ait',
   websiteRepository: 'https://github.com/ait-app/ait-web',
