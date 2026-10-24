@@ -1,5 +1,6 @@
 ---
 import { t } from '../lib/i18n';
+import CommunityLinks from './CommunityLinks.astro';
 import { pathFor, product, type Language } from '../lib/site';
 interface Props { lang: Language; }
 const { lang } = Astro.props;
@@ -14,5 +15,6 @@ const copy = t(lang).support;
     <a href={pathFor(lang, 'docs/support')}>{copy.guide} →</a>
     <a href={pathFor(lang, 'privacy')}>{copy.privacy}</a>
   </div>
+  <CommunityLinks lang={lang}/>
   <p class="support-hint">{copy.hint}</p>
 </section>

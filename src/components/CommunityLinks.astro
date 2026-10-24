@@ -1,0 +1,37 @@
+---
+import Icon from './Icon.astro';
+import { t } from '../lib/i18n';
+import { dateLabel, product, type Language } from '../lib/site';
+interface Props { lang: Language; }
+const { lang } = Astro.props;
+const copy = t(lang).community;
+---
+<div class="community-links">
+  <a href={product.telegramGroup} target="_blank" rel="noopener noreferrer">{copy.telegram}<Icon name="external" size={13}/></a>
+  <details class="wechat-group">
+    <summary>{copy.wechat}<Icon name="plus" size={14}/></summary>
+    <div class="wechat-qr">
+      <a class="wechat-image" href={product.wechatGroup.qrCode} target="_blank" rel="noopener noreferrer" aria-label={copy.original}>
+        <img src={product.wechatGroup.qrCode} width="720" height="1094" alt={copy.wechatAlt} loading="lazy" decoding="async"/>
+      </a>
+      <p>{copy.wechatHint}</p>
+      <p>{copy.wechatExpiry} <time datetime={product.wechatGroup.expiresAt}>{dateLabel(new Date(`${product.wechatGroup.expiresAt}T00:00:00Z`), lang)}</time></p>
+      <a class="wechat-original" href={product.wechatGroup.qrCode} target="_blank" rel="noopener noreferrer">{copy.original}<Icon name="external" size={12}/></a>
+    </div>
+  </details>
+</div>
+
+<style>
+  .community-links { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 12px 20px; margin-top: 18px; font-size: 13px; color: var(--text-muted); }
+  .community-links > a, summary { display: flex; align-items: center; gap: 7px; min-height: 28px; }
+  .community-links > a:hover, summary:hover, .wechat-original:hover { color: var(--brand-text); }
+  .wechat-group { max-width: 100%; }
+  summary { cursor: pointer; list-style: none; width: fit-content; }
+  summary::-webkit-details-marker { display: none; }
+  details[open] summary :global(svg) { transform: rotate(45deg); }
+  .wechat-qr { width: 320px; max-width: 100%; margin-top: 12px; padding: 12px; border: 1px solid var(--brand-border); border-radius: 8px; background: var(--brand-surface); }
+  .wechat-image { display: block; }
+  .wechat-image img { width: 100%; height: auto; border-radius: 4px; }
+  .wechat-qr p { margin: 10px 0 0; font-size: 12px; line-height: 1.7; color: var(--text-muted); }
+  .wechat-original { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 12px; color: var(--brand-text); }
+</style>

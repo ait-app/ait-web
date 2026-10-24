@@ -1,6 +1,7 @@
 import type { Language } from './site';
 
 const zh = {
+  community: { title: '加入 Ait 社群', description: '交流使用心得、分享反馈，和其他 Ait 用户一起探索。', telegram: '加入 Telegram 社群', wechat: '加入微信群', wechatAlt: 'Ait 微信群「rats for ait」入群二维码', wechatHint: '用微信扫一扫，或保存图片后在微信中识别。', wechatExpiry: '二维码有效期至', original: '查看 / 保存原图' },
   nav: { product: '产品', blog: '博客', docs: '文档', webApp: 'Web 界面', download: '获取 Ait', menu: '打开导航', close: '关闭', language: 'Switch to English' },
   footer: { tagline: '时刻准备着', product: '产品', resources: '探索', source: '源代码', releases: '版本发布', start: '快速开始', copyright: '为行动而生。', status: '本地优先 · 多端连接', rss: '订阅 RSS', support: '联系支持', privacy: '隐私政策' },
   home: {
@@ -37,6 +38,7 @@ const zh = {
 };
 
 const en = {
+  community: { title: 'Join the Ait community', description: 'Share tips, exchange feedback, and explore Ait with other users.', telegram: 'Join us on Telegram', wechat: 'Join our WeChat group', wechatAlt: 'QR code to join the Ait WeChat group “rats for ait”', wechatHint: 'Scan with WeChat, or save the image and open it in WeChat to scan.', wechatExpiry: 'QR code valid until', original: 'View / save full image' },
   nav: { product: 'Product', blog: 'Blog', docs: 'Docs', webApp: 'Web app', download: 'Get Ait', menu: 'Open navigation', close: 'Close', language: '切换到中文' },
   footer: { tagline: 'always ready', product: 'Product', resources: 'Explore', source: 'Source code', releases: 'Releases', start: 'Quick start', copyright: 'Built for doing.', status: 'Local first · Connected across devices', rss: 'Subscribe via RSS', support: 'Contact support', privacy: 'Privacy policy' },
   home: {
