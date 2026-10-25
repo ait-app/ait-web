@@ -30,14 +30,14 @@ order: 5.5
 - 一个 Ait 账户，与要连接这台主机的客户端使用同一账户。
 - 在这台主机上安装并登录至少一个 Agent CLI，见 [Agent 接入](/zh/docs/providers/)。
 
-## 下载（v0.1.17）
+## 下载（v0.1.18）
 
 | 平台 | GitHub Release | 国内加速下载 |
 | --- | --- | --- |
-| Linux x86_64 | [Ait-0.1.17-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.17/Ait-0.1.17-daemon-linux-x64.tar.gz) | [COS 下载](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.17/Ait-0.1.17-daemon-linux-x64.tar.gz) |
-| macOS Apple Silicon | [Ait-0.1.17-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.17/Ait-0.1.17-daemon-macos-arm64.tar.gz) | [COS 下载](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.17/Ait-0.1.17-daemon-macos-arm64.tar.gz) |
+| Linux x86_64 | [Ait-0.1.18-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.18/Ait-0.1.18-daemon-linux-x64.tar.gz) | [COS 下载](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.18/Ait-0.1.18-daemon-linux-x64.tar.gz) |
+| macOS Apple Silicon | [Ait-0.1.18-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.18/Ait-0.1.18-daemon-macos-arm64.tar.gz) | [COS 下载](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.18/Ait-0.1.18-daemon-macos-arm64.tar.gz) |
 
-两个地址的文件完全相同。校验文件 `SHA256SUMS` 只在 [GitHub Release](https://github.com/ait-app/ait/releases/tag/v0.1.17) 发布。其他版本可在 [全部 Release](https://github.com/ait-app/ait/releases) 中找到同名归档。
+两个地址的文件完全相同。校验文件 `SHA256SUMS` 只在 [GitHub Release](https://github.com/ait-app/ait/releases/tag/v0.1.18) 发布。其他版本可在 [全部 Release](https://github.com/ait-app/ait/releases) 中找到同名归档。
 
 ## 安装
 
@@ -46,7 +46,7 @@ order: 5.5
 ### Linux
 
 ```sh
-VERSION=0.1.17
+VERSION=0.1.18
 ASSET="Ait-${VERSION}-daemon-linux-x64.tar.gz"
 curl -fLO "https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v${VERSION}/${ASSET}"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
@@ -59,7 +59,7 @@ ait-daemon --version
 ### macOS
 
 ```sh
-VERSION=0.1.17
+VERSION=0.1.18
 ASSET="Ait-${VERSION}-daemon-macos-arm64.tar.gz"
 curl -fLO "https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v${VERSION}/${ASSET}"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
