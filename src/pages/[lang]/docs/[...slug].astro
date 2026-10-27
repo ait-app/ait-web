@@ -26,7 +26,13 @@ const { Content, headings } = await render(page);
     <main id="main-content" class="docs-main" data-copy-label={copy.copy} data-copied-label={copy.copied} data-copy-error={copy.copyError}>
       <div class="docs-breadcrumb"><a href={pathFor(lang,'docs')}>{copy.breadcrumb}</a><Icon name="chevron" size={12}/><span>{groups[lang][page.data.group]}</span></div>
       <header class="docs-page-header"><h1>{page.data.title}</h1><p>{page.data.description}</p></header>
-      {page.data.slug === 'getting-started' && <SupportCard lang={lang}/>}
+      {page.data.slug === 'getting-started' && <>
+        <a class="docs-start-link" href={pathFor(lang, 'docs/quick-start')}>
+          <span><strong>{copy.quickStart}</strong><span>{copy.quickStartDescription}</span></span>
+          <Icon name="arrow" size={22}/>
+        </a>
+        <SupportCard lang={lang}/>
+      </>}
       {page.data.slug === 'support' && <section class="docs-support" aria-labelledby="community"><h2 id="community">{t(lang).community.title}</h2><p>{t(lang).community.description}</p><CommunityLinks lang={lang}/></section>}
       <article class="prose docs-prose"><Content/></article>
       <div class="docs-page-end"><a href={`${product.websiteRepository}/edit/main/content/docs/${page.id}.md`} target="_blank" rel="noopener noreferrer"><Icon name="file" size={14}/>{copy.edit}<Icon name="external" size={12}/></a></div>

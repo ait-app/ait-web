@@ -9,6 +9,8 @@ order: 1
 
 Ait 是一个本地优先的多 Agent 管理器。Agent 在你的工作主机上运行，你通过统一界面管理会话、查看文件和代码变更，并使用终端验证结果。
 
+想了解如何统一使用多个 Agent、管理多台主机并跨设备继续工作，先阅读 [为什么使用 Ait](/zh/docs/why-ait/)；准备动手时，从 [快速上手](/zh/docs/quick-start/)开始。
+
 ## 安装桌面应用
 
 在 [下载页](/zh/download/) 选择你的平台。目前官方桌面 Release 提供 **Apple Silicon macOS** 与 **Linux x86_64** 安装包。

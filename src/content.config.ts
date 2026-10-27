@@ -42,7 +42,7 @@ const docs = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './content/docs', generateId: ({ entry }) => entry.replace(/\.md$/, '') }),
   schema: z.object({
     ...common,
-    group: z.enum(['start', 'workflow', 'reference']),
+    group: z.enum(['quickstart', 'start', 'workflow', 'reference']),
     order: z.number(),
   }),
 });
