@@ -87,6 +87,8 @@ Docs 首页包含直接可见的客服邮箱、反馈与隐私入口；`docs/sup
 
 页脚、Docs 首页和支持页提供 Telegram 社群与微信群入口，统一使用 `CommunityLinks.astro`。邀请链接、微信二维码路径与有效期在 `src/lib/site.ts` 的 `product.telegramGroup`、`product.wechatGroup` 中维护。微信二维码保留用户提供的原图，存放在 `public/community/`；当前图片有效期至 2026-10-31，更新时一起替换图片路径与 `expiresAt`，页面会同步显示新日期。
 
+每篇文档的正文末尾、上一篇 / 下一篇导航之前，使用 `AppreciationCard.astro` 提供可展开的「支持 Ait 开发」入口。微信赞赏码保留原图，存放在 `public/support/ait-appreciation-code.png`，图片路径由 `src/lib/site.ts` 的 `product.wechatAppreciationCode` 管理，中英文文案在 `src/lib/i18n.ts` 的 `appreciation` 中维护。
+
 部署后可使用以下地址填写商店资料，中文版本对应 `https://ait-app.com/zh/` 下的相同路径：
 
 | 用途 | 英文地址 |

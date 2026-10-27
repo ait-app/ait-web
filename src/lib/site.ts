@@ -12,6 +12,7 @@ export type AgentProvider = typeof featuredAgents[number]['id'];
 export const product = {
   webApp: 'https://aitapp.cn/',
   supportEmail: 'support@ait-app.com',
+  wechatAppreciationCode: '/support/ait-appreciation-code.png',
   telegramGroup: 'https://t.me/ait_users',
   wechatGroup: {
     qrCode: '/community/wechat-group-2026-10-31.png',

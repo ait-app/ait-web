@@ -1,0 +1,47 @@
+---
+import Icon from './Icon.astro';
+import { t } from '../lib/i18n';
+import { product, type Language } from '../lib/site';
+interface Props { lang: Language; }
+const { lang } = Astro.props;
+const copy = t(lang).appreciation;
+---
+<section class="docs-appreciation" aria-label={copy.title}>
+  <details>
+    <summary>
+      <span class="appreciation-intro"><strong>{copy.title}</strong><span>{copy.description}</span></span>
+      <span class="appreciation-action">{copy.action}<Icon name="plus" size={16}/></span>
+    </summary>
+    <div class="appreciation-body">
+      <a class="appreciation-image" href={product.wechatAppreciationCode} target="_blank" rel="noopener noreferrer" aria-label={copy.original}>
+        <img src={product.wechatAppreciationCode} width="580" height="762" alt={copy.alt} loading="lazy" decoding="async"/>
+      </a>
+      <div class="appreciation-instructions">
+        <p>{copy.hint}</p>
+        <a href={product.wechatAppreciationCode} target="_blank" rel="noopener noreferrer">{copy.original}<Icon name="external" size={13}/></a>
+      </div>
+    </div>
+  </details>
+</section>
+
+<style>
+  .docs-appreciation { margin-bottom: 24px; border: 1px solid var(--line); border-radius: 8px; background: var(--brand-surface); }
+  summary { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 20px; cursor: pointer; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  .appreciation-intro { min-width: 0; }
+  .appreciation-intro strong { display: block; font-size: 15px; font-weight: 550; }
+  .appreciation-intro > span { display: block; margin-top: 5px; color: var(--text-muted); font-size: 13px; line-height: 1.8; }
+  .appreciation-action { display: inline-flex; align-items: center; gap: 8px; flex: none; color: var(--brand-text); font-size: 13px; }
+  summary:hover .appreciation-action { text-decoration: underline; text-underline-offset: 4px; }
+  details[open] .appreciation-action :global(svg) { transform: rotate(45deg); }
+  .appreciation-body { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); align-items: center; gap: 24px; padding: 0 20px 20px; }
+  .appreciation-image { display: block; width: 100%; max-width: 260px; }
+  .appreciation-image img { width: 100%; height: auto; border: 1px solid var(--line); border-radius: 6px; }
+  .appreciation-instructions p { color: var(--text-muted); font-size: 13px; line-height: 1.8; }
+  .appreciation-instructions a { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; color: var(--brand-text); font-size: 12px; }
+  .appreciation-instructions a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  @media (max-width: 680px) {
+    summary { align-items: flex-start; flex-direction: column; gap: 12px; padding: 18px; }
+    .appreciation-body { grid-template-columns: minmax(0, 1fr); gap: 16px; padding: 0 18px 18px; }
+  }
+</style>
