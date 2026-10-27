@@ -1,5 +1,17 @@
 # 内容来源
 
+## 为什么使用 Ait（2026-10-27）
+
+新增中英文 `/docs/why-ait/`，放在「开始使用」分组首位，并从快速上手与 Docs 首页链接。参考 [Why Paseo?](https://paseo.sh/docs/why)围绕使用价值展开章节的方式，按产品负责人确认的优先顺序组织：多 Agent 统一使用、多主机统一管理、跨设备继续、完整开发工作区、多任务并行、中央中继、轻巧 daemon，最后说明任务运行在自己的主机上。中央中继的易用性、稳定性与连接延迟合并在同一节；页面摘要及其他文档中的入口说明同步突出前三项价值。
+
+内容核对本地 Ait `1c0fddc3` 的 `README.md`、`docs/operations/daemon.md`、`docs/operations/headless-daemon.md`、`docs/reports/clients/relay-connect-latency.md`、`crates/relay/src/lib.rs`，以及本地 ait-server `faef60d` 的 `docs/relay-persistent-tunnel.md`、`docs/relay-implementation.md` 和 `docs/architecture.md`。这些资料支持 Rust 独立程序、无需桌面环境、出站中继、自动恢复、连接复用与持久隧道减少重复建连的说明。
+
+多主机统一管理补充核对同一 Ait 提交的 `docs/decisions/clients/adr-124-automatic-online-host-import.md`、`apps/mobile/src/hooks/use-sidebar-workspaces-list.ts` 与 `apps/mobile/src/stores/sidebar-view-store.ts`：已发现主机分别建立连接，侧栏汇总各主机的工作区并支持主机筛选。页面中的多机示例是用户分别安排任务的场景，不表示自动分发任务、迁移会话或同步项目文件。
+
+轻量和小内存适用性使用定性表述，不给出未经测量的常驻内存或最低 RAM 数字；主机还需承担 Agent 和项目工具的工作负载。延迟优势具体指连接与恢复开销，持久隧道以两端支持并建立连接为条件，不承诺任意网络都更快，也不暗示提高模型生成速度。未开展与 Paseo 的内存或公网延迟对比测试，不把源码中的缓冲配额、超时参数写成实测结果或性能保证。
+
+持久隧道的默认启用状态以较新的 ait-server 操作说明为依据；Ait ADR-155 保留了较早的中心开关说明。公开章节不重复部署开关或声称所有发布版本均已启用。
+
 ## 快速上手章节（2026-10-27）
 
 新增中英文 `/docs/quick-start/`，在文档导航最前面提供独立一级入口。参考 [Paseo 入门页](https://paseo.sh/docs)按安装方式引导、提供下一步阅读入口的组织方式，使用 Ait 的品牌样式与实际流程重新编写。

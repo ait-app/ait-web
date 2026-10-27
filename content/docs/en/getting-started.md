@@ -9,6 +9,8 @@ order: 1
 
 Ait is a local-first manager for multiple agents. Agents run on your working host. A shared interface lets you manage sessions, inspect files and code changes, and verify results in a terminal.
 
+Read [Why Ait?](/en/docs/why-ait/) to explore using multiple agents, managing several hosts, and continuing across devices. When you are ready to try it, follow the [Quick start](/en/docs/quick-start/).
+
 ## Install the desktop app
 
 Choose your platform on the [download page](/en/download/). Official desktop releases currently provide installers for **Apple Silicon macOS** and **Linux x86_64**.

@@ -97,6 +97,7 @@ ait-daemon run --headless
 
 ## 接下来
 
+- [为什么使用 Ait](/zh/docs/why-ait/)：了解多 Agent、多主机统一管理，以及跨设备继续工作的方式。
 - [工作区](/zh/docs/workspaces/)：组织会话、隔离并行任务、审查和提交变更。
 - [Agent 接入](/zh/docs/providers/)：配置更多 Agent，了解各自的模型和权限选项。
 - [连接与数据](/zh/docs/connection/)：了解远程连接和数据存放的位置。

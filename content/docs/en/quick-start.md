@@ -97,6 +97,7 @@ Keep the working host awake, with its Ait service and agents available. Account 
 
 ## Next steps
 
+- [Why Ait?](/en/docs/why-ait/): explore working with multiple agents, managing several hosts, and continuing across devices.
 - [Workspaces](/en/docs/workspaces/): organize sessions, isolate parallel tasks, review changes, and commit.
 - [Agent setup](/en/docs/providers/): configure more agents and explore their model and permission options.
 - [Connections & data](/en/docs/connection/): understand remote access and where data lives.
