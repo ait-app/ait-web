@@ -77,9 +77,9 @@ content/blog/en/2026-10-16-a-new-post.md
 
 完整的命名规则、frontmatter 模板、字段说明和发布步骤见 [Blog 写作规范](content/blog/README.md)。Blog 设置 `draft: true` 后不生成页面，也不会进入列表与 RSS。
 
-Docs 使用 `group: start | workflow | reference` 与数值 `order`。`getting-started` 对应 `/zh/docs/` 与 `/en/docs/`，其他页面使用 `/[lang]/docs/[slug]/`。搜索索引在构建时从全部文档正文生成。
+Docs 使用 `group: quickstart | start | workflow | reference` 与数值 `order`。`quickstart` 分组作为文档目录最前面的一级入口，当前对应双语 `/docs/quick-start/`，正文继续在 Markdown 中维护。`getting-started` 对应 `/zh/docs/` 与 `/en/docs/`，其他页面使用 `/[lang]/docs/[slug]/`。搜索索引在构建时从全部文档正文生成。
 
-当前公开文档覆盖快速开始、平台安装、5 个 Agent 接入、支持与诊断、工作区及定时任务、连接与数据、独立 daemon 的下载安装与无人值守模式，以及服务配置。能力更新时先对照最新源码和运维说明，再同步中英正文及首页相关文案，并在 [内容来源](docs/content-sources.md)记录提交与核验范围。源码具备能力不代表每个商店测试版都已包含，也不代表已经完成实机验收。
+当前公开文档覆盖快速上手、文档与支持概览、平台安装、5 个 Agent 接入、支持与诊断、工作区及定时任务、连接与数据、独立 daemon 的下载安装与无人值守模式，以及服务配置。能力更新时先对照最新源码和运维说明，再同步中英正文及首页相关文案，并在 [内容来源](docs/content-sources.md)记录提交与核验范围。源码具备能力不代表每个商店测试版都已包含，也不代表已经完成实机验收。
 
 ## 商店支持与隐私页面
 

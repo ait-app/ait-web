@@ -1,7 +1,20 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { docPath, pathFor, groups, type Language } from '../lib/site';
+import Icon from './Icon.astro';
 interface Props { lang: Language; pages: CollectionEntry<'docs'>[]; slug: string; }
 const { lang, pages, slug } = Astro.props;
 ---
-<nav class="docs-nav" aria-label={lang === 'zh' ? '文档导航' : 'Documentation navigation'}>{Object.entries(groups[lang]).map(([group,label]) => <div class="docs-nav-group"><h2>{label}</h2>{pages.filter(page => page.data.group === group).map(page => <a href={pathFor(lang,docPath(page.data.slug))} aria-current={page.data.slug === slug ? 'page' : undefined}>{page.data.title}</a>)}</div>)}</nav>
+<nav class="docs-nav" aria-label={lang === 'zh' ? '文档导航' : 'Documentation navigation'}>
+  {Object.entries(groups[lang]).map(([group, label]) => (
+    <div class:list={['docs-nav-group', { 'docs-nav-primary': group === 'quickstart' }]}>
+      {group !== 'quickstart' && <h2>{label}</h2>}
+      {pages.filter(page => page.data.group === group).map(page => (
+        <a href={pathFor(lang, docPath(page.data.slug))} aria-current={page.data.slug === slug ? 'page' : undefined}>
+          {group === 'quickstart' && <Icon name="arrow" size={16}/>}
+          {page.data.title}
+        </a>
+      ))}
+    </div>
+  ))}
+</nav>
