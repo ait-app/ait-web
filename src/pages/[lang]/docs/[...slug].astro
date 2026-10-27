@@ -7,6 +7,7 @@ import DocsNav from '../../../components/DocsNav.astro';
 import Icon from '../../../components/Icon.astro';
 import SupportCard from '../../../components/SupportCard.astro';
 import CommunityLinks from '../../../components/CommunityLinks.astro';
+import AppreciationCard from '../../../components/AppreciationCard.astro';
 import { pathFor, groups, docPath, product } from '../../../lib/site';
 import { t } from '../../../lib/i18n';
 export async function getStaticPaths() { return (await getCollection('docs')).map(page => ({ params: { lang: page.data.lang, slug: page.data.slug === 'getting-started' ? undefined : page.data.slug }, props: { page } })); }
@@ -36,6 +37,7 @@ const { Content, headings } = await render(page);
       {page.data.slug === 'support' && <section class="docs-support" aria-labelledby="community"><h2 id="community">{t(lang).community.title}</h2><p>{t(lang).community.description}</p><CommunityLinks lang={lang}/></section>}
       <article class="prose docs-prose"><Content/></article>
       <div class="docs-page-end"><a href={`${product.websiteRepository}/edit/main/content/docs/${page.id}.md`} target="_blank" rel="noopener noreferrer"><Icon name="file" size={14}/>{copy.edit}<Icon name="external" size={12}/></a></div>
+      <AppreciationCard lang={lang}/>
       <nav class="docs-pagination" aria-label={lang === 'zh' ? '相邻文档' : 'Adjacent pages'}>{previous ? <a href={pathFor(lang,docPath(previous.data.slug))}><span>← {copy.previous}</span><strong>{previous.data.title}</strong></a> : <div></div>}{next && <a class="next-page" href={pathFor(lang,docPath(next.data.slug))}><span>{copy.next} →</span><strong>{next.data.title}</strong></a>}</nav>
       <div class="docs-footer"><span>Ait · {t(lang).footer.status}</span><nav aria-label={t(lang).footer.resources}><a href={product.telegramGroup} target="_blank" rel="noopener noreferrer">Telegram</a><a href={`${pathFor(lang,'docs/support')}#community`}>{t(lang).community.wechat}</a><a href={pathFor(lang,'docs/support')}>{t(lang).footer.support}</a><a href={`mailto:${product.supportEmail}`}>{product.supportEmail}</a><a href={pathFor(lang,'privacy')}>{t(lang).footer.privacy}</a></nav></div>
     </main>
