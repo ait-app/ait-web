@@ -35,7 +35,7 @@ The closed test currently uses an email list; opening the link does not grant ac
 
 Official [GitHub releases](https://github.com/ait-app/ait/releases/latest) provide installers for Apple Silicon macOS and Linux x86_64. The desktop shell includes the daemon and manages its lifecycle.
 
-For Apple Silicon Macs in China, use the [China download mirror (DMG, v0.1.20)](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.20/Ait-0.1.20-macos-arm64.dmg).
+For Apple Silicon Macs in China, use the [China download mirror (DMG, v0.1.21)](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.21/Ait-0.1.21-macos-arm64.dmg).
 
 Desktop supports account sign-in and online host connections as well as local workspaces. The download page does not offer unverified Windows or Intel Mac installers.
 
