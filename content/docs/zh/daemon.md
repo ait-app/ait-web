@@ -12,11 +12,11 @@ order: 5.5
 本文涉及两个概念：
 
 - **独立 daemon** 是获取方式：不随桌面应用安装、单独下载的 `ait-daemon` 程序。它与桌面应用内置的 daemon 是同一个程序。
-- **无人值守模式** 是运行方式：执行 `ait-daemon login` 授权这台机器后，用 `ait-daemon run --headless` 启动。daemon 通过账户中继保持在线，无需有人操作，重启后自动恢复连接。
+- **无人值守运行** 是运行方式：执行 `ait-daemon login` 授权这台机器后，用 `ait-daemon run` 启动。daemon 通过账户中继保持在线，无需有人操作，重启后自动恢复连接。
 
-在没有桌面的主机上，通常把两者配合使用，本文也按这种方式介绍。独立 daemon 也可以不加 `--headless`，以普通模式启动：这时需要自行设置 `AIT_SERVER_TOKEN`，只支持直接连接，见[服务配置](/zh/docs/configuration/)。
+从 0.1.22 起，直接启动、`run` 与桌面启动使用同一套流程。未登录时本地 API 仍可使用，机器授权后由 daemon 自动维护在线连接；旧启动脚本需删除 `--headless` 参数。监听、数据目录和本地 API 令牌说明见[服务配置](/zh/docs/configuration/)。
 
-已安装桌面版的电脑不需要单独安装。桌面应用自带 daemon 并管理它的生命周期，不使用无人值守模式。
+已安装桌面版的电脑不需要单独安装。桌面应用自带 daemon 并管理它的生命周期，机器授权与在线连接使用相同流程。
 
 ## 系统要求
 
@@ -30,14 +30,14 @@ order: 5.5
 - 一个 Ait 账户，与要连接这台主机的客户端使用同一账户。
 - 在这台主机上安装并登录至少一个 Agent CLI，见 [Agent 接入](/zh/docs/providers/)。
 
-## 下载（v0.1.21）
+## 下载（v0.1.22）
 
 | 平台 | GitHub Release | 国内加速下载 |
 | --- | --- | --- |
-| Linux x86_64 | [Ait-0.1.21-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.21/Ait-0.1.21-daemon-linux-x64.tar.gz) | [COS 下载](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.21/Ait-0.1.21-daemon-linux-x64.tar.gz) |
-| macOS Apple Silicon | [Ait-0.1.21-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.21/Ait-0.1.21-daemon-macos-arm64.tar.gz) | [COS 下载](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.21/Ait-0.1.21-daemon-macos-arm64.tar.gz) |
+| Linux x86_64 | [Ait-0.1.22-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.22/Ait-0.1.22-daemon-linux-x64.tar.gz) | [COS 下载](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.22/Ait-0.1.22-daemon-linux-x64.tar.gz) |
+| macOS Apple Silicon | [Ait-0.1.22-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.22/Ait-0.1.22-daemon-macos-arm64.tar.gz) | [COS 下载](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.22/Ait-0.1.22-daemon-macos-arm64.tar.gz) |
 
-两个地址的文件完全相同。校验文件 `SHA256SUMS` 只在 [GitHub Release](https://github.com/ait-app/ait/releases/tag/v0.1.21) 发布。其他版本可在 [全部 Release](https://github.com/ait-app/ait/releases) 中找到同名归档。
+两个地址的文件完全相同。校验文件 `SHA256SUMS` 只在 [GitHub Release](https://github.com/ait-app/ait/releases/tag/v0.1.22) 发布。其他版本可在 [全部 Release](https://github.com/ait-app/ait/releases) 中找到同名归档。
 
 ## 安装
 
@@ -46,7 +46,7 @@ order: 5.5
 ### Linux
 
 ```sh
-VERSION=0.1.21
+VERSION=0.1.22
 ASSET="Ait-${VERSION}-daemon-linux-x64.tar.gz"
 curl -fLO "https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v${VERSION}/${ASSET}"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
@@ -59,7 +59,7 @@ ait-daemon --version
 ### macOS
 
 ```sh
-VERSION=0.1.21
+VERSION=0.1.22
 ASSET="Ait-${VERSION}-daemon-macos-arm64.tar.gz"
 curl -fLO "https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v${VERSION}/${ASSET}"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
@@ -80,14 +80,14 @@ ait-daemon --version
 
 ```sh
 ait-daemon login
-ait-daemon run --headless
+ait-daemon run
 ```
 
 `login` 会在终端显示网页地址和验证码。在任意设备的浏览器打开地址，登录 Ait 账户，输入验证码并确认这台机器。
 
 在线主机列表默认使用系统 hostname 作为这台机器的名称。需要指定其他名称时，在登录时加上 `--name`，例如 `ait-daemon login --name my-server`。
 
-授权完成后，`run --headless` 连接官方账户中心 `https://aitapp.cn/api`，并在本机监听 `127.0.0.1:7316`。以后重新启动会自动恢复授权，不需要再次登录。随后在其他设备登录同一账户，从在线主机列表选择这台主机，步骤见[连接与数据](/zh/docs/connection/)。
+授权完成后，`run` 连接官方账户中心 `https://aitapp.cn/api`，并在本机监听 `127.0.0.1:7316`。以后重新启动会自动恢复授权，不需要再次登录。随后在其他设备登录同一账户，从在线主机列表选择这台主机，步骤见[连接与数据](/zh/docs/connection/)。
 
 不方便打开浏览器时，也可以在网页的 Host 详情中签发一次性接入令牌，然后通过标准输入登录：
 
@@ -105,7 +105,7 @@ ait-daemon status --json
 
 ## 保持运行
 
-`ait-daemon run --headless` 在前台运行，关闭终端或 SSH 断开后会随之退出。
+`ait-daemon run` 在前台运行，关闭终端或 SSH 断开后会随之退出。
 
 ### 推荐：在 tmux 中运行
 
@@ -113,7 +113,7 @@ ait-daemon status --json
 
 ```sh
 tmux new -s ait-daemon
-ait-daemon run --headless
+ait-daemon run
 ```
 
 按 `Ctrl-b` 再按 `d` 离开会话，daemon 保持运行。之后用 `tmux attach -t ait-daemon` 回到会话，在会话中按 `Ctrl-c` 停止。没有安装 tmux 时，Linux 使用发行版的包管理器安装（例如 `sudo apt install tmux`），macOS 使用 `brew install tmux`。
@@ -131,7 +131,7 @@ cat > ~/.config/systemd/user/ait-daemon.service <<'EOF'
 Description=Ait daemon
 
 [Service]
-ExecStart=/usr/local/bin/ait-daemon run --headless
+ExecStart=/usr/local/bin/ait-daemon run
 Restart=on-failure
 RestartSec=5
 Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin:/bin
@@ -162,7 +162,6 @@ cat > ~/Library/LaunchAgents/com.ait-app.daemon.plist <<EOF
   <array>
     <string>/usr/local/bin/ait-daemon</string>
     <string>run</string>
-    <string>--headless</string>
   </array>
   <key>EnvironmentVariables</key>
   <dict>
@@ -186,7 +185,7 @@ systemd 和 launchd 不会读取 `~/.bashrc`、`~/.zshrc` 等 shell 配置，PAT
 
 | 运行方式 | 停止 | 启动 |
 | --- | --- | --- |
-| tmux | 在会话中按 `Ctrl-c` | 在会话中运行 `ait-daemon run --headless` |
+| tmux | 在会话中按 `Ctrl-c` | 在会话中运行 `ait-daemon run` |
 | systemd | `systemctl --user stop ait-daemon` | `systemctl --user start ait-daemon` |
 | launchd | `launchctl bootout "gui/$(id -u)/com.ait-app.daemon"` | `launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.ait-app.daemon.plist` |
 

@@ -18,21 +18,21 @@ export AIT_SERVER_TOKEN="$(openssl rand -hex 32)"
 cargo run -p daemon --bin daemon -- --listen 127.0.0.1:7316
 ```
 
-这种普通启动模式从 `AIT_SERVER_TOKEN` 读取凭据，要求 32–256 字节可见 ASCII，无空格。不会从命令行、URL、TOML 或 `.env` 自动加载本地 API 凭据。下面的无人值守模式有独立的自动生成与持久保存机制。
+此示例显式设置本地 API 凭据。所有启动方式都优先使用 `AIT_SERVER_TOKEN`，要求 32–256 字节可见 ASCII、无空格；未设置时自动生成并复用 `<data-dir>/local-api.token`（权限 `0600`）。不会从命令行、URL、TOML 或 `.env` 自动加载本地 API 凭据。
 
 ## 无人值守模式
 
-无人值守模式（`run --headless`）让 Linux 或 macOS 主机不启动桌面界面也能接入账户中继。推荐使用已发布的[独立 daemon](/zh/docs/daemon/)，该文档包含下载、校验、安装、运行，以及用 tmux、systemd 或 launchd 保持运行的方法。也可以从 Ait 源码根目录构建并运行：
+`run` 让 Linux 或 macOS 主机不启动桌面界面也能接入账户中继。推荐使用已发布的[独立 daemon](/zh/docs/daemon/)，该文档包含下载、校验、安装、运行，以及用 tmux、systemd 或 launchd 保持运行的方法。也可以从 Ait 源码根目录构建并运行：
 
 ```sh
 cargo build --locked --release -p daemon --bin daemon
 ./target/release/daemon login
-./target/release/daemon run --headless
+./target/release/daemon run
 ```
 
-使用同一个系统用户和数据目录完成登录与运行。首次登录在终端显示网页地址和验证码，在浏览器中完成授权；以后启动 `run --headless` 会恢复有效的机器授权。登录或退出前，先停止使用同一数据目录的 daemon。
+使用同一个系统用户和数据目录完成登录与运行。首次登录在终端显示网页地址和验证码，在浏览器中完成授权；以后启动 `run` 会恢复有效的机器授权。登录或退出前，先停止使用同一数据目录的 daemon。
 
-此模式连接官方账户中心 `https://aitapp.cn/api`，需要中心提供机器授权服务。未设置 `AIT_SERVER_TOKEN` 时，首次启动生成并保存 `<data-dir>/local-api.token`，后续启动复用。显式环境变量优先，但不覆盖该文件；本地令牌与机器授权是不同凭据。
+机器授权连接官方账户中心 `https://aitapp.cn/api`，需要中心提供机器授权服务。未设置 `AIT_SERVER_TOKEN` 时，首次启动生成并保存 `<data-dir>/local-api.token`，后续启动复用。显式环境变量优先，但不覆盖该文件；本地令牌与机器授权是不同凭据。
 
 长时间后台运行使用系统已有的进程管理方式。daemon 没有 `service install` 子命令；配置与重新授权步骤见[无人值守 daemon 手册](https://github.com/ait-app/ait/blob/main/docs/operations/headless-daemon.md)。
 
@@ -68,7 +68,7 @@ curl -H "Authorization: Bearer $AIT_SERVER_TOKEN" \
   http://127.0.0.1:7316/v1/server/info
 ```
 
-`/healthz` 是存活检查，`/readyz` 是就绪检查。服务信息与 WebSocket 需要认证，客户端还需完成协议协商。上面的认证示例使用普通启动模式的环境变量；无人值守模式自动生成令牌时，请使用该数据目录中保存的本地 API 令牌。
+`/healthz` 是存活检查，`/readyz` 是就绪检查。服务信息与 WebSocket 需要认证，客户端还需完成协议协商。上面的认证示例使用显式设置的环境变量；未设置该变量时，请使用数据目录中保存的本地 API 令牌。
 
 ## 指定 Provider 程序
 
