@@ -12,11 +12,11 @@ Every Ait stable release includes standalone daemon archives containing a single
 This page uses two terms:
 
 - **Standalone daemon** is how you get it: the `ait-daemon` program, downloaded separately instead of installed with the desktop app. It is the same program the desktop app bundles.
-- **Unattended mode** (headless) is how it runs: authorize the machine with `ait-daemon login`, then start it with `ait-daemon run --headless`. The daemon stays online through account relay without anyone at the machine and reconnects automatically after restarts.
+- **Unattended operation** is how it runs: authorize the machine with `ait-daemon login`, then start it with `ait-daemon run`. The daemon stays online through account relay without anyone at the machine and reconnects automatically after restarts.
 
-Hosts without a desktop usually combine the two, and this page describes that setup. The standalone daemon can also start in ordinary mode without `--headless`; it then needs `AIT_SERVER_TOKEN` and supports direct connections only. See [Server configuration](/en/docs/configuration/).
+Starting with 0.1.22, direct startup, `run`, and desktop startup use the same lifecycle. The local API remains available before sign-in, and the daemon maintains online connections after machine authorization. Remove `--headless` from older startup scripts. See [Server configuration](/en/docs/configuration/) for the listener, data directory, and local API token.
 
-Computers with the desktop app do not need it. The desktop app includes the daemon, manages its lifecycle, and does not use unattended mode.
+Computers with the desktop app do not need it. The desktop app includes the daemon and manages its lifecycle, using the same machine authorization and online connection flow.
 
 ## Requirements
 
@@ -30,14 +30,14 @@ You also need:
 - An Ait account. Use the same account on the clients that connect to this host.
 - At least one agent CLI installed and signed in on this host. See [Agent setup](/en/docs/providers/).
 
-## Download (v0.1.21)
+## Download (v0.1.22)
 
 | Platform | GitHub release | China download mirror |
 | --- | --- | --- |
-| Linux x86_64 | [Ait-0.1.21-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.21/Ait-0.1.21-daemon-linux-x64.tar.gz) | [COS download](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.21/Ait-0.1.21-daemon-linux-x64.tar.gz) |
-| macOS Apple Silicon | [Ait-0.1.21-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.21/Ait-0.1.21-daemon-macos-arm64.tar.gz) | [COS download](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.21/Ait-0.1.21-daemon-macos-arm64.tar.gz) |
+| Linux x86_64 | [Ait-0.1.22-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.22/Ait-0.1.22-daemon-linux-x64.tar.gz) | [COS download](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.22/Ait-0.1.22-daemon-linux-x64.tar.gz) |
+| macOS Apple Silicon | [Ait-0.1.22-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.22/Ait-0.1.22-daemon-macos-arm64.tar.gz) | [COS download](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.22/Ait-0.1.22-daemon-macos-arm64.tar.gz) |
 
-Both locations serve identical files. The `SHA256SUMS` checksum file is published only on the [GitHub release](https://github.com/ait-app/ait/releases/tag/v0.1.21). Archives for other versions use the same names on [all releases](https://github.com/ait-app/ait/releases).
+Both locations serve identical files. The `SHA256SUMS` checksum file is published only on the [GitHub release](https://github.com/ait-app/ait/releases/tag/v0.1.22). Archives for other versions use the same names on [all releases](https://github.com/ait-app/ait/releases).
 
 ## Install
 
@@ -46,7 +46,7 @@ These commands download the archive from GitHub, verify its checksum, and instal
 ### Linux
 
 ```sh
-VERSION=0.1.21
+VERSION=0.1.22
 ASSET="Ait-${VERSION}-daemon-linux-x64.tar.gz"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/${ASSET}"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
@@ -59,7 +59,7 @@ ait-daemon --version
 ### macOS
 
 ```sh
-VERSION=0.1.21
+VERSION=0.1.22
 ASSET="Ait-${VERSION}-daemon-macos-arm64.tar.gz"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/${ASSET}"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
@@ -80,14 +80,14 @@ Authorize this machine first, then start the daemon in unattended mode. Run thes
 
 ```sh
 ait-daemon login
-ait-daemon run --headless
+ait-daemon run
 ```
 
 `login` prints a web address and a verification code. Open the address in a browser on any device, sign in to your Ait account, enter the code, and confirm this machine.
 
 The online host list uses the system hostname as this machine's name by default. To use a different name, add `--name` when signing in, for example `ait-daemon login --name my-server`.
 
-After authorization, `run --headless` connects to the official account service at `https://aitapp.cn/api` and listens locally on `127.0.0.1:7316`. Later restarts restore the authorization without signing in again. Sign in to the same account on another device and choose this host from the online host list; see [Connections & data](/en/docs/connection/).
+After authorization, `run` connects to the official account service at `https://aitapp.cn/api` and listens locally on `127.0.0.1:7316`. Later restarts restore the authorization without signing in again. Sign in to the same account on another device and choose this host from the online host list; see [Connections & data](/en/docs/connection/).
 
 If opening a browser is inconvenient, issue a single-use enrollment token from the host details page on the web, then sign in through standard input:
 
@@ -105,7 +105,7 @@ The default data directory is `~/.ait-server`. It holds the machine authorizatio
 
 ## Keep it running
 
-`ait-daemon run --headless` runs in the foreground and exits when you close the terminal or the SSH connection drops.
+`ait-daemon run` runs in the foreground and exits when you close the terminal or the SSH connection drops.
 
 ### Recommended: run it in tmux
 
@@ -113,7 +113,7 @@ tmux is the simplest option. The daemon keeps working after you disconnect, and 
 
 ```sh
 tmux new -s ait-daemon
-ait-daemon run --headless
+ait-daemon run
 ```
 
 Press `Ctrl-b`, then `d`, to detach; the daemon keeps running. Reattach later with `tmux attach -t ait-daemon`, and press `Ctrl-c` in the session to stop it. If tmux is not installed, use your distribution's package manager on Linux (for example, `sudo apt install tmux`) or `brew install tmux` on macOS.
@@ -131,7 +131,7 @@ cat > ~/.config/systemd/user/ait-daemon.service <<'EOF'
 Description=Ait daemon
 
 [Service]
-ExecStart=/usr/local/bin/ait-daemon run --headless
+ExecStart=/usr/local/bin/ait-daemon run
 Restart=on-failure
 RestartSec=5
 Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin:/bin
@@ -162,7 +162,6 @@ cat > ~/Library/LaunchAgents/com.ait-app.daemon.plist <<EOF
   <array>
     <string>/usr/local/bin/ait-daemon</string>
     <string>run</string>
-    <string>--headless</string>
   </array>
   <key>EnvironmentVariables</key>
   <dict>
@@ -186,7 +185,7 @@ systemd and launchd do not read shell configuration such as `~/.bashrc` or `~/.z
 
 | Method | Stop | Start |
 | --- | --- | --- |
-| tmux | Press `Ctrl-c` in the session | Run `ait-daemon run --headless` in the session |
+| tmux | Press `Ctrl-c` in the session | Run `ait-daemon run` in the session |
 | systemd | `systemctl --user stop ait-daemon` | `systemctl --user start ait-daemon` |
 | launchd | `launchctl bootout "gui/$(id -u)/com.ait-app.daemon"` | `launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.ait-app.daemon.plist` |
 

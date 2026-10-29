@@ -49,12 +49,12 @@ Ait 复用 Agent 自己的登录与模型配置，不包含模型订阅。Agent 
 
 ```sh
 ait-daemon login
-ait-daemon run --headless
+ait-daemon run
 ```
 
 首次授权时，终端会显示网页地址和验证码。在浏览器中打开地址，登录 Ait 账户并确认这台机器。启动后，打开 [Ait Web 界面](https://aitapp.cn/)，登录同一账户，从在线主机列表选择它。
 
-`run --headless` 在前台运行，请保持进程运行。长期在线可按 [后台常驻说明](/zh/docs/daemon/#保持运行)配置 systemd 或 launchd。Agent CLI 和项目文件也应准备在这台主机上。
+`run` 在前台运行，请保持进程运行。长期在线可按 [后台常驻说明](/zh/docs/daemon/#保持运行)配置 systemd 或 launchd。Agent CLI 和项目文件也应准备在这台主机上。
 
 ## 2. 接入 Agent
 
