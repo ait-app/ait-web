@@ -47,15 +47,8 @@ Google Play 封测名单使用 Google 账号，Ait 应用内使用 Ait 账户，
 
 继续阅读 [连接与数据](/zh/docs/connection/) 和 [平台支持](/zh/docs/platforms/)，选择适合你的连接方式。
 
-## 从源码运行
+## 参与开发
 
-本地开发需要 Git、Node.js，以及 Ait 仓库指定的 Rust 工具链。在终端运行：
+想修正文档、复现问题或改进代码，可以从[参与贡献](/zh/docs/contributing/)开始，了解仓库分工、工程规范、验证范围与 Pull Request 流程。
 
-```sh
-git clone https://github.com/ait-app/ait.git
-cd ait
-npm ci
-npm run dev:desktop
-```
-
-桌面开发入口会构建共享包、daemon 与 Electron 主进程，然后启动桌面应用。Web 的开发命令见 [平台支持](/zh/docs/platforms/)。
+需要从源码运行时，阅读[本地开发](/zh/docs/development/)：准备 Node.js 24、仓库指定的 Rust 工具链、CMake 与系统构建工具，再选择桌面、Web 或移动端入口。官网文档使用独立的 `ait-web` 仓库，该指南也包含本地预览方法。

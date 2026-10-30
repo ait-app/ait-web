@@ -39,6 +39,6 @@ export const categories = {
   en: { product: 'Product', engineering: 'Engineering', guide: 'Guides' },
 };
 export const groups = {
-  zh: { quickstart: '快速上手', start: '开始使用', workflow: '工作流', reference: '参考与配置' },
-  en: { quickstart: 'Quick start', start: 'Getting started', workflow: 'Workflows', reference: 'Reference' },
+  zh: { quickstart: '快速上手', start: '开始使用', workflow: '工作流', reference: '参考与配置', development: '参与开发' },
+  en: { quickstart: 'Quick start', start: 'Getting started', workflow: 'Workflows', reference: 'Reference', development: 'Development' },
 };

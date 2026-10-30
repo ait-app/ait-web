@@ -7,7 +7,7 @@ group: reference
 order: 6
 ---
 
-桌面应用会管理它自带的 daemon。只有独立服务、源码开发或自定义连接需要阅读下面的配置。
+macOS / Linux 桌面应用会管理它自带的 daemon，Windows 客户端连接远端主机。本页依据当前源码，适用于独立服务、源码开发或自定义连接；工具链与启动入口见[本地开发](/zh/docs/development/)。旧版发布包的命令差异见[独立 daemon](/zh/docs/daemon/)。
 
 ## 本机或直接连接服务
 
@@ -22,7 +22,7 @@ cargo run -p daemon --bin daemon -- --listen 127.0.0.1:7316
 
 ## 无人值守模式
 
-`run` 让 Linux 或 macOS 主机不启动桌面界面也能接入账户中继。推荐使用已发布的[独立 daemon](/zh/docs/daemon/)，该文档包含下载、校验、安装、运行，以及用 tmux、systemd 或 launchd 保持运行的方法。也可以从 Ait 源码根目录构建并运行：
+独立 daemon 与桌面内置 daemon 共用授权和节点发布流程。Linux 或 macOS 主机登录后执行 `run` 即可保持在线；当前源码已移除 `--headless`。推荐使用已发布的[独立 daemon](/zh/docs/daemon/)，该文档包含下载、校验、安装、运行，以及用 tmux、systemd 或 launchd 保持运行的方法。也可以从 Ait 源码根目录构建并运行：
 
 ```sh
 cargo build --locked --release -p daemon --bin daemon
@@ -32,7 +32,7 @@ cargo build --locked --release -p daemon --bin daemon
 
 使用同一个系统用户和数据目录完成登录与运行。首次登录在终端显示网页地址和验证码，在浏览器中完成授权；以后启动 `run` 会恢复有效的机器授权。登录或退出前，先停止使用同一数据目录的 daemon。
 
-机器授权连接官方账户中心 `https://aitapp.cn/api`，需要中心提供机器授权服务。未设置 `AIT_SERVER_TOKEN` 时，首次启动生成并保存 `<data-dir>/local-api.token`，后续启动复用。显式环境变量优先，但不覆盖该文件；本地令牌与机器授权是不同凭据。
+授权后的 daemon 连接官方账户中心 `https://aitapp.cn/api`，需要中心提供机器授权服务。未设置 `AIT_SERVER_TOKEN` 时，首次启动生成并保存 `<data-dir>/local-api.token`，后续启动复用。显式环境变量优先，但不覆盖该文件；本地令牌与机器授权是不同凭据。
 
 长时间后台运行使用系统已有的进程管理方式。daemon 没有 `service install` 子命令；配置与重新授权步骤见[无人值守 daemon 手册](https://github.com/ait-app/ait/blob/main/docs/operations/headless-daemon.md)。
 
@@ -78,6 +78,9 @@ export AIT_SERVER_CLAUDE_BIN=/absolute/path/to/claude
 export AIT_SERVER_OPENCODE_BIN=/absolute/path/to/opencode
 export AIT_SERVER_DEEPSEEK_HARNESS_BIN=/absolute/path/to/dsh
 export AIT_SERVER_ANTIGRAVITY_BIN=/absolute/path/to/agy
+export AIT_SERVER_PI_BIN=/absolute/path/to/pi
+export AIT_SERVER_OMP_BIN=/absolute/path/to/omp
+export AIT_SERVER_MINIMAX_CODE_BIN=/absolute/path/to/mcode
 ```
 
 只设置需要的变量，替换示例路径，并重启 daemon 使其生效。Provider 的认证与能力说明见 [Agent 接入](/zh/docs/providers/)。
@@ -86,4 +89,4 @@ export AIT_SERVER_ANTIGRAVITY_BIN=/absolute/path/to/agy
 
 启用 MCP 的 daemon 在自身监听地址提供 `/mcp/agents`，例如 `http://127.0.0.1:7316/mcp/agents`。外部 MCP 客户端需显式配置地址，并通过 `Authorization: Bearer` 请求头提供本地 API 令牌。
 
-此入口可用于管理 Agent、工作区、终端与定时任务；它不会自动注入每个 Agent 的原生配置。连接方法与工具参数见 [MCP 手册](https://github.com/ait-app/ait/blob/main/docs/operations/mcp.md)。
+此入口可管理 Agent、工作区、终端与定时任务。新配置默认开启 MCP 和 Agent 注入：Codex、Claude、DSH ACP 与 MiniMax Code 可在打开原生会话时获得运行时专用连接；已有显式关闭配置保持关闭，其他 Provider 仍沿用各自配置。外部 MCP 客户端按上面的方式显式连接。自动注入的生效时机、可选 Unix socket 和工具参数见 [MCP 手册](https://github.com/ait-app/ait/blob/main/docs/operations/mcp.md)。

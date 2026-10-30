@@ -37,7 +37,7 @@ Google Play 版本面向 18 岁及以上用户；部分地区的内容分级可�
 
 macOS Apple Silicon 用户也可以使用[国内加速下载（DMG，v0.1.22）](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.22/Ait-0.1.22-macos-arm64.dmg)。
 
-桌面支持账户登录与在线主机连接，也可以连接本机工作空间。目前下载页不提供未经发布验证的 Windows 或 Intel Mac 安装包。
+macOS / Linux 桌面支持账户登录、在线主机和本机工作区。当前源码还支持 Windows x64 桌面客户端：它不附带 daemon，通过账户、TCP 或 SSH 连接远端主机。构建方式见[本地开发](/zh/docs/development/)与[桌面说明](https://github.com/ait-app/ait/blob/main/apps/desktop/README.md)；可下载的平台与版本以对应 Release 资产为准。
 
 没有桌面环境的 Linux x86_64 或 Apple Silicon macOS 主机，可以安装[独立 daemon](/zh/docs/daemon/)，以无人值守模式接入账户。
 
@@ -67,27 +67,18 @@ iOS simulator 可通过 loopback 访问宿主服务。真机直接连接时需�
 
 打开 **[Ait Web 界面](https://aitapp.cn/)**，登录与桌面端相同的 Ait 账户，即可在浏览器中连接在线主机、继续工作。无需在当前设备安装客户端；运行 Agent 的工作电脑仍需保持在线。
 
-这里的宣传网站与 Agent Web 客户端分别运行。账户控制台可以在 `/client/` 提供 Web 客户端；此构建共享控制台登录，使用在线服务连接。说明见 [Web 控制台客户端](https://github.com/ait-app/ait/blob/main/docs/decisions/clients/adr-132-web-console-client.md)。
+这里的宣传网站与 Agent Web 客户端分别运行。当前 Web 客户端以独立静态镜像部署在网站根路径 `/`，共享同源登录和 `/api`，管理控制台位于 `/dash`。部署边界见 [ADR-188](https://github.com/ait-app/ait/blob/main/docs/decisions/clients/adr-188-standalone-web-client-image.md)。
 
-运行源码中的本地 Web 客户端，请在 Ait 仓库根目录执行：
-
-```sh
-npm ci
-export AIT_SERVER_TOKEN="$(openssl rand -hex 32)"
-npm run dev:mobile
-```
-
-打开 `http://localhost:8081`，添加直接连接，Host 填写 `127.0.0.1`，端口 `7316`，令牌填写当前终端的 `AIT_SERVER_TOKEN`。
-
-开发脚本构建共享依赖和 daemon，配置本机页面来源，再启动 Expo Web。此本地开发构建使用直接连接；控制台账户登录需要控制台专用构建。认证与来源配置见[服务配置](/zh/docs/configuration/)。
+本地 Web 开发使用直接连接；环境准备、启动命令、令牌和浏览器来源配置，以及托管构建入口，统一见[本地开发](/zh/docs/development/)。
 
 ## 能力速查
 
-| 平台 | 本机运行 daemon | 账户 / Relay | 直接连接 |
+| 平台 | 本机运行 daemon | 账户连接 | 直接连接 |
 | --- | --- | --- | --- |
 | macOS / Linux 桌面 | 支持 | 支持 | 支持 |
+| Windows 桌面（当前源码） | 不支持 | 支持 | 支持 |
 | 独立 daemon（Linux / macOS） | 支持 | 支持 | 支持 |
 | Android | 不支持 | 支持 | 支持 |
 | iOS / iPadOS | 不支持 | 支持 | 支持 |
-| Web 控制台客户端 | 不支持 | 支持，控制台构建 | 不支持 |
+| 托管 Web 客户端 | 不支持 | 支持，控制台构建 | 不支持 |
 | 本地 Web 客户端 | 需要独立服务 | 不支持 | 支持 |

@@ -7,7 +7,7 @@ group: reference
 order: 6
 ---
 
-The desktop app manages its bundled daemon. The configuration below is for standalone services, source development, or custom connections.
+The macOS / Linux desktop app manages its bundled daemon; Windows connects to remote hosts. This page follows the current source and covers standalone services, source development, and custom connections. See [Local development](/en/docs/development/) for the toolchain and startup entry points, and [Standalone daemon](/en/docs/daemon/) for differences in older releases.
 
 ## Local or direct-connection service
 
@@ -22,7 +22,7 @@ This example explicitly sets the local API credential. All startup paths prefer 
 
 ## Unattended mode
 
-`run` lets a Linux or macOS machine join account relay without running the desktop interface. We recommend the released [standalone daemon](/en/docs/daemon/), whose guide covers download, verification, installation, running, and keeping it running with tmux, systemd, or launchd. You can also build and run from the Ait source root:
+Standalone and desktop-bundled daemons share machine authorization and host publication. On Linux or macOS, sign in and use `run` to keep the host online. The current source has removed `--headless`. We recommend the released [standalone daemon](/en/docs/daemon/), whose guide covers download, verification, installation, running, and keeping it running with tmux, systemd, or launchd. You can also build and run from the Ait source root:
 
 ```sh
 cargo build --locked --release -p daemon --bin daemon
@@ -32,7 +32,7 @@ cargo build --locked --release -p daemon --bin daemon
 
 Use the same system user and data directory for sign-in and execution. The first sign-in displays a web address and verification code; complete authorization in a browser. Later `run` starts restore valid machine authorization. Stop a daemon using the same data directory before signing in or out.
 
-Machine authorization connects to the official account center at `https://aitapp.cn/api` and requires its machine authorization service. Without `AIT_SERVER_TOKEN`, the first start generates `<data-dir>/local-api.token` and subsequent starts reuse it. An explicit environment variable takes priority without overwriting that file. The local token and machine authorization are separate credentials.
+An authorized daemon connects to the official account center at `https://aitapp.cn/api` and requires its machine authorization service. Without `AIT_SERVER_TOKEN`, the first start generates `<data-dir>/local-api.token` and subsequent starts reuse it. An explicit environment variable takes priority without overwriting that file. The local token and machine authorization are separate credentials.
 
 Use your operating system’s process manager for persistent background operation. There is no `service install` subcommand. See the [headless daemon manual](https://github.com/ait-app/ait/blob/main/docs/operations/headless-daemon.md) for configuration and reauthorization.
 
@@ -78,6 +78,9 @@ export AIT_SERVER_CLAUDE_BIN=/absolute/path/to/claude
 export AIT_SERVER_OPENCODE_BIN=/absolute/path/to/opencode
 export AIT_SERVER_DEEPSEEK_HARNESS_BIN=/absolute/path/to/dsh
 export AIT_SERVER_ANTIGRAVITY_BIN=/absolute/path/to/agy
+export AIT_SERVER_PI_BIN=/absolute/path/to/pi
+export AIT_SERVER_OMP_BIN=/absolute/path/to/omp
+export AIT_SERVER_MINIMAX_CODE_BIN=/absolute/path/to/mcode
 ```
 
 Set only the variables you need, replace the example paths, and restart the daemon. See [Agent setup](/en/docs/providers/) for authentication and capabilities.
@@ -86,4 +89,4 @@ Set only the variables you need, replace the example paths, and restart the daem
 
 With MCP enabled, the daemon provides `/mcp/agents` on its own listener, for example `http://127.0.0.1:7316/mcp/agents`. Configure the endpoint explicitly in your MCP client and supply the local API token in an `Authorization: Bearer` header.
 
-This endpoint can manage agents, workspaces, terminals, and schedules. It is not automatically injected into each agent’s native configuration. See the [MCP manual](https://github.com/ait-app/ait/blob/main/docs/operations/mcp.md) for connection details and tool parameters.
+This endpoint manages agents, workspaces, terminals, and schedules. New configurations enable MCP and agent injection by default: Codex, Claude, DSH ACP, and MiniMax Code can receive a dedicated runtime connection when a native session opens. Existing explicit opt-outs remain disabled, and other providers keep their own configuration. External MCP clients connect explicitly as described above. See the [MCP manual](https://github.com/ait-app/ait/blob/main/docs/operations/mcp.md) for activation timing, optional Unix sockets, and tool parameters.

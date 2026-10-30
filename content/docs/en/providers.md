@@ -1,6 +1,6 @@
 ---
 title: Agent setup
-description: Set up Codex, Claude Code, OpenCode, DeepSeek Harness, and Antigravity with native sign-ins and model settings.
+description: Connect Codex, Claude Code, OpenCode, DeepSeek Harness, Antigravity, Pi, Oh My Pi, and MiniMax Code with native sign-ins and configuration.
 lang: en
 slug: providers
 group: start
@@ -8,6 +8,8 @@ order: 3
 ---
 
 Install and authenticate your agents on the working computer, then select one when creating an Ait session. Phones and the Web app connect to that computer; they do not need their own agent CLI. Ait does not include a model subscription. Models, quotas, and costs depend on the services you configure.
+
+Provider availability depends on the host daemon and native CLI versions. Current source documentation does not mean every store test build includes each capability.
 
 ## Codex
 
@@ -61,6 +63,24 @@ Models come from `agy models`. Multi-turn text, text attachments, tool progress,
 
 Image input, guidance during an active turn, full native history import, and rewind are not integrated. See the [Antigravity CLI manual](https://github.com/ait-app/ait/blob/main/docs/operations/antigravity.md) for installation, permissions, and diagnostics.
 
+## Pi
+
+Install and configure Pi on the working host, then confirm that `pi --version` and interactive `pi` work. Ait uses `pi --mode rpc` and requires Pi 1.2 or newer. The verified baseline is `@earendil-works/pi-coding-agent` 1.2.0; older 0.x RPC versions are incompatible.
+
+Models come from Pi’s catalog with `provider/model` identifiers. Ait supports conversations, images accepted by the native model, tool progress, cancellation, session recovery, and native history discovery, import, and explicit refresh. Pi owns authentication, tools, extensions, project trust, and session files. Ait does not expose Pi mode selection or native rewind. Stop other writers before importing the same session. See the [Pi manual](https://github.com/ait-app/ait/blob/main/docs/operations/pi.md).
+
+## Oh My Pi
+
+Oh My Pi (`omp`) and Pi are separate providers with different installations, configuration, and sessions. Install and sign in on the working host, confirm `omp --version` works, then select **Oh My Pi** in Ait. The current documentation uses official 18.12.6 RPC v2 as its compatibility baseline.
+
+Ait connects its ACP bridge to official `omp --mode rpc-ui`. It supports dynamic model and reasoning options, native approvals and structured questions, image and text attachments, subagent display, session import, and recovery. OMP continues to manage tools, MCP, and extensions. Native permissions are not an operating-system sandbox. See the [Oh My Pi manual](https://github.com/ait-app/ait/blob/main/docs/operations/oh-my-pi.md) for capabilities and limitations.
+
+## MiniMax Code
+
+Ait uses MiniMax Code’s `mcode acp`, not the `mmx` multimedia/API CLI. Follow the [MiniMax Code manual](https://github.com/ait-app/ait/blob/main/docs/operations/minimax-code.md) to prepare a supported Node.js version, install the native CLI, and run `mcode login`. Check `mcode --version`, restart the daemon, and refresh the provider catalog.
+
+Select **MiniMax Code** to use models, thinking levels, working modes, and permissions from the signed-in native program. Ait supports text and images, streaming responses, tool progress, approvals, stopping, and Ait session recovery. External session import, rewind, and realtime voice are not available. The manual records validation with 0.7.1; select models actually available in the catalog, refreshing and reselecting when it changes.
+
 ## Select executable paths
 
 If the desktop process cannot find a CLI, or you use a nonstandard installation, set the appropriate variable before starting the daemon or development entry. Set only the variables you need and replace each example with a real executable path:
@@ -71,6 +91,9 @@ export AIT_SERVER_CLAUDE_BIN=/absolute/path/to/claude
 export AIT_SERVER_OPENCODE_BIN=/absolute/path/to/opencode
 export AIT_SERVER_DEEPSEEK_HARNESS_BIN=/absolute/path/to/dsh
 export AIT_SERVER_ANTIGRAVITY_BIN=/absolute/path/to/agy
+export AIT_SERVER_PI_BIN=/absolute/path/to/pi
+export AIT_SERVER_OMP_BIN=/absolute/path/to/omp
+export AIT_SERVER_MINIMAX_CODE_BIN=/absolute/path/to/mcode
 ```
 
 These variables select programs; they do not store model service credentials. Restart the corresponding daemon after changing them. Reopening a browser or phone screen does not change the working host’s environment.
