@@ -9,7 +9,7 @@ order: 5.5
 
 Every Ait stable release includes standalone daemon archives containing a single executable, `ait-daemon`. Use it on hosts that do not need a desktop interface, such as cloud servers, build machines, or an always-on Mac mini. Once it runs in unattended mode and signs in to your Ait account, the host appears in the online host list, and you can connect to it from the desktop, Android, iOS, or Web clients.
 
-> **Version scope:** the download and service examples below target **v0.1.22** and use `run`. Older versions such as v0.1.20 used `run --headless`. Follow the migration below when upgrading and keep startup arguments consistent with your version.
+> **Version scope:** the download and service examples below target **v0.1.23** and use `run`. Older versions such as v0.1.20 used `run --headless`. Follow the migration below when upgrading and keep startup arguments consistent with your version.
 
 This page uses two terms:
 
@@ -47,14 +47,14 @@ You also need:
 - An Ait account. Use the same account on the clients that connect to this host.
 - At least one agent CLI installed and signed in on this host. See [Agent setup](/en/docs/providers/).
 
-## Download (v0.1.22)
+## Download (v0.1.23)
 
 | Platform | GitHub release | China download mirror |
 | --- | --- | --- |
-| Linux x86_64 | [Ait-0.1.22-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.22/Ait-0.1.22-daemon-linux-x64.tar.gz) | [COS download](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.22/Ait-0.1.22-daemon-linux-x64.tar.gz) |
-| macOS Apple Silicon | [Ait-0.1.22-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.22/Ait-0.1.22-daemon-macos-arm64.tar.gz) | [COS download](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.22/Ait-0.1.22-daemon-macos-arm64.tar.gz) |
+| Linux x86_64 | [Ait-0.1.23-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.23/Ait-0.1.23-daemon-linux-x64.tar.gz) | [COS download](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.23/Ait-0.1.23-daemon-linux-x64.tar.gz) |
+| macOS Apple Silicon | [Ait-0.1.23-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.23/Ait-0.1.23-daemon-macos-arm64.tar.gz) | [COS download](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.23/Ait-0.1.23-daemon-macos-arm64.tar.gz) |
 
-Both locations serve identical files. The `SHA256SUMS` checksum file is published only on the [GitHub release](https://github.com/ait-app/ait/releases/tag/v0.1.22). Archives for other versions use the same names on [all releases](https://github.com/ait-app/ait/releases).
+Both locations serve identical files. The `SHA256SUMS` checksum file is published only on the [GitHub release](https://github.com/ait-app/ait/releases/tag/v0.1.23). Archives for other versions use the same names on [all releases](https://github.com/ait-app/ait/releases).
 
 ## Install
 
@@ -63,7 +63,7 @@ These commands download the archive from GitHub, verify its checksum, and instal
 ### Linux
 
 ```sh
-VERSION=0.1.22
+VERSION=0.1.23
 ASSET="Ait-${VERSION}-daemon-linux-x64.tar.gz"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/${ASSET}"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
@@ -76,7 +76,7 @@ ait-daemon --version
 ### macOS
 
 ```sh
-VERSION=0.1.22
+VERSION=0.1.23
 ASSET="Ait-${VERSION}-daemon-macos-arm64.tar.gz"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/${ASSET}"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
