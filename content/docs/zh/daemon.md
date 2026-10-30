@@ -9,6 +9,8 @@ order: 5.5
 
 每个 Ait 正式版都附带独立 daemon 归档，内含一个可执行文件 `ait-daemon`。它适合云服务器、构建机或常开的 Mac mini 这类不需要桌面界面的工作主机：以无人值守模式运行并登录 Ait 账户后，主机会出现在在线主机列表中，你可以从桌面、Android、iOS 或 Web 客户端连接它。
 
+> **版本范围**：下面的下载与服务配置示例面向 **v0.1.22**，使用 `run`。v0.1.20 等旧版使用 `run --headless`；升级时按下节迁移，不要混用不同版本的启动参数。
+
 本文涉及两个概念：
 
 - **独立 daemon** 是获取方式：不随桌面应用安装、单独下载的 `ait-daemon` 程序。它与桌面应用内置的 daemon 是同一个程序。
@@ -17,6 +19,21 @@ order: 5.5
 从 0.1.22 起，直接启动、`run` 与桌面启动使用同一套流程。未登录时本地 API 仍可使用，机器授权后由 daemon 自动维护在线连接；旧启动脚本需删除 `--headless` 参数。监听、数据目录和本地 API 令牌说明见[服务配置](/zh/docs/configuration/)。
 
 已安装桌面版的电脑不需要单独安装。桌面应用自带 daemon 并管理它的生命周期，机器授权与在线连接使用相同流程。
+
+## 当前源码与升级
+
+当前 daemon 在独立运行和桌面内置运行时使用同一个授权与发布流程：
+
+```sh
+ait-daemon login
+ait-daemon run
+```
+
+`--headless` 已移除。升级到包含该变更的版本后，从 tmux 命令、systemd 的 `ExecStart` 和 launchd 的 `ProgramArguments` 中移除这个参数，并重载对应服务配置。启动前用 `ait-daemon --version` 和 `ait-daemon run --help` 确认版本与参数。
+
+所有启动入口在没有 `AIT_SERVER_TOKEN` 时都会生成并复用 `<data-dir>/local-api.token`。daemon 自主管理机器授权、节点续租和重连；退出客户端不会撤销授权，显式断开主机才会清除授权。源码编译产物名为 `target/release/daemon`。环境准备见[本地开发](/zh/docs/development/)，当前配置见[服务配置](/zh/docs/configuration/)和[无人值守 daemon 手册](https://github.com/ait-app/ait/blob/main/docs/operations/headless-daemon.md)。
+
+以下下载与运行示例采用 v0.1.22；其他版本请使用对应 Release 的资产和参数。
 
 ## 系统要求
 

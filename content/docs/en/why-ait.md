@@ -11,7 +11,7 @@ Bring together the coding agents you know, projects spread across machines, and 
 
 ## Multiple agents, one way to work
 
-Ait supports **Codex, Claude Code, OpenCode, DeepSeek Harness, and Antigravity CLI**. Use different agents in the same interface, choosing the tools, models, and permission options that fit each task.
+Ait supports **Codex, Claude Code, OpenCode, DeepSeek Harness, Antigravity CLI, Pi, Oh My Pi, and MiniMax Code**. Use different agents in the same interface, choosing the tools, models, and permission options that fit each task.
 
 Keep each agent’s existing sign-in and configuration. Use several agents in one project, or choose different tools for different projects, with a consistent way to manage their sessions. See [Agent setup](/en/docs/providers/) for integrations and capabilities.
 
@@ -45,7 +45,7 @@ For parallel changes in one repository, use **Git worktrees** to give tasks sepa
 
 Your working host and connecting device each reach Ait’s **central relay service**. Sign in with the same account to discover and connect to online hosts. No public IP address, router port forwarding, or shared local network is required.
 
-Hosts make outbound connections, reducing dependence on router settings and inbound network configuration. Connection health checks and automatic reconnection help recover from interruptions. Ait also reuses existing connections. When a persistent data tunnel is available, it avoids repeating the host-side connection and handshake, reducing the wait to open a workspace or reconnect.
+Hosts connect outbound, reducing dependence on router and inbound network configuration. Connection keepalives and automatic reconnects help recover interruptions. Current online workspace access uses Hub, while file downloads use a separate channel. See [Connections & data](/en/docs/connection/) for connection methods and recovery conditions.
 
 Simpler setup, reliable connections, and less connection overhead make remote work easier day to day. Actual latency depends on both networks and their distance from the relay. See [Connections & data](/en/docs/connection/) for setup.
 

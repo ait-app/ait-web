@@ -9,6 +9,8 @@ order: 5.5
 
 Every Ait stable release includes standalone daemon archives containing a single executable, `ait-daemon`. Use it on hosts that do not need a desktop interface, such as cloud servers, build machines, or an always-on Mac mini. Once it runs in unattended mode and signs in to your Ait account, the host appears in the online host list, and you can connect to it from the desktop, Android, iOS, or Web clients.
 
+> **Version scope:** the download and service examples below target **v0.1.22** and use `run`. Older versions such as v0.1.20 used `run --headless`. Follow the migration below when upgrading and keep startup arguments consistent with your version.
+
 This page uses two terms:
 
 - **Standalone daemon** is how you get it: the `ait-daemon` program, downloaded separately instead of installed with the desktop app. It is the same program the desktop app bundles.
@@ -17,6 +19,21 @@ This page uses two terms:
 Starting with 0.1.22, direct startup, `run`, and desktop startup use the same lifecycle. The local API remains available before sign-in, and the daemon maintains online connections after machine authorization. Remove `--headless` from older startup scripts. See [Server configuration](/en/docs/configuration/) for the listener, data directory, and local API token.
 
 Computers with the desktop app do not need it. The desktop app includes the daemon and manages its lifecycle, using the same machine authorization and online connection flow.
+
+## Current source and upgrades
+
+Current standalone and desktop-bundled daemons share one authorization and publication flow:
+
+```sh
+ait-daemon login
+ait-daemon run
+```
+
+The `--headless` flag has been removed. After upgrading to a build with this change, remove it from tmux commands, systemd `ExecStart`, and launchd `ProgramArguments`, then reload the service configuration. Check `ait-daemon --version` and `ait-daemon run --help` before starting.
+
+Every startup path generates and reuses `<data-dir>/local-api.token` when `AIT_SERVER_TOKEN` is absent. The daemon owns machine authorization, lease renewal, and reconnects. Quitting a client does not revoke authorization; explicitly disconnecting the host clears it. Source builds produce `target/release/daemon`. See [Local development](/en/docs/development/), [Server configuration](/en/docs/configuration/), and the [daemon manual](https://github.com/ait-app/ait/blob/main/docs/operations/headless-daemon.md) for the current setup.
+
+The download and service examples below use v0.1.22. Use the assets and arguments for your release when running another version.
 
 ## Requirements
 

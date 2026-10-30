@@ -1,6 +1,6 @@
 ---
 title: Agent 接入
-description: 配置 Codex、Claude Code、OpenCode、DeepSeek Harness 和 Antigravity，复用原生登录与模型设置。
+description: 接入 Codex、Claude Code、OpenCode、DeepSeek Harness、Antigravity、Pi、Oh My Pi 与 MiniMax Code，复用原生登录和配置。
 lang: zh
 slug: providers
 group: start
@@ -8,6 +8,8 @@ order: 3
 ---
 
 先在运行 Agent 的工作电脑上安装并认证所需工具，再在 Ait 新建会话时选择它。手机和网页连接这台电脑，无需在手机上安装 Agent CLI。Ait 不提供模型订阅；模型、额度和费用由你配置的服务决定。
+
+新增 Provider 与能力以工作主机的 daemon 和原生 CLI 版本为准；当前源码文档不代表每个商店测试版都已包含。
 
 ## Codex
 
@@ -61,6 +63,24 @@ Ait 使用 **AGY CLI**；只安装 Antigravity IDE 并不足够。安装 CLI 后
 
 当前未接入图片输入、运行中追加指导、完整原生历史导入或 rewind。安装、权限与诊断说明见 [Antigravity CLI 手册](https://github.com/ait-app/ait/blob/main/docs/operations/antigravity.md)。
 
+## Pi
+
+先在工作主机安装并配置 Pi，确认 `pi --version` 和交互式 `pi` 可用。Ait 使用 `pi --mode rpc`，要求 Pi 1.2 或更新版本；已验证基线为 `@earendil-works/pi-coding-agent` 1.2.0，不兼容旧的 0.x RPC 版本。
+
+模型来自原生目录，使用 `provider/model` 标识。支持对话、原生模型接受的图片、工具进度、取消、会话恢复，以及原生历史列举、导入和显式刷新。Pi 自己维护认证、工具、扩展、项目信任和会话文件；Ait 不提供 Pi 模式选择或原生 rewind。导入前停止其他写入同一会话的 Pi 进程。细节见 [Pi 手册](https://github.com/ait-app/ait/blob/main/docs/operations/pi.md)。
+
+## Oh My Pi
+
+Oh My Pi（`omp`）与 Pi 是独立的 Provider，安装、配置和会话不能互换。先在工作主机完成原生安装与登录，确认 `omp --version` 可用，再在 Ait 选择 **Oh My Pi**。当前文档的兼容基线为官方 18.12.6 RPC v2。
+
+Ait 通过自己的 ACP 桥接层连接官方 `omp --mode rpc-ui`。支持动态模型与推理选项、原生审批和结构化问答、图片与文本附件、子 Agent 展示、会话导入与恢复。工具、MCP 和扩展继续由 OMP 管理；原生权限不等同于操作系统沙箱。能力与限制见 [Oh My Pi 手册](https://github.com/ait-app/ait/blob/main/docs/operations/oh-my-pi.md)。
+
+## MiniMax Code
+
+Ait 使用 MiniMax Code 的 `mcode acp`，不是 `mmx` 多媒体/API CLI。按 [MiniMax Code 手册](https://github.com/ait-app/ait/blob/main/docs/operations/minimax-code.md)准备受支持的 Node.js、安装原生 CLI 并运行 `mcode login`；确认 `mcode --version` 后重启 daemon、刷新 Provider 目录。
+
+选择 **MiniMax Code** 后，模型、思考等级、工作模式和权限选项来自已登录的原生程序。支持文本与图片、流式回复、工具进度、审批、停止和 Ait 会话恢复；暂不提供外部会话导入、回退或实时语音。手册记录的验证版本为 0.7.1；以实际目录中可用的模型为准，目录变化后刷新并重新选择。
+
 ## 指定程序路径
 
 桌面进程找不到 CLI，或需要使用非标准安装时，在启动 daemon 或开发入口前设置对应变量。只设置你需要的项，并替换为真实的可执行文件路径：
@@ -71,6 +91,9 @@ export AIT_SERVER_CLAUDE_BIN=/absolute/path/to/claude
 export AIT_SERVER_OPENCODE_BIN=/absolute/path/to/opencode
 export AIT_SERVER_DEEPSEEK_HARNESS_BIN=/absolute/path/to/dsh
 export AIT_SERVER_ANTIGRAVITY_BIN=/absolute/path/to/agy
+export AIT_SERVER_PI_BIN=/absolute/path/to/pi
+export AIT_SERVER_OMP_BIN=/absolute/path/to/omp
+export AIT_SERVER_MINIMAX_CODE_BIN=/absolute/path/to/mcode
 ```
 
 这些变量选择程序，不保存模型服务凭据。修改后重启对应 daemon；只重开网页或手机页面不会改变工作主机的启动环境。

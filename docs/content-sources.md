@@ -1,5 +1,27 @@
 # 内容来源
 
+## 开发文档与当前源码同步（2026-10-30）
+
+本轮依据 Ait 本地工作区提交 [`8fed61fbb57c118d1632c9372499eb9a9ffb63b9`](https://github.com/ait-app/ait/tree/8fed61fbb57c118d1632c9372499eb9a9ffb63b9) 的现有文档与脚本，新增双语 `/docs/contributing/` 和 `/docs/development/`，并增加「参与开发 / Development」导航分组。文档首页与支持页提供入口；平台页将开发步骤统一链接到新指南。
+
+| 核验范围 | Ait 来源（上述提交） |
+| --- | --- |
+| 仓库约束、定向测试、Rust 与文档规范 | `AGENTS.md`、`docs/policy/rust.md`、`docs/policy/documentation.md` |
+| 工具链、Nix、安装与开发脚本 | `README.md`、`rust-toolchain.toml`、根 `package.json` |
+| 桌面、移动端、本地 Web 与托管 Web 构建 | `apps/desktop/README.md`、`apps/mobile/README.md`、`apps/mobile/package.json`、ADR-184、ADR-188 |
+| 代码职责、Provider 测试归属、SDK | `docs/architecture/README.md`、ADR-179、`packages/protocol/README.md`、`packages/client/README.md` |
+| 格式、类型与 lint 检查入口 | `.github/workflows/ci.yml`、`scripts/check-ui.mjs` |
+| daemon 统一授权与令牌、移除 headless 参数 | `docs/operations/headless-daemon.md`、`docs/operations/daemon.md`、ADR-201 |
+| 在线业务使用 Hub、主机状态更新 | `docs/architecture/README.md`、ADR-204 |
+| Pi、Oh My Pi、MiniMax Code 接入 | `docs/operations/pi.md`、`docs/operations/oh-my-pi.md`、`docs/operations/minimax-code.md` |
+| MCP 自动注入与可选 Unix socket | `docs/operations/mcp.md`、ADR-202、ADR-203 |
+
+官网开发要求与校验命令来自本仓库 `README.md`、`package.json`、`src/content.config.ts`、`scripts/verify-build.mjs`。贡献流程将现有工程约束整理为可执行步骤；Issue 预讨论与小改动建议是入门指引，不新增强制审批、CLA 或提交标题规则。
+
+同步修正配置、平台、连接、支持、快速上手、Agent 接入及「为什么使用 Ait」中的相关说明。Windows 仅描述当前源码的客户端边界，没有新增未核验的下载链接。曾核对本地标签 `v0.1.20`（`98503c93`）的 `bins/daemon/src/config.rs`，确认该旧版使用 `run --headless` 且普通启动需要环境令牌。本次同步上游 `main` 后，下载与服务示例采用已发布的 v0.1.22，统一使用 `run` 与持久本地 API 令牌；保留旧参数迁移提示和当前源码开发入口。
+
+本轮是文档与源码一致性更新，不代表商店构建、下载资产或真实 Provider 完成新的安装验收。沿用上游最新下载版本、商店入口与历史来源记录；后文旧基线用于追溯，本节列出的更新范围以本节为准。未变更 Rust 行为，不运行 Rust 测试或覆盖率。网站验证使用 Astro / TypeScript 检查、静态构建与生成站点校验，并预览新增文档及导航。
+
 ## 0.1.22 下载与 daemon 启动（2026-10-29）
 
 macOS DMG 与两份独立 daemon 的 GitHub/COS 地址同步到 0.1.22。以已发布源码 [20baa527](https://github.com/ait-app/ait/tree/20baa5271d96ad34eef2940896d4437f28837cad) 的 `docs/operations/daemon.md`、`docs/operations/headless-daemon.md` 和 ADR-201 核对中英文独立 daemon、快速上手和服务配置：启动命令统一为 `run`，旧脚本删除 `--headless`；所有启动方式使用同一套机器授权与本地 API token 生成、持久化和环境覆盖规则。

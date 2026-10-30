@@ -47,15 +47,8 @@ Google Play eligibility uses your Google account; signing in inside the app uses
 
 Read [Connections & data](/en/docs/connection/) and [Platform support](/en/docs/platforms/) to choose a connection method.
 
-## Run from source
+## Contribute to Ait
 
-Local development requires Git, Node.js, and the Rust toolchain specified by the Ait repository. Run:
+To fix documentation, reproduce a problem, or improve code, start with [Contributing](/en/docs/contributing/) for repository responsibilities, engineering rules, validation scope, and the pull request process.
 
-```sh
-git clone https://github.com/ait-app/ait.git
-cd ait
-npm ci
-npm run dev:desktop
-```
-
-The desktop development entry builds the shared packages, daemon, and Electron main process, then starts the app. See [Platform support](/en/docs/platforms/) for Web development commands.
+To run from source, read [Local development](/en/docs/development/): prepare Node.js 24, the pinned Rust toolchain, CMake, and system build tools, then choose desktop, Web, or mobile. Website documentation lives in the separate `ait-web` repository; the guide also covers local previews.

@@ -37,7 +37,7 @@ Official [GitHub releases](https://github.com/ait-app/ait/releases/latest) provi
 
 For Apple Silicon Macs in China, use the [China download mirror (DMG, v0.1.22)](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.22/Ait-0.1.22-macos-arm64.dmg).
 
-Desktop supports account sign-in and online host connections as well as local workspaces. The download page does not offer unverified Windows or Intel Mac installers.
+macOS / Linux desktop supports account sign-in, online hosts, and local workspaces. The current source also supports a Windows x64 desktop client without a bundled daemon; it connects to remote hosts through an account, TCP, or SSH. See [Local development](/en/docs/development/) and the [desktop guide](https://github.com/ait-app/ait/blob/main/apps/desktop/README.md). Available download platforms and versions depend on the assets in the corresponding release.
 
 Linux x86_64 or Apple Silicon macOS hosts without a desktop environment can install the [standalone daemon](/en/docs/daemon/) and join your account in unattended mode.
 
@@ -67,27 +67,18 @@ The iOS simulator can access the host through loopback. Direct connections from 
 
 Open the **[Ait Web app](https://aitapp.cn/)** and sign in with the same Ait account as your desktop app to connect to an online host and continue in your browser. No client installation is needed on this device; the computer running your agents must stay online.
 
-This marketing website is separate from the Agent Web client. An account console can host the client at `/client/`; that build shares the console’s sign-in and uses online-service connections. See the [Web console client documentation](https://github.com/ait-app/ait/blob/main/docs/decisions/clients/adr-132-web-console-client.md).
+This marketing website is separate from the Agent Web client. The current client deploys as a separate static image at the site root `/`, sharing same-origin sign-in and `/api`. The management console lives at `/dash`. See [ADR-188](https://github.com/ait-app/ait/blob/main/docs/decisions/clients/adr-188-standalone-web-client-image.md).
 
-To run the local Web client from source, execute these commands from the Ait repository root:
-
-```sh
-npm ci
-export AIT_SERVER_TOKEN="$(openssl rand -hex 32)"
-npm run dev:mobile
-```
-
-Open `http://localhost:8081` and add a direct connection. Enter Host `127.0.0.1`, port `7316`, and the current terminal’s `AIT_SERVER_TOKEN`.
-
-The development script builds shared dependencies and the daemon, configures local page origins, and starts Expo Web. This local development build uses direct connections; console account sign-in requires the console-specific build. See [Server configuration](/en/docs/configuration/) for authentication and allowed origins.
+Local Web development uses direct connections. See [Local development](/en/docs/development/) for prerequisites, startup commands, tokens, browser origins, and the hosted build.
 
 ## At a glance
 
-| Platform | Runs a local daemon | Account / relay | Direct connection |
+| Platform | Runs a local daemon | Account connection | Direct connection |
 | --- | --- | --- | --- |
 | macOS / Linux desktop | Yes | Yes | Yes |
+| Windows desktop (current source) | No | Yes | Yes |
 | Standalone daemon (Linux / macOS) | Yes | Yes | Yes |
 | Android | No | Yes | Yes |
 | iOS / iPadOS | No | Yes | Yes |
-| Web console client | No | Yes; console build | No |
+| Hosted Web client | No | Yes; console build | No |
 | Local Web client | Requires a separate service | No | Yes |
