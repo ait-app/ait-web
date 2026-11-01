@@ -12,7 +12,7 @@ const copy = t(lang).community;
     <summary>{copy.wechat}<Icon name="plus" size={14}/></summary>
     <div class="wechat-qr">
       <a class="wechat-image" href={product.wechatGroup.qrCode} target="_blank" rel="noopener noreferrer" aria-label={copy.original}>
-        <img src={product.wechatGroup.qrCode} width="720" height="1094" alt={copy.wechatAlt} loading="lazy" decoding="async"/>
+        <img src={product.wechatGroup.qrCode} width="574" height="636" alt={copy.wechatAlt} loading="lazy" decoding="async"/>
       </a>
       <p>{copy.wechatHint}</p>
       <p>{copy.wechatExpiry} <time datetime={product.wechatGroup.expiresAt}>{dateLabel(new Date(`${product.wechatGroup.expiresAt}T00:00:00Z`), lang)}</time></p>

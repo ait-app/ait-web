@@ -15,8 +15,8 @@ export const product = {
   wechatAppreciationCode: '/support/ait-appreciation-code.png',
   telegramGroup: 'https://t.me/ait_users',
   wechatGroup: {
-    qrCode: '/community/wechat-group-2026-10-31.png',
-    expiresAt: '2026-10-31',
+    qrCode: '/community/wechat-group-2026-11-08.png',
+    expiresAt: '2026-11-08',
   },
   testFlightPublicUrl: 'https://testflight.apple.com/join/fjc7g46u',
   repository: 'https://github.com/ait-app/ait',
