@@ -15,7 +15,7 @@ Read [Why Ait?](/en/docs/why-ait/) to explore using multiple agents, managing se
 
 Choose your platform on the [download page](/en/download/). Official desktop releases currently provide installers for **Apple Silicon macOS** and **Linux x86_64**.
 
-Download the appropriate file from the [official Ait release](https://github.com/ait-app/ait/releases/latest). On macOS, open the DMG, install Ait, and launch it. On Linux, extract and run the distribution package or use the AppImage. Releases include `SHA256SUMS` for checking downloaded files.
+Download the appropriate file from the [official Ait release](https://github.com/ait-app/ait/releases/latest). On macOS, open the DMG, install Ait, and launch it. On Linux, extract and run the distribution package or use the AppImage. Releases include `SHA256SUMS` for checking downloaded files. Arch Linux users can also install `ait-bin` or `ait-git` from the AUR; see [Platform support](/en/docs/platforms/).
 
 The desktop package includes the Rust daemon. The desktop app starts it for you, so a separate Ait server installation is not required.
 
