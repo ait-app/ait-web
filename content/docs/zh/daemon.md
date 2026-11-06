@@ -1,20 +1,20 @@
 ---
 title: 独立 daemon
-description: 下载、校验并安装单独发布的 ait-daemon，在没有桌面环境的 Linux 或 macOS 主机上以无人值守模式接入 Ait 账户。
+description: 下载、校验并安装单独发布的 aitd，在没有桌面环境的 Linux 或 macOS 主机上以无人值守模式接入 Ait 账户。
 lang: zh
 slug: daemon
 group: reference
 order: 5.5
 ---
 
-每个 Ait 正式版都附带独立 daemon 归档，内含一个可执行文件 `ait-daemon`。它适合云服务器、构建机或常开的 Mac mini 这类不需要桌面界面的工作主机：以无人值守模式运行并登录 Ait 账户后，主机会出现在在线主机列表中，你可以从桌面、Android、iOS 或 Web 客户端连接它。
+每个 Ait 正式版都附带独立 daemon 归档，内含一个可执行文件 `aitd`。它适合云服务器、构建机或常开的 Mac mini 这类不需要桌面界面的工作主机：以无人值守模式运行并登录 Ait 账户后，主机会出现在在线主机列表中，你可以从桌面、Android、iOS 或 Web 客户端连接它。
 
-> **版本范围**：下面的下载与服务配置示例面向 **v0.1.29**，使用 `run`。v0.1.20 等旧版使用 `run --headless`；升级时按下节迁移，不要混用不同版本的启动参数。
+> **版本范围**：下面的下载与服务配置示例面向 **v0.1.30**，使用 `run`。v0.1.20 等旧版使用 `run --headless`；升级时按下节迁移，不要混用不同版本的启动参数。
 
 本文涉及两个概念：
 
-- **独立 daemon** 是获取方式：不随桌面应用安装、单独下载的 `ait-daemon` 程序。它与桌面应用内置的 daemon 是同一个程序。
-- **无人值守运行** 是运行方式：执行 `ait-daemon login` 授权这台机器后，用 `ait-daemon run` 启动。daemon 通过账户中继保持在线，无需有人操作，重启后自动恢复连接。
+- **独立 daemon** 是获取方式：不随桌面应用安装、单独下载的 `aitd` 程序。它与桌面应用内置的 daemon 是同一个程序。
+- **无人值守运行** 是运行方式：执行 `aitd login` 授权这台机器后，用 `aitd run` 启动。daemon 通过账户中继保持在线，无需有人操作，重启后自动恢复连接。
 
 从 0.1.22 起，直接启动、`run` 与桌面启动使用同一套流程。未登录时本地 API 仍可使用，机器授权后由 daemon 自动维护在线连接；旧启动脚本需删除 `--headless` 参数。监听、数据目录和本地 API 令牌说明见[服务配置](/zh/docs/configuration/)。
 
@@ -22,18 +22,22 @@ order: 5.5
 
 ## 当前源码与升级
 
+从 **0.1.30** 起，独立归档和桌面内置的可执行文件统一名为 `aitd`。升级已有服务时，保留服务名称，将 systemd 的 `ExecStart` 或 launchd 的 `ProgramArguments` 改为 `/usr/local/bin/aitd`，重载配置并重启。确认新路径生效后，可删除旧的 `/usr/local/bin/ait-daemon`。
+
+> **实验性 Bot 数据变更**：0.1.30 启动时会丢弃旧版 Bot 配置、Channels、Conversations 与历史，不进行迁移。需要保留时，请在升级启动前备份 daemon 数据目录；旧工作区 `.ait/bots/` 记忆文件不会自动删除。详见 [0.1.30 发布说明](https://github.com/ait-app/ait/releases/tag/v0.1.30)。
+
 当前 daemon 在独立运行和桌面内置运行时使用同一个授权与发布流程：
 
 ```sh
-ait-daemon login
-ait-daemon run
+aitd login
+aitd run
 ```
 
-`--headless` 已移除。升级到包含该变更的版本后，从 tmux 命令、systemd 的 `ExecStart` 和 launchd 的 `ProgramArguments` 中移除这个参数，并重载对应服务配置。启动前用 `ait-daemon --version` 和 `ait-daemon run --help` 确认版本与参数。
+`--headless` 已移除。升级到包含该变更的版本后，从 tmux 命令、systemd 的 `ExecStart` 和 launchd 的 `ProgramArguments` 中移除这个参数，并重载对应服务配置。启动前用 `aitd --version` 和 `aitd run --help` 确认版本与参数。
 
 所有启动入口在没有 `AIT_SERVER_TOKEN` 时都会生成并复用 `<data-dir>/local-api.token`。daemon 自主管理机器授权、节点续租和重连；退出客户端不会撤销授权，显式断开主机才会清除授权。源码编译产物名为 `target/release/daemon`。环境准备见[本地开发](/zh/docs/development/)，当前配置见[服务配置](/zh/docs/configuration/)和[无人值守 daemon 手册](https://github.com/ait-app/ait/blob/main/docs/operations/headless-daemon.md)。
 
-以下下载与运行示例采用 v0.1.29；其他版本请使用对应 Release 的资产和参数。
+以下下载与运行示例采用 v0.1.30；其他版本请使用对应 Release 的资产和参数。
 
 ## 系统要求
 
@@ -47,82 +51,82 @@ ait-daemon run
 - 一个 Ait 账户，与要连接这台主机的客户端使用同一账户。
 - 在这台主机上安装并登录至少一个 Agent CLI，见 [Agent 接入](/zh/docs/providers/)。
 
-## 下载（v0.1.29）
+## 下载（v0.1.30）
 
 | 平台 | GitHub Release | 国内加速下载 |
 | --- | --- | --- |
-| Linux x86_64 | [Ait-0.1.29-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.29/Ait-0.1.29-daemon-linux-x64.tar.gz) | [COS 下载](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.29/Ait-0.1.29-daemon-linux-x64.tar.gz) |
-| macOS Apple Silicon | [Ait-0.1.29-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.29/Ait-0.1.29-daemon-macos-arm64.tar.gz) | [COS 下载](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.29/Ait-0.1.29-daemon-macos-arm64.tar.gz) |
+| Linux x86_64 | [Ait-0.1.30-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.30/Ait-0.1.30-daemon-linux-x64.tar.gz) | [COS 下载](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.30/Ait-0.1.30-daemon-linux-x64.tar.gz) |
+| macOS Apple Silicon | [Ait-0.1.30-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.30/Ait-0.1.30-daemon-macos-arm64.tar.gz) | [COS 下载](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.30/Ait-0.1.30-daemon-macos-arm64.tar.gz) |
 
-两个地址的文件完全相同。校验文件 `SHA256SUMS` 只在 [GitHub Release](https://github.com/ait-app/ait/releases/tag/v0.1.29) 发布。其他版本可在 [全部 Release](https://github.com/ait-app/ait/releases) 中找到同名归档。
+两个地址的文件完全相同。校验文件 `SHA256SUMS` 只在 [GitHub Release](https://github.com/ait-app/ait/releases/tag/v0.1.30) 发布。其他版本可在 [全部 Release](https://github.com/ait-app/ait/releases) 中找到同名归档。
 
 ## 安装
 
-下面的命令从国内镜像下载、核对校验值，并把 `ait-daemon` 安装到 `/usr/local/bin`。可以直接访问 GitHub 时，把第一条 `curl` 的地址换成 `https://github.com/ait-app/ait/releases/download/v${VERSION}/${ASSET}`。
+下面的命令从国内镜像下载、核对校验值，并把 `aitd` 安装到 `/usr/local/bin`。可以直接访问 GitHub 时，把第一条 `curl` 的地址换成 `https://github.com/ait-app/ait/releases/download/v${VERSION}/${ASSET}`。
 
 ### Linux
 
 ```sh
-VERSION=0.1.29
+VERSION=0.1.30
 ASSET="Ait-${VERSION}-daemon-linux-x64.tar.gz"
 curl -fLO "https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v${VERSION}/${ASSET}"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
 grep -F "  ${ASSET}" SHA256SUMS | sha256sum -c -
 tar -xzf "${ASSET}"
-sudo install -m 0755 ait-daemon /usr/local/bin/ait-daemon
-ait-daemon --version
+sudo install -m 0755 aitd /usr/local/bin/aitd
+aitd --version
 ```
 
 ### macOS
 
 ```sh
-VERSION=0.1.29
+VERSION=0.1.30
 ASSET="Ait-${VERSION}-daemon-macos-arm64.tar.gz"
 curl -fLO "https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v${VERSION}/${ASSET}"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
 grep -F "  ${ASSET}" SHA256SUMS | shasum -a 256 -c -
 tar -xzf "${ASSET}"
 sudo mkdir -p /usr/local/bin
-sudo install -m 0755 ait-daemon /usr/local/bin/ait-daemon
-ait-daemon --version
+sudo install -m 0755 aitd /usr/local/bin/aitd
+aitd --version
 ```
 
 校验通过时会输出 `OK`。如果没有输出或提示 `FAILED`，删除下载的文件并重新下载，不要继续安装。
 
-`ait-daemon --help` 中显示的程序名为 `daemon`，与 `ait-daemon` 是同一个程序。
+`aitd --help` 中显示的程序名为 `daemon`，与 `aitd` 是同一个程序。
 
 ## 以无人值守模式运行
 
 先授权这台机器，再以无人值守模式启动。用之后运行 daemon 的同一个系统用户执行：
 
 ```sh
-ait-daemon login
-ait-daemon run
+aitd login
+aitd run
 ```
 
 `login` 会在终端显示网页地址和验证码。在任意设备的浏览器打开地址，登录 Ait 账户，输入验证码并确认这台机器。
 
-在线主机列表默认使用系统 hostname 作为这台机器的名称。需要指定其他名称时，在登录时加上 `--name`，例如 `ait-daemon login --name my-server`。
+在线主机列表默认使用系统 hostname 作为这台机器的名称。需要指定其他名称时，在登录时加上 `--name`，例如 `aitd login --name my-server`。
 
 授权完成后，`run` 连接官方账户中心 `https://aitapp.cn/api`，并在本机监听 `127.0.0.1:7316`。以后重新启动会自动恢复授权，不需要再次登录。随后在其他设备登录同一账户，从在线主机列表选择这台主机，步骤见[连接与数据](/zh/docs/connection/)。
 
 不方便打开浏览器时，也可以在网页的 Host 详情中签发一次性接入令牌，然后通过标准输入登录：
 
 ```sh
-ait-daemon login --token-stdin
+aitd login --token-stdin
 ```
 
 查看授权与运行状态：
 
 ```sh
-ait-daemon status --json
+aitd status --json
 ```
 
 默认数据目录为 `~/.ait-server`，机器授权、本地 API 令牌和工作数据都保存在这里。监听地址、数据目录等参数见[服务配置](/zh/docs/configuration/)。
 
 ## 保持运行
 
-`ait-daemon run` 在前台运行，关闭终端或 SSH 断开后会随之退出。
+`aitd run` 在前台运行，关闭终端或 SSH 断开后会随之退出。
 
 ### 推荐：在 tmux 中运行
 
@@ -130,7 +134,7 @@ ait-daemon status --json
 
 ```sh
 tmux new -s ait-daemon
-ait-daemon run
+aitd run
 ```
 
 按 `Ctrl-b` 再按 `d` 离开会话，daemon 保持运行。之后用 `tmux attach -t ait-daemon` 回到会话，在会话中按 `Ctrl-c` 停止。没有安装 tmux 时，Linux 使用发行版的包管理器安装（例如 `sudo apt install tmux`），macOS 使用 `brew install tmux`。
@@ -148,7 +152,7 @@ cat > ~/.config/systemd/user/ait-daemon.service <<'EOF'
 Description=Ait daemon
 
 [Service]
-ExecStart=/usr/local/bin/ait-daemon run
+ExecStart=/usr/local/bin/aitd run
 Restart=on-failure
 RestartSec=5
 Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin:/bin
@@ -177,7 +181,7 @@ cat > ~/Library/LaunchAgents/com.ait-app.daemon.plist <<EOF
   <key>Label</key><string>com.ait-app.daemon</string>
   <key>ProgramArguments</key>
   <array>
-    <string>/usr/local/bin/ait-daemon</string>
+    <string>/usr/local/bin/aitd</string>
     <string>run</string>
   </array>
   <key>EnvironmentVariables</key>
@@ -202,7 +206,7 @@ systemd 和 launchd 不会读取 `~/.bashrc`、`~/.zshrc` 等 shell 配置，PAT
 
 | 运行方式 | 停止 | 启动 |
 | --- | --- | --- |
-| tmux | 在会话中按 `Ctrl-c` | 在会话中运行 `ait-daemon run` |
+| tmux | 在会话中按 `Ctrl-c` | 在会话中运行 `aitd run` |
 | systemd | `systemctl --user stop ait-daemon` | `systemctl --user start ait-daemon` |
 | launchd | `launchctl bootout "gui/$(id -u)/com.ait-app.daemon"` | `launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.ait-app.daemon.plist` |
 
@@ -214,8 +218,8 @@ systemd 和 launchd 不会读取 `~/.bashrc`、`~/.zshrc` 等 shell 配置，PAT
 
 登录、重新授权或退出前，先按[停止与启动](#停止与启动)停止正在使用同一数据目录的 daemon，完成后再启动。
 
-- 授权失效时，状态显示 `reauthorization_required`。停止 daemon 后执行 `ait-daemon login`，再重新启动。需要主动更换授权时使用 `ait-daemon login --force`。
-- 执行 `ait-daemon logout` 会撤销这台机器的授权并清除本地凭据。中心不可达时，按提示到网页的 Host 详情中撤销。
-- 卸载时先退出，停用 systemd 或 launchd 服务并删除对应的服务文件，再删除 `/usr/local/bin/ait-daemon`。数据目录 `~/.ait-server` 不会自动删除，确认不再需要后可手动删除。
+- 授权失效时，状态显示 `reauthorization_required`。停止 daemon 后执行 `aitd login`，再重新启动。需要主动更换授权时使用 `aitd login --force`。
+- 执行 `aitd logout` 会撤销这台机器的授权并清除本地凭据。中心不可达时，按提示到网页的 Host 详情中撤销。
+- 卸载时先退出，停用 systemd 或 launchd 服务并删除对应的服务文件，再删除 `/usr/local/bin/aitd`。数据目录 `~/.ait-server` 不会自动删除，确认不再需要后可手动删除。
 
 授权恢复、凭据文件与状态字段的完整说明见 [无人值守 daemon 手册](https://github.com/ait-app/ait/blob/main/docs/operations/headless-daemon.md)。

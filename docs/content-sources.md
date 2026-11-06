@@ -1,5 +1,11 @@
 # 内容来源
 
+## 0.1.30 下载与 daemon 迁移（2026-11-06）
+
+双语下载入口、平台文档、独立 daemon 与快速开始同步至 [0.1.30 Release](https://github.com/ait-app/ait/releases/tag/v0.1.30)。本批为同版本重建，实际源码是 [`f89f577168043bd9ca86688c98c161ecfbb07a5b`](https://github.com/ait-app/ait/tree/f89f577168043bd9ca86688c98c161ecfbb07a5b)，保留原标签，来源以 `BUILD-INFO.json` 为准。
+
+可执行文件名称依据该提交的 `scripts/release-assets.mjs`、ADR-212 和 `docs/operations/headless-daemon.md`；两个实际归档均包含 `aitd` 与 LICENSE。安装、登录、运行和服务路径改用 `aitd`，保留已有 systemd 单元、tmux 会话及日志名称。旧实验性 Bot 数据清理提示依据 ADR-213、`docs/operations/bots.md` 与 `crates/bot/src/legacy.rs`。下载产物通过 [正式构建](https://github.com/ait-app/ait/actions/runs/42085702072) 的平台门禁及发布工作区的摘要和公开 COS 校验；这不替代真实 Provider、Telegram/飞书账号或移动端实机验收。
+
 ## 开发文档与当前源码同步（2026-10-30）
 
 本轮依据 Ait 本地工作区提交 [`8fed61fbb57c118d1632c9372499eb9a9ffb63b9`](https://github.com/ait-app/ait/tree/8fed61fbb57c118d1632c9372499eb9a9ffb63b9) 的现有文档与脚本，新增双语 `/docs/contributing/` 和 `/docs/development/`，并增加「参与开发 / Development」导航分组。文档首页与支持页提供入口；平台页将开发步骤统一链接到新指南。
