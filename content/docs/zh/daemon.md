@@ -93,7 +93,7 @@ aitd --version
 
 校验通过时会输出 `OK`。如果没有输出或提示 `FAILED`，删除下载的文件并重新下载，不要继续安装。
 
-`aitd --help` 中显示的程序名为 `daemon`，与 `aitd` 是同一个程序。
+发布归档中的程序名是 `aitd`，内部可执行名仍为 `daemon`；因此 `aitd --help` 会显示 `daemon`，这不影响命令使用。
 
 ## 以无人值守模式运行
 
@@ -128,16 +128,18 @@ aitd status --json
 
 `aitd run` 在前台运行，关闭终端或 SSH 断开后会随之退出。
 
+下面的新装示例统一使用 `aitd` 作为程序名、tmux 会话、systemd 服务与日志名称。从旧版升级的机器可以沿用原来的名称，只需把启动路径改为 `/usr/local/bin/aitd`。
+
 ### 推荐：在 tmux 中运行
 
 用 tmux 运行最简单，断开连接后 daemon 继续工作，回到会话可以直接查看日志：
 
 ```sh
-tmux new -s ait-daemon
+tmux new -s aitd
 aitd run
 ```
 
-按 `Ctrl-b` 再按 `d` 离开会话，daemon 保持运行。之后用 `tmux attach -t ait-daemon` 回到会话，在会话中按 `Ctrl-c` 停止。没有安装 tmux 时，Linux 使用发行版的包管理器安装（例如 `sudo apt install tmux`），macOS 使用 `brew install tmux`。
+按 `Ctrl-b` 再按 `d` 离开会话，daemon 保持运行。之后用 `tmux attach -t aitd` 回到会话，在会话中按 `Ctrl-c` 停止。没有安装 tmux 时，Linux 使用发行版的包管理器安装（例如 `sudo apt install tmux`），macOS 使用 `brew install tmux`。
 
 tmux 会话不会在主机重启后自动恢复。需要开机自动启动时，改用下面的 systemd 或 launchd。
 
@@ -147,7 +149,7 @@ tmux 会话不会在主机重启后自动恢复。需要开机自动启动时，
 
 ```sh
 mkdir -p ~/.config/systemd/user
-cat > ~/.config/systemd/user/ait-daemon.service <<'EOF'
+cat > ~/.config/systemd/user/aitd.service <<'EOF'
 [Unit]
 Description=Ait daemon
 
@@ -161,11 +163,11 @@ Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin:/bin
 WantedBy=default.target
 EOF
 systemctl --user daemon-reload
-systemctl --user enable --now ait-daemon
+systemctl --user enable --now aitd
 sudo loginctl enable-linger "$USER"
 ```
 
-`enable-linger` 让服务在用户未登录时也随系统启动。查看日志使用 `journalctl --user -u ait-daemon -f`。
+`enable-linger` 让服务在用户未登录时也随系统启动。查看日志使用 `journalctl --user -u aitd -f`。
 
 ### 持久启动：macOS 使用 launchd
 
@@ -173,12 +175,12 @@ sudo loginctl enable-linger "$USER"
 
 ```sh
 mkdir -p ~/Library/LaunchAgents ~/Library/Logs
-cat > ~/Library/LaunchAgents/com.ait-app.daemon.plist <<EOF
+cat > ~/Library/LaunchAgents/com.ait-app.aitd.plist <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  <key>Label</key><string>com.ait-app.daemon</string>
+  <key>Label</key><string>com.ait-app.aitd</string>
   <key>ProgramArguments</key>
   <array>
     <string>/usr/local/bin/aitd</string>
@@ -190,29 +192,31 @@ cat > ~/Library/LaunchAgents/com.ait-app.daemon.plist <<EOF
   </dict>
   <key>RunAtLoad</key><true/>
   <key>KeepAlive</key><true/>
-  <key>StandardOutPath</key><string>$HOME/Library/Logs/ait-daemon.log</string>
-  <key>StandardErrorPath</key><string>$HOME/Library/Logs/ait-daemon.log</string>
+  <key>StandardOutPath</key><string>$HOME/Library/Logs/aitd.log</string>
+  <key>StandardErrorPath</key><string>$HOME/Library/Logs/aitd.log</string>
 </dict>
 </plist>
 EOF
-launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.ait-app.daemon.plist
+launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.ait-app.aitd.plist
 ```
 
-LaunchAgent 在该用户登录后运行。需要在无人登录时保持在线的 Mac，请为该用户开启自动登录。日志写入 `~/Library/Logs/ait-daemon.log`。
+LaunchAgent 在该用户登录后运行。需要在无人登录时保持在线的 Mac，请为该用户开启自动登录。日志写入 `~/Library/Logs/aitd.log`。
 
 systemd 和 launchd 不会读取 `~/.bashrc`、`~/.zshrc` 等 shell 配置，PATH 可能与终端不同。如果 Agent 安装在其他目录（例如 npm 全局目录或 nvm），请把该目录加入上面的 `PATH`，或按[服务配置](/zh/docs/configuration/)用 `AIT_SERVER_CODEX_BIN` 等环境变量指定程序的绝对路径。tmux 沿用当前终端的环境，通常不需要额外配置。
 
 ### 停止与启动
 
+下表以新装示例的 `aitd` 名称为例。沿用旧名称的服务，把命令中的服务名、标签、配置文件路径和日志路径替换为原来的名称。
+
 | 运行方式 | 停止 | 启动 |
 | --- | --- | --- |
 | tmux | 在会话中按 `Ctrl-c` | 在会话中运行 `aitd run` |
-| systemd | `systemctl --user stop ait-daemon` | `systemctl --user start ait-daemon` |
-| launchd | `launchctl bootout "gui/$(id -u)/com.ait-app.daemon"` | `launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.ait-app.daemon.plist` |
+| systemd | `systemctl --user stop aitd` | `systemctl --user start aitd` |
+| launchd | `launchctl bootout "gui/$(id -u)/com.ait-app.aitd"` | `launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.ait-app.aitd.plist` |
 
 ## 升级
 
-按上面的安装步骤，把 `VERSION` 改为新版本重新下载并安装，然后按[停止与启动](#停止与启动)中对应的方式重启 daemon；systemd 也可以直接执行 `systemctl --user restart ait-daemon`。升级不会改变机器授权和数据目录，不需要重新登录。
+按上面的安装步骤，把 `VERSION` 改为新版本重新下载并安装，然后按[停止与启动](#停止与启动)中对应的方式重启 daemon；systemd 也可以直接执行 `systemctl --user restart aitd`。升级不会改变机器授权和数据目录，不需要重新登录。
 
 ## 重新授权、退出与卸载
 

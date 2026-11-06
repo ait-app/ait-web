@@ -22,7 +22,7 @@ This example explicitly sets the local API credential. All startup paths prefer 
 
 ## Unattended mode
 
-Standalone and desktop-bundled daemons share machine authorization and host publication. On Linux or macOS, sign in and use `run` to keep the host online. The current source has removed `--headless`. We recommend the released [standalone daemon](/en/docs/daemon/), whose guide covers download, verification, installation, running, and keeping it running with tmux, systemd, or launchd. You can also build and run from the Ait source root:
+Standalone and desktop-bundled daemons share machine authorization and host publication. On Linux or macOS, sign in and use `run` to keep the host online. The current source has removed `--headless`. We recommend the released [standalone daemon](/en/docs/daemon/), whose guide covers download, verification, installation, running, and keeping it running with tmux, systemd, or launchd. You can also build and run from the Ait source root (source builds produce `daemon`; the released archive ships the same program as `aitd`):
 
 ```sh
 cargo build --locked --release -p daemon --bin daemon

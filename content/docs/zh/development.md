@@ -82,7 +82,7 @@ npm run web:expo --workspace=@ait/mobile -- --localhost --port 8081
 
 同一数据目录只能由一个 daemon 使用。切换启动方式前先停止旧进程；并行调试时为每个实例指定不同的数据目录和监听端口。
 
-独立 daemon 的当前源码启动流程为 `daemon login` 后 `daemon run`，已移除 `--headless` 开关。所有启动入口在没有 `AIT_SERVER_TOKEN` 时都会生成并复用私有本地令牌；上面的显式变量便于本地连接调试。配置与已发布版本的区别见[服务配置](/zh/docs/configuration/)和[独立 daemon](/zh/docs/daemon/)。
+独立 daemon 的当前源码启动流程为 `daemon login` 后 `daemon run`，已移除 `--headless` 开关。源码构建的可执行文件名为 `daemon`；发布归档中的同一个程序名为 `aitd`。所有启动入口在没有 `AIT_SERVER_TOKEN` 时都会生成并复用私有本地令牌；上面的显式变量便于本地连接调试。配置与已发布版本的区别见[服务配置](/zh/docs/configuration/)和[独立 daemon](/zh/docs/daemon/)。
 
 ## 联调 Android 与 iOS
 
