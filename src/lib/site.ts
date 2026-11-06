@@ -25,8 +25,8 @@ export const product = {
   latestRelease: 'https://github.com/ait-app/ait/releases/latest',
   googlePlayTesting: 'https://play.google.com/apps/testing/dev.ait.mobile',
   macDmgMirror: {
-    url: 'https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.29/Ait-0.1.29-macos-arm64.dmg',
-    version: '0.1.29',
+    url: 'https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.30/Ait-0.1.30-macos-arm64.dmg',
+    version: '0.1.30',
   },
 };
 export const pathFor = (lang: Language, path = '') => `/${lang}/${path ? `${path.replace(/^\/+|\/+$/g, '')}/` : ''}`;

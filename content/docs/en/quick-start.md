@@ -45,16 +45,16 @@ See [Platform support](/en/docs/platforms/) for installers, the China download m
 
 ### Server / standalone daemon
 
-If your project lives on a cloud server or an always-on host, follow the [standalone daemon guide](/en/docs/daemon/) to download, verify, and install `ait-daemon`. Then run these commands as the same system user that will run your tasks:
+If your project lives on a cloud server or an always-on host, follow the [standalone daemon guide](/en/docs/daemon/) to download, verify, and install `aitd`. Then run these commands as the same system user that will run your tasks:
 
 ```sh
-ait-daemon login
-ait-daemon run
+aitd login
+aitd run
 ```
 
 For initial authorization, the terminal displays a web address and a verification code. Open the address in a browser, sign in to your Ait account, and approve the machine. Once the daemon is running, open the [Ait Web app](https://aitapp.cn/), sign in with the same account, and select the machine from the online host list.
 
-The installation guide’s download and service examples now target v0.1.22 and use `ait-daemon run`. When upgrading an older installation or building from source, check the startup arguments in the [version guidance](/en/docs/daemon/#current-source-and-upgrades).
+The installation guide’s download and service examples now target v0.1.30 and use `aitd run`. When upgrading an older installation or building from source, check the startup arguments in the [version guidance](/en/docs/daemon/#current-source-and-upgrades).
 
 `run` runs in the foreground, so keep the process running. For ongoing use, configure systemd or launchd with the [background service instructions](/en/docs/daemon/#keep-it-running). Install your agent CLIs and keep the project files on this host too.
 
