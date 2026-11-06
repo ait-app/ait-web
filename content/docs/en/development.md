@@ -82,7 +82,7 @@ Use the token generated in the first terminal in the connection form. Browser or
 
 Only one daemon can use a data directory at a time. Stop the previous process before switching launch methods. Give each instance a separate data directory and listener port when debugging concurrently.
 
-The current source uses `daemon login` followed by `daemon run` for standalone operation; the `--headless` flag has been removed. Every startup path generates and reuses a private local token when `AIT_SERVER_TOKEN` is absent. The explicit variable above makes local connection debugging easier. See [Server configuration](/en/docs/configuration/) and [Standalone daemon](/en/docs/daemon/) for settings and differences from released versions.
+The current source uses `daemon login` followed by `daemon run` for standalone operation; the `--headless` flag has been removed. Source builds produce an executable named `daemon`, while the released archive ships the same program as `aitd`. Every startup path generates and reuses a private local token when `AIT_SERVER_TOKEN` is absent. The explicit variable above makes local connection debugging easier. See [Server configuration](/en/docs/configuration/) and [Standalone daemon](/en/docs/daemon/) for settings and differences from released versions.
 
 ## Develop for Android and iOS
 

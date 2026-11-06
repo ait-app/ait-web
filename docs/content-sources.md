@@ -1,10 +1,18 @@
 # 内容来源
 
+## aitd 更名收尾与内置浏览器 Blog（2026-11-07）
+
+本轮核对 [v0.1.30 标签](https://github.com/ait-app/ait/tree/v0.1.30)的 `CHANGELOG.md`、`scripts/release-assets.mjs`、ADR-212、`docs/operations/headless-daemon.md` 与 CLI 帮助：打包后的可执行文件在桌面资源和独立归档中统一为 `aitd`，而 Cargo package / bin target、`target/release/daemon`、`--version` 与 `--help` 中的内部名称仍为 `daemon`；设备授权 `client_id` 与 MCP `serverInfo.name` 继续使用 `ait-daemon`，不属于本次更名范围。中英文独立 daemon 页把新装示例中的 tmux 会话、systemd 服务、launchd 标签与日志名统一为 `aitd`，并说明升级时已有名称可以保留、只需更换启动路径；本地开发与服务配置页补充源码产物与发布程序的名称差异。ADR-212 的打包边界与这些说明一致。
+
+新增双语 Blog `/zh/blog/browser-login-on-host/` 与 `/en/blog/browser-login-on-host/`，说明 Ait 桌面端内置浏览器按工作区所属主机出站，因此可以在主机上打开 Codex 或 Claude Code 的 OAuth 登录页。能力依据 [ADR-152](https://github.com/ait-app/ait/blob/main/docs/decisions/clients/adr-152-remote-workspace-browser-loopback.md)、[ADR-186](https://github.com/ait-app/ait/blob/main/docs/decisions/clients/adr-186-workspace-browser-egress.md)、`crates/browser/src/tunnel.rs`、`apps/desktop/src/features/browser-network.ts`、`apps/desktop/src/features/account-browser-profiles.ts`、`apps/mobile/src/screens/workspace/workspace-header-menu.tsx` 与 `apps/mobile/src/desktop/browser/store/state.ts`：远端工作区的 HTTP、HTTPS 与 WebSocket（含 `localhost` 回环）经对应 daemon 转发，DNS 在主机解析，本地工作区直连；内置浏览器只在 Electron 桌面端提供，地址栏对 `localhost` 等主机自动补 `http://`。Codex 的默认回环回调 `localhost:1455` 与无头登录备选方案来自官方 [Authentication 文档](https://developers.openai.com/codex/auth)；Claude Code 的 `claude auth login`、`claude auth status` 与回调不可达时粘贴 OAuth code 的行为来自官方 [CLI 参考](https://code.claude.com/docs/en/cli-reference) 与 [2026 W18 更新](https://code.claude.com/docs/en/whats-new/2026-w18)。Claude Code 的回调端口未在官方文档中固定，正文因此不写具体端口。
+
+未进行真实 OpenAI 或 Anthropic 账号登录、Windows 实机或移动端内置浏览器验收；Blog 只描述源码与官方文档支持的行为，并保留设备码、粘贴授权码和 SSH 端口转发等备选路径。
+
 ## 0.1.30 下载与 daemon 迁移（2026-11-06）
 
 双语下载入口、平台文档、独立 daemon 与快速开始同步至 [0.1.30 Release](https://github.com/ait-app/ait/releases/tag/v0.1.30)。本批为同版本重建，实际源码是 [`f89f577168043bd9ca86688c98c161ecfbb07a5b`](https://github.com/ait-app/ait/tree/f89f577168043bd9ca86688c98c161ecfbb07a5b)，保留原标签，来源以 `BUILD-INFO.json` 为准。
 
-可执行文件名称依据该提交的 `scripts/release-assets.mjs`、ADR-212 和 `docs/operations/headless-daemon.md`；两个实际归档均包含 `aitd` 与 LICENSE。安装、登录、运行和服务路径改用 `aitd`，保留已有 systemd 单元、tmux 会话及日志名称。旧实验性 Bot 数据清理提示依据 ADR-213、`docs/operations/bots.md` 与 `crates/bot/src/legacy.rs`。下载产物通过 [正式构建](https://github.com/ait-app/ait/actions/runs/42085702072) 的平台门禁及发布工作区的摘要和公开 COS 校验；这不替代真实 Provider、Telegram/飞书账号或移动端实机验收。
+可执行文件名称依据该提交的 `scripts/release-assets.mjs`、ADR-212 和 `docs/operations/headless-daemon.md`；两个实际归档均包含 `aitd` 与 LICENSE。安装、登录、运行、服务路径与新装示例中的 tmux 会话、systemd 服务、launchd 标签及日志名改用 `aitd`；升级时已有服务名可以保留，只需更换启动路径。旧实验性 Bot 数据清理提示依据 ADR-213、`docs/operations/bots.md` 与 `crates/bot/src/legacy.rs`。下载产物通过 [正式构建](https://github.com/ait-app/ait/actions/runs/42085702072) 的平台门禁及发布工作区的摘要和公开 COS 校验；这不替代真实 Provider、Telegram/飞书账号或移动端实机验收。
 
 ## 开发文档与当前源码同步（2026-10-30）
 
@@ -100,7 +108,7 @@ macOS DMG 与两份独立 daemon 的 GitHub/COS 地址同步到 0.1.22。以已�
 | macOS 签名与公证 | `.github/workflows/release.yml`；首次在真实 release 工作流中执行前未经验证 |
 | 登录、`run --headless`、状态、重新授权与退出 | `docs/operations/headless-daemon.md`、`bins/daemon` 的 CLI 帮助 |
 
-术语约定：**独立 daemon** 指单独发布的 `ait-daemon` 程序（获取方式）；**无人值守模式** 指 `login` 授权后以 `run --headless` 运行（运行方式），英文为 unattended mode。桌面内置的 daemon 与独立 daemon 是同一程序，但由桌面管理，不使用无人值守模式。中英文 Docs 统一使用这组用词，不再单独称作“headless 模式”。
+术语约定：**独立 daemon** 指单独发布的 `aitd` 程序（获取方式）；**无人值守模式** 指 `login` 授权后以 `run` 运行（运行方式），英文为 unattended mode。桌面内置的 daemon 与独立 daemon 是同一程序，但由桌面管理，不使用无人值守模式。中英文 Docs 统一使用这组用词，不再单独称作“headless 模式”。
 
 下载表中的 GitHub 与 COS 链接、`VERSION=` 和 `v<版本>` 标签带有明确版本号，不使用“最新”动态入口。每次正式版由 [ait-realease](https://github.com/ait-app/ait-realease) 的发布编排在 COS 上传验证后同步更新，版本独立于国内 DMG 入口；手动修改时须保持中英文版本一致，否则编排会停止。SHA256SUMS 只在 GitHub Release 提供，COS 不镜像无版本号的校验文件。
 

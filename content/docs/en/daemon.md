@@ -93,7 +93,7 @@ aitd --version
 
 A successful check prints `OK`. If it prints nothing or reports `FAILED`, delete the downloaded files and download them again before installing.
 
-`aitd --help` shows the program name as `daemon`; it is the same program.
+The released archive names the program `aitd`, while its internal executable name remains `daemon`; `aitd --help` therefore shows `daemon`, which does not affect the commands.
 
 ## Run in unattended mode
 
@@ -128,16 +128,18 @@ The default data directory is `~/.ait-server`. It holds the machine authorizatio
 
 `aitd run` runs in the foreground and exits when you close the terminal or the SSH connection drops.
 
+The fresh-install examples below use `aitd` for the program, tmux session, systemd service, and log names. Hosts upgraded from an older release can keep their existing names; only the startup path needs to change to `/usr/local/bin/aitd`.
+
 ### Recommended: run it in tmux
 
 tmux is the simplest option. The daemon keeps working after you disconnect, and you can return to the session to read its logs:
 
 ```sh
-tmux new -s ait-daemon
+tmux new -s aitd
 aitd run
 ```
 
-Press `Ctrl-b`, then `d`, to detach; the daemon keeps running. Reattach later with `tmux attach -t ait-daemon`, and press `Ctrl-c` in the session to stop it. If tmux is not installed, use your distribution's package manager on Linux (for example, `sudo apt install tmux`) or `brew install tmux` on macOS.
+Press `Ctrl-b`, then `d`, to detach; the daemon keeps running. Reattach later with `tmux attach -t aitd`, and press `Ctrl-c` in the session to stop it. If tmux is not installed, use your distribution's package manager on Linux (for example, `sudo apt install tmux`) or `brew install tmux` on macOS.
 
 tmux sessions do not survive a host restart. To start the daemon automatically at boot, use systemd or launchd instead.
 
@@ -147,7 +149,7 @@ Create a systemd user service as the same user that completed `login`:
 
 ```sh
 mkdir -p ~/.config/systemd/user
-cat > ~/.config/systemd/user/ait-daemon.service <<'EOF'
+cat > ~/.config/systemd/user/aitd.service <<'EOF'
 [Unit]
 Description=Ait daemon
 
@@ -161,11 +163,11 @@ Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin:/bin
 WantedBy=default.target
 EOF
 systemctl --user daemon-reload
-systemctl --user enable --now ait-daemon
+systemctl --user enable --now aitd
 sudo loginctl enable-linger "$USER"
 ```
 
-`enable-linger` starts the service at boot even when the user is not logged in. Follow its logs with `journalctl --user -u ait-daemon -f`.
+`enable-linger` starts the service at boot even when the user is not logged in. Follow its logs with `journalctl --user -u aitd -f`.
 
 ### Persistent start: launchd on macOS
 
@@ -173,12 +175,12 @@ Create a LaunchAgent as the same user that completed `login`:
 
 ```sh
 mkdir -p ~/Library/LaunchAgents ~/Library/Logs
-cat > ~/Library/LaunchAgents/com.ait-app.daemon.plist <<EOF
+cat > ~/Library/LaunchAgents/com.ait-app.aitd.plist <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  <key>Label</key><string>com.ait-app.daemon</string>
+  <key>Label</key><string>com.ait-app.aitd</string>
   <key>ProgramArguments</key>
   <array>
     <string>/usr/local/bin/aitd</string>
@@ -190,29 +192,31 @@ cat > ~/Library/LaunchAgents/com.ait-app.daemon.plist <<EOF
   </dict>
   <key>RunAtLoad</key><true/>
   <key>KeepAlive</key><true/>
-  <key>StandardOutPath</key><string>$HOME/Library/Logs/ait-daemon.log</string>
-  <key>StandardErrorPath</key><string>$HOME/Library/Logs/ait-daemon.log</string>
+  <key>StandardOutPath</key><string>$HOME/Library/Logs/aitd.log</string>
+  <key>StandardErrorPath</key><string>$HOME/Library/Logs/aitd.log</string>
 </dict>
 </plist>
 EOF
-launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.ait-app.daemon.plist
+launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.ait-app.aitd.plist
 ```
 
-A LaunchAgent runs after its user logs in. To keep a Mac online with nobody logged in, turn on automatic login for that user. Logs go to `~/Library/Logs/ait-daemon.log`.
+A LaunchAgent runs after its user logs in. To keep a Mac online with nobody logged in, turn on automatic login for that user. Logs go to `~/Library/Logs/aitd.log`.
 
 systemd and launchd do not read shell configuration such as `~/.bashrc` or `~/.zshrc`, so their PATH may differ from your terminal. If an agent is installed elsewhere (for example, a global npm directory or nvm), add that directory to the `PATH` above, or set an absolute program path with variables such as `AIT_SERVER_CODEX_BIN`; see [Server configuration](/en/docs/configuration/). tmux inherits your terminal environment and usually needs no extra setup.
 
 ### Stop and start
 
+The table uses the `aitd` names from the fresh-install examples. If you kept an older service name, label, plist path, or log path, substitute it in these commands.
+
 | Method | Stop | Start |
 | --- | --- | --- |
 | tmux | Press `Ctrl-c` in the session | Run `aitd run` in the session |
-| systemd | `systemctl --user stop ait-daemon` | `systemctl --user start ait-daemon` |
-| launchd | `launchctl bootout "gui/$(id -u)/com.ait-app.daemon"` | `launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.ait-app.daemon.plist` |
+| systemd | `systemctl --user stop aitd` | `systemctl --user start aitd` |
+| launchd | `launchctl bootout "gui/$(id -u)/com.ait-app.aitd"` | `launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.ait-app.aitd.plist` |
 
 ## Upgrade
 
-Repeat the installation steps with the new `VERSION`, then restart the daemon as described in [Stop and start](#stop-and-start); with systemd you can also run `systemctl --user restart ait-daemon`. Upgrading keeps the machine authorization and data directory. You do not need to sign in again.
+Repeat the installation steps with the new `VERSION`, then restart the daemon as described in [Stop and start](#stop-and-start); with systemd you can also run `systemctl --user restart aitd`. Upgrading keeps the machine authorization and data directory. You do not need to sign in again.
 
 ## Reauthorize, sign out, and uninstall
 

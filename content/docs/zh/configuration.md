@@ -22,7 +22,7 @@ cargo run -p daemon --bin daemon -- --listen 127.0.0.1:7316
 
 ## 无人值守模式
 
-独立 daemon 与桌面内置 daemon 共用授权和节点发布流程。Linux 或 macOS 主机登录后执行 `run` 即可保持在线；当前源码已移除 `--headless`。推荐使用已发布的[独立 daemon](/zh/docs/daemon/)，该文档包含下载、校验、安装、运行，以及用 tmux、systemd 或 launchd 保持运行的方法。也可以从 Ait 源码根目录构建并运行：
+独立 daemon 与桌面内置 daemon 共用授权和节点发布流程。Linux 或 macOS 主机登录后执行 `run` 即可保持在线；当前源码已移除 `--headless`。推荐使用已发布的[独立 daemon](/zh/docs/daemon/)，该文档包含下载、校验、安装、运行，以及用 tmux、systemd 或 launchd 保持运行的方法。也可以从 Ait 源码根目录构建并运行（源码构建的产物名为 `daemon`；发布归档中的同一个程序名为 `aitd`）：
 
 ```sh
 cargo build --locked --release -p daemon --bin daemon
