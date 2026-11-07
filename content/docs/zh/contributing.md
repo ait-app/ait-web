@@ -101,8 +101,8 @@ npm run test --workspace=@ait/mobile -- src/runtime/host-runtime.test.ts
 
 ## 改进官网文档
 
-本站每篇文档底部的编辑入口指向 `ait-web/content/docs/{zh,en}/`。新增页面时同时维护中英文 Markdown，使用一致的文件名和 `slug`；站内链接使用对应语言前缀。分组、排序、页内目录和搜索来自文档内容与 frontmatter。
+本站每篇文档底部的编辑入口指向 `ait-web/content/docs/{zh,en,ja}/`。新增页面时同时维护中文、英文和日文 Markdown，使用一致的文件名和 `slug`；站内链接使用对应语言前缀。分组、排序、页内目录和搜索来自文档内容与 frontmatter。
 
-产品能力先对照 Ait 当前文档与实现，再更新网站，并在 [docs/content-sources.md](https://github.com/ait-app/ait-web/blob/main/docs/content-sources.md)记录提交和核验范围。源码已实现、测试通过与商店版本已发布是不同状态，说明时应区分。官网构建检查会验证中英文完整性、站内链接、锚点、搜索与 sitemap。
+产品能力先对照 Ait 当前文档与实现，再更新网站，并在 [docs/content-sources.md](https://github.com/ait-app/ait-web/blob/main/docs/content-sources.md)记录提交和核验范围。源码已实现、测试通过与商店版本已发布是不同状态，说明时应区分。官网构建检查会验证各语言内容完整性、站内链接、锚点、搜索与 sitemap。
 
 Ait 使用 [Apache License 2.0](https://github.com/ait-app/ait/blob/main/LICENSE)。提交贡献时保留原有版权、许可证与[第三方来源说明](https://github.com/ait-app/ait/blob/main/paseo/README.md)。

@@ -1,8 +1,8 @@
 # Ait website
 
-Ait 宣传官网，包含产品主页、Blog、Docs / 支持、Privacy 和下载页。使用 Astro 静态生成，中英文内容直接维护在 Markdown 中，不依赖数据库或 CMS。
+Ait 宣传官网，包含产品主页、Blog、Docs / 支持、Privacy 和下载页。使用 Astro 静态生成，中文、英文和日文内容直接维护在 Markdown 中，不依赖数据库或 CMS。Blog 只发布中英文，日文站点的 Blog 列表展示英文文章。
 
-官网唯一域名为 **[ait-app.com](https://ait-app.com/)**，中英文内容均在此域名下提供。
+官网唯一域名为 **[ait-app.com](https://ait-app.com/)**，所有语言均在此域名下提供。
 
 视觉使用 Ait 现有 BI，包括正式飞鸟 SVG、路径化 AIT 字标、暖白底与橙红品牌色。
 
@@ -15,7 +15,7 @@ npm ci
 npm run dev
 ```
 
-默认地址为 `http://localhost:4321`。中文主页 `/zh/`，英文主页 `/en/`。根路径按浏览器语言偏好顺序选择中文或英文（如 `zh-CN`、`zh-TW`、`en-US`）；未匹配到支持的语言时进入中文。关闭 JavaScript 时固定进入英文。本地和线上使用相同规则。
+默认地址为 `http://localhost:4321`。中文主页 `/zh/`，英文主页 `/en/`，日文主页 `/ja/`。根路径按浏览器语言偏好顺序选择中文、英文或日文（如 `zh-CN`、`zh-TW`、`en-US`、`ja-JP`）；未匹配到支持的语言时进入中文。关闭 JavaScript 时固定进入英文。本地和线上使用相同规则。
 
 ```sh
 npm run check
@@ -33,9 +33,9 @@ npm run verify
 | --- | --- | --- | --- |
 | `ait-app.com` | 优先浏览器语言，未匹配时 `/zh/`，无 JavaScript 时 `/en/` | `npm run build` | `dist/` |
 
-同一份构建包含中英页面：英文位于 `https://ait-app.com/en/`，中文位于 `https://ait-app.com/zh/`。语言切换保留当前文章或文档路径。新增官网链接、商店资料和部署配置统一使用 `ait-app.com`，语言通过路径区分。
+同一份构建包含三种语言：英文位于 `https://ait-app.com/en/`，中文位于 `https://ait-app.com/zh/`，日文位于 `https://ait-app.com/ja/`。语言切换保留当前文章或文档路径；切换到没有对应 Blog 文章的日文时进入 `/ja/blog/`。新增官网链接、商店资料和部署配置统一使用 `ait-app.com`，语言通过路径区分。
 
-无语言前缀的 `/privacy`（或 `/privacy/`）使用相同的浏览器语言选择规则，跳转到对应的隐私政策，并保留查询参数与锚点，例如账户删除入口 `#data-deletion`；关闭 JavaScript 时通过 HTML 自动跳转到 `/en/privacy/`，并提供可点击链接。带 `/zh/` 或 `/en/` 前缀的页面遵循链接指定的语言，不自动改写。
+无语言前缀的 `/privacy`（或 `/privacy/`）使用相同的浏览器语言选择规则，跳转到对应的隐私政策，并保留查询参数与锚点，例如账户删除入口 `#data-deletion`；关闭 JavaScript 时通过 HTML 自动跳转到 `/en/privacy/`，并提供可点击链接。带 `/zh/`、`/en/` 或 `/ja/` 前缀的页面遵循链接指定的语言，不自动改写。
 
 单独生成官网发布产物：
 
@@ -43,7 +43,7 @@ npm run verify
 npm run build
 ```
 
-默认站点地址为 `https://ait-app.com`，构建输出为 `dist/`。`SITE_URL` 仅接受此 HTTPS 域名。中英文 canonical、hreflang、RSS 与 sitemap 均使用同一域名；sitemap 包含两种语言的页面。
+默认站点地址为 `https://ait-app.com`，构建输出为 `dist/`。`SITE_URL` 仅接受此 HTTPS 域名。各语言的 canonical、hreflang、RSS 与 sitemap 均使用同一域名；sitemap 包含三种语言的页面。Blog 文章只声明中英文 hreflang；RSS 只生成 `/zh/rss.xml` 与 `/en/rss.xml`，日文页面链接到英文 RSS。
 
 CI 在 `.github/workflows/ci.yml` 中对 PR 运行类型检查、构建与站内校验。推送 `main` 或手动运行工作流时，校验通过后发布 `dist/` 到 GitHub Pages；`ait-web` 为对应的可下载产物。
 
@@ -54,9 +54,9 @@ CI 在 `.github/workflows/ci.yml` 中对 PR 运行类型检查、构建与站内
 目录结构：
 
 ```text
-content/blog/{zh,en}/*.md        Blog 正文和元数据
-content/docs/{zh,en}/*.md        Docs 正文、分组和排序
-content/legal/{zh,en}/*.md       隐私政策正文与更新日期
+content/blog/{zh,en}/*.md        Blog 正文和元数据（不翻译为日文）
+content/docs/{zh,en,ja}/*.md     Docs 正文、分组和排序
+content/legal/{zh,en,ja}/*.md    隐私政策正文与更新日期
 src/lib/i18n.ts                 界面与主页文案
 src/lib/site.ts                 域名、路由和产品仓库入口
 src/styles/global.css          BI 令牌和页面样式
@@ -64,7 +64,7 @@ public/brand/                  从 Ait 复用的生产素材
 docs/internal/brand/{zh,en}.md  品牌设计维护说明，不参与网站发布
 ```
 
-全部正文统一存放在根目录 `content/`，以 Markdown 文件维护。新增内容时同时添加中英文件，使用相同的 `slug`。Markdown 内站内链接使用对应语言前缀。
+全部正文统一存放在根目录 `content/`，以 Markdown 文件维护。新增 Docs 与隐私政策时同时添加中、英、日文件，使用相同的 `slug`；Blog 只添加中英文件。界面文案在 `src/lib/i18n.ts` 中维护，`ja` 与 `zh` 结构相同，缺少字段时类型检查会报错。Markdown 内站内链接使用对应语言前缀。
 
 Blog 命名格式为 `content/blog/{zh,en}/YYYY-MM-DD-<slug>.md`，例如：
 
@@ -99,7 +99,7 @@ Docs 首页包含直接可见的客服邮箱、反馈与隐私入口；`docs/sup
 
 Apple 的 [Support URL 定义](https://developer.apple.com/help/app-store-connect/reference/app-information/platform-version-information/)要求真实联系方式；Google Play [要求提供客服邮箱，建议提供支持网站](https://support.google.com/googleplay/android-developer/answer/9859152?hl=en)。补充后的 Docs 可作为支持页面，但这些地址须先部署并保持无需登录可访问，邮箱须可实际收信。
 
-网站的删除申请入口不替代应用内能力：提供账户创建的 App 还需要应用内账户删除入口，并实际处理账户与关联数据删除，见 [Apple 账号删除要求](https://developer.apple.com/support/offering-account-deletion-in-your-app/)和 [Google Play 账户删除要求](https://support.google.com/googleplay/android-developer/answer/13327111?hl=en)。Apple 对普通应用不接受仅通过客服邮件完成删除，应提供可在应用内发起的删除流程；本网站的邮件申请可作为 Google Play 的外部申请资源及额外隐私联系方式。商店隐私申报需与发布版本和第三方 SDK 的实际行为一致。Privacy 文案按源码边界编写；运营方已确认线上账户、日志和备份没有固定保留期限，可通过 `support@ait-app.com` 申请删除。运营安排变化时同步更新中英文政策。
+网站的删除申请入口不替代应用内能力：提供账户创建的 App 还需要应用内账户删除入口，并实际处理账户与关联数据删除，见 [Apple 账号删除要求](https://developer.apple.com/support/offering-account-deletion-in-your-app/)和 [Google Play 账户删除要求](https://support.google.com/googleplay/android-developer/answer/13327111?hl=en)。Apple 对普通应用不接受仅通过客服邮件完成删除，应提供可在应用内发起的删除流程；本网站的邮件申请可作为 Google Play 的外部申请资源及额外隐私联系方式。商店隐私申报需与发布版本和第三方 SDK 的实际行为一致。Privacy 文案按源码边界编写；运营方已确认线上账户、日志和备份没有固定保留期限，可通过 `support@ait-app.com` 申请删除。运营安排变化时同步更新中、英、日文政策。
 
 ## 内容和品牌来源
 

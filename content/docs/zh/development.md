@@ -125,7 +125,7 @@ npm ci
 npm run dev
 ```
 
-打开 `http://localhost:4321/zh/docs/` 或 `http://localhost:4321/en/docs/`。正文位于 `content/docs/{zh,en}/`，新增或修改时同步两种语言。提交前运行：
+打开 `http://localhost:4321/zh/docs/`、`http://localhost:4321/en/docs/` 或 `http://localhost:4321/ja/docs/`。正文位于 `content/docs/{zh,en,ja}/`，新增或修改时同步三种语言；Blog 只发布中英文。提交前运行：
 
 ```sh
 npm run check
@@ -133,4 +133,4 @@ npm run build
 npm run verify
 ```
 
-检查分别覆盖 Astro / TypeScript、静态生成，以及链接、锚点、双语完整性和搜索等站点内容。再预览实际页面，检查导航、窄屏阅读、语言切换和代码块。更完整的维护说明见 [ait-web README](https://github.com/ait-app/ait-web/blob/main/README.md)；产品代码的验证与 PR 流程见[参与贡献](/zh/docs/contributing/)。
+检查分别覆盖 Astro / TypeScript、静态生成，以及链接、锚点、多语言完整性和搜索等站点内容。再预览实际页面，检查导航、窄屏阅读、语言切换和代码块。更完整的维护说明见 [ait-web README](https://github.com/ait-app/ait-web/blob/main/README.md)；产品代码的验证与 PR 流程见[参与贡献](/zh/docs/contributing/)。

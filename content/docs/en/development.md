@@ -125,7 +125,7 @@ npm ci
 npm run dev
 ```
 
-Open `http://localhost:4321/zh/docs/` or `http://localhost:4321/en/docs/`. Content lives in `content/docs/{zh,en}/`; keep both languages in sync. Before submitting, run:
+Open `http://localhost:4321/zh/docs/`, `http://localhost:4321/en/docs/`, or `http://localhost:4321/ja/docs/`. Content lives in `content/docs/{zh,en,ja}/`; keep all three languages in sync. The blog is published in Chinese and English only. Before submitting, run:
 
 ```sh
 npm run check
@@ -133,4 +133,4 @@ npm run build
 npm run verify
 ```
 
-These commands check Astro and TypeScript, generate static pages, and validate links, anchors, bilingual completeness, search, and other site content. Preview the pages and check navigation, narrow screens, language switching, and code blocks. See the [ait-web README](https://github.com/ait-app/ait-web/blob/main/README.md) for maintenance details and [Contributing](/en/docs/contributing/) for product validation and the PR process.
+These commands check Astro and TypeScript, generate static pages, and validate links, anchors, multilingual completeness, search, and other site content. Preview the pages and check navigation, narrow screens, language switching, and code blocks. See the [ait-web README](https://github.com/ait-app/ait-web/blob/main/README.md) for maintenance details and [Contributing](/en/docs/contributing/) for product validation and the PR process.

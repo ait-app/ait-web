@@ -1,15 +1,19 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { canonicalFor, type Language } from '../lib/site';
+import { blogLanguageFor, canonicalFor, languages, locales, type Language } from '../lib/site';
+import { t } from '../lib/i18n';
 import '../styles/global.css';
-interface Props { lang: Language; title?: string; description?: string; path?: string; docs?: boolean; noindex?: boolean; }
-const { lang, title, description = lang === 'zh' ? 'Ait 是本地优先的多 Agent 工作空间。统一管理 Codex、DeepSeek Harness、OpenCode、Antigravity 和 Claude Code，从多端连接你的工作主机。' : 'Ait brings Codex, DeepSeek Harness, OpenCode, Antigravity, and Claude Code into one local-first workspace, accessible across devices.', path = '', docs = false, noindex = false } = Astro.props;
-const pageTitle = title ? `${title} — Ait` : (lang === 'zh' ? 'Ait — 你的 Agent，随时在场。' : 'Ait — Your agents. Within reach.');
+interface Props { lang: Language; title?: string; description?: string; path?: string; docs?: boolean; noindex?: boolean; alternates?: readonly Language[]; }
+const { lang } = Astro.props;
+const copy = t(lang);
+const { title, description = copy.meta.description, path = '', docs = false, noindex = false, alternates = languages } = Astro.props;
+const pageTitle = title ? `${title} — Ait` : copy.meta.title;
+const rssLang = blogLanguageFor(lang);
 const canonical = canonicalFor(lang, path);
 ---
 <!doctype html>
-<html lang={lang === 'zh' ? 'zh-CN' : 'en'}>
+<html lang={locales[lang].htmlLang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,26 +24,25 @@ const canonical = canonicalFor(lang, path);
     <link rel="icon" href="/brand/ait-mark-small.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang="zh-CN" href={canonicalFor('zh', path)} />
-    <link rel="alternate" hreflang="en" href={canonicalFor('en', path)} />
+    {alternates.map(alternate => <link rel="alternate" hreflang={locales[alternate].hreflang} href={canonicalFor(alternate, path)} />)}
     <link rel="alternate" hreflang="x-default" href={canonicalFor(__DEFAULT_LOCALE__, path)} />
-    <link rel="alternate" type="application/rss+xml" title="Ait Blog" href={`/${lang}/rss.xml`} />
+    <link rel="alternate" type="application/rss+xml" title="Ait Blog" href={`/${rssLang}/rss.xml`} />
     <meta property="og:type" content={path.startsWith('blog/') ? 'article' : 'website'} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content="Ait" />
-    <meta property="og:locale" content={lang === 'zh' ? 'zh_CN' : 'en_US'} />
+    <meta property="og:locale" content={locales[lang].og} />
     <meta name="twitter:card" content="summary" />
     <slot name="head" />
   </head>
   <body>
-    <a class="skip-link" href="#main-content">{lang === 'zh' ? '跳到内容' : 'Skip to content'}</a>
-    <Header lang={lang} path={path} docs={docs}/>
+    <a class="skip-link" href="#main-content">{copy.meta.skip}</a>
+    <Header lang={lang} path={path} docs={docs} alternates={alternates}/>
     <slot />
     {!docs && <Footer lang={lang}/>}
     <script>
-      document.querySelectorAll<HTMLDetailsElement>('.mobile-nav').forEach(menu => {
+      document.querySelectorAll<HTMLDetailsElement>('.mobile-nav, .language-menu').forEach(menu => {
         document.addEventListener('click', event => { if (!menu.contains(event.target as Node)) menu.open = false; });
         document.addEventListener('keydown', event => { if (event.key === 'Escape') menu.open = false; });
       });

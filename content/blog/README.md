@@ -2,6 +2,8 @@
 
 文章正文和元数据均以 UTF-8 Markdown（`.md`）保存在 `content/blog/`。本文件用于维护说明，不会生成博客文章。
 
+Blog 只发布中文和英文，不翻译为日文：不要创建 `content/blog/ja/`（构建校验会拒绝）。日文站点的 `/ja/blog/` 与首页文章区展示英文文章，并直接链接到 `/en/blog/<slug>/`。Docs 与隐私政策则需要同时维护 `zh/`、`en/`、`ja/` 三种语言。
+
 ## 目录与文件名
 
 ```text
@@ -14,10 +16,12 @@ content/
 │       └── 2026-10-16-a-new-post.md
 ├── docs/
 │   ├── zh/
-│   └── en/
+│   ├── en/
+│   └── ja/
 └── legal/
     ├── zh/
-    └── en/
+    ├── en/
+    └── ja/
 ```
 
 文件名固定为 **`YYYY-MM-DD-<slug>.md`**：
