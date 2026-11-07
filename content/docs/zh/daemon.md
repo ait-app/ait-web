@@ -9,7 +9,7 @@ order: 5.5
 
 每个 Ait 正式版都附带独立 daemon 归档，内含一个可执行文件 `aitd`。它适合云服务器、构建机或常开的 Mac mini 这类不需要桌面界面的工作主机：以无人值守模式运行并登录 Ait 账户后，主机会出现在在线主机列表中，你可以从桌面、Android、iOS 或 Web 客户端连接它。
 
-> **版本范围**：下面的下载与服务配置示例面向 **v0.1.30**，使用 `run`。v0.1.20 等旧版使用 `run --headless`；升级时按下节迁移，不要混用不同版本的启动参数。
+> **版本范围**：下面的下载与服务配置示例面向 **v0.2.0**，使用 `run`。v0.1.20 等旧版使用 `run --headless`；升级时按下节迁移，不要混用不同版本的启动参数。
 
 本文涉及两个概念：
 
@@ -37,7 +37,7 @@ aitd run
 
 所有启动入口在没有 `AIT_SERVER_TOKEN` 时都会生成并复用 `<data-dir>/local-api.token`。daemon 自主管理机器授权、节点续租和重连；退出客户端不会撤销授权，显式断开主机才会清除授权。源码编译产物名为 `target/release/daemon`。环境准备见[本地开发](/zh/docs/development/)，当前配置见[服务配置](/zh/docs/configuration/)和[无人值守 daemon 手册](https://github.com/ait-app/ait/blob/main/docs/operations/headless-daemon.md)。
 
-以下下载与运行示例采用 v0.1.30；其他版本请使用对应 Release 的资产和参数。
+以下下载与运行示例采用 v0.2.0；其他版本请使用对应 Release 的资产和参数。
 
 ## 系统要求
 
@@ -51,14 +51,14 @@ aitd run
 - 一个 Ait 账户，与要连接这台主机的客户端使用同一账户。
 - 在这台主机上安装并登录至少一个 Agent CLI，见 [Agent 接入](/zh/docs/providers/)。
 
-## 下载（v0.1.30）
+## 下载（v0.2.0）
 
 | 平台 | GitHub Release | 国内加速下载 |
 | --- | --- | --- |
-| Linux x86_64 | [Ait-0.1.30-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.30/Ait-0.1.30-daemon-linux-x64.tar.gz) | [COS 下载](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.30/Ait-0.1.30-daemon-linux-x64.tar.gz) |
-| macOS Apple Silicon | [Ait-0.1.30-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.30/Ait-0.1.30-daemon-macos-arm64.tar.gz) | [COS 下载](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.30/Ait-0.1.30-daemon-macos-arm64.tar.gz) |
+| Linux x86_64 | [Ait-0.2.0-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.0/Ait-0.2.0-daemon-linux-x64.tar.gz) | [COS 下载](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.2.0/Ait-0.2.0-daemon-linux-x64.tar.gz) |
+| macOS Apple Silicon | [Ait-0.2.0-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.0/Ait-0.2.0-daemon-macos-arm64.tar.gz) | [COS 下载](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.2.0/Ait-0.2.0-daemon-macos-arm64.tar.gz) |
 
-两个地址的文件完全相同。校验文件 `SHA256SUMS` 只在 [GitHub Release](https://github.com/ait-app/ait/releases/tag/v0.1.30) 发布。其他版本可在 [全部 Release](https://github.com/ait-app/ait/releases) 中找到同名归档。
+两个地址的文件完全相同。校验文件 `SHA256SUMS` 只在 [GitHub Release](https://github.com/ait-app/ait/releases/tag/v0.2.0) 发布。其他版本可在 [全部 Release](https://github.com/ait-app/ait/releases) 中找到同名归档。
 
 ## 安装
 
@@ -67,7 +67,7 @@ aitd run
 ### Linux
 
 ```sh
-VERSION=0.1.30
+VERSION=0.2.0
 ASSET="Ait-${VERSION}-daemon-linux-x64.tar.gz"
 curl -fLO "https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v${VERSION}/${ASSET}"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
@@ -80,7 +80,7 @@ aitd --version
 ### macOS
 
 ```sh
-VERSION=0.1.30
+VERSION=0.2.0
 ASSET="Ait-${VERSION}-daemon-macos-arm64.tar.gz"
 curl -fLO "https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v${VERSION}/${ASSET}"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
@@ -93,7 +93,7 @@ aitd --version
 
 校验通过时会输出 `OK`。如果没有输出或提示 `FAILED`，删除下载的文件并重新下载，不要继续安装。
 
-发布归档中的程序名是 `aitd`，内部可执行名仍为 `daemon`；因此 `aitd --help` 会显示 `daemon`，这不影响命令使用。
+本版归档中的程序和命令行帮助统一使用 `aitd`。
 
 ## 以无人值守模式运行
 
@@ -122,7 +122,7 @@ aitd login --token-stdin
 aitd status --json
 ```
 
-默认数据目录为 `~/.ait-server`，机器授权、本地 API 令牌和工作数据都保存在这里。监听地址、数据目录等参数见[服务配置](/zh/docs/configuration/)。
+新安装默认使用 `~/.ait`。未显式指定数据目录时，依次使用第一个已存在的 `~/.ait`、`~/.ait-server-desktop`、`~/.ait-server`；不会移动或合并旧目录，需要固定位置时使用 `--data-dir`。机器授权、本地 API 令牌和工作数据都保存在选中的目录中。监听地址、数据目录等参数见[服务配置](/zh/docs/configuration/)。
 
 ## 保持运行
 

@@ -40,13 +40,15 @@ Use your operating system’s process manager for persistent background operatio
 
 | Argument | Environment variable | Default |
 | --- | --- | --- |
-| `--data-dir` | `AIT_SERVER_DATA_DIR` | `~/.ait-server` |
+| `--data-dir` | `AIT_SERVER_DATA_DIR` | `~/.ait` (new installation; see lookup order below) |
 | `--listen` | `AIT_SERVER_LISTEN` | `127.0.0.1:7316` |
 | `--config` | None | `config.toml` in the data directory, skipped if absent |
 | `--log-level` | `AIT_SERVER_LOG_LEVEL` | `info` |
 | `--web-origin` | None | No additional browser origins |
 
 Configuration priority is command arguments, environment, TOML, then defaults. The data directory cannot be overridden through TOML. An explicitly selected configuration file must exist. Unknown fields and invalid values prevent startup.
+
+When neither `--data-dir` nor `AIT_SERVER_DATA_DIR` is set, use the first existing directory in this order: `~/.ait`, `~/.ait-server-desktop`, `~/.ait-server`; if none exists, create `~/.ait`. Existing directories are not moved, renamed, or merged. A newly created `~/.ait` takes precedence over legacy locations, so explicitly select `--data-dir` when an existing installation must keep a particular directory.
 
 ## Local browser origins
 

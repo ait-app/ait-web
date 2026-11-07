@@ -9,7 +9,7 @@ order: 5.5
 
 Every Ait stable release includes standalone daemon archives containing a single executable, `aitd`. Use it on hosts that do not need a desktop interface, such as cloud servers, build machines, or an always-on Mac mini. Once it runs in unattended mode and signs in to your Ait account, the host appears in the online host list, and you can connect to it from the desktop, Android, iOS, or Web clients.
 
-> **Version scope:** the download and service examples below target **v0.1.30** and use `run`. Older versions such as v0.1.20 used `run --headless`. Follow the migration below when upgrading and keep startup arguments consistent with your version.
+> **Version scope:** the download and service examples below target **v0.2.0** and use `run`. Older versions such as v0.1.20 used `run --headless`. Follow the migration below when upgrading and keep startup arguments consistent with your version.
 
 This page uses two terms:
 
@@ -37,7 +37,7 @@ The `--headless` flag has been removed. After upgrading to a build with this cha
 
 Every startup path generates and reuses `<data-dir>/local-api.token` when `AIT_SERVER_TOKEN` is absent. The daemon owns machine authorization, lease renewal, and reconnects. Quitting a client does not revoke authorization; explicitly disconnecting the host clears it. Source builds produce `target/release/daemon`. See [Local development](/en/docs/development/), [Server configuration](/en/docs/configuration/), and the [daemon manual](https://github.com/ait-app/ait/blob/main/docs/operations/headless-daemon.md) for the current setup.
 
-The download and service examples below use v0.1.30. Use the assets and arguments for your release when running another version.
+The download and service examples below use v0.2.0. Use the assets and arguments for your release when running another version.
 
 ## Requirements
 
@@ -51,14 +51,14 @@ You also need:
 - An Ait account. Use the same account on the clients that connect to this host.
 - At least one agent CLI installed and signed in on this host. See [Agent setup](/en/docs/providers/).
 
-## Download (v0.1.30)
+## Download (v0.2.0)
 
 | Platform | GitHub release | China download mirror |
 | --- | --- | --- |
-| Linux x86_64 | [Ait-0.1.30-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.30/Ait-0.1.30-daemon-linux-x64.tar.gz) | [COS download](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.30/Ait-0.1.30-daemon-linux-x64.tar.gz) |
-| macOS Apple Silicon | [Ait-0.1.30-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.1.30/Ait-0.1.30-daemon-macos-arm64.tar.gz) | [COS download](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.1.30/Ait-0.1.30-daemon-macos-arm64.tar.gz) |
+| Linux x86_64 | [Ait-0.2.0-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.0/Ait-0.2.0-daemon-linux-x64.tar.gz) | [COS download](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.2.0/Ait-0.2.0-daemon-linux-x64.tar.gz) |
+| macOS Apple Silicon | [Ait-0.2.0-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.0/Ait-0.2.0-daemon-macos-arm64.tar.gz) | [COS download](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.2.0/Ait-0.2.0-daemon-macos-arm64.tar.gz) |
 
-Both locations serve identical files. The `SHA256SUMS` checksum file is published only on the [GitHub release](https://github.com/ait-app/ait/releases/tag/v0.1.30). Archives for other versions use the same names on [all releases](https://github.com/ait-app/ait/releases).
+Both locations serve identical files. The `SHA256SUMS` checksum file is published only on the [GitHub release](https://github.com/ait-app/ait/releases/tag/v0.2.0). Archives for other versions use the same names on [all releases](https://github.com/ait-app/ait/releases).
 
 ## Install
 
@@ -67,7 +67,7 @@ These commands download the archive from GitHub, verify its checksum, and instal
 ### Linux
 
 ```sh
-VERSION=0.1.30
+VERSION=0.2.0
 ASSET="Ait-${VERSION}-daemon-linux-x64.tar.gz"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/${ASSET}"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
@@ -80,7 +80,7 @@ aitd --version
 ### macOS
 
 ```sh
-VERSION=0.1.30
+VERSION=0.2.0
 ASSET="Ait-${VERSION}-daemon-macos-arm64.tar.gz"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/${ASSET}"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
@@ -93,7 +93,7 @@ aitd --version
 
 A successful check prints `OK`. If it prints nothing or reports `FAILED`, delete the downloaded files and download them again before installing.
 
-The released archive names the program `aitd`, while its internal executable name remains `daemon`; `aitd --help` therefore shows `daemon`, which does not affect the commands.
+In this release, both the packaged program and its command-line help use `aitd`.
 
 ## Run in unattended mode
 
@@ -122,7 +122,7 @@ Check authorization and runtime status:
 aitd status --json
 ```
 
-The default data directory is `~/.ait-server`. It holds the machine authorization, the local API token, and work data. See [Server configuration](/en/docs/configuration/) for the listen address, data directory, and other options.
+New installations use `~/.ait`. Without an explicit data directory, the daemon chooses the first existing path in this order: `~/.ait`, `~/.ait-server-desktop`, `~/.ait-server`. Existing directories are not moved or merged; use `--data-dir` to keep a specific location. The selected directory holds the machine authorization, the local API token, and work data. See [Server configuration](/en/docs/configuration/) for the listen address, data directory, and other options.
 
 ## Keep it running
 
