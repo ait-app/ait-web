@@ -224,6 +224,6 @@ systemd 和 launchd 不会读取 `~/.bashrc`、`~/.zshrc` 等 shell 配置，PAT
 
 - 授权失效时，状态显示 `reauthorization_required`。停止 daemon 后执行 `aitd login`，再重新启动。需要主动更换授权时使用 `aitd login --force`。
 - 执行 `aitd logout` 会撤销这台机器的授权并清除本地凭据。中心不可达时，按提示到网页的 Host 详情中撤销。
-- 卸载时先退出，停用 systemd 或 launchd 服务并删除对应的服务文件，再删除 `/usr/local/bin/aitd`。数据目录 `~/.ait-server` 不会自动删除，确认不再需要后可手动删除。
+- 卸载时先退出，停用 systemd 或 launchd 服务并删除对应的服务文件，再删除 `/usr/local/bin/aitd`。数据目录不会自动删除：新安装为 `~/.ait`，已有安装可能是 daemon 选中的 `~/.ait-server-desktop` 或 `~/.ait-server`，或通过 `--data-dir` 指定的路径。确认不再需要后可手动删除。
 
 授权恢复、凭据文件与状态字段的完整说明见 [无人值守 daemon 手册](https://github.com/ait-app/ait/blob/main/docs/operations/headless-daemon.md)。

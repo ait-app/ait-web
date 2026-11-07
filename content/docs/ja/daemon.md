@@ -224,6 +224,6 @@ systemd と launchd は `~/.bashrc` や `~/.zshrc` などのシェル設定を�
 
 - 認可が無効になると、ステータスに `reauthorization_required` と表示されます。デーモンを停止して `aitd login` を実行し、再び起動してください。認可を意図的に置き換える場合は `aitd login --force` を使用します。
 - `aitd logout` は、このマシンの認可を取り消し、ローカルの認証情報を消去します。アカウントサービスに到達できない場合は、表示される案内に従って、Web 上のホスト詳細ページから取り消してください。
-- アンインストールするには、サインアウトし、systemd または launchd のサービスを無効にしてサービスファイルを削除してから、`/usr/local/bin/aitd` を削除します。データディレクトリ `~/.ait-server` は自動では削除されません。不要になったら手動で削除してください。
+- アンインストールするには、サインアウトし、systemd または launchd のサービスを無効にしてサービスファイルを削除してから、`/usr/local/bin/aitd` を削除します。データディレクトリは自動では削除されません。新規インストールでは `~/.ait`、既存のインストールではデーモンが選択した `~/.ait-server-desktop` または `~/.ait-server`、もしくは `--data-dir` で指定したパスです。不要になったら手動で削除してください。
 
 認可の復旧、認証情報ファイル、ステータスのフィールドについては、[無人デーモンガイド](https://github.com/ait-app/ait/blob/main/docs/operations/headless-daemon.md)をご覧ください。

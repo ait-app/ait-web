@@ -224,6 +224,6 @@ Before signing in, reauthorizing, or signing out, stop the daemon that uses the 
 
 - When authorization is no longer valid, status shows `reauthorization_required`. Stop the daemon, run `aitd login`, then start it again. Use `aitd login --force` to replace an authorization deliberately.
 - `aitd logout` revokes this machine's authorization and clears local credentials. If the account service is unreachable, follow the prompt to revoke it from the host details page on the web.
-- To uninstall, sign out, disable any systemd or launchd service and delete its service file, then delete `/usr/local/bin/aitd`. The `~/.ait-server` data directory is not deleted automatically; remove it manually when you no longer need it.
+- To uninstall, sign out, disable any systemd or launchd service and delete its service file, then delete `/usr/local/bin/aitd`. The data directory is not deleted automatically. It is `~/.ait` for new installations, the existing `~/.ait-server-desktop` or `~/.ait-server` directory the daemon selected, or the path given with `--data-dir`; remove it manually when you no longer need it.
 
 See the [unattended daemon guide](https://github.com/ait-app/ait/blob/main/docs/operations/headless-daemon.md) for authorization recovery, credential files, and status fields.
