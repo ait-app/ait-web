@@ -40,13 +40,15 @@ cargo build --locked --release -p daemon --bin daemon
 
 | 参数 | 环境变量 | 默认值 |
 | --- | --- | --- |
-| `--data-dir` | `AIT_SERVER_DATA_DIR` | `~/.ait-server` |
+| `--data-dir` | `AIT_SERVER_DATA_DIR` | `~/.ait` (新安装；已有目录的查找顺序见下文) |
 | `--listen` | `AIT_SERVER_LISTEN` | `127.0.0.1:7316` |
 | `--config` | 无 | 数据目录中的 `config.toml`，不存在则跳过 |
 | `--log-level` | `AIT_SERVER_LOG_LEVEL` | `info` |
 | `--web-origin` | 无 | 不添加浏览器来源 |
 
 配置优先级为命令行、环境变量、TOML、默认值。数据目录不接受 TOML 覆盖。显式指定的配置文件必须存在，未知字段与无效内容会拒绝启动。
+
+未设置 `--data-dir` 或 `AIT_SERVER_DATA_DIR` 时，依次使用第一个已存在的 `~/.ait`、`~/.ait-server-desktop`、`~/.ait-server`；三者都不存在时创建 `~/.ait`。旧目录不会移动、重命名或合并；之后创建的 `~/.ait` 会优先于旧位置，需要保留特定目录的已有安装应显式指定 `--data-dir`。
 
 ## 本机浏览器来源
 

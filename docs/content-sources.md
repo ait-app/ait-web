@@ -1,5 +1,13 @@
 # 内容来源
 
+## 0.2.0 下载与运行说明（2026-11-07）
+
+双语下载入口、平台、独立 daemon 与快速开始同步到 [0.2.0 Release](https://github.com/ait-app/ait/releases/tag/v0.2.0)。本批为同版本重建，实际源码是 [`d5269987e1e38db943b65ab60d45df936f93b8a4`](https://github.com/ait-app/ait/tree/d5269987e1e38db943b65ab60d45df936f93b8a4)，原标签保留在 `5e50a7a0`，来源以 `BUILD-INFO.json` 为准。[正式构建](https://github.com/ait-app/ait/actions/runs/42323970306)通过平台打包、启动、macOS 签名和公证门禁；DMG 与两份独立 daemon 归档已核对 SHA-256 并完成 COS 公开地址验证。
+
+按该源码的 `bins/daemon/src/config.rs`、`config/data_home.rs`、桌面 `rust-daemon.ts` 与 ADR-216 核对 CLI 名称和默认目录：本版帮助统一显示 `aitd`；新安装使用 `~/.ait`，已有目录按 `~/.ait`、`~/.ait-server-desktop`、`~/.ait-server` 顺序沿用，不搬迁或合并。显式服务数据路径保留；0.1.30 的历史迁移说明及其发布链接保留原版本。
+
+本次不更新商店或移动端二进制，也未在官网工作区执行下载的 daemon；发布产物门禁与当前源码覆盖率证据见上述 Release。后文旧基线保留其当时的核验范围。
+
 ## aitd 更名收尾与内置浏览器 Blog（2026-11-07）
 
 本轮核对 [v0.1.30 标签](https://github.com/ait-app/ait/tree/v0.1.30)的 `CHANGELOG.md`、`scripts/release-assets.mjs`、ADR-212、`docs/operations/headless-daemon.md` 与 CLI 帮助：打包后的可执行文件在桌面资源和独立归档中统一为 `aitd`，而 Cargo package / bin target、`target/release/daemon`、`--version` 与 `--help` 中的内部名称仍为 `daemon`；设备授权 `client_id` 与 MCP `serverInfo.name` 继续使用 `ait-daemon`，不属于本次更名范围。中英文独立 daemon 页把新装示例中的 tmux 会话、systemd 服务、launchd 标签与日志名统一为 `aitd`，并说明升级时已有名称可以保留、只需更换启动路径；本地开发与服务配置页补充源码产物与发布程序的名称差异。ADR-212 的打包边界与这些说明一致。
