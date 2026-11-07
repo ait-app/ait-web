@@ -5,7 +5,11 @@ import { runInNewContext } from 'node:vm';
 
 const workspace = process.cwd();
 const origin = 'https://ait-app.com';
-const languages = ['zh', 'en'];
+const languages = ['zh', 'en', 'ja'];
+// The blog is published in Chinese and English only; Japanese pages link to the English articles.
+const blogLanguages = ['zh', 'en'];
+const hreflangs = { zh: 'zh-CN', en: 'en', ja: 'ja' };
+const languagePattern = new RegExp(`^/(${languages.join('|')})/`);
 const root = path.join(workspace, 'dist');
 const errors = [];
 const decode = value => value.replace(/&amp;/g, '&').replace(/&#39;/g, "'").replace(/&quot;/g, '"');
@@ -20,11 +24,17 @@ const walk = async directory => {
 };
 const check = (condition, message) => { if (!condition) errors.push(message); };
 
-for (const collection of ['docs', 'blog', 'legal']) {
+const markdownFiles = async directory => (await readdir(directory)).filter(file => file.endsWith('.md')).sort();
+for (const [collection, collectionLanguages] of [['docs', languages], ['legal', languages], ['blog', blogLanguages]]) {
   const root = path.join(workspace, 'content', collection);
-  const zh = (await readdir(path.join(root, 'zh'))).filter(file => file.endsWith('.md')).sort();
-  const en = (await readdir(path.join(root, 'en'))).filter(file => file.endsWith('.md')).sort();
-  assert.deepEqual(zh, en, `${collection}: Chinese and English content must have matching files`);
+  const [reference, ...others] = collectionLanguages;
+  const expected = await markdownFiles(path.join(root, reference));
+  for (const lang of others) {
+    assert.deepEqual(await markdownFiles(path.join(root, lang)), expected, `${collection}: ${lang} and ${reference} content must have matching files`);
+  }
+  for (const lang of languages.filter(lang => !collectionLanguages.includes(lang))) {
+    assert.ok(!await exists(path.join(root, lang)), `${collection}: ${lang} content is not published; remove content/${collection}/${lang}/`);
+  }
 }
 
 if (!await exists(root)) throw new Error(`Missing ${root}. Run npm run build first.`);
@@ -42,12 +52,15 @@ for (const [file, html] of cache) {
     canonicalRoutes.add(`${origin}${route}`);
     check(html.includes(`rel="canonical" href="${origin}${route}"`), `${relative}: incorrect canonical`);
     check((html.match(/<h1(?:\s|>)/g) ?? []).length === 1, `${relative}: must contain exactly one h1`);
-    check(html.includes(`lang="${lang === 'zh' ? 'zh-CN' : 'en'}"`), `${relative}: incorrect language`);
+    check(html.includes(`<html lang="${hreflangs[lang]}"`), `${relative}: incorrect language`);
+    const isBlogPost = /^\/[a-z]+\/blog\/[^/]+\/$/.test(route);
     for (const alternate of languages) {
-      const alternateRoute = route.replace(/^\/(zh|en)\//, `/${alternate}/`);
-      check(html.includes(`hreflang="${alternate === 'zh' ? 'zh-CN' : 'en'}" href="${origin}${alternateRoute}"`), `${relative}: incorrect ${alternate} language alternate`);
+      const alternateRoute = route.replace(languagePattern, `/${alternate}/`);
+      const tag = `hreflang="${hreflangs[alternate]}" href="${origin}${alternateRoute}"`;
+      if (isBlogPost && !blogLanguages.includes(alternate)) check(!html.includes(tag), `${relative}: unexpected ${alternate} alternate for an untranslated blog post`);
+      else check(html.includes(tag), `${relative}: incorrect ${alternate} language alternate`);
     }
-    const defaultRoute = route.replace(/^\/(zh|en)\//, '/zh/');
+    const defaultRoute = route.replace(languagePattern, '/zh/');
     check(html.includes(`hreflang="x-default" href="${origin}${defaultRoute}"`), `${relative}: incorrect default language alternate`);
   }
   for (const match of html.matchAll(/\b(?:href|src)="([^"]+)"/g)) {
@@ -71,7 +84,10 @@ const languagePreferences = [
   { name: 'Traditional Chinese', navigator: { languages: ['zh-TW'] }, expected: 'zh' },
   { name: 'British English', navigator: { languages: ['en-GB'] }, expected: 'en' },
   { name: 'secondary supported language', navigator: { languages: ['fr-FR', 'en-US', 'zh-CN'] }, expected: 'en' },
-  { name: 'unsupported languages', navigator: { languages: ['ja-JP', 'fr-FR'] }, expected: 'zh' },
+  { name: 'Japanese first', navigator: { languages: ['ja-JP', 'en-US'] }, expected: 'ja' },
+  { name: 'Japanese without region', navigator: { languages: ['ja'] }, expected: 'ja' },
+  { name: 'secondary Japanese', navigator: { languages: ['ko-KR', 'ja-JP', 'en-US'] }, expected: 'ja' },
+  { name: 'unsupported languages', navigator: { languages: ['fr-FR', 'de-DE'] }, expected: 'zh' },
   { name: 'empty language list', navigator: { languages: [], language: 'en-GB' }, expected: 'en' },
   { name: 'single browser language', navigator: { language: 'zh-HK' }, expected: 'zh' },
   { name: 'no language preference', navigator: { languages: [], language: '' }, expected: 'zh' },
@@ -107,8 +123,23 @@ const robots = await readFile(path.join(root, 'robots.txt'), 'utf8');
 check(robots.includes(`${origin}/sitemap.xml`), 'Incorrect robots sitemap');
 const sitemap = await readFile(path.join(root, 'sitemap.xml'), 'utf8');
 const locations = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(([, loc]) => decode(loc));
-check(locations.length === canonicalRoutes.size, 'Sitemap must include every published page in both languages exactly once');
+check(locations.length === canonicalRoutes.size, 'Sitemap must include every published page in every language exactly once');
 for (const loc of locations) check(canonicalRoutes.has(loc), `Sitemap contains a noncanonical page ${loc}`);
+for (const [, loc, links] of sitemap.matchAll(/<url><loc>(.*?)<\/loc>(.*?)<\/url>/g)) {
+  const route = new URL(decode(loc)).pathname;
+  const expected = /^\/[a-z]+\/blog\/[^/]+\/$/.test(route) ? blogLanguages : languages;
+  const declared = [...links.matchAll(/hreflang="([^"]+)" href="([^"]+)"/g)].map(([, hreflang, href]) => `${hreflang} ${decode(href)}`).sort();
+  const wanted = expected.map(lang => `${hreflangs[lang]} ${origin}${route.replace(languagePattern, `/${lang}/`)}`).sort();
+  check(JSON.stringify(declared) === JSON.stringify(wanted), `Sitemap has incorrect language alternates for ${route}`);
+}
+// Languages without a translated blog show the English articles.
+const englishPosts = locations.map(loc => new URL(loc).pathname).filter(route => /^\/en\/blog\/[^/]+\/$/.test(route));
+for (const lang of languages.filter(lang => !blogLanguages.includes(lang))) {
+  const blogIndex = cache.get(path.join(root, lang, 'blog', 'index.html')) ?? '';
+  check(englishPosts.length > 0 && englishPosts.every(route => blogIndex.includes(`href="${route}"`)), `${lang}: blog index must link to every English article`);
+  const home = cache.get(path.join(root, lang, 'index.html')) ?? '';
+  check((home.match(/class="blog-card" href="\/en\/blog\/[^"]+\/"/g) ?? []).length === Math.min(3, englishPosts.length), `${lang}: home page must feature the latest English articles`);
+}
 for (const route of canonicalRoutes) check(locations.includes(route), `Sitemap is missing ${route}`);
 for (const lang of languages) {
   const index = JSON.parse(await readFile(path.join(root, lang, 'search.json'), 'utf8'));
@@ -116,6 +147,11 @@ for (const lang of languages) {
   for (const entry of index) {
     check(entry.text?.length > 100, `${lang}: missing search body ${entry.title}`);
     check(await exists(path.join(root, entry.href, 'index.html')), `${lang}: broken search result ${entry.href}`);
+  }
+  if (!blogLanguages.includes(lang)) {
+    check(!await exists(path.join(root, lang, 'rss.xml')), `${lang}: unexpected RSS feed for an untranslated blog`);
+    check(!await exists(path.join(root, lang, 'blog')) || (await readdir(path.join(root, lang, 'blog'))).every(entry => entry === 'index.html'), `${lang}: unexpected untranslated blog article pages`);
+    continue;
   }
   const rss = await readFile(path.join(root, lang, 'rss.xml'), 'utf8');
   check((rss.match(/<item>/g) ?? []).length >= 3, `${lang}: missing RSS posts`);

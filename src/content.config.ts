@@ -5,7 +5,7 @@ import { glob } from 'astro/loaders';
 const common = {
   title: z.string(),
   description: z.string(),
-  lang: z.enum(['zh', 'en']),
+  lang: z.enum(['zh', 'en', 'ja']),
   slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
 };
 
@@ -30,6 +30,8 @@ const blog = defineCollection({
   }),
   schema: z.object({
     ...common,
+    // The blog is published in Chinese and English only; Japanese pages link to the English articles.
+    lang: z.enum(['zh', 'en']),
     date: z.coerce.date(),
     category: z.enum(['product', 'engineering', 'guide']),
     author: z.string().default('Ait Team'),

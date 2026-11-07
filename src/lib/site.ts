@@ -1,5 +1,16 @@
-export const languages = ['zh', 'en'] as const;
+export const languages = ['zh', 'en', 'ja'] as const;
 export type Language = typeof languages[number];
+/** Languages the blog is published in. Japanese pages link to the English articles instead. */
+export const blogLanguages = ['zh', 'en'] as const;
+export type BlogLanguage = typeof blogLanguages[number];
+export const isBlogLanguage = (lang: Language): lang is BlogLanguage => (blogLanguages as readonly string[]).includes(lang);
+/** The blog edition shown to readers of a language without translated articles. */
+export const blogLanguageFor = (lang: Language): BlogLanguage => isBlogLanguage(lang) ? lang : 'en';
+export const locales = {
+  zh: { htmlLang: 'zh-CN', hreflang: 'zh-CN', og: 'zh_CN', intl: 'zh-CN', name: '简体中文', short: '中文' },
+  en: { htmlLang: 'en', hreflang: 'en', og: 'en_US', intl: 'en-US', name: 'English', short: 'EN' },
+  ja: { htmlLang: 'ja', hreflang: 'ja', og: 'ja_JP', intl: 'ja-JP', name: '日本語', short: '日本語' },
+} satisfies Record<Language, { htmlLang: string; hreflang: string; og: string; intl: string; name: string; short: string }>;
 export const siteOrigin = 'https://ait-app.com';
 export const featuredAgents = [
   { id: 'codex', name: 'Codex' },
@@ -33,12 +44,14 @@ export const pathFor = (lang: Language, path = '') => `/${lang}/${path ? `${path
 export const canonicalFor = (lang: Language, path = '') => new URL(pathFor(lang, path), siteOrigin).href;
 export const docPath = (slug: string) => slug === 'getting-started' ? 'docs' : `docs/${slug}`;
 export const isLanguage = (value: string | undefined): value is Language => languages.includes(value as Language);
-export const dateLabel = (date: Date, lang: Language) => new Intl.DateTimeFormat(lang === 'zh' ? 'zh-CN' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' }).format(date);
+export const dateLabel = (date: Date, lang: Language) => new Intl.DateTimeFormat(locales[lang].intl, { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' }).format(date);
 export const categories = {
   zh: { product: '产品动态', engineering: '工程手记', guide: '使用指南' },
   en: { product: 'Product', engineering: 'Engineering', guide: 'Guides' },
+  ja: { product: 'プロダクト', engineering: 'エンジニアリング', guide: 'ガイド' },
 };
 export const groups = {
   zh: { quickstart: '快速上手', start: '开始使用', workflow: '工作流', reference: '参考与配置', development: '参与开发' },
   en: { quickstart: 'Quick start', start: 'Getting started', workflow: 'Workflows', reference: 'Reference', development: 'Development' },
+  ja: { quickstart: 'クイックスタート', start: 'はじめに', workflow: 'ワークフロー', reference: 'リファレンス', development: '開発に参加' },
 };

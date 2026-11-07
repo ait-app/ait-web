@@ -1,5 +1,9 @@
 # 内容来源
 
+## 日文站点（2026-11-07）
+
+新增 `/ja/` 日文站点：首页、下载、Docs 全部 12 篇、隐私政策与全部界面文案均提供日文。日文 Docs 与隐私政策以当前英文正文（含 0.2.0 下载与运行说明）为准翻译，不新增或删减能力描述；隐私政策的日文版仅为译文，条款与中英文版保持一致。Blog 不翻译：`/ja/blog/` 与日文首页的文章区展示英文文章并链接到 `/en/blog/<slug>/`，Blog 文章不声明日文 hreflang，也不生成 `/ja/rss.xml`。根路径与 `/privacy/` 对 `ja` 浏览器语言跳转到日文页面。
+
 ## 0.2.0 下载与运行说明（2026-11-07）
 
 双语下载入口、平台、独立 daemon 与快速开始同步到 [0.2.0 Release](https://github.com/ait-app/ait/releases/tag/v0.2.0)。本批为同版本重建，实际源码是 [`d5269987e1e38db943b65ab60d45df936f93b8a4`](https://github.com/ait-app/ait/tree/d5269987e1e38db943b65ab60d45df936f93b8a4)，原标签保留在 `5e50a7a0`，来源以 `BUILD-INFO.json` 为准。[正式构建](https://github.com/ait-app/ait/actions/runs/42323970306)通过平台打包、启动、macOS 签名和公证门禁；DMG 与两份独立 daemon 归档已核对 SHA-256 并完成 COS 公开地址验证。

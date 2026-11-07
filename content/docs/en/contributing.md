@@ -101,8 +101,8 @@ Live provider tests may call models or use local authentication. Read the provid
 
 ## Improve the website documentation
 
-The edit link at the bottom of each page points to `ait-web/content/docs/{zh,en}/`. Add or update both languages with matching filenames and slugs. Use the corresponding language prefix for internal links. Groups, ordering, page headings, and search come from Markdown content and frontmatter.
+The edit link at the bottom of each page points to `ait-web/content/docs/{zh,en,ja}/`. Add or update all three languages with matching filenames and slugs. Use the corresponding language prefix for internal links. Groups, ordering, page headings, and search come from Markdown content and frontmatter.
 
-Check product claims against current Ait documentation and implementation, then record the source revision and review scope in [docs/content-sources.md](https://github.com/ait-app/ait-web/blob/main/docs/content-sources.md). Implementation, successful validation, and availability in a store release are different states. Website checks validate bilingual completeness, internal links, anchors, search, and the sitemap.
+Check product claims against current Ait documentation and implementation, then record the source revision and review scope in [docs/content-sources.md](https://github.com/ait-app/ait-web/blob/main/docs/content-sources.md). Implementation, successful validation, and availability in a store release are different states. Website checks validate multilingual completeness, internal links, anchors, search, and the sitemap.
 
 Ait uses the [Apache License 2.0](https://github.com/ait-app/ait/blob/main/LICENSE). Preserve copyright, license notices, and [third-party attribution](https://github.com/ait-app/ait/blob/main/paseo/README.md) when contributing.

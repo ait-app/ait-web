@@ -1,15 +1,16 @@
 ---
-import { pathFor } from '../lib/site';
+import { languages, pathFor } from '../lib/site';
 interface Props { path?: string; }
 const { path = '' } = Astro.props;
-const destinations = { zh: pathFor('zh', path), en: pathFor('en', path) };
+const destinations = Object.fromEntries(languages.map(lang => [lang, pathFor(lang, path)]));
 const defaultLanguage = __DEFAULT_LOCALE__;
+const supported = [...languages];
 ---
-<script define:vars={{ destinations, defaultLanguage }}>
+<script define:vars={{ destinations, defaultLanguage, supported }}>
   const preferences = navigator.languages?.length ? navigator.languages : [navigator.language];
   const language = preferences
     .map(locale => locale.toLowerCase().split('-')[0])
-    .find(locale => locale === 'zh' || locale === 'en') ?? defaultLanguage;
+    .find(locale => supported.includes(locale)) ?? defaultLanguage;
   window.location.replace(destinations[language] + window.location.search + window.location.hash);
 </script>
 <noscript><meta http-equiv="refresh" content={`0;url=${destinations.en}`} /></noscript>

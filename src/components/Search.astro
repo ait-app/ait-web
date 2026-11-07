@@ -7,10 +7,10 @@ const { lang } = Astro.props;
 const copy = t(lang).docs;
 ---
 <button class="docs-search-button" type="button" data-open-search><Icon name="search" size={16}/><span>{copy.search}</span><kbd>⌘ K</kbd></button>
-<dialog class="search-dialog" data-search-dialog data-search-url={`/${lang}/search.json`} data-empty={copy.noResults} data-hint={copy.searchHint} aria-label={copy.search}>
+<dialog class="search-dialog" data-search-dialog data-search-url={`/${lang}/search.json`} data-empty={copy.noResults} data-hint={copy.searchHint} data-error={copy.searchError} aria-label={copy.search}>
   <div class="search-input-row"><Icon name="search" size={20}/><input type="search" aria-label={copy.search} placeholder={copy.searchPlaceholder} autocomplete="off" data-search-input/><button data-close-search aria-label={t(lang).nav.close}><Icon name="close" size={19}/></button></div>
   <div class="search-results" data-search-results aria-live="polite"><p>{copy.searchHint}</p></div>
-  <div class="search-dialog-footer"><span><kbd>Tab</kbd> {lang === 'zh' ? '选择' : 'navigate'} <kbd>Enter</kbd> {lang === 'zh' ? '打开' : 'open'}</span><span><kbd>Esc</kbd> {lang === 'zh' ? '关闭' : 'close'}</span></div>
+  <div class="search-dialog-footer"><span><kbd>Tab</kbd> {copy.searchNavigate} <kbd>Enter</kbd> {copy.searchOpen}</span><span><kbd>Esc</kbd> {copy.searchClose}</span></div>
 </dialog>
 <script>
   interface SearchEntry { title: string; description: string; text: string; href: string; group: string; }
@@ -37,7 +37,7 @@ const copy = t(lang).docs;
     openingControl = document.activeElement as HTMLElement;
     dialog.showModal(); input.focus();
     if (!entries && !loadPromise) {
-      loadPromise = fetch(dialog.dataset.searchUrl!).then(async response => { if (!response.ok) throw new Error('Search unavailable'); entries = await response.json() as SearchEntry[]; }).catch(() => { showMessage(document.documentElement.lang === 'zh-CN' ? '搜索加载失败，请关闭后重试。' : 'Search could not load. Close and try again.'); loadPromise = undefined; });
+      loadPromise = fetch(dialog.dataset.searchUrl!).then(async response => { if (!response.ok) throw new Error('Search unavailable'); entries = await response.json() as SearchEntry[]; }).catch(() => { showMessage(dialog.dataset.error ?? ''); loadPromise = undefined; });
     }
     await loadPromise; search();
   };
