@@ -9,7 +9,7 @@ order: 5.5
 
 Ait の安定版リリースには、実行ファイル `aitd` 1 つを含むスタンドアロンデーモンのアーカイブが付属します。クラウドサーバー、ビルドマシン、常時稼働の Mac mini など、デスクトップ画面を必要としないホストで使用します。無人モードで実行して Ait アカウントにサインインすると、そのホストがオンラインのホスト一覧に表示され、デスクトップ、Android、iOS、Web の各クライアントから接続できます。
 
-> **バージョンの範囲:** 以下のダウンロードとサービスの例は **v0.2.2** を対象としており、`run` を使用します。v0.1.20 などの旧バージョンでは `run --headless` を使用していました。アップグレードする際は以下の移行手順に従い、お使いのバージョンに合わせて起動引数を揃えてください。
+> **バージョンの範囲:** 以下のダウンロードとサービスの例は **v0.2.5** を対象としており、`run` を使用します。v0.1.20 などの旧バージョンでは `run --headless` を使用していました。アップグレードする際は以下の移行手順に従い、お使いのバージョンに合わせて起動引数を揃えてください。
 
 このページでは 2 つの用語を使います。
 
@@ -37,7 +37,7 @@ aitd run
 
 `AIT_SERVER_TOKEN` が未設定の場合、どの起動経路でも `<data-dir>/local-api.token` が生成され、再利用されます。マシンの認可、リースの更新、再接続はデーモンが担当します。クライアントを終了しても認可は取り消されません。ホストを明示的に切断すると、認可が消去されます。ソースビルドでは `target/release/daemon` が生成されます。現在のセットアップについては、[ローカル開発](/ja/docs/development/)、[サーバー設定](/ja/docs/configuration/)、[デーモンマニュアル](https://github.com/ait-app/ait/blob/main/docs/operations/headless-daemon.md)をご覧ください。
 
-以下のダウンロードとサービスの例は v0.2.2 を使用しています。別のバージョンを実行する場合は、そのリリースのアセットと引数を使用してください。
+以下のダウンロードとサービスの例は v0.2.5 を使用しています。別のバージョンを実行する場合は、そのリリースのアセットと引数を使用してください。
 
 ## 要件
 
@@ -51,14 +51,14 @@ aitd run
 - Ait アカウント。このホストに接続するクライアントでも同じアカウントを使用してください。
 - このホストにインストールされ、サインイン済みのエージェント CLI が 1 つ以上。[エージェントのセットアップ](/ja/docs/providers/)をご覧ください。
 
-## ダウンロード (v0.2.2)
+## ダウンロード (v0.2.5)
 
 | プラットフォーム | GitHub リリース | 中国向けダウンロードミラー |
 | --- | --- | --- |
-| Linux x86_64 | [Ait-0.2.2-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.2/Ait-0.2.2-daemon-linux-x64.tar.gz) | [COS ダウンロード](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.2.2/Ait-0.2.2-daemon-linux-x64.tar.gz) |
-| macOS Apple Silicon | [Ait-0.2.2-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.2/Ait-0.2.2-daemon-macos-arm64.tar.gz) | [COS ダウンロード](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.2.2/Ait-0.2.2-daemon-macos-arm64.tar.gz) |
+| Linux x86_64 | [Ait-0.2.5-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.5/Ait-0.2.5-daemon-linux-x64.tar.gz) | [COS ダウンロード](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.2.5/Ait-0.2.5-daemon-linux-x64.tar.gz) |
+| macOS Apple Silicon | [Ait-0.2.5-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.5/Ait-0.2.5-daemon-macos-arm64.tar.gz) | [COS ダウンロード](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.2.5/Ait-0.2.5-daemon-macos-arm64.tar.gz) |
 
-どちらの場所も同一のファイルを提供します。チェックサムファイル `SHA256SUMS` は、[GitHub リリース](https://github.com/ait-app/ait/releases/tag/v0.2.2)でのみ公開されています。他のバージョンのアーカイブも同じ名前で、[すべてのリリース](https://github.com/ait-app/ait/releases)に置かれています。
+どちらの場所も同一のファイルを提供します。チェックサムファイル `SHA256SUMS` は、[GitHub リリース](https://github.com/ait-app/ait/releases/tag/v0.2.5)でのみ公開されています。他のバージョンのアーカイブも同じ名前で、[すべてのリリース](https://github.com/ait-app/ait/releases)に置かれています。
 
 ## インストール
 
@@ -67,7 +67,7 @@ aitd run
 ### Linux
 
 ```sh
-VERSION=0.2.2
+VERSION=0.2.5
 ASSET="Ait-${VERSION}-daemon-linux-x64.tar.gz"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/${ASSET}"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
@@ -80,7 +80,7 @@ aitd --version
 ### macOS
 
 ```sh
-VERSION=0.2.2
+VERSION=0.2.5
 ASSET="Ait-${VERSION}-daemon-macos-arm64.tar.gz"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/${ASSET}"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
