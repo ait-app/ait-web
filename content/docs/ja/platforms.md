@@ -35,7 +35,7 @@ Google Play 版は 18 歳以上の成人を対象としています。地域の�
 
 公式の [GitHub リリース](https://github.com/ait-app/ait/releases/latest)では、Apple Silicon の macOS と Linux x86_64 向けのインストーラーを提供しています。デスクトップシェルにはデーモンが含まれており、そのライフサイクルも管理します。
 
-中国国内の Apple Silicon Mac では、[中国向けダウンロードミラー（DMG、v0.2.5）](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.2.5/Ait-0.2.5-macos-arm64.dmg)を利用してください。
+中国国内の Apple Silicon Mac では、[中国向けダウンロードミラー（DMG、v0.2.7）](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.2.7/Ait-0.2.7-macos-arm64.dmg)を利用してください。
 
 macOS / Linux のデスクトップ版は、アカウントへのサインイン、オンラインホスト、ローカルワークスペースに対応しています。現在のソースでは、デーモンを同梱しない Windows x64 のデスクトップクライアントにも対応しており、アカウント、TCP、SSH を通じてリモートホストに接続します。[ローカル開発](/ja/docs/development/)と[デスクトップガイド](https://github.com/ait-app/ait/blob/main/apps/desktop/README.md)を参照してください。ダウンロードできるプラットフォームとバージョンは、該当するリリースのアセットによって異なります。
 
