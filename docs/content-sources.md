@@ -1,5 +1,9 @@
 # 内容来源
 
+## 稳定下载 0.2.9
+
+各语言 DMG、独立 daemon 下载与快速开始同步至 [v0.2.9](https://github.com/ait-app/ait/releases/tag/v0.2.9)。使用本批 BUILD-INFO 与 SHA256SUMS 核对的 COS 版本文件；历史迁移链接保留。
+
 ## 稳定下载 0.2.7
 
 各语言 DMG、独立 daemon 下载与快速开始同步至 [v0.2.7](https://github.com/ait-app/ait/releases/tag/v0.2.7)。使用本批 BUILD-INFO 与 SHA256SUMS 核对的 COS 版本文件；历史迁移链接保留。
