@@ -55,14 +55,14 @@ aitd run
 
 | プラットフォーム | GitHub リリース | 中国向けダウンロードミラー |
 | --- | --- | --- |
-| Linux x86_64 | [Ait-0.2.7-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.7/Ait-0.2.7-daemon-linux-x64.tar.gz) | [COS ダウンロード](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.2.7/Ait-0.2.7-daemon-linux-x64.tar.gz) |
-| macOS Apple Silicon | [Ait-0.2.7-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.7/Ait-0.2.7-daemon-macos-arm64.tar.gz) | [COS ダウンロード](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.2.7/Ait-0.2.7-daemon-macos-arm64.tar.gz) |
+| Linux x86_64 | [Ait-0.2.7-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.7/Ait-0.2.7-daemon-linux-x64.tar.gz) | [COS ダウンロード](https://download.aitapp.cn/v0.2.7/Ait-0.2.7-daemon-linux-x64.tar.gz) |
+| macOS Apple Silicon | [Ait-0.2.7-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.7/Ait-0.2.7-daemon-macos-arm64.tar.gz) | [COS ダウンロード](https://download.aitapp.cn/v0.2.7/Ait-0.2.7-daemon-macos-arm64.tar.gz) |
 
 どちらの場所も同一のファイルを提供します。チェックサムファイル `SHA256SUMS` は、[GitHub リリース](https://github.com/ait-app/ait/releases/tag/v0.2.7)でのみ公開されています。他のバージョンのアーカイブも同じ名前で、[すべてのリリース](https://github.com/ait-app/ait/releases)に置かれています。
 
 ## インストール
 
-以下のコマンドは、GitHub からアーカイブをダウンロードし、チェックサムを検証して、`aitd` を `/usr/local/bin` にインストールします。中国本土では、最初の `curl` の URL を `https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v${VERSION}/${ASSET}` に置き換えることができます。
+以下のコマンドは、GitHub からアーカイブをダウンロードし、チェックサムを検証して、`aitd` を `/usr/local/bin` にインストールします。中国本土では、最初の `curl` の URL を `https://download.aitapp.cn/v${VERSION}/${ASSET}` に置き換えることができます。
 
 ### Linux
 

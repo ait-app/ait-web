@@ -55,14 +55,14 @@ You also need:
 
 | Platform | GitHub release | China download mirror |
 | --- | --- | --- |
-| Linux x86_64 | [Ait-0.2.7-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.7/Ait-0.2.7-daemon-linux-x64.tar.gz) | [COS download](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.2.7/Ait-0.2.7-daemon-linux-x64.tar.gz) |
-| macOS Apple Silicon | [Ait-0.2.7-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.7/Ait-0.2.7-daemon-macos-arm64.tar.gz) | [COS download](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.2.7/Ait-0.2.7-daemon-macos-arm64.tar.gz) |
+| Linux x86_64 | [Ait-0.2.7-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.7/Ait-0.2.7-daemon-linux-x64.tar.gz) | [COS download](https://download.aitapp.cn/v0.2.7/Ait-0.2.7-daemon-linux-x64.tar.gz) |
+| macOS Apple Silicon | [Ait-0.2.7-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.7/Ait-0.2.7-daemon-macos-arm64.tar.gz) | [COS download](https://download.aitapp.cn/v0.2.7/Ait-0.2.7-daemon-macos-arm64.tar.gz) |
 
 Both locations serve identical files. The `SHA256SUMS` checksum file is published only on the [GitHub release](https://github.com/ait-app/ait/releases/tag/v0.2.7). Archives for other versions use the same names on [all releases](https://github.com/ait-app/ait/releases).
 
 ## Install
 
-These commands download the archive from GitHub, verify its checksum, and install `aitd` to `/usr/local/bin`. In mainland China, you can replace the first `curl` URL with `https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v${VERSION}/${ASSET}`.
+These commands download the archive from GitHub, verify its checksum, and install `aitd` to `/usr/local/bin`. In mainland China, you can replace the first `curl` URL with `https://download.aitapp.cn/v${VERSION}/${ASSET}`.
 
 ### Linux
 
