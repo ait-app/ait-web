@@ -55,8 +55,8 @@ aitd run
 
 | 平台 | GitHub Release | 国内加速下载 |
 | --- | --- | --- |
-| Linux x86_64 | [Ait-0.2.7-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.7/Ait-0.2.7-daemon-linux-x64.tar.gz) | [COS 下载](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.2.7/Ait-0.2.7-daemon-linux-x64.tar.gz) |
-| macOS Apple Silicon | [Ait-0.2.7-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.7/Ait-0.2.7-daemon-macos-arm64.tar.gz) | [COS 下载](https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v0.2.7/Ait-0.2.7-daemon-macos-arm64.tar.gz) |
+| Linux x86_64 | [Ait-0.2.7-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.7/Ait-0.2.7-daemon-linux-x64.tar.gz) | [COS 下载](https://download.aitapp.cn/v0.2.7/Ait-0.2.7-daemon-linux-x64.tar.gz) |
+| macOS Apple Silicon | [Ait-0.2.7-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.7/Ait-0.2.7-daemon-macos-arm64.tar.gz) | [COS 下载](https://download.aitapp.cn/v0.2.7/Ait-0.2.7-daemon-macos-arm64.tar.gz) |
 
 两个地址的文件完全相同。校验文件 `SHA256SUMS` 只在 [GitHub Release](https://github.com/ait-app/ait/releases/tag/v0.2.7) 发布。其他版本可在 [全部 Release](https://github.com/ait-app/ait/releases) 中找到同名归档。
 
@@ -69,7 +69,7 @@ aitd run
 ```sh
 VERSION=0.2.7
 ASSET="Ait-${VERSION}-daemon-linux-x64.tar.gz"
-curl -fLO "https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v${VERSION}/${ASSET}"
+curl -fLO "https://download.aitapp.cn/v${VERSION}/${ASSET}"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
 grep -F "  ${ASSET}" SHA256SUMS | sha256sum -c -
 tar -xzf "${ASSET}"
@@ -82,7 +82,7 @@ aitd --version
 ```sh
 VERSION=0.2.7
 ASSET="Ait-${VERSION}-daemon-macos-arm64.tar.gz"
-curl -fLO "https://ait-release-1251719274.cos.ap-shanghai.myqcloud.com/v${VERSION}/${ASSET}"
+curl -fLO "https://download.aitapp.cn/v${VERSION}/${ASSET}"
 curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
 grep -F "  ${ASSET}" SHA256SUMS | shasum -a 256 -c -
 tar -xzf "${ASSET}"
