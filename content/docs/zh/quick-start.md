@@ -26,7 +26,7 @@ Ait 把 Agent 会话、文件、代码变更和终端放在同一个工作区。
 
 ## 开始之前
 
-准备一台 **Apple Silicon Mac 或 Linux x86_64 电脑**、一个项目目录，以及至少一个已经安装并完成登录的 Agent CLI。Ait 支持 Codex、Claude Code、OpenCode、DeepSeek Harness 和 Antigravity CLI，具体配置见 [Agent 接入](/zh/docs/providers/)。
+准备一台 **Apple Silicon Mac 或 Linux x86_64 电脑**作为工作主机、一个项目目录，以及至少一个已经安装并完成登录的 Agent CLI。Ait 支持 Codex、Claude Code、OpenCode、DeepSeek Harness、Antigravity CLI、Pi、Oh My Pi 和 MiniMax Code，具体配置见 [Agent 接入](/zh/docs/providers/)。Windows x64 桌面应用作为远端客户端使用，Agent 仍安装在工作主机上。
 
 Ait 复用 Agent 自己的登录与模型配置，不包含模型订阅。Agent 安装在运行任务的工作主机上，手机和浏览器负责连接这台主机。
 
@@ -38,8 +38,9 @@ Ait 复用 Agent 自己的登录与模型配置，不包含模型订阅。Agent 
 
 - **macOS Apple Silicon**：打开 DMG，将 Ait 安装到「应用程序」，然后启动。
 - **Linux x86_64**：下载 AppImage 或 tar.gz，按发行包格式运行或解压后启动。
+- **Windows x64**：安装 Windows 客户端，然后通过账户、TCP 或 SSH 连接运行 Agent 的远端主机。
 
-打开 Ait，进入本机服务。桌面应用会自动启动内置 daemon，无需再安装独立服务。**只在本机使用时，无需登录 Ait 账户。**
+在 macOS 或 Linux 上打开 Ait，进入本机服务；桌面应用会自动启动内置 daemon，无需再安装独立服务。在 Windows 上打开客户端，连接运行 Agent 的远端主机。**只在 macOS 或 Linux 本机使用时，无需登录 Ait 账户。**
 
 安装包、国内下载入口和各平台说明见 [平台支持](/zh/docs/platforms/)。已安装桌面版，可以直接继续下面的「接入 Agent」。
 
@@ -54,7 +55,7 @@ aitd run
 
 首次授权时，终端会显示网页地址和验证码。在浏览器中打开地址，登录 Ait 账户并确认这台机器。启动后，打开 [Ait Web 界面](https://aitapp.cn/)，登录同一账户，从在线主机列表选择它。
 
-安装指南中的下载与服务示例已更新到 v0.2.9，使用 `aitd run`。升级旧版或从源码构建时，请按[版本说明](/zh/docs/daemon/#当前源码与升级)核对启动参数。
+安装指南中的下载与服务示例已更新到 v0.2.13，使用 `aitd run`。升级旧版或从源码构建时，请按[版本说明](/zh/docs/daemon/#当前源码与升级)核对启动参数。
 
 `run` 在前台运行，请保持进程运行。长期在线可按 [后台常驻说明](/zh/docs/daemon/#保持运行)配置 systemd 或 launchd。Agent CLI 和项目文件也应准备在这台主机上。
 

@@ -26,7 +26,7 @@ Ait brings agent sessions, files, code changes, and a terminal into one workspac
 
 ## Before you start
 
-Have an **Apple Silicon Mac or Linux x86_64 computer**, a project directory, and at least one agent CLI installed and authenticated. Ait supports Codex, Claude Code, OpenCode, DeepSeek Harness, and Antigravity CLI. See [Agent setup](/en/docs/providers/) for configuration details.
+Have an **Apple Silicon Mac or Linux x86_64 computer** as the working host, a project directory, and at least one agent CLI installed and authenticated. Ait supports Codex, Claude Code, OpenCode, DeepSeek Harness, Antigravity CLI, Pi, Oh My Pi, and MiniMax Code. See [Agent setup](/en/docs/providers/) for configuration details. The Windows x64 desktop app is a remote client; install agents on the working host.
 
 Ait reuses each agent’s sign-in and model configuration. It does not include a model subscription. Install agents on the host that runs your tasks; phones and browsers connect to that host.
 
@@ -38,8 +38,9 @@ Visit the [Ait download page](/en/download/) and choose the package for your com
 
 - **macOS Apple Silicon**: open the DMG, install Ait in Applications, and launch it.
 - **Linux x86_64**: download the AppImage or tar.gz, then run or extract and launch the appropriate package.
+- **Windows x64**: install the Windows client, then connect through an account, TCP, or SSH to the remote host running your agents.
 
-Open Ait and connect to the local service. The desktop app starts its bundled daemon automatically, so there is no separate service to install. **Local use does not require an Ait account.**
+On macOS or Linux, open Ait and connect to the local service; the desktop app starts its bundled daemon automatically, so there is no separate service to install. On Windows, open the client and connect to the remote host running your agents. **Local use on macOS or Linux does not require an Ait account.**
 
 See [Platform support](/en/docs/platforms/) for installers, the China download mirror, and platform details. If you installed the desktop app, continue to “Connect an agent” below.
 
@@ -54,7 +55,7 @@ aitd run
 
 For initial authorization, the terminal displays a web address and a verification code. Open the address in a browser, sign in to your Ait account, and approve the machine. Once the daemon is running, open the [Ait Web app](https://aitapp.cn/), sign in with the same account, and select the machine from the online host list.
 
-The installation guide’s download and service examples now target v0.2.9 and use `aitd run`. When upgrading an older installation or building from source, check the startup arguments in the [version guidance](/en/docs/daemon/#current-source-and-upgrades).
+The installation guide’s download and service examples now target v0.2.13 and use `aitd run`. When upgrading an older installation or building from source, check the startup arguments in the [version guidance](/en/docs/daemon/#current-source-and-upgrades).
 
 `run` runs in the foreground, so keep the process running. For ongoing use, configure systemd or launchd with the [background service instructions](/en/docs/daemon/#keep-it-running). Install your agent CLIs and keep the project files on this host too.
 

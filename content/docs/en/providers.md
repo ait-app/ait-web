@@ -61,7 +61,7 @@ Ait uses the **AGY CLI**. Installing the Antigravity IDE alone is not sufficient
 
 Models come from `agy models`. Multi-turn text, text attachments, tool progress, usage, and conversation recovery are supported. Local permissions are preserved by default. The native headless interface has no interactive approval callback, so tools that require a question may be denied. Configure AGY’s native permissions for your task; Ait does not automatically change global rules.
 
-Image input, guidance during an active turn, full native history import, and rewind are not integrated. See the [Antigravity CLI manual](https://github.com/ait-app/ait/blob/main/docs/operations/antigravity.md) for installation, permissions, and diagnostics.
+Image input (PNG/JPEG/GIF/WebP), text attachments, multi-turn text, tool progress, usage, and conversation recovery are supported. Guidance during an active turn, full native history import, and rewind are not integrated. See the [Antigravity CLI manual](https://github.com/ait-app/ait/blob/main/docs/operations/antigravity.md) for installation, permissions, and diagnostics.
 
 ## Pi
 
@@ -71,9 +71,9 @@ Models come from Pi’s catalog with `provider/model` identifiers. Ait supports 
 
 ## Oh My Pi
 
-Oh My Pi (`omp`) and Pi are separate providers with different installations, configuration, and sessions. Install and sign in on the working host, confirm `omp --version` works, then select **Oh My Pi** in Ait. The current documentation uses official 18.12.6 RPC v2 as its compatibility baseline.
+Oh My Pi (`omp`) and Pi are separate providers with different installations, configuration, and sessions. Install and sign in on the working host, confirm `omp --version` works, then select **Oh My Pi** in Ait. The minimum supported version is official 18.12.6 (RPC v2); current validation uses 18.18.8.
 
-Ait connects its ACP bridge to official `omp --mode rpc-ui`. It supports dynamic model and reasoning options, native approvals and structured questions, image and text attachments, subagent display, session import, and recovery. OMP continues to manage tools, MCP, and extensions. Native permissions are not an operating-system sandbox. See the [Oh My Pi manual](https://github.com/ait-app/ait/blob/main/docs/operations/oh-my-pi.md) for capabilities and limitations.
+Ait connects directly to the native JSONL RPC of official `omp --mode rpc-ui`; the ACP bridge entry point is no longer provided. It supports dynamic model and reasoning options, native approvals and structured questions, image and text attachments, subagent display, session listing, background subagent records, and recovery. OMP continues to manage tools, MCP, and extensions. Native permissions are not an operating-system sandbox. See the [Oh My Pi manual](https://github.com/ait-app/ait/blob/main/docs/operations/oh-my-pi.md) for capabilities and limitations.
 
 ## MiniMax Code
 

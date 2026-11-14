@@ -49,7 +49,7 @@ Browsers first exchange a short-lived, one-time connection ticket before upgradi
 
 ## Data stays on the working host
 
-Project files and agent runtimes stay on the working host. The desktop’s default service data directory is `~/.ait-server-desktop`; the standalone daemon defaults to `~/.ait-server`.
+Project files and agent runtimes stay on the working host. The default data directory is `~/.ait`; when legacy directories already exist, the daemon uses the first existing path in the order `~/.ait`, `~/.ait-server-desktop`, `~/.ait-server`.
 
 Local execution does not mean model requests never leave the network. Agents communicate with their providers according to their own configuration. Consult the provider’s data policy when using remote models. Remote clients read files and conversations through the chosen connection method.
 

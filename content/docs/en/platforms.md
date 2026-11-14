@@ -33,11 +33,11 @@ The closed test currently uses an email list; opening the link does not grant ac
 
 ## Desktop
 
-Official [GitHub releases](https://github.com/ait-app/ait/releases/latest) provide installers for Apple Silicon macOS and Linux x86_64. The desktop shell includes the daemon and manages its lifecycle.
+Official [GitHub releases](https://github.com/ait-app/ait/releases/latest) provide installers for Apple Silicon macOS, Linux x86_64, and Windows x64. The macOS / Linux desktop shell includes the daemon and manages its lifecycle; the Windows x64 package is a client for remote hosts and does not bundle a daemon.
 
-For Apple Silicon Macs in China, use the [China download mirror (DMG, v0.2.9)](https://download.aitapp.cn/v0.2.9/Ait-0.2.9-macos-arm64.dmg).
+For Apple Silicon Macs in China, use the [China download mirror (DMG, v0.2.13)](https://download.aitapp.cn/v0.2.13/Ait-0.2.13-macos-arm64.dmg).
 
-macOS / Linux desktop supports account sign-in, online hosts, and local workspaces. The current source also supports a Windows x64 desktop client without a bundled daemon; it connects to remote hosts through an account, TCP, or SSH. See [Local development](/en/docs/development/) and the [desktop guide](https://github.com/ait-app/ait/blob/main/apps/desktop/README.md). Available download platforms and versions depend on the assets in the corresponding release.
+macOS / Linux desktop supports account sign-in, online hosts, and local workspaces. The Windows x64 desktop client does not bundle a daemon; it connects to remote hosts through an account, TCP, or SSH. See [Local development](/en/docs/development/) and the [desktop guide](https://github.com/ait-app/ait/blob/main/apps/desktop/README.md). Available download platforms and versions depend on the assets in the corresponding release.
 
 Linux x86_64 or Apple Silicon macOS hosts without a desktop environment can install the [standalone daemon](/en/docs/daemon/) and join your account in unattended mode.
 
@@ -76,7 +76,7 @@ Local Web development uses direct connections. See [Local development](/en/docs/
 | Platform | Runs a local daemon | Account connection | Direct connection |
 | --- | --- | --- | --- |
 | macOS / Linux desktop | Yes | Yes | Yes |
-| Windows desktop (current source) | No | Yes | Yes |
+| Windows desktop | No | Yes | Yes |
 | Standalone daemon (Linux / macOS) | Yes | Yes | Yes |
 | Android | No | Yes | Yes |
 | iOS / iPadOS | No | Yes | Yes |

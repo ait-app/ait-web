@@ -357,7 +357,7 @@
   .article-related .blog-grid { grid-template-columns: repeat(2,1fr); }
   .download-page { padding-bottom: 100px; }
   .download-group-title { font-size: 18px; letter-spacing: -.02em; margin: 48px 0 18px; }
-  .download-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .download-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
   .download-card { padding: 35px; border: 1px solid var(--line); background: white; border-radius: 8px; }
   .download-icon { display: inline-flex; padding: 16px; background: #f4f4f0; border-radius: 13px; margin-bottom: 25px; }
   .download-card h2 { font-size: 29px; }

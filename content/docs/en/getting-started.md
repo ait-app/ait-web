@@ -13,17 +13,17 @@ Read [Why Ait?](/en/docs/why-ait/) to explore using multiple agents, managing se
 
 ## Install the desktop app
 
-Choose your platform on the [download page](/en/download/). Official desktop releases currently provide installers for **Apple Silicon macOS** and **Linux x86_64**.
+Choose your platform on the [download page](/en/download/). Official desktop releases currently provide installers for **Apple Silicon macOS**, **Linux x86_64**, and **Windows x64**.
 
 Download the appropriate file from the [official Ait release](https://github.com/ait-app/ait/releases/latest). On macOS, open the DMG, install Ait, and launch it. On Linux, extract and run the distribution package or use the AppImage. Releases include `SHA256SUMS` for checking downloaded files.
 
-The desktop package includes the Rust daemon. The desktop app starts it for you, so a separate Ait server installation is not required.
+The macOS and Linux desktop packages include the Rust daemon, and the desktop app starts it for you. The Windows x64 package is a client for remote hosts and does not run agents locally.
 
 ## Bring an agent
 
-Ait does not include a model subscription. Before starting, install and sign in to at least one supported agent CLI on the working host, such as Claude Code, Codex, or OpenCode.
+Ait does not include a model subscription. Before starting, install and sign in to at least one supported agent CLI on the working host, such as Claude Code, Codex, OpenCode, DeepSeek Harness, Antigravity, Pi, Oh My Pi, or MiniMax Code.
 
-If you already use these tools in your terminal, keep your existing sign-in. Ait also supports DeepSeek Harness and Antigravity CLI. Available models and permissions depend on the version installed on the working computer. See [Agent setup](/en/docs/providers/) for setup and differences between the integrations.
+If you already use these tools in your terminal, keep your existing sign-in. Available models and permissions depend on the version installed on the working computer. See [Agent setup](/en/docs/providers/) for setup and differences between the integrations.
 
 ## Start your first workspace
 
@@ -51,4 +51,4 @@ Read [Connections & data](/en/docs/connection/) and [Platform support](/en/docs/
 
 To fix documentation, reproduce a problem, or improve code, start with [Contributing](/en/docs/contributing/) for repository responsibilities, engineering rules, validation scope, and the pull request process.
 
-To run from source, read [Local development](/en/docs/development/): prepare Node.js 24, the pinned Rust toolchain, CMake, and system build tools, then choose desktop, Web, or mobile. Website documentation lives in the separate `ait-web` repository; the guide also covers local previews.
+To run from source, read [Local development](/en/docs/development/): prepare Node.js 26, the pinned Rust toolchain, CMake, and system build tools, then choose desktop, Web, or mobile. Website documentation lives in the separate `ait-web` repository; the guide also covers local previews.

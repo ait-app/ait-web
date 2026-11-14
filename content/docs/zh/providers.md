@@ -61,7 +61,7 @@ Ait 使用 **AGY CLI**；只安装 Antigravity IDE 并不足够。安装 CLI 后
 
 模型来自 `agy models`，支持多轮文本、文本附件、工具进度、用量与 conversation 恢复。默认保留本机权限；原生 headless 接口没有交互审批回传，需要询问的工具可能直接被拒绝。按任务需要配置 AGY 的原生权限，Ait 不会自动改写全局规则。
 
-当前未接入图片输入、运行中追加指导、完整原生历史导入或 rewind。安装、权限与诊断说明见 [Antigravity CLI 手册](https://github.com/ait-app/ait/blob/main/docs/operations/antigravity.md)。
+支持 PNG/JPEG/GIF/WebP 图片输入、文本附件、多轮文本、工具进度、用量与 conversation 恢复；运行中追加指导、完整原生历史导入和 rewind 尚未接入。安装、权限与诊断说明见 [Antigravity CLI 手册](https://github.com/ait-app/ait/blob/main/docs/operations/antigravity.md)。
 
 ## Pi
 
@@ -71,9 +71,9 @@ Ait 使用 **AGY CLI**；只安装 Antigravity IDE 并不足够。安装 CLI 后
 
 ## Oh My Pi
 
-Oh My Pi（`omp`）与 Pi 是独立的 Provider，安装、配置和会话不能互换。先在工作主机完成原生安装与登录，确认 `omp --version` 可用，再在 Ait 选择 **Oh My Pi**。当前文档的兼容基线为官方 18.12.6 RPC v2。
+Oh My Pi（`omp`）与 Pi 是独立的 Provider，安装、配置和会话不能互换。先在工作主机完成原生安装与登录，确认 `omp --version` 可用，再在 Ait 选择 **Oh My Pi**。最低支持官方 18.12.6（RPC v2）；当前按 18.18.8 验证。
 
-Ait 通过自己的 ACP 桥接层连接官方 `omp --mode rpc-ui`。支持动态模型与推理选项、原生审批和结构化问答、图片与文本附件、子 Agent 展示、会话导入与恢复。工具、MCP 和扩展继续由 OMP 管理；原生权限不等同于操作系统沙箱。能力与限制见 [Oh My Pi 手册](https://github.com/ait-app/ait/blob/main/docs/operations/oh-my-pi.md)。
+Ait 直接通过官方 `omp --mode rpc-ui` 的原生 JSONL RPC 连接，不再提供 ACP 桥接入口。支持动态模型与推理选项、原生审批和结构化问答、图片与文本附件、子 Agent 展示、会话列表、后台子 Agent 记录与恢复。工具、MCP 和扩展继续由 OMP 管理；原生权限不等同于操作系统沙箱。能力与限制见 [Oh My Pi 手册](https://github.com/ait-app/ait/blob/main/docs/operations/oh-my-pi.md)。
 
 ## MiniMax Code
 

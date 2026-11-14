@@ -13,17 +13,17 @@ Ait 是一个本地优先的多 Agent 管理器。Agent 在你的工作主机上
 
 ## 安装桌面应用
 
-在 [下载页](/zh/download/) 选择你的平台。目前官方桌面 Release 提供 **Apple Silicon macOS** 与 **Linux x86_64** 安装包。
+在 [下载页](/zh/download/) 选择你的平台。目前官方桌面 Release 提供 **Apple Silicon macOS**、**Linux x86_64** 与 **Windows x64** 安装包。
 
 从 [Ait 官方 Release](https://github.com/ait-app/ait/releases/latest) 下载对应文件。macOS 打开 DMG，安装并启动 Ait；Linux 根据发行包格式解压运行，或使用 AppImage。Release 同时提供 `SHA256SUMS`，可核对下载文件。
 
-桌面安装包带有 Rust daemon，由桌面应用负责启动，无需额外安装一个 Ait 服务。
+macOS / Linux 桌面安装包带有 Rust daemon，由桌面应用负责启动，无需单独安装 daemon。Windows x64 是连接远端主机的客户端，不在本机运行 Agent。
 
 ## 准备一个 Agent
 
-Ait 不包含模型订阅。开始之前，在工作主机上安装并登录至少一个支持的 Agent CLI，例如 Claude Code、Codex 或 OpenCode。
+Ait 不包含模型订阅。开始之前，在工作主机上安装并登录至少一个支持的 Agent CLI，例如 Claude Code、Codex、OpenCode、DeepSeek Harness、Antigravity、Pi、Oh My Pi 或 MiniMax Code。
 
-如果已经在终端使用这些工具，可以继续使用现有登录。Ait 也支持 DeepSeek Harness 与 Antigravity CLI；可用模型和权限取决于工作电脑安装的版本。接入步骤和各工具的区别见 [Agent 接入](/zh/docs/providers/)。
+如果已经在终端使用这些工具，可以继续使用现有登录。Ait 可用模型和权限取决于工作电脑安装的版本。接入步骤和各工具的区别见 [Agent 接入](/zh/docs/providers/)。
 
 ## 开始第一个工作区
 
@@ -51,4 +51,4 @@ Google Play 封测名单使用 Google 账号，Ait 应用内使用 Ait 账户，
 
 想修正文档、复现问题或改进代码，可以从[参与贡献](/zh/docs/contributing/)开始，了解仓库分工、工程规范、验证范围与 Pull Request 流程。
 
-需要从源码运行时，阅读[本地开发](/zh/docs/development/)：准备 Node.js 24、仓库指定的 Rust 工具链、CMake 与系统构建工具，再选择桌面、Web 或移动端入口。官网文档使用独立的 `ait-web` 仓库，该指南也包含本地预览方法。
+需要从源码运行时，阅读[本地开发](/zh/docs/development/)：准备 Node.js 26、仓库指定的 Rust 工具链、CMake 与系统构建工具，再选择桌面、Web 或移动端入口。官网文档使用独立的 `ait-web` 仓库，该指南也包含本地预览方法。

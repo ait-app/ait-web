@@ -1,5 +1,13 @@
 # 内容来源
 
+## 稳定下载与主线能力 0.2.13（2026-11-15）
+
+本轮以 Ait `origin/main` 的 [`255fbf46d6cd9f01c5fdd7d987678b6287e0f8f5`](https://github.com/ait-app/ait/commit/255fbf46d6cd9f01c5fdd7d987678b6287e0f8f5) 为源码基线，版本为 0.2.13，并同步 [v0.2.13 Release](https://github.com/ait-app/ait/releases/tag/v0.2.13) 的 macOS DMG 与 Linux/macOS 独立 daemon 下载地址。
+
+本轮同时核对主仓库 README、桌面发布配置、`docs/operations/headless-daemon.md`、`docs/operations/oh-my-pi.md`、`docs/operations/antigravity.md` 与 `CHANGELOG.md`：官网补充 Windows x64 远端客户端说明，更新 Node.js 26 开发要求和 `AITD_BIN` 覆盖变量，统一说明 `~/.ait` 及旧目录查找顺序；Agent 文档同步 Pi、Oh My Pi、MiniMax Code，修正 Oh My Pi 原生 RPC 与 Antigravity 图片输入能力。
+
+这次仍不代表 Windows、移动端、商店测试版或各 Provider 完成新的实机验收；官网把 Windows 描述为不运行本地 Agent 的客户端，下载与测试资格继续以对应 Release、TestFlight 和 Google Play 状态为准。
+
 ## 稳定下载 0.2.9
 
 各语言 DMG、独立 daemon 下载与快速开始同步至 [v0.2.9](https://github.com/ait-app/ait/releases/tag/v0.2.9)。使用本批 BUILD-INFO 与 SHA256SUMS 核对的 COS 版本文件；历史迁移链接保留。

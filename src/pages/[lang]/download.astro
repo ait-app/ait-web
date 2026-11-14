@@ -26,6 +26,11 @@ const copy = t(lang).download;
         <h2>{copy.linux}</h2><p>{copy.linuxDetail}</p>
         <a class="button button-dark" href={product.latestRelease} target="_blank" rel="noopener noreferrer"><Icon name="download" size={17}/>{copy.latest}</a>
       </article>
+      <article class="download-card">
+        <span class="download-icon"><Icon name="laptop" size={32}/></span>
+        <h2>{copy.windows}</h2><p>{copy.windowsDetail}</p>
+        <a class="button button-dark" href={product.latestRelease} target="_blank" rel="noopener noreferrer"><Icon name="download" size={17}/>{copy.latest}</a>
+      </article>
     </div>
     <p class="release-note">{copy.releaseNote}</p>
     <p class="release-note"><a class="text-link" href={pathFor(lang,'docs/daemon')}>{copy.daemon}<Icon name="arrow" size={16}/></a></p>
