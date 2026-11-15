@@ -33,11 +33,11 @@ Google Play 版は 18 歳以上の成人を対象としています。地域の�
 
 ## デスクトップ
 
-公式の [GitHub リリース](https://github.com/ait-app/ait/releases/latest)では、Apple Silicon の macOS と Linux x86_64 向けのインストーラーを提供しています。デスクトップシェルにはデーモンが含まれており、そのライフサイクルも管理します。
+公式の [GitHub リリース](https://github.com/ait-app/ait/releases/latest)では、Apple Silicon の macOS、Linux x86_64、Windows x64 向けのインストーラーを提供しています。macOS / Linux のデスクトップシェルにはデーモンが含まれており、そのライフサイクルも管理します。Windows x64 はデーモンを含まないリモートホスト用クライアントです。
 
-中国国内の Apple Silicon Mac では、[中国向けダウンロードミラー（DMG、v0.2.9）](https://download.aitapp.cn/v0.2.9/Ait-0.2.9-macos-arm64.dmg)を利用してください。
+中国国内の Apple Silicon Mac では、[中国向けダウンロードミラー（DMG、v0.2.13）](https://download.aitapp.cn/v0.2.13/Ait-0.2.13-macos-arm64.dmg)を利用してください。
 
-macOS / Linux のデスクトップ版は、アカウントへのサインイン、オンラインホスト、ローカルワークスペースに対応しています。現在のソースでは、デーモンを同梱しない Windows x64 のデスクトップクライアントにも対応しており、アカウント、TCP、SSH を通じてリモートホストに接続します。[ローカル開発](/ja/docs/development/)と[デスクトップガイド](https://github.com/ait-app/ait/blob/main/apps/desktop/README.md)を参照してください。ダウンロードできるプラットフォームとバージョンは、該当するリリースのアセットによって異なります。
+macOS / Linux のデスクトップ版は、アカウントへのサインイン、オンラインホスト、ローカルワークスペースに対応しています。Windows x64 のデスクトップクライアントはデーモンを同梱せず、アカウント、TCP、SSH を通じてリモートホストに接続します。[ローカル開発](/ja/docs/development/)と[デスクトップガイド](https://github.com/ait-app/ait/blob/main/apps/desktop/README.md)を参照してください。ダウンロードできるプラットフォームとバージョンは、該当するリリースのアセットによって異なります。
 
 デスクトップ環境のない Linux x86_64 または Apple Silicon macOS のホストでは、[スタンドアロンデーモン](/ja/docs/daemon/)をインストールし、無人モードでアカウントに参加させることができます。
 
@@ -76,7 +76,7 @@ iOS シミュレーターは、ループバック経由でホストにアクセ�
 | プラットフォーム | ローカルデーモンの実行 | アカウント接続 | 直接接続 |
 | --- | --- | --- | --- |
 | macOS / Linux デスクトップ | あり | あり | あり |
-| Windows デスクトップ（現在のソース） | なし | あり | あり |
+| Windows デスクトップ | なし | あり | あり |
 | スタンドアロンデーモン（Linux / macOS） | あり | あり | あり |
 | Android | なし | あり | あり |
 | iOS / iPadOS | なし | あり | あり |

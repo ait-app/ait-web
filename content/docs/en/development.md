@@ -11,7 +11,7 @@ This guide follows the current Ait source documentation. Read [Contributing](/en
 
 ## Prepare the toolchain
 
-- Git, **Node.js 24**, and npm.
+- Git, **Node.js 26**, and npm.
 - The Rust toolchain, `rustfmt`, and Clippy specified by [rust-toolchain.toml](https://github.com/ait-app/ait/blob/main/rust-toolchain.toml). The repository pins its version; rustup selects it when you work inside the checkout.
 - CMake and system C/C++ build tools for native dependencies.
 - For agent integration, install and authenticate the required CLI on the working host and confirm that it runs independently. See [Agent setup](/en/docs/providers/).
@@ -54,9 +54,10 @@ The entry point builds shared dependencies and the Rust binary, then starts the 
 | Variable              | Purpose                                                              |
 | --------------------- | -------------------------------------------------------------------- |
 | `AIT_SERVER_DATA_DIR` | Choose a different development data directory                        |
-| `AIT_SERVER_BIN`      | Use an already built daemon binary                                   |
+| `AITD_BIN`           | Use an already built daemon binary                                   |
 | `AIT_SERVER_LISTEN`   | Change the listener address and port; update the connection form too |
 | `EXPO_PORT`           | Change the Expo port; use the page address shown at startup          |
+The current source uses `AITD_BIN` for the daemon path; `AIT_SERVER_BIN` remains accepted as a compatibility name until 2027-05-14.
 
 Local Web development uses direct connections by default. The account client at `aitapp.cn` uses the dedicated export described below.
 

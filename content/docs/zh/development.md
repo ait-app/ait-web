@@ -11,7 +11,7 @@ order: 8
 
 ## 准备工具链
 
-- Git、**Node.js 24** 和 npm。
+- Git、**Node.js 26** 和 npm。
 - [rust-toolchain.toml](https://github.com/ait-app/ait/blob/main/rust-toolchain.toml) 指定的 Rust 工具链及 `rustfmt`、Clippy。仓库固定版本，使用 rustup 时在仓库内按该文件选择工具链。
 - CMake 与系统 C/C++ 构建工具，用于原生依赖。
 - 联调 Agent 时，在工作主机安装并认证所需 CLI，先确认它能独立运行，见 [Agent 接入](/zh/docs/providers/)。
@@ -54,9 +54,11 @@ npm run dev:mobile
 | 变量                  | 用途                                       |
 | --------------------- | ------------------------------------------ |
 | `AIT_SERVER_DATA_DIR` | 更换开发 daemon 的数据目录                 |
-| `AIT_SERVER_BIN`      | 使用已经构建的 daemon binary               |
+| `AITD_BIN`           | 使用已经构建的 daemon binary               |
 | `AIT_SERVER_LISTEN`   | 更换监听地址与端口，连接表单也要同步       |
 | `EXPO_PORT`           | 更换 Expo 端口，以启动输出中的页面地址为准 |
+
+当前源码使用 `AITD_BIN` 覆盖 daemon 路径；`AIT_SERVER_BIN` 作为兼容名称保留到 2027-05-14。
 
 本地 Web 开发默认使用直接连接。线上 `aitapp.cn` 的账号客户端采用专用导出，见下方部署说明。
 
