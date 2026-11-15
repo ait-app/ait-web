@@ -1,5 +1,9 @@
 # 内容来源
 
+## 稳定下载 0.2.13
+
+各语言 DMG、独立 daemon 下载与快速开始同步至 [v0.2.13](https://github.com/ait-app/ait/releases/tag/v0.2.13)。使用本批 BUILD-INFO 与 SHA256SUMS 核对的 COS 版本文件；历史迁移链接保留。
+
 ## 稳定下载与主线能力 0.2.13（2026-11-15）
 
 本轮以 Ait `origin/main` 的 [`255fbf46d6cd9f01c5fdd7d987678b6287e0f8f5`](https://github.com/ait-app/ait/commit/255fbf46d6cd9f01c5fdd7d987678b6287e0f8f5) 为源码基线，版本为 0.2.13，并同步 [v0.2.13 Release](https://github.com/ait-app/ait/releases/tag/v0.2.13) 的 macOS DMG 与 Linux/macOS 独立 daemon 下载地址。
