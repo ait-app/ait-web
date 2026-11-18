@@ -46,7 +46,7 @@ The primary workspace action follows the actual Git and PR state, offering actio
 
 ## Scheduled tasks
 
-Open schedules from the workspace’s new-item menu. Choose an existing agent or a new agent for each run, then configure the prompt, interval or Cron expression, timezone, and run count. A task belongs to that workspace. Create a worktree workspace first if it needs an isolated directory.
+Open schedules from the workspace’s new-item menu. Choose an existing agent or a new agent for each run, then configure the prompt, interval or Cron expression, timezone, and run count. For schedules that create a new agent each time, choose whether to keep each session in the workspace after the run or archive it (the default). A task belongs to that workspace. Create a worktree workspace first if it needs an isolated directory.
 
 Tasks run on the working host’s daemon. Closing a client tab does not stop an online daemon’s scheduler. Tasks do not execute while the host or daemon is offline, and recurring schedules do not replay every missed occurrence. Pausing prevents future automatic triggers; cancel an active run separately.
 

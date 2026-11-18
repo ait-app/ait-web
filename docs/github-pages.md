@@ -1,6 +1,6 @@
 # GitHub Pages 部署
 
-唯一站点域名：`https://ait-app.com`。本仓库使用 GitHub Actions 构建 Astro 静态文件，并发布 `dist/`。根路径优先按浏览器偏好选择中文或英文，未匹配到支持的语言时进入中文；关闭 JavaScript 时进入英文。中英文内容均可直接通过语言前缀访问。
+唯一站点域名：`https://ait-app.com`。本仓库使用 GitHub Actions 构建 Astro 静态文件，并发布 `dist/`。根路径优先按浏览器偏好选择中文、英文或日文，未匹配到支持的语言时进入中文；关闭 JavaScript 时进入英文。三种语言的 Docs 与隐私页面均可通过语言前缀访问；Blog 仅发布中文和英文，日文 Blog 页面链接到英文文章。
 
 ## 仓库设置
 
@@ -20,7 +20,7 @@
 2. `main` 推送：完成上述检查，上传 `dist/` 为 Pages 产物，再通过 `github-pages` 环境发布。
 3. 手动重发：在 Actions 中选择 **Verify and deploy website → Run workflow → main**。
 
-发布作业使用工作流自带的 `GITHUB_TOKEN` 与 OIDC，不需要额外保存部署令牌。PR 不运行发布作业。常规构建产物 `ait-web` 保留供下载，同一份产物包含 `/en/` 和 `/zh/`。
+发布作业使用工作流自带的 `GITHUB_TOKEN` 与 OIDC，不需要额外保存部署令牌。PR 不运行发布作业。常规构建产物 `ait-web` 保留供下载，同一份产物包含 `/en/`、`/zh/` 和 `/ja/`。
 
 ## Cloudflare DNS
 
@@ -52,6 +52,6 @@ npm run build
 npm run verify
 ```
 
-上线后检查 `/` 和 `/privacy/#data-deletion` 的语言选择：中文偏好进入 `/zh/` 下的对应页面，英文偏好进入 `/en/`，未匹配到支持的语言时进入中文，关闭 JavaScript 时进入英文。启用 JavaScript 时查询参数和锚点应保留。另检查中英文 Blog、Docs、搜索和下载。中英文下载及平台文档都应提供一致的 Google Play / TestFlight 入口，Google Play 页面要保留先申请名单资格的说明；搜索中也应能找到新增的 Agent、无人值守配置和诊断内容。DNS 生效且证书可用后，在 Pages 设置中强制 HTTPS。
+上线后检查 `/` 和 `/privacy/#data-deletion` 的语言选择：中文偏好进入 `/zh/` 下的对应页面，英文偏好进入 `/en/`，日文偏好进入 `/ja/`，未匹配到支持的语言时进入中文，关闭 JavaScript 时进入英文。启用 JavaScript 时查询参数和锚点应保留。另检查三种语言的 Docs、中文和英文 Blog、搜索和下载。三种语言的下载及平台文档都应提供一致的 Google Play / TestFlight 入口，Google Play 页面要保留先申请名单资格的说明；搜索中也应能找到新增的 Agent、无人值守配置和诊断内容。DNS 生效且证书可用后，在 Pages 设置中强制 HTTPS。
 
 如某次源码更新有误，使用 `git revert` 回退对应提交并推送 `main`，工作流会重新构建发布。切换托管期间可保留旧站作为回退目标；故障时先恢复原主域名 A 记录，再处理部署。

@@ -1,5 +1,15 @@
 # 内容来源
 
+## 稳定下载 0.2.16
+
+各语言 DMG、独立 daemon 下载与快速开始同步至 [v0.2.16](https://github.com/ait-app/ait/releases/tag/v0.2.16)。使用本批 BUILD-INFO 与 SHA256SUMS 核对的 COS 版本文件；历史迁移链接保留。
+
+## 稳定下载与主线能力 0.2.16（2026-11-18）
+
+本轮以 Ait `origin/main` 的 [`cfffa90a3fac244bae770b21da9f0d394f701ad0`](https://github.com/ait-app/ait/commit/cfffa90a3fac244bae770b21da9f0d394f701ad0) 为源码基线，版本为 0.2.16，并同步 [v0.2.16 Release](https://github.com/ait-app/ait/releases/tag/v0.2.16) 的 macOS DMG 与 Linux/macOS 独立 daemon 下载地址。
+
+本轮同时核对 0.2.14–0.2.16 的发布说明：定时任务新增每次运行后的会话保留或归档选择，桌面内置浏览器改用主进程 WebContentsView，移动端补充后台连接窗口和工作流修复。官网正文只同步已公开且可由当前源码与发布说明确认的能力；商店测试版和真实设备验收仍以各自发布渠道为准。
+
 ## 稳定下载 0.2.13
 
 各语言 DMG、独立 daemon 下载与快速开始同步至 [v0.2.13](https://github.com/ait-app/ait/releases/tag/v0.2.13)。使用本批 BUILD-INFO 与 SHA256SUMS 核对的 COS 版本文件；历史迁移链接保留。
