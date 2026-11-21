@@ -35,7 +35,7 @@ The closed test currently uses an email list; opening the link does not grant ac
 
 Official [GitHub releases](https://github.com/ait-app/ait/releases/latest) provide installers for Apple Silicon macOS, Linux x86_64, and Windows x64. The macOS / Linux desktop shell includes the daemon and manages its lifecycle; the Windows x64 package is a client for remote hosts and does not bundle a daemon.
 
-For Apple Silicon Macs in China, use the [China download mirror (DMG, v0.2.19)](https://download.aitapp.cn/v0.2.19/Ait-0.2.19-macos-arm64.dmg).
+For Apple Silicon Macs in China, use the [China download mirror (DMG, v0.2.21)](https://download.aitapp.cn/v0.2.21/Ait-0.2.21-macos-arm64.dmg).
 
 macOS / Linux desktop supports account sign-in, online hosts, and local workspaces. The Windows x64 desktop client does not bundle a daemon; it connects to remote hosts through an account, TCP, or SSH. See [Local development](/en/docs/development/) and the [desktop guide](https://github.com/ait-app/ait/blob/main/apps/desktop/README.md). Available download platforms and versions depend on the assets in the corresponding release.
 
