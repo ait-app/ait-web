@@ -33,15 +33,24 @@ The closed test currently uses an email list; opening the link does not grant ac
 
 ## Desktop
 
-The Linux deb, rpm, and Arch packages depend on `bubblewrap >= 0.8.0` for sandboxed worktrees. With AppImage or tar.gz, install bubblewrap yourself and enable unprivileged user namespaces. Arch users can choose the [prebuilt ait-bin release](https://aur.archlinux.org/packages/ait-bin) or [ait-git from main](https://aur.archlinux.org/packages/ait-git) in the AUR.
+Official [GitHub releases](https://github.com/ait-app/ait/releases/latest) provide Apple Silicon macOS, Linux x86_64, and Windows x64 installers, plus `SHA256SUMS` to verify downloads. The macOS and Linux desktop apps start their bundled daemon automatically.
 
-Official [GitHub releases](https://github.com/ait-app/ait/releases/latest) provide installers for Apple Silicon macOS, Linux x86_64, and Windows x64. The macOS / Linux desktop shell includes the daemon and manages its lifecycle; the Windows x64 package is a client for remote hosts and does not bundle a daemon.
+### macOS Apple Silicon
 
-For Apple Silicon Macs in China, use the [China download mirror (DMG, v0.2.25)](https://download.aitapp.cn/v0.2.25/Ait-0.2.25-macos-arm64.dmg).
+Open the DMG, drag Ait into Applications, and launch it. You can also download the ZIP, extract it, and move Ait to Applications. For mainland China, use the [China download mirror (DMG, v0.2.26)](https://download.aitapp.cn/v0.2.26/Ait-0.2.26-macos-arm64.dmg).
 
-macOS / Linux desktop supports account sign-in, online hosts, and local workspaces. The Windows x64 desktop client does not bundle a daemon; it connects to remote hosts through an account, TCP, or SSH. See [Local development](/en/docs/development/) and the [desktop guide](https://github.com/ait-app/ait/blob/main/apps/desktop/README.md). Available download platforms and versions depend on the assets in the corresponding release.
+### Linux x86_64
 
-Linux x86_64 or Apple Silicon macOS hosts without a desktop environment can install the [standalone daemon](/en/docs/daemon/) and join your account in unattended mode.
+- **Arch Linux (AUR)**: run `paru -S ait-bin` or `yay -S ait-bin` for the [prebuilt stable package](https://aur.archlinux.org/packages/ait-bin), published by CI. To build from `main`, use `paru -S ait-git` ([source package](https://aur.archlinux.org/packages/ait-git)).
+- **Debian / Ubuntu (.deb)**: in the download directory, run `sudo apt install ./Ait-*-linux-amd64.deb`.
+- **Fedora / RHEL (.rpm)**: in the download directory, run `sudo dnf install ./Ait-*-linux-x86_64.rpm`.
+- **AppImage / tar.gz**: make the AppImage executable with `chmod +x Ait-linux-x86_64.AppImage` and run `./Ait-linux-x86_64.AppImage`. Or extract the tarball with `tar -xzf Ait-*-linux-x64.tar.gz` and run `./Ait` inside the extracted directory. Keep only one matching version in the download directory.
+
+ait-bin, .deb, and .rpm packages install the `bubblewrap >= 0.8.0` dependency. For ait-git, AppImage, or tar.gz, install that version or newer yourself and ensure your system permits unprivileged user namespaces for sandboxed worktrees. Your distribution’s repositories need to provide the dependency versions required by the selected package.
+
+### Windows x64
+
+The Windows desktop client connects to the working host through Online Service, Direct connection, or Remote SSH. It runs without a local daemon. For a headless Linux x86_64 host or an always-on Apple Silicon Mac, see the [standalone daemon](/en/docs/daemon/).
 
 ## Android
 
@@ -67,7 +76,7 @@ The iOS simulator can access the host through loopback. Direct connections from 
 
 ## Web
 
-Open the **[Ait Web app](https://aitapp.cn/)** and sign in with the same Ait account as your desktop app to connect to an online host and continue in your browser. No client installation is needed on this device; the computer running your agents must stay online.
+Open the **[Ait for Web](https://aitapp.cn/)** and sign in with the same Ait account as your desktop app to connect to an online host and continue in your browser. No client installation is needed on this device; the computer running your agents must stay online.
 
 This marketing website is separate from the Agent Web client. The current client deploys as a separate static image at the site root `/`, sharing same-origin sign-in and `/api`. The management console lives at `/dash`. See [ADR-188](https://github.com/ait-app/ait/blob/main/docs/decisions/clients/adr-188-standalone-web-client-image.md).
 

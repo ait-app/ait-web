@@ -45,12 +45,18 @@ const { Content, headings } = await render(page);
   </div>
 </Base>
 <script>
+  import { bindCodeCopy } from '../../../lib/code-copy';
+
   const main = document.querySelector<HTMLElement>('.docs-main');
   document.querySelectorAll<HTMLPreElement>('.docs-prose pre').forEach(pre => {
     const code = pre.querySelector('code'); if (!code || !main) return;
     const wrapper = document.createElement('div'); wrapper.className = 'code-block'; pre.parentElement?.insertBefore(wrapper, pre); wrapper.append(pre);
-    const copy = document.createElement('button'); copy.type = 'button'; copy.className = 'code-copy'; copy.textContent = main.dataset.copyLabel ?? 'Copy'; copy.setAttribute('aria-label',main.dataset.copyLabel ?? 'Copy'); wrapper.append(copy);
-    copy.addEventListener('click', async () => { try { await navigator.clipboard.writeText(code.textContent ?? ''); copy.textContent = main.dataset.copiedLabel ?? 'Copied'; } catch { copy.textContent = main.dataset.copyError ?? 'Copy manually'; } setTimeout(() => { copy.textContent = main.dataset.copyLabel ?? 'Copy'; },2000); });
+    const copy = document.createElement('button');
+    copy.type = 'button';
+    copy.className = 'code-copy';
+    copy.textContent = main.dataset.copyLabel ?? 'Copy';
+    wrapper.append(copy);
+    bindCodeCopy(copy, code, main);
   });
   const headings = [...document.querySelectorAll<HTMLElement>('.docs-prose h2, .docs-prose h3')];
   const observer = new IntersectionObserver(entries => {

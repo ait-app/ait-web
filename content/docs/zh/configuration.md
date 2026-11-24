@@ -50,6 +50,8 @@ cargo build --locked --release -p daemon --bin daemon
 
 未设置 `--data-dir` 或 `AIT_SERVER_DATA_DIR` 时，依次使用第一个已存在的 `~/.ait`、`~/.ait-server-desktop`、`~/.ait-server`；三者都不存在时创建 `~/.ait`。旧目录不会移动、重命名或合并；之后创建的 `~/.ait` 会优先于旧位置，需要保留特定目录的已有安装应显式指定 `--data-dir`。
 
+独立 daemon 的默认监听是上表所列的回环地址。可信内网可使用 `aitd run --listen 192.168.1.10:7316`，或设置 `AIT_SERVER_LISTEN`。桌面内置 daemon 默认使用 `127.0.0.1:0`，监听地址和端口可在本机主机的守护进程设置中修改。如在启动时设定 `AIT_SERVER_TOKEN`，客户端填写该值；否则读取所用数据目录的 `local-api.token`。[局域网与 SSH 连接步骤](/zh/docs/connection/#直接连接)涵盖两种主机。
+
 ## 本机浏览器来源
 
 浏览器来源需要显式配置 HTTP loopback origin，包含端口且不带路径。下面适用于本机 Expo Web 开发客户端：

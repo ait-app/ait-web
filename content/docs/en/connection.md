@@ -22,13 +22,13 @@ The marketing website is not the account API. The `/hosts` management page is no
 
 ## Connect through an account
 
-Using the bundled daemon locally on macOS or Linux requires no Ait account. To connect from another device through the online service, sign in from the welcome page, **Settings → App → Online Service**, or **Add Host → Online Service**.
+Using the bundled daemon locally on macOS or Linux requires no Ait account. To connect from another device through the online service, sign in from the welcome page, **Settings → App → Online Service**, or **Add host → Online Service**.
 
 Desktop, Android, and iOS use the account service address configured in the app; check **Service settings** for the current configuration. The hosted Web client runs at the site root and uses same-origin `/api`; the management console lives at `/dash`. The website `https://ait-app.com` provides product information and documentation; it is not an account API address.
 
-1. Open **Online service → Sign in / Register** on the working computer. Complete hosted sign-in and return to Ait.
+1. Open **Online Service → Sign in / Register** on the working computer. Complete hosted sign-in and return to Ait.
 2. Check that the working host is synchronized with the online service. If synchronization was stopped, enable it in the host’s connection settings.
-3. Sign in to the same account and service on another desktop device, Android, or iOS. Open **Online service** or **Add Host**.
+3. Sign in to the same account and service on another desktop device, Android, or iOS. Open **Online Service** or **Add host**.
 4. Select the working computer from the online host list and add it to your saved hosts.
 
 Current clients receive host snapshots and connection availability through the account status channel. The list does not show the current machine. Phones are clients and are not published as working hosts. Hosted sign-in uses the system browser on desktop and Android and the system authentication window on iOS. For browser access, sign in at [aitapp.cn](https://aitapp.cn/) and open the Web client. Account relay does not require the devices to share a local network or the working computer to expose forwarded public ports.
@@ -37,9 +37,27 @@ For a self-hosted account service, enter its API base address in **Service setti
 
 ## Direct connections
 
-Desktop and mobile clients can use direct connections; the local development Web client also uses this method. The hosted Web client provides online-service connections. A direct connection needs the host address, port, and daemon access token.
+Desktop and mobile clients can connect without signing in over a trusted LAN or VPN. **Ait for Web** at aitapp.cn connects through Online Service only. The local development Web client can connect directly with [browser Origin settings](/en/docs/configuration/#local-browser-origins).
 
-The default local development listener is `127.0.0.1:7316`. That address only works on the corresponding host; another device needs a reachable host address. See [Server configuration](/en/docs/configuration/) for listener and browser Origin settings.
+- **Headless working host**: standalone `aitd` listens on `127.0.0.1:7316` by default. Bind the host’s LAN IP with the following command (or `AIT_SERVER_LISTEN`):
+
+  ```sh
+  aitd run --listen 192.168.1.10:7316
+  ```
+
+  Read `<data-dir>/local-api.token` or use the `AIT_SERVER_TOKEN` value set at startup. Allow the TCP port from the trusted subnet only. See [standalone daemon LAN setup](/en/docs/daemon/#connect-over-lan-without-signing-in).
+- **macOS / Linux desktop working host**: in the local host’s **Daemon** settings, set **Listen address** and **Port**, then restart the daemon. The desktop app defaults to `127.0.0.1:0` to select a local port. Choose the host’s LAN IP and a fixed port such as `7316`, then get the token and limit firewall access to the trusted subnet.
+- **Connecting device**: choose **Add host → Direct connection**, then enter **Host**, **Port**, and **Server token**. Enable **Use SSL** only with a TLS terminator in front of the daemon.
+
+### SSH tunnel
+
+If SSH is your secure route to a headless host, leave `aitd run` on its default loopback listener. On the computer that will connect, run:
+
+```sh
+ssh -N -L 127.0.0.1:7316:127.0.0.1:7316 user@working-host
+```
+
+Replace `user@working-host` with your SSH user and host. In Ait on that same computer, connect directly to `127.0.0.1`, port `7316`, using the remote daemon’s server token. If the local port is in use, choose another local forwarding port and enter it in the client. Keep the SSH session running. The daemon port can stay closed to the public internet.
 
 ## Separate credentials
 

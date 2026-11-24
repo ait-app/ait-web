@@ -13,11 +13,16 @@ Read [Why Ait?](/en/docs/why-ait/) to explore using multiple agents, managing se
 
 ## Install the desktop app
 
-Choose your platform on the [download page](/en/download/). Official desktop releases currently provide installers for **Apple Silicon macOS**, **Linux x86_64**, and **Windows x64**.
+Choose your platform on the [download page](/en/download/) and download from the [official release](https://github.com/ait-app/ait/releases/latest). Releases include `SHA256SUMS` to verify downloaded files.
 
-Download the appropriate file from the [official Ait release](https://github.com/ait-app/ait/releases/latest). On macOS, open the DMG, install Ait, and launch it. On Linux, extract and run the distribution package or use the AppImage. Releases include `SHA256SUMS` for checking downloaded files.
+- **macOS Apple Silicon**: install Ait from the DMG and launch it. A ZIP is also available.
+- **Arch Linux**: run `paru -S ait-bin`, or `paru -S ait-git` to build from main.
+- **Debian / Ubuntu**: download the .deb and run `sudo apt install ./Ait-*-linux-amd64.deb`.
+- **Fedora / RHEL**: download the .rpm and run `sudo dnf install ./Ait-*-linux-x86_64.rpm`.
+- **Other Linux x86_64**: run the AppImage or extract the tar.gz. See [Linux installation and dependencies](/en/docs/platforms/#linux-x86_64).
+- **Windows x64**: install the client and connect to a remote working host. The client runs without a local daemon.
 
-The macOS and Linux desktop packages include the Rust daemon, and the desktop app starts it for you. The Windows x64 package is a client for remote hosts and does not run agents locally.
+The macOS and Linux desktop apps start their bundled daemon automatically.
 
 ## Bring an agent
 

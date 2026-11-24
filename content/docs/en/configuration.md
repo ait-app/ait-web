@@ -50,6 +50,8 @@ Configuration priority is command arguments, environment, TOML, then defaults. T
 
 When neither `--data-dir` nor `AIT_SERVER_DATA_DIR` is set, use the first existing directory in this order: `~/.ait`, `~/.ait-server-desktop`, `~/.ait-server`; if none exists, create `~/.ait`. Existing directories are not moved, renamed, or merged. A newly created `~/.ait` takes precedence over legacy locations, so explicitly select `--data-dir` when an existing installation must keep a particular directory.
 
+The table shows the standalone daemon’s loopback default. On a trusted LAN, use `aitd run --listen 192.168.1.10:7316` with the host’s actual IP, or set `AIT_SERVER_LISTEN`. The bundled desktop daemon defaults to `127.0.0.1:0`. Change its address and port from the local host’s Daemon settings. The client uses `AIT_SERVER_TOKEN` if set at startup, or the `local-api.token` file from the active data directory. See [LAN and SSH connection steps](/en/docs/connection/#direct-connections) for both host types.
+
 ## Local browser origins
 
 Explicitly configure HTTP loopback origins with a port and no path. This example is for the local Expo Web development client:

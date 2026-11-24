@@ -1,6 +1,6 @@
 ---
 title: 独立 daemon
-description: 下载、校验并安装单独发布的 aitd，在没有桌面环境的 Linux 或 macOS 主机上以无人值守模式接入 Ait 账户。
+description: 下载、校验并安装独立发布的 aitd，让无桌面的 Linux 或 macOS 工作主机通过在线服务或局域网提供访问。
 lang: zh
 slug: daemon
 group: reference
@@ -9,7 +9,7 @@ order: 5.5
 
 每个 Ait 正式版都附带独立 daemon 归档，内含一个可执行文件 `aitd`。它适合云服务器、构建机或常开的 Mac mini 这类不需要桌面界面的工作主机：以无人值守模式运行并登录 Ait 账户后，主机会出现在在线主机列表中，你可以从桌面、Android、iOS 或 Web 客户端连接它。
 
-> **版本范围**：下面的下载与服务配置示例面向 **v0.2.25**，使用 `run`。v0.1.20 等旧版使用 `run --headless`；升级时按下节迁移，不要混用不同版本的启动参数。
+> **版本范围**：下面的下载与服务配置示例面向 **v0.2.26**，使用 `run`。v0.1.20 等旧版使用 `run --headless`；升级时按下节迁移，不要混用不同版本的启动参数。
 
 本文涉及两个概念：
 
@@ -37,7 +37,7 @@ aitd run
 
 所有启动入口在没有 `AIT_SERVER_TOKEN` 时都会生成并复用 `<data-dir>/local-api.token`。daemon 自主管理机器授权、节点续租和重连；退出客户端不会撤销授权，显式断开主机才会清除授权。源码编译产物名为 `target/release/daemon`。环境准备见[本地开发](/zh/docs/development/)，当前配置见[服务配置](/zh/docs/configuration/)和[无人值守 daemon 手册](https://github.com/ait-app/ait/blob/main/docs/operations/headless-daemon.md)。
 
-以下下载与运行示例采用 v0.2.25；其他版本请使用对应 Release 的资产和参数。
+以下下载与运行示例采用 v0.2.26；其他版本请使用对应 Release 的资产和参数。
 
 ## 系统要求
 
@@ -48,17 +48,17 @@ aitd run
 
 你还需要：
 
-- 一个 Ait 账户，与要连接这台主机的客户端使用同一账户。
+- 通过在线服务连接需要 Ait 账户，客户端使用同一账户。局域网直连只需要 daemon 访问令牌。
 - 在这台主机上安装并登录至少一个 Agent CLI，见 [Agent 接入](/zh/docs/providers/)。
 
-## 下载（v0.2.25）
+## 下载（v0.2.26）
 
 | 平台 | GitHub Release | 国内加速下载 |
 | --- | --- | --- |
-| Linux x86_64 | [Ait-0.2.25-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.25/Ait-0.2.25-daemon-linux-x64.tar.gz) | [COS 下载](https://download.aitapp.cn/v0.2.25/Ait-0.2.25-daemon-linux-x64.tar.gz) |
-| macOS Apple Silicon | [Ait-0.2.25-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.25/Ait-0.2.25-daemon-macos-arm64.tar.gz) | [COS 下载](https://download.aitapp.cn/v0.2.25/Ait-0.2.25-daemon-macos-arm64.tar.gz) |
+| Linux x86_64 | [Ait-0.2.26-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.26/Ait-0.2.26-daemon-linux-x64.tar.gz) | [COS 下载](https://download.aitapp.cn/v0.2.26/Ait-0.2.26-daemon-linux-x64.tar.gz) |
+| macOS Apple Silicon | [Ait-0.2.26-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.26/Ait-0.2.26-daemon-macos-arm64.tar.gz) | [COS 下载](https://download.aitapp.cn/v0.2.26/Ait-0.2.26-daemon-macos-arm64.tar.gz) |
 
-两个地址的文件完全相同。校验文件 `SHA256SUMS` 只在 [GitHub Release](https://github.com/ait-app/ait/releases/tag/v0.2.25) 发布。其他版本可在 [全部 Release](https://github.com/ait-app/ait/releases) 中找到同名归档。
+两个地址的文件完全相同。校验文件 `SHA256SUMS` 只在 [GitHub Release](https://github.com/ait-app/ait/releases/tag/v0.2.26) 发布。其他版本可在 [全部 Release](https://github.com/ait-app/ait/releases) 中找到同名归档。
 
 ## 安装
 
@@ -67,27 +67,27 @@ aitd run
 ### Linux
 
 ```sh
-VERSION=0.2.25
+VERSION=0.2.26
 ASSET="Ait-${VERSION}-daemon-linux-x64.tar.gz"
-curl -fLO "https://download.aitapp.cn/v${VERSION}/${ASSET}"
-curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
-grep -F "  ${ASSET}" SHA256SUMS | sha256sum -c -
-tar -xzf "${ASSET}"
-sudo install -m 0755 aitd /usr/local/bin/aitd
+curl -fLO "https://download.aitapp.cn/v${VERSION}/${ASSET}" &&
+curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS" &&
+awk -v asset="$ASSET" '$2 == asset' SHA256SUMS | sha256sum -c - &&
+tar -xzf "${ASSET}" &&
+sudo install -m 0755 aitd /usr/local/bin/aitd &&
 aitd --version
 ```
 
 ### macOS
 
 ```sh
-VERSION=0.2.25
+VERSION=0.2.26
 ASSET="Ait-${VERSION}-daemon-macos-arm64.tar.gz"
-curl -fLO "https://download.aitapp.cn/v${VERSION}/${ASSET}"
-curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
-grep -F "  ${ASSET}" SHA256SUMS | shasum -a 256 -c -
-tar -xzf "${ASSET}"
-sudo mkdir -p /usr/local/bin
-sudo install -m 0755 aitd /usr/local/bin/aitd
+curl -fLO "https://download.aitapp.cn/v${VERSION}/${ASSET}" &&
+curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS" &&
+awk -v asset="$ASSET" '$2 == asset' SHA256SUMS | shasum -a 256 -c - &&
+tar -xzf "${ASSET}" &&
+sudo mkdir -p /usr/local/bin &&
+sudo install -m 0755 aitd /usr/local/bin/aitd &&
 aitd --version
 ```
 
@@ -116,6 +116,8 @@ aitd run
 aitd login --token-stdin
 ```
 
+将网页主机详情中签发的一次性接入令牌交给标准输入。交互输入时，粘贴令牌后按 Enter，再按 Ctrl-D 提交 EOF；自动化可通过受保护的输入流传入。完成后执行 `aitd run`。
+
 查看授权与运行状态：
 
 ```sh
@@ -123,6 +125,25 @@ aitd status --json
 ```
 
 新安装默认使用 `~/.ait`。未显式指定数据目录时，依次使用第一个已存在的 `~/.ait`、`~/.ait-server-desktop`、`~/.ait-server`；不会移动或合并旧目录，需要固定位置时使用 `--data-dir`。机器授权、本地 API 令牌和工作数据都保存在选中的目录中。监听地址、数据目录等参数见[服务配置](/zh/docs/configuration/)。
+
+## 不登录，直接连接局域网主机
+
+1. **设置监听。** 独立 `aitd` 默认仅监听 `127.0.0.1:7316`。以运行 Agent 的用户启动 daemon，把示例 IP 换成工作主机的局域网地址。也可用 `AIT_SERVER_LISTEN=192.168.1.10:7316 aitd run`；如已用 tmux 或 systemd 启动，先停止原进程，更新启动命令后再启动。
+
+   ```sh
+   aitd run --listen 192.168.1.10:7316
+   ```
+
+2. **准备访问令牌。** 启动后，从所用数据目录的 `local-api.token` 读取令牌。新装可用 `cat ~/.ait/local-api.token`；已有安装请使用实际目录。如果启动时设置了 `AIT_SERVER_TOKEN`，客户端应填写该值。它优先于令牌文件且不覆盖文件。自设令牌需为 32–256 个无空格的可见 ASCII 字符，例如用 `openssl rand -hex 32` 生成。
+3. **只对可信网段放行。** 如启用了主机防火墙，仅向客户端所在网段放行 TCP `7316`。下面是 UFW 示例，请替换示例网段。
+
+   ```sh
+   sudo ufw allow from 192.168.1.0/24 to any port 7316 proto tcp
+   ```
+
+4. **连接客户端。** 在桌面或移动端打开 **添加主机 → 直接连接**，在 **Host** 填工作主机 IP，在 **端口** 填 `7316`，再填**访问令牌**。只有 daemon 前面配置了 TLS 终止代理时才打开「使用 SSL」。
+
+用 `0.0.0.0:7316` 会在所有 IPv4 接口监听，客户端仍填写可达的实际 IP。内置监听不提供 TLS；请避免向公网开放端口。在不受信的网络上保留回环监听，改用 [SSH 隧道](/zh/docs/connection/#ssh-隧道)或在线服务。若用可信 VPN，则监听 VPN 接口。aitapp.cn 上的 Ait for Web 仅支持在线服务。
 
 ## 保持运行
 
@@ -145,7 +166,7 @@ tmux 会话不会在主机重启后自动恢复。需要开机自动启动时，
 
 ### 持久启动：Linux 使用 systemd
 
-以完成 `login` 的同一用户创建 systemd 用户服务：
+用运行 Agent 的系统用户创建 systemd 用户服务：
 
 ```sh
 mkdir -p ~/.config/systemd/user

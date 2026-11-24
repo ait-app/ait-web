@@ -13,11 +13,16 @@ Ait は、複数のエージェントを管理するローカルファースト�
 
 ## デスクトップアプリをインストールする
 
-[ダウンロードページ](/ja/download/)でプラットフォームを選びます。公式のデスクトップリリースでは、現在 **Apple Silicon macOS**、**Linux x86_64**、**Windows x64** 向けのインストーラーを提供しています。
+[ダウンロードページ](/ja/download/)から[公式リリース](https://github.com/ait-app/ait/releases/latest)を開き、プラットフォームに合うファイルを取得してください。検証には `SHA256SUMS` を使えます。
 
-[Ait の公式リリース](https://github.com/ait-app/ait/releases/latest)から適切なファイルをダウンロードしてください。macOS では DMG を開いて Ait をインストールし、起動します。Linux では、配布パッケージを展開して実行するか、AppImage を使用します。リリースには、ダウンロードしたファイルを検証するための `SHA256SUMS` が含まれています。
+- **macOS Apple Silicon**：DMG から Ait をインストールして起動します。ZIP も利用できます。
+- **Arch Linux**：`paru -S ait-bin` を実行します。main からビルドする場合は `paru -S ait-git` を使います。
+- **Debian / Ubuntu**：.deb をダウンロードし、`sudo apt install ./Ait-*-linux-amd64.deb` を実行します。
+- **Fedora / RHEL**：.rpm をダウンロードし、`sudo dnf install ./Ait-*-linux-x86_64.rpm` を実行します。
+- **その他の Linux x86_64**：AppImage を実行するか、tar.gz を展開します。[Linux のインストールと依存関係](/ja/docs/platforms/#linux-x86_64)を参照してください。
+- **Windows x64**：クライアントをインストールし、リモートの作業ホストに接続します。ローカルではデーモンを起動しません。
 
-macOS / Linux のデスクトップパッケージには Rust 製のデーモンが含まれ、デスクトップアプリが自動的に起動します。Windows x64 はリモートホストに接続するクライアントで、ローカルではエージェントを実行しません。
+macOS と Linux のデスクトップアプリは同梱のデーモンを自動で起動します。
 
 ## エージェントを用意する
 

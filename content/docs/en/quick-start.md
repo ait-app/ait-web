@@ -34,30 +34,34 @@ Ait reuses each agent’s sign-in and model configuration. It does not include a
 
 ### Desktop app (recommended)
 
-Visit the [Ait download page](/en/download/) and choose the package for your computer:
+Choose an installer on the [Ait download page](/en/download/):
 
-- **macOS Apple Silicon**: open the DMG, install Ait in Applications, and launch it.
-- **Linux x86_64**: download the AppImage or tar.gz, then run or extract and launch the appropriate package.
-- **Windows x64**: install the Windows client, then connect through an account, TCP, or SSH to the remote host running your agents.
+- **macOS Apple Silicon**: open the DMG, drag Ait into Applications, and launch it. A ZIP is also available.
+- **Arch Linux**: install the stable release (or substitute `ait-git` to build from main)
 
-On macOS or Linux, open Ait and connect to the local service; the desktop app starts its bundled daemon automatically, so there is no separate service to install. On Windows, open the client and connect to the remote host running your agents. **Local use on macOS or Linux does not require an Ait account.**
+  ```sh
+  paru -S ait-bin
+  ```
+- **Debian / Ubuntu**: Download the .deb and run
 
-See [Platform support](/en/docs/platforms/) for installers, the China download mirror, and platform details. If you installed the desktop app, continue to “Connect an agent” below.
+  ```sh
+  sudo apt install ./Ait-*-linux-amd64.deb
+  ```
+
+- **Fedora / RHEL**: Download the .rpm and run
+
+  ```sh
+  sudo dnf install ./Ait-*-linux-x86_64.rpm
+  ```
+
+- **Other Linux x86_64**: run the AppImage or extract the tar.gz. For sandboxed worktrees, set up `bubblewrap >= 0.8.0` and unprivileged user namespaces as described in [Platform support](/en/docs/platforms/#linux-x86_64).
+- **Windows x64**: install the remote client and access the working host through Online Service, Direct connection, or Remote SSH.
+
+On macOS and Linux, opening Ait starts the bundled daemon. Local use requires no Ait account. Continue to “Connect an agent” below.
 
 ### Server / standalone daemon
 
-If your project lives on a cloud server or an always-on host, follow the [standalone daemon guide](/en/docs/daemon/) to download, verify, and install `aitd`. Then run these commands as the same system user that will run your tasks:
-
-```sh
-aitd login
-aitd run
-```
-
-For initial authorization, the terminal displays a web address and a verification code. Open the address in a browser, sign in to your Ait account, and approve the machine. Once the daemon is running, open the [Ait Web app](https://aitapp.cn/), sign in with the same account, and select the machine from the online host list.
-
-The installation guide’s download and service examples now target v0.2.25 and use `aitd run`. When upgrading an older installation or building from source, check the startup arguments in the [version guidance](/en/docs/daemon/#current-source-and-upgrades).
-
-`run` runs in the foreground, so keep the process running. For ongoing use, configure systemd or launchd with the [background service instructions](/en/docs/daemon/#keep-it-running). Install your agent CLIs and keep the project files on this host too.
+Follow the [standalone daemon guide](/en/docs/daemon/) to download, verify, and install `aitd` on a headless Linux host or an always-on Apple Silicon Mac. Set up your agent CLI and project files there, then choose [Online Service](#connect-with-online-service) or [direct connection over LAN](#connect-directly-over-lan) below.
 
 ## 2. Connect an agent
 
@@ -85,18 +89,43 @@ After a change, inspect **files and diffs**, then run the project’s own build 
 
 ## 4. Continue on another device (optional)
 
-1. On your working computer, open **Online Service → Sign in / Register**, sign in to Ait, and confirm that host sync is enabled. For an unattended daemon, the earlier `login` step already authorized the machine.
-2. Open Ait on another device, sign in with the **same account and service**, and choose your working computer from the online host list.
-3. Open the same workspace to follow progress, send messages, or respond to approvals.
+### Connect with Online Service
 
-Choose a connecting device:
+- **Desktop working host**: open **Online Service → Sign in / Register**, sign in, and confirm that host sync is enabled.
+- **Headless host**: run these commands as the system user that will run your agents. For first-time authorization, open the URL displayed in the terminal on any device, enter the verification code, and approve the host.
 
-- **Browser**: open the [Ait Web app](https://aitapp.cn/). No client installation required.
+```sh
+aitd login
+aitd run
+```
+
+If you have a single-use enrollment token, replace the first command with the following to supply the token on standard input:
+
+```sh
+aitd login --token-stdin
+```
+
+Follow the [background service instructions](/en/docs/daemon/#keep-it-running) to keep the daemon running with tmux or systemd.
+
+On another desktop, Android, iOS, or [Ait for Web](https://aitapp.cn/), sign in with the **same account and service**. Select the working host from the online host list and keep the host and daemon online. Online Service works across networks without public port forwarding.
+
+### Connect directly over LAN
+
+- **Desktop working host**: open Ait on macOS or Linux for local use without signing in. To accept direct connections from other devices on your LAN, open **Daemon** in the local host’s settings, set the host’s LAN address and a fixed port (such as `7316`), and restart the daemon.
+- **Headless host**: standalone `aitd` listens on `127.0.0.1:7316` by default. Start it without signing in and bind a trusted LAN interface (replace the example IP with your host’s address):
+
+```sh
+aitd run --listen 192.168.1.10:7316
+```
+
+Read the access token from `<data-dir>/local-api.token`, or use the value set in `AIT_SERVER_TOKEN` at startup. Allow the TCP port from the trusted subnet only. In the desktop or mobile app, choose **Add host → Direct connection** and enter the host IP, port, and server token. Ait for Web connects through Online Service only.
+
+See [Connections & data](/en/docs/connection/#direct-connections) for firewall details and SSH tunneling.
+
+### Install on mobile
+
 - **iPhone / iPad**: follow the [TestFlight steps](/en/docs/platforms/#iphone-and-ipad) to accept the public invitation and install Ait.
-- **Android**: follow the [Google Play testing steps](/en/docs/platforms/#google-play-closed-testing) to request access first, then install with the approved Google account.
-- **Another computer**: install the desktop app, sign in to the same Ait account, and select the online host.
-
-Keep the working host awake, with its Ait service and agents available. Account relay does not require the devices to share a local network or the host to have public port forwarding. See [Connections & data](/en/docs/connection/) for details.
+- **Android**: follow the [Google Play closed testing steps](/en/docs/platforms/#google-play-closed-testing) to request access and install with the approved Google account.
 
 ## Next steps
 
