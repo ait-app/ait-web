@@ -33,9 +33,11 @@ The closed test currently uses an email list; opening the link does not grant ac
 
 ## Desktop
 
+The Linux deb, rpm, and Arch packages depend on `bubblewrap >= 0.8.0` for sandboxed worktrees. With AppImage or tar.gz, install bubblewrap yourself and enable unprivileged user namespaces. Arch users can choose the [prebuilt ait-bin release](https://aur.archlinux.org/packages/ait-bin) or [ait-git from main](https://aur.archlinux.org/packages/ait-git) in the AUR.
+
 Official [GitHub releases](https://github.com/ait-app/ait/releases/latest) provide installers for Apple Silicon macOS, Linux x86_64, and Windows x64. The macOS / Linux desktop shell includes the daemon and manages its lifecycle; the Windows x64 package is a client for remote hosts and does not bundle a daemon.
 
-For Apple Silicon Macs in China, use the [China download mirror (DMG, v0.2.24)](https://download.aitapp.cn/v0.2.24/Ait-0.2.24-macos-arm64.dmg).
+For Apple Silicon Macs in China, use the [China download mirror (DMG, v0.2.25)](https://download.aitapp.cn/v0.2.25/Ait-0.2.25-macos-arm64.dmg).
 
 macOS / Linux desktop supports account sign-in, online hosts, and local workspaces. The Windows x64 desktop client does not bundle a daemon; it connects to remote hosts through an account, TCP, or SSH. See [Local development](/en/docs/development/) and the [desktop guide](https://github.com/ait-app/ait/blob/main/apps/desktop/README.md). Available download platforms and versions depend on the assets in the corresponding release.
 

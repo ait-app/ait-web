@@ -1,5 +1,20 @@
 # 内容来源
 
+## 官网工作流与稳定下载 0.2.25（2026-11-24）
+
+能力核验以 Ait 远程主线 [`1863d8350`](https://github.com/ait-app/ait/commit/1863d8350c59212c8d18cea8e48fca942ebe3eeb) 为准。最新正式产物为 [v0.2.25](https://github.com/ait-app/ait/releases/tag/v0.2.25)，其 `BUILD-INFO.json` 指向 `7a0e0f25edeab9bccc908f2e5f21c3f0ef0acfc2` 和 [正式构建](https://github.com/ait-app/ait/actions/runs/45193304519)。从 COS 实际下载 Apple Silicon DMG、Linux x64 和 macOS arm64 独立 daemon 归档，三份均与 GitHub Release 的 `SHA256SUMS` 一致。平台、快速开始和独立 daemon 文档中的固定版本统一更新。
+
+| 核验范围 | Ait 主线资料 |
+| --- | --- |
+| 任务总览、状态聚合和可用操作 | `docs/operations/task-board.md`、`apps/mobile/src/task-board/model.ts` |
+| 会话导入、BTW、Goal、导出和音频边界 | `docs/architecture/provider.md`、`docs/operations/btw.md`、`docs/operations/speech.md`、各 Provider 适配器 |
+| 定时任务、沙箱、Git 与记事本 | `docs/operations/schedules.md`、`docs/architecture/workspace.md`、主仓库 `README.md` |
+| Bot 渠道、启用和权限 | `docs/operations/bots.md`、`docs/architecture/bot.md`、`CHANGELOG.md` |
+| MCP 会话注入与 Skill 分发 | `docs/operations/mcp.md`、`docs/operations/agent-skills.md`、`crates/api/src/mcp/catalog.json` |
+| 登录、浏览器与 Provider 图标 | `docs/operations/authing-client-login.md`、ADR-186、`apps/mobile/src/components/icons/{pi,omp,minimax}-icon.tsx` |
+
+分组 Git 面板、远端变基及统一功能菜单已进入主线，文档注明 v0.2.26 的客户端与兼容主机要求。记事本、Bot 和 PR 跟进按各自的开关、主机与权限条件介绍。官网任务总览演示使用静态示例。这轮源码与产物校验不代表对各商店构建、真实 Provider 或外部消息渠道做了实机验收。
+
 ## 稳定下载 0.2.24
 
 各语言 DMG、独立 daemon 下载与快速开始同步至 [v0.2.24](https://github.com/ait-app/ait/releases/tag/v0.2.24)。使用本批 BUILD-INFO 与 SHA256SUMS 核对的 COS 版本文件；历史迁移链接保留。

@@ -34,9 +34,19 @@ The homepage demo illustrates this workflow. It does not run real tasks or modif
 
 ## Git worktrees
 
-Use the project’s Git worktree workflow when you need separate directories for parallel tasks. A worktree gives the same Git repository multiple working directories, each with its own branch and file state.
+- **Local** uses the project's existing checkout for work that can share a directory and branch.
+- **New worktree** gives a parallel task its own directory and branch. A regular worktree separates the checkout and Git state.
+- **Sandboxed worktree** also limits writes from agent processes on supported macOS and Linux hosts. It works with Claude Code, Codex, Pi, Oh My Pi, OpenCode, and MiniMax Code. It does not provide full read or network isolation. Linux needs `bubblewrap >= 0.8.0` and unprivileged user namespaces. See [Platform support](/en/docs/platforms/).
 
-Check the repository state and target branch before starting, then review changes before merging. Worktrees separate directories and branches; they are not an operating-system security sandbox. Project setup may still be running after workspace creation. Wait for dependency installation and initialization before starting work.
+Check your starting branch and wait for any background project setup after creating a worktree.
+
+## Workspace notepad
+
+In a compatible client, enable **Settings → About → Experimental features**, then open the workspace notepad. Each workspace shares one Markdown file in the host's data directory. Use it for notes and handoffs outside the Git checkout. Desktop and Web can edit it. Android and iOS show a read-only preview. Agents with access can read and write through [Ait MCP](/en/docs/agent-tools/).
+
+## Built-in browser
+
+Open the built-in browser from a workspace in the desktop app. For a remote workspace, its traffic goes through the working host, so the browser can also open that host's `localhost` pages. See the [browser sign-in walkthrough](/en/blog/browser-login-on-host/).
 
 ## Commits and pull requests
 
@@ -44,11 +54,11 @@ The primary workspace action follows the actual Git and PR state, offering actio
 
 “View PR” opens the existing request; it does not push commits. Resolve conflicts, divergence, or a behind branch before continuing. After merging, check for active agents and unanswered approvals before archiving the workspace.
 
+The grouped Git panel and **Rebase remote** require a v0.2.26 client and compatible host. Archive from the workspace menu. Reset is limited to eligible managed worktrees. Check the branch and which files will be cleared before confirming.
+
 ## Scheduled tasks
 
-Open schedules from the workspace’s new-item menu. Choose an existing agent or a new agent for each run, then configure the prompt, interval or Cron expression, timezone, and run count. For schedules that create a new agent each time, choose whether to keep each session in the workspace after the run or archive it (the default). A task belongs to that workspace. Create a worktree workspace first if it needs an isolated directory.
-
-Tasks run on the working host’s daemon. Closing a client tab does not stop an online daemon’s scheduler. Tasks do not execute while the host or daemon is offline, and recurring schedules do not replay every missed occurrence. Pausing prevents future automatic triggers; cancel an active run separately.
+Choose Scheduled tasks from the workspace’s New menu. Use an existing agent or create one per run. See [Scheduled tasks](/en/docs/automation/) for intervals, Cron, history, and session retention.
 
 ## Pick up on another device
 

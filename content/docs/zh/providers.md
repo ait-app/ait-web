@@ -27,7 +27,7 @@ claude auth login
 claude auth status
 ```
 
-在 Ait 选择 **Claude Code**。默认使用原生 `default` 审批模式；可用模型、推理等级与模式来自本机 CLI。工具审批和 Claude 的提问会显示在会话中。
+在 Ait 选择 **Claude Code**。使用本机 CLI 提供的权限模式。v0.2.25 起，普通新会话默认进入自动请求权限的模式。可用模型、推理等级与模式来自本机 CLI。工具审批和 Claude 的提问会显示在会话中。
 
 Claude Code 保留自己的认证，并加载用户、项目和本地设置，包括 `CLAUDE.md`、技能和 MCP。Ait 支持图片与文本附件、会话恢复及原生检查点回退；文件回退只涵盖 Claude 检查点跟踪的文件。详情见 [Claude Code 手册](https://github.com/ait-app/ait/blob/main/docs/operations/claude-code.md)。
 
@@ -37,7 +37,7 @@ Claude Code 保留自己的认证，并加载用户、项目和本地设置，�
 
 支持文本对话、工具进度、原生权限审批、取消和会话恢复；已有原生会话的列举与导入、图片输入、提问表单取决于安装版本提供的 ACP 能力。原生支持时，审批可以包含一次性允许、持久允许或拒绝。较旧 CLI 不一定提供所有选项。
 
-OpenCode 继续管理认证、项目配置和历史。项目中已有的 MCP 设置由 OpenCode 加载；Ait 不提供每个会话动态注入 MCP server 或 OpenCode 原生 rewind。目录加载失败时，先查看应用诊断与 CLI 状态，再刷新 Provider；首次启动可能需要等待原生目录初始化。
+OpenCode 管理认证、项目配置和历史，继续读取原生 MCP 设置。兼容的主机可在打开 ACP 会话时注入 [Ait MCP](/zh/docs/agent-tools/)，无需修改项目配置。Ait 不提供 OpenCode 原生 rewind。目录加载失败时先检查 CLI 与应用诊断，再刷新 Provider。
 
 协议和版本差异见 [OpenCode ACP 接入说明](https://github.com/ait-app/ait/blob/main/docs/decisions/providers/adr-115-opencode-acp-provider.md)。
 
@@ -103,3 +103,5 @@ export AIT_SERVER_MINIMAX_CODE_BIN=/absolute/path/to/mcode
 新建或继续会话前，检查当前工作主机返回的模型、模式与权限。每个 Provider 的能力由原生程序和 Ait 适配器共同决定；权限模式不能替代操作系统隔离。
 
 完成接入后，继续 [创建工作区](/zh/docs/workspaces/)。遇到不可用、登录或额度问题，查看 [常见问题与支持](/zh/docs/support/)。
+
+[Agent 工具与 Skill](/zh/docs/agent-tools/)

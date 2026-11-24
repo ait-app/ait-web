@@ -18,6 +18,9 @@ export const featuredAgents = [
   { id: 'opencode', name: 'OpenCode' },
   { id: 'antigravity', name: 'Antigravity' },
   { id: 'claude', name: 'Claude Code' },
+  { id: 'pi', name: 'Pi' },
+  { id: 'omp', name: 'Oh My Pi' },
+  { id: 'minimax', name: 'MiniMax Code' },
 ] as const;
 export type AgentProvider = typeof featuredAgents[number]['id'];
 export const product = {
@@ -36,8 +39,8 @@ export const product = {
   latestRelease: 'https://github.com/ait-app/ait/releases/latest',
   googlePlayTesting: 'https://play.google.com/apps/testing/dev.ait.mobile',
   macDmgMirror: {
-    url: 'https://download.aitapp.cn/v0.2.24/Ait-0.2.24-macos-arm64.dmg',
-    version: '0.2.24',
+    url: 'https://download.aitapp.cn/v0.2.25/Ait-0.2.25-macos-arm64.dmg',
+    version: '0.2.25',
   },
 };
 export const pathFor = (lang: Language, path = '') => `/${lang}/${path ? `${path.replace(/^\/+|\/+$/g, '')}/` : ''}`;

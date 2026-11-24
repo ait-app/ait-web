@@ -22,6 +22,8 @@ The marketing website is not the account API. The `/hosts` management page is no
 
 ## Connect through an account
 
+Using the bundled daemon locally on macOS or Linux requires no Ait account. To connect from another device through the online service, sign in from the welcome page, **Settings → App → Online Service**, or **Add Host → Online Service**.
+
 Desktop, Android, and iOS use the account service address configured in the app; check **Service settings** for the current configuration. The hosted Web client runs at the site root and uses same-origin `/api`; the management console lives at `/dash`. The website `https://ait-app.com` provides product information and documentation; it is not an account API address.
 
 1. Open **Online service → Sign in / Register** on the working computer. Complete hosted sign-in and return to Ait.

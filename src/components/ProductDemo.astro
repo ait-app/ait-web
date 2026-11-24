@@ -7,7 +7,24 @@ interface Props { lang: Language; }
 const { lang } = Astro.props;
 const copy = t(lang).home;
 const demo = t(lang).demo;
-const tasks = demo.tasks;
+const taskDots = {
+  running: 'dot-green',
+  pending: 'dot-pending',
+  review: 'dot-review',
+};
+const primaryTasks = [
+  { title: demo.tasks[0], provider: 'Claude Code', project: 'personal-website', state: 'running' },
+  { title: demo.tasks[1], provider: 'Codex', project: 'personal-website', state: 'pending' },
+  { title: demo.tasks[2], provider: 'OpenCode', project: 'personal-website', state: 'review' },
+] as const;
+const taskRows = [
+  ...primaryTasks,
+  { title: demo.taskBoard.sideTask, provider: 'Pi', project: 'side-project', state: 'running' },
+] as const;
+const taskSummary = Object.entries(demo.taskBoard.states).map(([state, label]) => ({
+  label,
+  count: taskRows.filter(row => row.state === state).length,
+}));
 ---
 <section class="demo-section container" aria-label={copy.demoHint}>
   <div class="demo-toolbar"><p>{copy.demoCaption}<span>{copy.demoLabel}</span></p><div class="demo-tabs" role="tablist" aria-label={copy.demoHint}>{copy.tabs.map((label, i) => <button type="button" role="tab" id={`demo-tab-${i}`} aria-selected={i === 0 ? 'true' : 'false'} aria-controls={`demo-panel-${i}`} tabindex={i === 0 ? 0 : -1} data-demo-tab={i}>{label}</button>)}</div></div>
@@ -19,7 +36,13 @@ const tasks = demo.tasks;
         <div class="app-new"><Icon name="plus" size={15}/>{demo.newWorkspace}</div>
         <span class="sidebar-label">{demo.projects}</span>
         <div class="app-project"><Icon name="folder" size={15}/>personal-website<span>3</span></div>
-        {tasks.map((task, i) => <div class:list={['app-task', { 'task-active': i === 0 }]}><i class={i === 1 ? 'task-dot dot-blue' : 'task-dot dot-green'}></i><span>{task}<small>{i === 0 ? 'Claude Code' : i === 1 ? 'Codex' : 'OpenCode'}</small></span><span class="task-time">{i === 0 ? 'now' : `${i * 4}m`}</span></div>)}
+        {primaryTasks.map((task, i) => (
+          <div class:list={['app-task', { 'task-active': i === 0 }]}>
+            <i class:list={['task-dot', taskDots[task.state]]} aria-hidden="true"></i>
+            <span>{task.title}<small>{task.provider}</small></span>
+            <span class="task-time">{i === 0 ? 'now' : `${i * 4}m`}</span>
+          </div>
+        ))}
         <div class="app-project project-secondary"><Icon name="folder" size={15}/>side-project<span>2</span></div>
         <div class="sidebar-bottom"><span class="host-dot"></span>{demo.connectedLocally}<Icon name="shield" size={13}/></div>
       </aside>
@@ -32,8 +55,35 @@ const tasks = demo.tasks;
         </div>
         <div class="app-code"><div class="app-pane-heading"><Icon name="file" size={14}/><strong>{demo.changes}</strong><span class="diff-plus">+128</span><span class="diff-minus">−12</span></div><div class="code-file"><Icon name="file" size={13}/> src/pages/index.astro <span>M</span></div><div class="diff-code"><div><span>01</span><code>---</code></div><div><span>02</span><code>import Layout from './Layout';</code></div><div><span>03</span><code>---</code></div><div><span>04</span><code></code></div><div class="code-added"><span>05</span><code>+ &lt;Layout title="Hello, world"&gt;</code></div><div class="code-added"><span>06</span><code>+   &lt;main class="home"&gt;</code></div><div class="code-added"><span>07</span><code>+     &lt;h1&gt;Make room</code></div><div class="code-added"><span>08</span><code>+       for ideas.&lt;/h1&gt;</code></div><div class="code-added"><span>09</span><code>+     &lt;p&gt;A little space</code></div><div class="code-added"><span>10</span><code>+       for what’s next.&lt;/p&gt;</code></div><div class="code-added"><span>11</span><code>+   &lt;/main&gt;</code></div><div class="code-added"><span>12</span><code>+ &lt;/Layout&gt;</code></div></div><div class="app-terminal"><div><Icon name="terminal" size={13}/>Terminal</div><p><span>›</span> npm run build<br/><span class="terminal-success">✓</span> Build completed.<br/><span class="terminal-muted">Ready when you are.</span><span class="terminal-cursor"></span></p></div></div>
       </div>
-      <div class="demo-panel demo-review" id="demo-panel-1" role="tabpanel" aria-labelledby="demo-tab-1" data-demo-panel="1" hidden><div class="review-content"><div class="app-pane-heading"><Icon name="git" size={16}/><strong>{demo.reviewTitle}</strong><span class="app-model">main</span></div><div class="review-message"><span class="review-check"><Icon name="check" size={25}/></span><h3>{demo.reviewHeading}</h3><p>{demo.reviewBody}</p><div class="review-file"><Icon name="file"/>src/pages/index.astro<span class="diff-plus">+96</span><span class="diff-minus">−8</span></div><div class="review-file"><Icon name="file"/>src/styles/global.css<span class="diff-plus">+32</span><span class="diff-minus">−4</span></div><div class="review-status"><Icon name="check" size={15}/>npm run build<span>passed</span></div></div></div></div>
-      <div class="demo-panel demo-connect" id="demo-panel-2" role="tabpanel" aria-labelledby="demo-tab-2" data-demo-panel="2" hidden><div class="connect-demo-content"><img src="/brand/ait-mark.svg" alt="" width="90" height="64"/><h3>{demo.connectHeading}</h3><p>{demo.connectBody}</p><div class="host-card"><Icon name="laptop" size={26}/><div><strong>My MacBook</strong><small>personal-website · 3 {demo.agents}</small></div><span class="host-state">{demo.online}</span></div><span class="connect-demo-note">{demo.connectNote}</span></div></div>
+      <div class="demo-panel demo-review" id="demo-panel-1" role="tabpanel" aria-labelledby="demo-tab-1" data-demo-panel="1" inert aria-hidden="true"><div class="review-content"><div class="app-pane-heading"><Icon name="git" size={16}/><strong>{demo.reviewTitle}</strong><span class="app-model">main</span></div><div class="review-message"><span class="review-check"><Icon name="check" size={25}/></span><h3>{demo.reviewHeading}</h3><p>{demo.reviewBody}</p><div class="review-file"><Icon name="file"/>src/pages/index.astro<span class="diff-plus">+96</span><span class="diff-minus">−8</span></div><div class="review-file"><Icon name="file"/>src/styles/global.css<span class="diff-plus">+32</span><span class="diff-minus">−4</span></div><div class="review-status"><Icon name="check" size={15}/>npm run build<span>passed</span></div></div></div></div>
+      <div class="demo-panel demo-connect" id="demo-panel-2" role="tabpanel" aria-labelledby="demo-tab-2" data-demo-panel="2" inert aria-hidden="true"><div class="connect-demo-content"><img src="/brand/ait-mark.svg" alt="" width="90" height="64"/><h3>{demo.connectHeading}</h3><p>{demo.connectBody}</p><div class="host-card"><Icon name="laptop" size={26}/><div><strong>My MacBook</strong><small>personal-website · 3 {demo.agents}</small></div><span class="host-state">{demo.online}</span></div><span class="connect-demo-note">{demo.connectNote}</span></div></div>
+      <div class="demo-panel" id="demo-panel-3" role="tabpanel" aria-labelledby="demo-tab-3" data-demo-panel="3" inert aria-hidden="true">
+        <div class="demo-task-board">
+          <div class="app-pane-heading">
+            <Icon name="layers" size={15}/>
+            <strong>{demo.taskBoard.title}</strong>
+            <span class="demo-task-summary">
+              {taskSummary.map(({ count, label }, i) => (
+                <span>{i > 0 && <span aria-hidden="true"> · </span>}{count} {label}</span>
+              ))}
+            </span>
+          </div>
+          <div class="demo-task-body">
+            <p>{demo.taskBoard.subtitle}</p>
+            <ul class="demo-task-list">
+              {taskRows.map(row => (
+                <li>
+                  <span><strong>{row.title}</strong><small>{row.provider} · {row.project}</small></span>
+                  <span class="demo-task-state">
+                    <i class:list={['task-dot', taskDots[row.state]]} aria-hidden="true"></i>
+                    {demo.taskBoard.states[row.state]}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="app-statusbar"><span><Icon name="git" size={12}/> main</span><span>personal-website<span class="statusbar-divider">/</span>{demo.allSaved}</span><span><Icon name="shield" size={12}/> {demo.runningLocally}</span></div>
   </div>
@@ -42,7 +92,12 @@ const tasks = demo.tasks;
   const demoTabs = [...document.querySelectorAll<HTMLButtonElement>('[data-demo-tab]')];
   const selectTab = (tab: HTMLButtonElement) => {
     demoTabs.forEach(button => { const selected = button === tab; button.setAttribute('aria-selected', String(selected)); button.tabIndex = selected ? 0 : -1; });
-    document.querySelectorAll<HTMLElement>('[data-demo-panel]').forEach(panel => { panel.hidden = panel.dataset.demoPanel !== tab.dataset.demoTab; });
+    document.querySelectorAll<HTMLElement>('[data-demo-panel]').forEach(panel => {
+      const inactive = panel.dataset.demoPanel !== tab.dataset.demoTab;
+      panel.inert = inactive;
+      if (inactive) panel.setAttribute('aria-hidden', 'true');
+      else panel.removeAttribute('aria-hidden');
+    });
   };
   demoTabs.forEach((tab, index) => {
     tab.addEventListener('click', () => selectTab(tab));
