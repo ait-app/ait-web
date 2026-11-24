@@ -33,15 +33,24 @@ Google Play 版本面向 18 岁及以上用户；部分地区的内容分级可�
 
 ## 桌面
 
-Linux 的 deb、rpm 和 Arch 包会安装沙箱 Worktree 所需的 `bubblewrap >= 0.8.0`。AppImage 和 tar.gz 用户需要自行安装，并确保允许非特权用户命名空间。Arch 用户可在 AUR 选择[正式版预编译 ait-bin](https://aur.archlinux.org/packages/ait-bin) 或[主线源码版 ait-git](https://aur.archlinux.org/packages/ait-git)。
+官方 [GitHub Release](https://github.com/ait-app/ait/releases/latest) 提供 Apple Silicon macOS、Linux x86_64 和 Windows x64 安装包，也提供用于校验下载文件的 `SHA256SUMS`。macOS 和 Linux 桌面应用会自动启动内置 daemon。
 
-官方 [GitHub Release](https://github.com/ait-app/ait/releases/latest) 提供 Apple Silicon macOS、Linux x86_64 和 Windows x64 安装包。macOS / Linux 桌面壳内置 daemon 并管理本机服务生命周期；Windows x64 是不带 daemon 的远端主机客户端。
+### macOS Apple Silicon
 
-macOS Apple Silicon 用户也可以使用[国内加速下载（DMG，v0.2.25）](https://download.aitapp.cn/v0.2.25/Ait-0.2.25-macos-arm64.dmg)。
+打开 DMG，把 Ait 拖到「应用程序」，再启动。也可从 Release 下载 ZIP，解压后将 Ait 移到「应用程序」。中国大陆可用[国内加速下载（DMG，v0.2.26）](https://download.aitapp.cn/v0.2.26/Ait-0.2.26-macos-arm64.dmg)。
 
-macOS / Linux 桌面支持账户登录、在线主机和本机工作区。Windows x64 桌面客户端不附带 daemon，通过账户、TCP 或 SSH 连接远端主机。构建方式见[本地开发](/zh/docs/development/)与[桌面说明](https://github.com/ait-app/ait/blob/main/apps/desktop/README.md)；可下载的平台与版本以对应 Release 资产为准。
+### Linux x86_64
 
-没有桌面环境的 Linux x86_64 或 Apple Silicon macOS 主机，可以安装[独立 daemon](/zh/docs/daemon/)，以无人值守模式接入账户。
+- **Arch Linux（AUR）**：用 `paru -S ait-bin` 安装由 CI 自动发布的[预编译正式版](https://aur.archlinux.org/packages/ait-bin)，也可用 `yay -S ait-bin`。要从 `main` 构建，改用 `paru -S ait-git`（[源码包](https://aur.archlinux.org/packages/ait-git)）。
+- **Debian / Ubuntu（.deb）**：在下载目录运行 `sudo apt install ./Ait-*-linux-amd64.deb`。
+- **Fedora / RHEL（.rpm）**：在下载目录运行 `sudo dnf install ./Ait-*-linux-x86_64.rpm`。
+- **AppImage / tar.gz**：用 `chmod +x Ait-linux-x86_64.AppImage` 添加执行权限，再运行 `./Ait-linux-x86_64.AppImage`；或用 `tar -xzf Ait-*-linux-x64.tar.gz` 解压并运行目录中的 `./Ait`。请在下载目录只保留一个匹配的版本。
+
+ait-bin、.deb 和 .rpm 包会安装 `bubblewrap >= 0.8.0` 依赖。使用 ait-git、AppImage 或 tar.gz 时，请自行安装该版本或更新版的 bubblewrap，并确保系统允许非特权用户命名空间，以使用沙箱 Worktree。发行版的仓库需提供所选安装包要求的依赖版本。
+
+### Windows x64
+
+Windows 桌面版通过在线服务、直接连接或远程 SSH 访问运行 Agent 的工作主机。本机不运行 daemon。无桌面的 Linux x86_64 或常开的 Apple Silicon Mac 可使用[独立 daemon](/zh/docs/daemon/)。
 
 ## Android
 
@@ -67,7 +76,7 @@ iOS simulator 可通过 loopback 访问宿主服务。真机直接连接时需�
 
 ## Web
 
-打开 **[Ait Web 界面](https://aitapp.cn/)**，登录与桌面端相同的 Ait 账户，即可在浏览器中连接在线主机、继续工作。无需在当前设备安装客户端；运行 Agent 的工作电脑仍需保持在线。
+打开 **[Ait for Web](https://aitapp.cn/)**，登录与桌面端相同的 Ait 账户，即可在浏览器中连接在线主机、继续工作。无需在当前设备安装客户端；运行 Agent 的工作电脑仍需保持在线。
 
 这里的宣传网站与 Agent Web 客户端分别运行。当前 Web 客户端以独立静态镜像部署在网站根路径 `/`，共享同源登录和 `/api`，管理控制台位于 `/dash`。部署边界见 [ADR-188](https://github.com/ait-app/ait/blob/main/docs/decisions/clients/adr-188-standalone-web-client-image.md)。
 

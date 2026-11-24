@@ -25,7 +25,7 @@ Each host keeps its own development environment and project directories. You dec
 
 ## Another screen, the same work
 
-Start tasks on your computer, then use your phone to check progress, add instructions, or respond to approvals when you step away. On another computer, open the [Ait Web app](https://aitapp.cn/) to connect to your existing host and continue.
+Start tasks on your computer, then use your phone to check progress, add instructions, or respond to approvals when you step away. On another computer, open the [Ait for Web](https://aitapp.cn/) to connect to your existing host and continue.
 
 Desktop, Android, iOS, and Web access the workspaces and sessions already on the host. Your task context stays available when you change devices, without copying the project to your phone. Keep the working host awake and its service available, and continue from the device at hand. See [Platform support](/en/docs/platforms/) for installation options.
 

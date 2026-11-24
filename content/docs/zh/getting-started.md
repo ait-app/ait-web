@@ -13,11 +13,16 @@ Ait 是一个本地优先的多 Agent 管理器。Agent 在你的工作主机上
 
 ## 安装桌面应用
 
-在 [下载页](/zh/download/) 选择你的平台。目前官方桌面 Release 提供 **Apple Silicon macOS**、**Linux x86_64** 与 **Windows x64** 安装包。
+从[下载页](/zh/download/)进入 [GitHub Release](https://github.com/ait-app/ait/releases/latest)，按平台下载。Release 提供 `SHA256SUMS` 校验文件。
 
-从 [Ait 官方 Release](https://github.com/ait-app/ait/releases/latest) 下载对应文件。macOS 打开 DMG，安装并启动 Ait；Linux 根据发行包格式解压运行，或使用 AppImage。Release 同时提供 `SHA256SUMS`，可核对下载文件。
+- **macOS Apple Silicon**：打开 DMG，将 Ait 拖到「应用程序」后启动。也可解压 ZIP。
+- **Arch Linux**：运行 `paru -S ait-bin`，或用 `paru -S ait-git` 从主线构建。
+- **Debian / Ubuntu**：下载 .deb 后运行 `sudo apt install ./Ait-*-linux-amd64.deb`。
+- **Fedora / RHEL**：下载 .rpm 后运行 `sudo dnf install ./Ait-*-linux-x86_64.rpm`。
+- **其他 Linux x86_64**：运行 AppImage 或解压 tar.gz。详见 [Linux 安装与依赖](/zh/docs/platforms/#linux-x86_64)。
+- **Windows x64**：安装客户端后连接远端工作主机。本机不运行 daemon。
 
-macOS / Linux 桌面安装包带有 Rust daemon，由桌面应用负责启动，无需单独安装 daemon。Windows x64 是连接远端主机的客户端，不在本机运行 Agent。
+macOS 和 Linux 桌面应用会自动启动内置 daemon。
 
 ## 准备一个 Agent
 

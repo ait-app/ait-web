@@ -33,15 +33,24 @@ Google Play 版は 18 歳以上の成人を対象としています。地域の�
 
 ## デスクトップ
 
-Linux の deb、rpm、Arch パッケージは、サンドボックス Worktree に必要な `bubblewrap >= 0.8.0` に依存します。AppImage と tar.gz では別途インストールし、非特権ユーザー名前空間を有効にしてください。Arch では AUR の[ビルド済み ait-bin](https://aur.archlinux.org/packages/ait-bin) または [main からビルドする ait-git](https://aur.archlinux.org/packages/ait-git) を選べます。
+公式の [GitHub リリース](https://github.com/ait-app/ait/releases/latest)には、Apple Silicon の macOS、Linux x86_64、Windows x64 向けのインストーラーと、検証用の `SHA256SUMS` があります。macOS と Linux のデスクトップアプリは同梱のデーモンを自動で起動します。
 
-公式の [GitHub リリース](https://github.com/ait-app/ait/releases/latest)では、Apple Silicon の macOS、Linux x86_64、Windows x64 向けのインストーラーを提供しています。macOS / Linux のデスクトップシェルにはデーモンが含まれており、そのライフサイクルも管理します。Windows x64 はデーモンを含まないリモートホスト用クライアントです。
+### macOS Apple Silicon
 
-中国国内の Apple Silicon Mac では、[中国向けダウンロードミラー（DMG、v0.2.25）](https://download.aitapp.cn/v0.2.25/Ait-0.2.25-macos-arm64.dmg)を利用してください。
+DMG を開き、Ait を「アプリケーション」にドラッグして起動します。ZIP をダウンロードして展開し、Ait を「アプリケーション」に移動する方法もあります。中国本土では[中国向けダウンロードミラー（DMG、v0.2.26）](https://download.aitapp.cn/v0.2.26/Ait-0.2.26-macos-arm64.dmg)を利用できます。
 
-macOS / Linux のデスクトップ版は、アカウントへのサインイン、オンラインホスト、ローカルワークスペースに対応しています。Windows x64 のデスクトップクライアントはデーモンを同梱せず、アカウント、TCP、SSH を通じてリモートホストに接続します。[ローカル開発](/ja/docs/development/)と[デスクトップガイド](https://github.com/ait-app/ait/blob/main/apps/desktop/README.md)を参照してください。ダウンロードできるプラットフォームとバージョンは、該当するリリースのアセットによって異なります。
+### Linux x86_64
 
-デスクトップ環境のない Linux x86_64 または Apple Silicon macOS のホストでは、[スタンドアロンデーモン](/ja/docs/daemon/)をインストールし、無人モードでアカウントに参加させることができます。
+- **Arch Linux（AUR）**：`paru -S ait-bin` または `yay -S ait-bin` で、CI が公開する[ビルド済みの安定版](https://aur.archlinux.org/packages/ait-bin)をインストールします。`main` からビルドする場合は `paru -S ait-git` を使います（[ソースパッケージ](https://aur.archlinux.org/packages/ait-git)）。
+- **Debian / Ubuntu（.deb）**：ダウンロード先で `sudo apt install ./Ait-*-linux-amd64.deb` を実行します。
+- **Fedora / RHEL（.rpm）**：ダウンロード先で `sudo dnf install ./Ait-*-linux-x86_64.rpm` を実行します。
+- **AppImage / tar.gz**：`chmod +x Ait-linux-x86_64.AppImage` で実行権限を付け、`./Ait-linux-x86_64.AppImage` を実行します。tar.gz の場合は `tar -xzf Ait-*-linux-x64.tar.gz` で展開し、展開先の `./Ait` を実行します。一致するファイルはダウンロード先に一つだけ置いてください。
+
+ait-bin、.deb、.rpm は依存パッケージの `bubblewrap >= 0.8.0` もインストールします。ait-git、AppImage、tar.gz でサンドボックス Worktree を使う場合は、対象バージョン以降の bubblewrap を別途インストールし、非特権ユーザー名前空間を許可してください。選んだパッケージの依存バージョンがディストリビューションのリポジトリで提供されている必要があります。
+
+### Windows x64
+
+Windows 版はオンラインサービス、直接接続、リモート SSH で作業ホストに接続するクライアントです。ローカルではデーモンを起動しません。ヘッドレスの Linux x86_64 や常時稼働の Apple Silicon Mac では[スタンドアロンデーモン](/ja/docs/daemon/)を利用できます。
 
 ## Android
 
@@ -67,7 +76,7 @@ iOS シミュレーターは、ループバック経由でホストにアクセ�
 
 ## Web
 
-**[Ait Web アプリ](https://aitapp.cn/)**を開き、デスクトップアプリと同じ Ait アカウントでサインインすると、オンラインホストに接続してブラウザーで作業を続けられます。このデバイスにクライアントをインストールする必要はありませんが、エージェントを実行しているコンピューターはオンラインのままにしておく必要があります。
+**[Ait for Web](https://aitapp.cn/)**を開き、デスクトップアプリと同じ Ait アカウントでサインインすると、オンラインホストに接続してブラウザーで作業を続けられます。このデバイスにクライアントをインストールする必要はありませんが、エージェントを実行しているコンピューターはオンラインのままにしておく必要があります。
 
 このマーケティングサイトは、エージェントの Web クライアントとは別のものです。現在のクライアントは、サイトのルート `/` に別の静的イメージとしてデプロイされ、同一オリジンのサインインと `/api` を共有します。管理コンソールは `/dash` にあります。[ADR-188](https://github.com/ait-app/ait/blob/main/docs/decisions/clients/adr-188-standalone-web-client-image.md)を参照してください。
 

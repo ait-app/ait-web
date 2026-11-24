@@ -1,6 +1,6 @@
 ---
 title: Standalone daemon
-description: Download, verify, and install the separately released aitd, then run it in unattended mode to connect a Linux or macOS host without a desktop to your Ait account.
+description: Download, verify, and install aitd to access a headless Linux or macOS working host through Online Service or over your LAN.
 lang: en
 slug: daemon
 group: reference
@@ -9,7 +9,7 @@ order: 5.5
 
 Every Ait stable release includes standalone daemon archives containing a single executable, `aitd`. Use it on hosts that do not need a desktop interface, such as cloud servers, build machines, or an always-on Mac mini. Once it runs in unattended mode and signs in to your Ait account, the host appears in the online host list, and you can connect to it from the desktop, Android, iOS, or Web clients.
 
-> **Version scope:** the download and service examples below target **v0.2.25** and use `run`. Older versions such as v0.1.20 used `run --headless`. Follow the migration below when upgrading and keep startup arguments consistent with your version.
+> **Version scope:** the download and service examples below target **v0.2.26** and use `run`. Older versions such as v0.1.20 used `run --headless`. Follow the migration below when upgrading and keep startup arguments consistent with your version.
 
 This page uses two terms:
 
@@ -37,7 +37,7 @@ The `--headless` flag has been removed. After upgrading to a build with this cha
 
 Every startup path generates and reuses `<data-dir>/local-api.token` when `AIT_SERVER_TOKEN` is absent. The daemon owns machine authorization, lease renewal, and reconnects. Quitting a client does not revoke authorization; explicitly disconnecting the host clears it. Source builds produce `target/release/daemon`. See [Local development](/en/docs/development/), [Server configuration](/en/docs/configuration/), and the [daemon manual](https://github.com/ait-app/ait/blob/main/docs/operations/headless-daemon.md) for the current setup.
 
-The download and service examples below use v0.2.25. Use the assets and arguments for your release when running another version.
+The download and service examples below use v0.2.26. Use the assets and arguments for your release when running another version.
 
 ## Requirements
 
@@ -48,17 +48,17 @@ The download and service examples below use v0.2.25. Use the assets and argument
 
 You also need:
 
-- An Ait account. Use the same account on the clients that connect to this host.
+- Online Service requires an Ait account shared with the connecting client. Direct LAN access uses the daemon’s access token.
 - At least one agent CLI installed and signed in on this host. See [Agent setup](/en/docs/providers/).
 
-## Download (v0.2.25)
+## Download (v0.2.26)
 
 | Platform | GitHub release | China download mirror |
 | --- | --- | --- |
-| Linux x86_64 | [Ait-0.2.25-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.25/Ait-0.2.25-daemon-linux-x64.tar.gz) | [COS download](https://download.aitapp.cn/v0.2.25/Ait-0.2.25-daemon-linux-x64.tar.gz) |
-| macOS Apple Silicon | [Ait-0.2.25-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.25/Ait-0.2.25-daemon-macos-arm64.tar.gz) | [COS download](https://download.aitapp.cn/v0.2.25/Ait-0.2.25-daemon-macos-arm64.tar.gz) |
+| Linux x86_64 | [Ait-0.2.26-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.26/Ait-0.2.26-daemon-linux-x64.tar.gz) | [COS download](https://download.aitapp.cn/v0.2.26/Ait-0.2.26-daemon-linux-x64.tar.gz) |
+| macOS Apple Silicon | [Ait-0.2.26-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.26/Ait-0.2.26-daemon-macos-arm64.tar.gz) | [COS download](https://download.aitapp.cn/v0.2.26/Ait-0.2.26-daemon-macos-arm64.tar.gz) |
 
-Both locations serve identical files. The `SHA256SUMS` checksum file is published only on the [GitHub release](https://github.com/ait-app/ait/releases/tag/v0.2.25). Archives for other versions use the same names on [all releases](https://github.com/ait-app/ait/releases).
+Both locations serve identical files. The `SHA256SUMS` checksum file is published only on the [GitHub release](https://github.com/ait-app/ait/releases/tag/v0.2.26). Archives for other versions use the same names on [all releases](https://github.com/ait-app/ait/releases).
 
 ## Install
 
@@ -67,27 +67,27 @@ These commands download the archive from GitHub, verify its checksum, and instal
 ### Linux
 
 ```sh
-VERSION=0.2.25
+VERSION=0.2.26
 ASSET="Ait-${VERSION}-daemon-linux-x64.tar.gz"
-curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/${ASSET}"
-curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
-grep -F "  ${ASSET}" SHA256SUMS | sha256sum -c -
-tar -xzf "${ASSET}"
-sudo install -m 0755 aitd /usr/local/bin/aitd
+curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/${ASSET}" &&
+curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS" &&
+awk -v asset="$ASSET" '$2 == asset' SHA256SUMS | sha256sum -c - &&
+tar -xzf "${ASSET}" &&
+sudo install -m 0755 aitd /usr/local/bin/aitd &&
 aitd --version
 ```
 
 ### macOS
 
 ```sh
-VERSION=0.2.25
+VERSION=0.2.26
 ASSET="Ait-${VERSION}-daemon-macos-arm64.tar.gz"
-curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/${ASSET}"
-curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
-grep -F "  ${ASSET}" SHA256SUMS | shasum -a 256 -c -
-tar -xzf "${ASSET}"
-sudo mkdir -p /usr/local/bin
-sudo install -m 0755 aitd /usr/local/bin/aitd
+curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/${ASSET}" &&
+curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS" &&
+awk -v asset="$ASSET" '$2 == asset' SHA256SUMS | shasum -a 256 -c - &&
+tar -xzf "${ASSET}" &&
+sudo mkdir -p /usr/local/bin &&
+sudo install -m 0755 aitd /usr/local/bin/aitd &&
 aitd --version
 ```
 
@@ -116,6 +116,8 @@ If opening a browser is inconvenient, issue a single-use enrollment token from t
 aitd login --token-stdin
 ```
 
+Supply the single-use token issued on the Web host details page on standard input. When entering it interactively, paste the token, press Enter, then press Ctrl-D to send EOF. For automation, pass it through a protected input stream. Then start `aitd run`.
+
 Check authorization and runtime status:
 
 ```sh
@@ -123,6 +125,25 @@ aitd status --json
 ```
 
 New installations use `~/.ait`. Without an explicit data directory, the daemon chooses the first existing path in this order: `~/.ait`, `~/.ait-server-desktop`, `~/.ait-server`. Existing directories are not moved or merged; use `--data-dir` to keep a specific location. The selected directory holds the machine authorization, the local API token, and work data. See [Server configuration](/en/docs/configuration/) for the listen address, data directory, and other options.
+
+## Connect over LAN without signing in
+
+1. **Set the listener.** Standalone `aitd` listens on `127.0.0.1:7316` by default. Run it as the user that runs your agents and replace the example IP with your working host’s LAN address. You can also use `AIT_SERVER_LISTEN=192.168.1.10:7316 aitd run`. If tmux or systemd already manages it, stop the existing process, update its startup command, and start it again.
+
+   ```sh
+   aitd run --listen 192.168.1.10:7316
+   ```
+
+2. **Get the access token.** After startup, read `local-api.token` from the active data directory. On a fresh installation, use `cat ~/.ait/local-api.token`. For an existing installation, use its actual directory. If you set `AIT_SERVER_TOKEN` at startup, enter that value in the client. It takes precedence and leaves the file intact. A custom token needs 32–256 visible ASCII characters without spaces. You can generate one with `openssl rand -hex 32`.
+3. **Allow access from your trusted subnet.** If a host firewall is active, allow TCP `7316` from the client subnet only. The UFW example below uses a sample subnet. Replace it with yours.
+
+   ```sh
+   sudo ufw allow from 192.168.1.0/24 to any port 7316 proto tcp
+   ```
+
+4. **Connect the client.** In the desktop or mobile app, choose **Add host → Direct connection**. Enter the working host’s IP in **Host**, `7316` in **Port**, and the access token in **Server token**. Enable **Use SSL** only with a TLS terminator in front of the daemon.
+
+Binding `0.0.0.0:7316` listens on all IPv4 interfaces. Clients still use a reachable host IP. The built-in listener runs without TLS, so keep the port off the public internet. On an untrusted network, keep the loopback listener and use an [SSH tunnel](/en/docs/connection/#ssh-tunnel) or Online Service. With a trusted VPN, bind the listener to the VPN interface. Ait for Web at aitapp.cn connects through Online Service only.
 
 ## Keep it running
 
@@ -145,7 +166,7 @@ tmux sessions do not survive a host restart. To start the daemon automatically a
 
 ### Persistent start: systemd on Linux
 
-Create a systemd user service as the same user that completed `login`:
+Create a systemd user service as the user who will run your agents:
 
 ```sh
 mkdir -p ~/.config/systemd/user

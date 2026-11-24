@@ -376,15 +376,44 @@
   .article-related h2 { font-size: 28px; margin-bottom: 28px; }
   .article-related .blog-grid { grid-template-columns: repeat(2,1fr); }
   .download-page { padding-bottom: 100px; }
+  .download-page h1 { text-wrap: balance; }
   .download-group-title { font-size: 18px; letter-spacing: -.02em; margin: 48px 0 18px; }
-  .download-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-  .download-card { padding: 35px; border: 1px solid var(--line); background: white; border-radius: 8px; }
-  .download-icon { display: inline-flex; padding: 16px; background: #f4f4f0; border-radius: 13px; margin-bottom: 25px; }
-  .download-card h2 { font-size: 29px; }
-  .download-card p { color: var(--text-muted); font-size: 14px; margin: 10px 0 28px; }
-  .download-mirror { display: grid; justify-items: start; gap: 6px; margin-top: 18px; }
+  .download-grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 6fr); gap: 16px; }
+  .download-card { padding: 28px; border: 1px solid var(--line); background: var(--brand-surface); border-radius: 8px; }
+  .download-card-linux { grid-column: 2; grid-row: 1 / span 2; }
+  .download-card-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .download-icon { display: inline-flex; padding: 9px; background: #f4f4f0; border-radius: 7px; }
+  .download-card h3 { font-size: 27px; line-height: 1.2; }
+  .download-card p { color: var(--text-muted); font-size: 14px; margin-top: 6px; }
+  .download-card > .button { margin-top: 15px; }
+  .download-card .button { padding-inline: 15px; text-align: center; }
+  .download-page a > svg { flex: none; }
+  .download-mirror { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; margin-top: 11px; }
   .download-mirror small { color: var(--text-soft); font-size: 12px; }
-  .release-note { color: var(--text-soft); font-size: 12px; margin-top: 16px; }
+  .download-install { margin-top: 16px; }
+  .download-install + .download-install { border-top: 1px solid var(--line); padding-top: 14px; }
+  .download-install h4 { font-size: 14px; font-weight: 600; }
+  .download-command { display: flex; flex-wrap: nowrap; justify-content: space-between; align-items: center; gap: 10px; margin-top: 8px; padding: 6px 8px 6px 12px; border: 1px solid var(--line); background: #f6f6f2; width: 100%; }
+  .download-command code { font: 12.5px/1.45 var(--mono); color: var(--brand-ink); min-width: 0; overflow-x: auto; white-space: nowrap; }
+  .download-command .code-copy { position: static; flex: none; min-height: 24px; }
+  .download-install-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 14px; }
+  .release-note { color: var(--text-soft); font-size: 12px; margin-top: 12px; }
+  .download-prerequisite.download-daemon { margin-top: 14px; padding-block: 17px; border: 1px solid var(--line); border-radius: 0; background: #f6f6f2; }
+  .download-start .download-start-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .download-start-path { display: flex; flex-direction: column; align-items: flex-start; padding: 24px 30px 27px 0; min-width: 0; }
+  .download-start-path + .download-start-path { border-left: 1px solid var(--line); padding-inline: 30px 0; }
+  .download-start-path h3 { display: flex; align-items: baseline; gap: 12px; font-size: 21px; }
+  .download-start-path h3 span { font: 12px var(--mono); color: var(--brand-text); }
+  .download-start-note { font-size: 13px; color: var(--text-soft); margin-top: 4px; }
+  .download-start-path ul { width: 100%; margin: 17px 0 22px; padding: 0; list-style: none; font-size: 14px; }
+  .download-start-path li + li { margin-top: 16px; }
+  .download-start-path li strong { font-weight: 600; }
+  .download-start-path li p { color: var(--text-muted); margin-top: 4px; text-wrap: pretty; }
+  .download-start-path li p code { font: .9em var(--mono); color: var(--brand-ink); white-space: nowrap; }
+  .download-start-path .download-command { margin-block: 6px 10px; }
+  .download-start-path .download-command:last-child { margin-bottom: 0; }
+  .download-start-path .download-command + p { margin-top: 8px; }
+  .download-start-links { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: auto; }
   .platform-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
   .platform-grid > article { padding: 30px; border: 1px solid var(--line); border-radius: 8px; }
   .platform-grid > article > svg { color: var(--brand-text); }
@@ -414,6 +443,7 @@
   .prose li > p { margin-top: 8px; }
   .prose strong { color: var(--brand-ink); font-weight: 600; }
   .prose :not(pre) > code { font-family: var(--mono); font-size: .86em; background: #efefea; padding: 3px 6px; border-radius: 4px; color: #5d5148; }
+  .docs-prose:has(.quick-start-paths) :not(pre) > code { display: inline-block; max-width: 100%; padding-block: 0; }
   .prose pre { padding: 22px; border: 1px solid var(--line); border-radius: 7px; font-size: 12px; line-height: 1.9; overflow: auto; background: #f6f6f2 !important; }
   .prose pre code { font-family: var(--mono); }
   .prose blockquote { margin-inline: 0; padding: 15px 22px; border-left: 3px solid var(--brand-secondary); background: #fff0e94d; font-size: 14px; }
@@ -531,8 +561,8 @@
   @media (max-width: 900px) {
     .footer-main { grid-template-columns: 1fr 1fr; gap: 28px 40px; }
     .footer-brand { grid-column: 1 / -1; }
-    .header-inner { gap: 30px; }
-    .desktop-nav { gap: 24px; white-space: nowrap; }
+    .header-inner { gap: clamp(16px, calc(7vw - 32px), 30px); }
+    .desktop-nav { gap: clamp(17px, calc(7vw - 31px), 24px); white-space: nowrap; }
     .provider-strip { column-gap: 20px; font-size: 14px; }
     .app-code { display: none; }
     .app-layout { min-height: 428px; }
@@ -564,11 +594,16 @@
     .faq-section h2 { font-size: 24px; }
     .docs-layout { grid-template-columns: 210px minmax(0,1fr); gap: 35px; }
     .docs-toc { display: none; }
+    .download-grid { gap: 12px; }
+    .download-card { padding: clamp(14px, 2.4vw, 22px); }
+    .download-prerequisite.download-daemon { gap: 12px; padding-inline: 20px; }
+    .download-prerequisite.download-daemon a { margin-left: auto; }
     .download-prerequisite { flex-wrap: wrap; }
     .download-prerequisite > div { flex: 1; }
     .download-prerequisite a { margin-left: 50px; }
   }
   @media (680px < width <= 900px) {
+    .platform-grid > article { padding: clamp(14px, calc(5vw - 24px), 22px); }
     .feature-card:nth-child(odd) { border-left: 0; padding-left: 0; }
     .feature-card:nth-child(even) { padding-right: 0; }
     .feature-card:nth-child(n + 3) { border-top: 1px solid var(--line); }
@@ -694,7 +729,12 @@
     .article-related .blog-grid { grid-template-columns: 1fr; }
     .article-related { margin-top: 40px; }
     .download-grid, .platform-grid { grid-template-columns: 1fr; }
-    .download-card { padding: 27px; }
+    .download-card { padding: 22px; }
+    .download-card-linux { grid-area: auto; }
+    .download-prerequisite.download-daemon a { margin-left: 0; }
+    .download-start .download-start-grid { grid-template-columns: minmax(0, 1fr); }
+    .download-start-path, .download-start-path + .download-start-path { padding: 21px 0; border-left: 0; }
+    .download-start-path + .download-start-path { border-top: 1px solid var(--line); }
     .platform-grid p { min-height: 0; }
     .download-prerequisite { padding: 22px; gap: 15px; }
     .download-prerequisite > div { min-width: calc(100% - 48px); }

@@ -1,5 +1,19 @@
 # 内容来源
 
+## 下载与连接上手（2026-11-25）
+
+对照 Ait 远程主线 [`dd0061ffd3474e69932ba0ba074ba0aa5a5dba0a`](https://github.com/ait-app/ait/commit/dd0061ffd3474e69932ba0ba074ba0aa5a5dba0a) 和公开正式版 [v0.2.26](https://github.com/ait-app/ait/releases/tag/v0.2.26)。Release 的 `BUILD-INFO.json` 指向 [`5f3ac5eb38926dfd58737596f8f688319ad3db7b`](https://github.com/ait-app/ait/commit/5f3ac5eb38926dfd58737596f8f688319ad3db7b) 和[正式构建](https://github.com/ait-app/ait/actions/runs/45419134833)。下载国内镜像的 Apple Silicon DMG、Linux x64 和 macOS arm64 独立 daemon 归档，三份均通过该 Release 的 `SHA256SUMS` 校验。
+
+| 核验范围 | Ait 来源与结果 |
+| --- | --- |
+| Arch Linux | `packaging/aur/{ait-bin,ait-git}/PKGBUILD`、`.github/workflows/publish-aur.yml`、AUR RPC。CI 在正式 Release 发布后更新 `ait-bin`，包从预编译 AppImage 安装。`ait-git` 从 `main` 构建。Ait 主线的两份配方均声明 `bubblewrap>=0.8.0`。公开 AUR 的 `ait-bin 0.2.26-1` 已声明该依赖，`ait-git` 的公开配方（`905722d`）尚未声明，使用前需自行确认。 |
+| 桌面产物 | `apps/desktop/electron-builder.yml`、`docs/operations/releasing.md`、Release 资产列表。macOS arm64 提供 DMG / ZIP，Linux x86_64 提供 .deb、.rpm、AppImage、tar.gz，Windows x64 提供不含本机 daemon 的客户端。.deb 和 .rpm 声明 `bubblewrap >= 0.8.0`，AppImage / tar.gz 使用沙箱 Worktree 前需手动安装并允许非特权用户命名空间。实查 .deb / .rpm 依赖元数据与 tar.gz 内的 `./Ait`，三份均通过 Release 的 SHA256 校验。 |
+| 独立 daemon | `scripts/release-assets.mjs`、`docs/operations/headless-daemon.md`、`bins/daemon/src/config.rs`。归档为 `Ait-0.2.26-daemon-linux-x64.tar.gz` 和 `Ait-0.2.26-daemon-macos-arm64.tar.gz`，程序名 `aitd`。网页验证码使用 `aitd login`，已有一次性接入 JWT 可用 `aitd login --token-stdin`。运行使用 `aitd run`，查看状态使用 `aitd status --json`，后台由 tmux、systemd 或 launchd 管理。 |
+| 局域网监听与认证 | `bins/daemon/src/config.rs`、`bins/daemon/src/config/local_token.rs`、`apps/desktop/src/daemon/rust-daemon.ts`、`packages/protocol/src/server-listen.ts`。独立版默认 `127.0.0.1:7316`，可用 `--listen` 或 `AIT_SERVER_LISTEN` 修改。桌面内置版默认 `127.0.0.1:0`，可从本机主机设置修改。`AIT_SERVER_TOKEN` 优先且不覆盖 `<data-dir>/local-api.token`。无账户授权时本地 API 仍可使用。 |
+| 登录与客户端入口 | `apps/mobile/src/components/add-host-method-modal.tsx`、`add-host-modal.tsx`、`apps/mobile/src/i18n/resources/{zh-CN,en,ja}/`、`apps/mobile/src/runtime/browser-account.web.ts`。核对「在线服务」与「添加主机 → 直接连接」及连接表单字段。`aitapp.cn` 的 Ait for Web 仅走在线服务，本地开发 Web 客户端仍可直连。下载页沿用 Google Play 封测与 TestFlight 公开邀请。 |
+
+在 Linux 上运行发布版 `aitd 0.2.26`，核对 CLI 帮助，并用隔离数据目录在回环地址验证两种监听配置、免账户启动、令牌文件权限 `0600` 和环境令牌覆盖。浏览器授权和商店链接以源码、发布产物及可达性核对为限，未执行真实账号授权或移动设备安装。
+
 ## 官网工作流与稳定下载 0.2.25（2026-11-24）
 
 能力核验以 Ait 远程主线 [`1863d8350`](https://github.com/ait-app/ait/commit/1863d8350c59212c8d18cea8e48fca942ebe3eeb) 为准。最新正式产物为 [v0.2.25](https://github.com/ait-app/ait/releases/tag/v0.2.25)，其 `BUILD-INFO.json` 指向 `7a0e0f25edeab9bccc908f2e5f21c3f0ef0acfc2` 和 [正式构建](https://github.com/ait-app/ait/actions/runs/45193304519)。从 COS 实际下载 Apple Silicon DMG、Linux x64 和 macOS arm64 独立 daemon 归档，三份均与 GitHub Release 的 `SHA256SUMS` 一致。平台、快速开始和独立 daemon 文档中的固定版本统一更新。

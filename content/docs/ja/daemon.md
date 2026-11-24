@@ -1,6 +1,6 @@
 ---
 title: スタンドアロンデーモン
-description: 別途リリースされる aitd をダウンロード・検証・インストールし、無人モードで実行して、デスクトップのない Linux または macOS ホストを Ait アカウントに接続します。
+description: aitd をダウンロード、検証、インストールし、ヘッドレスの Linux や macOS の作業ホストにオンラインサービスまたは LAN から接続します。
 lang: ja
 slug: daemon
 group: reference
@@ -9,7 +9,7 @@ order: 5.5
 
 Ait の安定版リリースには、実行ファイル `aitd` 1 つを含むスタンドアロンデーモンのアーカイブが付属します。クラウドサーバー、ビルドマシン、常時稼働の Mac mini など、デスクトップ画面を必要としないホストで使用します。無人モードで実行して Ait アカウントにサインインすると、そのホストがオンラインのホスト一覧に表示され、デスクトップ、Android、iOS、Web の各クライアントから接続できます。
 
-> **バージョンの範囲:** 以下のダウンロードとサービスの例は **v0.2.25** を対象としており、`run` を使用します。v0.1.20 などの旧バージョンでは `run --headless` を使用していました。アップグレードする際は以下の移行手順に従い、お使いのバージョンに合わせて起動引数を揃えてください。
+> **バージョンの範囲:** 以下のダウンロードとサービスの例は **v0.2.26** を対象としており、`run` を使用します。v0.1.20 などの旧バージョンでは `run --headless` を使用していました。アップグレードする際は以下の移行手順に従い、お使いのバージョンに合わせて起動引数を揃えてください。
 
 このページでは 2 つの用語を使います。
 
@@ -37,7 +37,7 @@ aitd run
 
 `AIT_SERVER_TOKEN` が未設定の場合、どの起動経路でも `<data-dir>/local-api.token` が生成され、再利用されます。マシンの認可、リースの更新、再接続はデーモンが担当します。クライアントを終了しても認可は取り消されません。ホストを明示的に切断すると、認可が消去されます。ソースビルドでは `target/release/daemon` が生成されます。現在のセットアップについては、[ローカル開発](/ja/docs/development/)、[サーバー設定](/ja/docs/configuration/)、[デーモンマニュアル](https://github.com/ait-app/ait/blob/main/docs/operations/headless-daemon.md)をご覧ください。
 
-以下のダウンロードとサービスの例は v0.2.25 を使用しています。別のバージョンを実行する場合は、そのリリースのアセットと引数を使用してください。
+以下のダウンロードとサービスの例は v0.2.26 を使用しています。別のバージョンを実行する場合は、そのリリースのアセットと引数を使用してください。
 
 ## 要件
 
@@ -48,17 +48,17 @@ aitd run
 
 次のものも必要です。
 
-- Ait アカウント。このホストに接続するクライアントでも同じアカウントを使用してください。
+- オンラインサービスを使う場合は、クライアントと同じ Ait アカウントが必要です。LAN での直接接続にはデーモンのアクセストークンを使います。
 - このホストにインストールされ、サインイン済みのエージェント CLI が 1 つ以上。[エージェントのセットアップ](/ja/docs/providers/)をご覧ください。
 
-## ダウンロード (v0.2.25)
+## ダウンロード (v0.2.26)
 
 | プラットフォーム | GitHub リリース | 中国向けダウンロードミラー |
 | --- | --- | --- |
-| Linux x86_64 | [Ait-0.2.25-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.25/Ait-0.2.25-daemon-linux-x64.tar.gz) | [COS ダウンロード](https://download.aitapp.cn/v0.2.25/Ait-0.2.25-daemon-linux-x64.tar.gz) |
-| macOS Apple Silicon | [Ait-0.2.25-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.25/Ait-0.2.25-daemon-macos-arm64.tar.gz) | [COS ダウンロード](https://download.aitapp.cn/v0.2.25/Ait-0.2.25-daemon-macos-arm64.tar.gz) |
+| Linux x86_64 | [Ait-0.2.26-daemon-linux-x64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.26/Ait-0.2.26-daemon-linux-x64.tar.gz) | [COS ダウンロード](https://download.aitapp.cn/v0.2.26/Ait-0.2.26-daemon-linux-x64.tar.gz) |
+| macOS Apple Silicon | [Ait-0.2.26-daemon-macos-arm64.tar.gz](https://github.com/ait-app/ait/releases/download/v0.2.26/Ait-0.2.26-daemon-macos-arm64.tar.gz) | [COS ダウンロード](https://download.aitapp.cn/v0.2.26/Ait-0.2.26-daemon-macos-arm64.tar.gz) |
 
-どちらの場所も同一のファイルを提供します。チェックサムファイル `SHA256SUMS` は、[GitHub リリース](https://github.com/ait-app/ait/releases/tag/v0.2.25)でのみ公開されています。他のバージョンのアーカイブも同じ名前で、[すべてのリリース](https://github.com/ait-app/ait/releases)に置かれています。
+どちらの場所も同一のファイルを提供します。チェックサムファイル `SHA256SUMS` は、[GitHub リリース](https://github.com/ait-app/ait/releases/tag/v0.2.26)でのみ公開されています。他のバージョンのアーカイブも同じ名前で、[すべてのリリース](https://github.com/ait-app/ait/releases)に置かれています。
 
 ## インストール
 
@@ -67,27 +67,27 @@ aitd run
 ### Linux
 
 ```sh
-VERSION=0.2.25
+VERSION=0.2.26
 ASSET="Ait-${VERSION}-daemon-linux-x64.tar.gz"
-curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/${ASSET}"
-curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
-grep -F "  ${ASSET}" SHA256SUMS | sha256sum -c -
-tar -xzf "${ASSET}"
-sudo install -m 0755 aitd /usr/local/bin/aitd
+curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/${ASSET}" &&
+curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS" &&
+awk -v asset="$ASSET" '$2 == asset' SHA256SUMS | sha256sum -c - &&
+tar -xzf "${ASSET}" &&
+sudo install -m 0755 aitd /usr/local/bin/aitd &&
 aitd --version
 ```
 
 ### macOS
 
 ```sh
-VERSION=0.2.25
+VERSION=0.2.26
 ASSET="Ait-${VERSION}-daemon-macos-arm64.tar.gz"
-curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/${ASSET}"
-curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS"
-grep -F "  ${ASSET}" SHA256SUMS | shasum -a 256 -c -
-tar -xzf "${ASSET}"
-sudo mkdir -p /usr/local/bin
-sudo install -m 0755 aitd /usr/local/bin/aitd
+curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/${ASSET}" &&
+curl -fLO "https://github.com/ait-app/ait/releases/download/v${VERSION}/SHA256SUMS" &&
+awk -v asset="$ASSET" '$2 == asset' SHA256SUMS | shasum -a 256 -c - &&
+tar -xzf "${ASSET}" &&
+sudo mkdir -p /usr/local/bin &&
+sudo install -m 0755 aitd /usr/local/bin/aitd &&
 aitd --version
 ```
 
@@ -116,6 +116,8 @@ aitd run
 aitd login --token-stdin
 ```
 
+Web のホスト詳細ページで発行した一度限りのトークンを標準入力に渡します。対話入力の場合はトークンを貼り付けて Enter を押し、Ctrl-D で EOF を送ります。自動化では保護された入力ストリームを使ってください。その後 `aitd run` を実行します。
+
 認可と実行状態を確認するには、次のコマンドを使います。
 
 ```sh
@@ -123,6 +125,25 @@ aitd status --json
 ```
 
 新規インストールでは `~/.ait` を使用します。データディレクトリを明示的に指定しない場合、デーモンは `~/.ait`、`~/.ait-server-desktop`、`~/.ait-server` の順で、最初に存在するパスを選びます。既存のディレクトリが移動または統合されることはありません。特定の場所を使い続けるには `--data-dir` を指定してください。選択されたディレクトリには、マシン認可、ローカル API トークン、作業データが保存されます。待ち受けアドレス、データディレクトリ、その他のオプションについては、[サーバー設定](/ja/docs/configuration/)をご覧ください。
+
+## サインインせずに LAN で接続する
+
+1. **待ち受けを設定します。** スタンドアロンの `aitd` の既定値は `127.0.0.1:7316` です。例の IP を作業ホストの LAN アドレスに置き換え、エージェントを実行するユーザーで起動します。`AIT_SERVER_LISTEN=192.168.1.10:7316 aitd run` も使えます。tmux や systemd で起動済みの場合は、いったん停止して起動コマンドを変更し、起動し直します。
+
+   ```sh
+   aitd run --listen 192.168.1.10:7316
+   ```
+
+2. **アクセストークンを取得します。** 起動後、使用中のデータディレクトリの `local-api.token` を読み取ります。新規インストールでは `cat ~/.ait/local-api.token` を実行できます。既存の環境では実際のディレクトリを使います。起動時に `AIT_SERVER_TOKEN` を設定した場合は、その値をクライアントに入力します。環境変数が優先され、ファイルは上書きされません。独自のトークンには空白を含まない 32～256 文字の可視 ASCII が必要です。`openssl rand -hex 32` などで生成できます。
+3. **信頼できるサブネットにのみ開放します。** ホストのファイアウォールを有効にしている場合は、クライアント側のサブネットからの TCP `7316` のみを許可します。下の UFW の例では、サブネットを実際の値に置き換えてください。
+
+   ```sh
+   sudo ufw allow from 192.168.1.0/24 to any port 7316 proto tcp
+   ```
+
+4. **クライアントを接続します。** デスクトップかモバイルで **ホストを追加 → 直接接続** を選びます。**ホスト**に作業ホストの IP、**ポート**に `7316`、**サーバートークン**にアクセストークンを入力します。デーモンの前段で TLS を終端する場合のみ **SSLを使用** を有効にします。
+
+`0.0.0.0:7316` はすべての IPv4 インターフェースで待ち受けます。クライアントには到達できる実際の IP を入力します。内蔵リスナーは TLS を提供しないため、ポートのインターネット公開は避けてください。信頼できないネットワークでは、ループバックのまま [SSH トンネル](/ja/docs/connection/#ssh-トンネル)またはオンラインサービスを使ってください。信頼できる VPN を使う場合は、VPN インターフェースで待ち受けます。aitapp.cn の Ait for Web はオンラインサービス専用です。
 
 ## 常時稼働させる
 
@@ -145,7 +166,7 @@ tmux のセッションはホストの再起動後には残りません。起動
 
 ### 永続的な起動: Linux の systemd
 
-`login` を完了したのと同じユーザーで、systemd のユーザーサービスを作成します。
+エージェントを実行するユーザーで、systemd のユーザーサービスを作成します。
 
 ```sh
 mkdir -p ~/.config/systemd/user

@@ -34,30 +34,34 @@ Ait 复用 Agent 自己的登录与模型配置，不包含模型订阅。Agent 
 
 ### 桌面应用（推荐）
 
-前往 [Ait 下载页](/zh/download/)，选择与你的电脑匹配的安装包：
+打开 [Ait 下载页](/zh/download/)，按平台安装：
 
-- **macOS Apple Silicon**：打开 DMG，将 Ait 安装到「应用程序」，然后启动。
-- **Linux x86_64**：下载 AppImage 或 tar.gz，按发行包格式运行或解压后启动。
-- **Windows x64**：安装 Windows 客户端，然后通过账户、TCP 或 SSH 连接运行 Agent 的远端主机。
+- **macOS Apple Silicon**：打开 DMG，将 Ait 拖到「应用程序」后启动。也可解压 ZIP。
+- **Arch Linux**：安装正式版（或将包名改为 `ait-git` 从主线构建）
 
-在 macOS 或 Linux 上打开 Ait，进入本机服务；桌面应用会自动启动内置 daemon，无需再安装独立服务。在 Windows 上打开客户端，连接运行 Agent 的远端主机。**只在 macOS 或 Linux 本机使用时，无需登录 Ait 账户。**
+  ```sh
+  paru -S ait-bin
+  ```
+- **Debian / Ubuntu**：下载 .deb 后运行
 
-安装包、国内下载入口和各平台说明见 [平台支持](/zh/docs/platforms/)。已安装桌面版，可以直接继续下面的「接入 Agent」。
+  ```sh
+  sudo apt install ./Ait-*-linux-amd64.deb
+  ```
+
+- **Fedora / RHEL**：下载 .rpm 后运行
+
+  ```sh
+  sudo dnf install ./Ait-*-linux-x86_64.rpm
+  ```
+
+- **其他 Linux x86_64**：运行 AppImage 或解压 tar.gz。沙箱 Worktree 需要 `bubblewrap >= 0.8.0` 和非特权用户命名空间。请按[平台支持](/zh/docs/platforms/#linux-x86_64)准备依赖。
+- **Windows x64**：安装远端客户端，通过在线服务、直接连接或远程 SSH 访问工作主机。
+
+在 macOS 或 Linux 打开 Ait 时，桌面应用会启动内置 daemon。本机使用不需要 Ait 账户，可直接继续接入 Agent。
 
 ### 服务器 / 独立 daemon
 
-如果项目在云服务器或常开的工作主机上，先按 [独立 daemon 安装指南](/zh/docs/daemon/) 下载、校验并安装 `aitd`，再以运行任务的同一个系统用户执行：
-
-```sh
-aitd login
-aitd run
-```
-
-首次授权时，终端会显示网页地址和验证码。在浏览器中打开地址，登录 Ait 账户并确认这台机器。启动后，打开 [Ait Web 界面](https://aitapp.cn/)，登录同一账户，从在线主机列表选择它。
-
-安装指南中的下载与服务示例已更新到 v0.2.25，使用 `aitd run`。升级旧版或从源码构建时，请按[版本说明](/zh/docs/daemon/#当前源码与升级)核对启动参数。
-
-`run` 在前台运行，请保持进程运行。长期在线可按 [后台常驻说明](/zh/docs/daemon/#保持运行)配置 systemd 或 launchd。Agent CLI 和项目文件也应准备在这台主机上。
+在无桌面 Linux 或常开的 Apple Silicon Mac 上，按[独立 daemon 指南](/zh/docs/daemon/)下载、校验并安装 `aitd`。在主机上接入 Agent 并准备项目文件，再从下文的[在线服务连接](#在线服务连接)或[局域网直连](#局域网直连)选一种访问方式。
 
 ## 2. 接入 Agent
 
@@ -85,18 +89,43 @@ aitd run
 
 ## 4. 从其他设备继续（可选）
 
-1. 在工作电脑打开 **在线服务 → 登录 / 注册**，完成 Ait 账户登录，确认主机已开启同步。使用无人值守 daemon 时，前面的 `login` 已完成机器授权。
-2. 在另一台设备打开 Ait，登录**同一账户与服务**，从在线主机列表选择工作电脑。
-3. 打开原来的工作区，继续查看进度、发送消息或处理审批。
+### 在线服务连接
 
-选择连接设备：
+- **桌面工作主机**：打开 **在线服务 → 登录 / 注册**，完成登录并确认主机同步已启用。
+- **无头主机**：以运行 Agent 的系统用户执行以下命令。首次登录时，在任意设备的浏览器打开终端显示的网址，输入验证码并批准主机。
 
-- **浏览器**：打开 [Ait Web 界面](https://aitapp.cn/)，无需安装客户端。
-- **iPhone / iPad**：按 [TestFlight 安装步骤](/zh/docs/platforms/#iphone-和-ipad)接受公开邀请并安装 Ait。
-- **Android**：按 [Google Play 封测步骤](/zh/docs/platforms/#google-play-封闭式测试)先申请资格，再使用获准的 Google 账号安装。
-- **另一台电脑**：安装桌面应用，登录同一 Ait 账户并选择在线主机。
+```sh
+aitd login
+aitd run
+```
 
-工作主机需要保持唤醒，Ait 服务与 Agent 也需要保持可用。通过账户中继连接，无需两端在同一局域网，也无需设置公网端口转发。连接细节见 [连接与数据](/zh/docs/connection/)。
+已有一次性接入令牌时，用以下命令代替第一条，从标准输入提交令牌：
+
+```sh
+aitd login --token-stdin
+```
+
+按[后台常驻指南](/zh/docs/daemon/#保持运行)用 tmux 或 systemd 保持服务运行。
+
+在另一台桌面、Android、iOS 或 [Ait for Web](https://aitapp.cn/) 登录**同一账户和服务**，从在线主机列表选择工作主机。保持主机与 daemon 在线。在线连接可跨网络使用，无需公网端口转发。
+
+### 局域网直连
+
+- **桌面工作主机**：在 macOS 或 Linux 打开应用即可免登录直连本机 daemon。要让局域网其他设备直连，打开本机主机设置的 **守护进程**，填写实际局域网监听地址与固定端口（如 `7316`）并重启 daemon。
+- **无头主机**：独立 `aitd` 默认仅监听 `127.0.0.1:7316`。在可信内网免登录启动并绑定主机的局域网地址（把示例 IP 换成主机的实际地址）：
+
+```sh
+aitd run --listen 192.168.1.10:7316
+```
+
+从 `<data-dir>/local-api.token` 读取访问令牌，或使用启动时设置的 `AIT_SERVER_TOKEN`。仅向可信网段放行对应 TCP 端口。在另一台桌面或移动端选择 **添加主机 → 直接连接**，填写主机 IP、端口和访问令牌。Ait for Web 仅支持在线服务。
+
+更多防火墙限制及 SSH 隧道示例见[连接与数据](/zh/docs/connection/#直接连接)。
+
+### 安装移动端
+
+- **iPhone / iPad**：按 [TestFlight 安装步骤](/zh/docs/platforms/#iphone-和-ipad)接受邀请并安装。
+- **Android**：按 [Google Play 封测步骤](/zh/docs/platforms/#google-play-封闭式测试)申请资格，再用获准的 Google 账户安装。
 
 ## 接下来
 
