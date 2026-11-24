@@ -33,9 +33,11 @@ Google Play 版本面向 18 岁及以上用户；部分地区的内容分级可�
 
 ## 桌面
 
+Linux 的 deb、rpm 和 Arch 包会安装沙箱 Worktree 所需的 `bubblewrap >= 0.8.0`。AppImage 和 tar.gz 用户需要自行安装，并确保允许非特权用户命名空间。Arch 用户可在 AUR 选择[正式版预编译 ait-bin](https://aur.archlinux.org/packages/ait-bin) 或[主线源码版 ait-git](https://aur.archlinux.org/packages/ait-git)。
+
 官方 [GitHub Release](https://github.com/ait-app/ait/releases/latest) 提供 Apple Silicon macOS、Linux x86_64 和 Windows x64 安装包。macOS / Linux 桌面壳内置 daemon 并管理本机服务生命周期；Windows x64 是不带 daemon 的远端主机客户端。
 
-macOS Apple Silicon 用户也可以使用[国内加速下载（DMG，v0.2.24）](https://download.aitapp.cn/v0.2.24/Ait-0.2.24-macos-arm64.dmg)。
+macOS Apple Silicon 用户也可以使用[国内加速下载（DMG，v0.2.25）](https://download.aitapp.cn/v0.2.25/Ait-0.2.25-macos-arm64.dmg)。
 
 macOS / Linux 桌面支持账户登录、在线主机和本机工作区。Windows x64 桌面客户端不附带 daemon，通过账户、TCP 或 SSH 连接远端主机。构建方式见[本地开发](/zh/docs/development/)与[桌面说明](https://github.com/ait-app/ait/blob/main/apps/desktop/README.md)；可下载的平台与版本以对应 Release 资产为准。
 

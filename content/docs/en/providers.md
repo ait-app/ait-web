@@ -27,7 +27,7 @@ claude auth login
 claude auth status
 ```
 
-Select **Claude Code** in Ait. It uses the native `default` approval mode unless you choose another available mode. Models and reasoning levels come from the local CLI. Tool approvals and Claude’s questions appear in the conversation.
+Select **Claude Code** in Ait. Use an approval mode offered by the local CLI. Starting in v0.2.25, ordinary new sessions default to automatic permission requests. Models and reasoning levels come from the local CLI. Tool approvals and Claude’s questions appear in the conversation.
 
 Claude Code keeps its authentication and loads user, project, and local settings, including `CLAUDE.md`, skills, and MCP. Ait supports image and text attachments, session recovery, and native checkpoint rewind. File rewind covers only files tracked by Claude’s checkpoints. See the [Claude Code manual](https://github.com/ait-app/ait/blob/main/docs/operations/claude-code.md).
 
@@ -37,7 +37,7 @@ Install, configure, and sign in to `opencode` on the working computer. Ait conne
 
 Text conversations, tool progress, native permission requests, cancellation, and recovery are supported. Native session listing and import, image input, and question forms depend on the installed version’s ACP capabilities. Permissions can include one-time approval, persistent approval, or rejection when the native request offers them. Older CLIs may not provide every option.
 
-OpenCode manages authentication, project settings, and history. It loads the project’s native MCP configuration; Ait does not inject MCP servers dynamically per session or provide OpenCode native rewind. If catalog loading fails, check app diagnostics and the CLI, then refresh the provider. A first launch may need time to initialize the native catalog.
+OpenCode manages authentication, project settings, and history, and still loads its native MCP configuration. A compatible host can inject [Ait MCP](/en/docs/agent-tools/) when opening an ACP session without changing the project configuration. Ait does not provide native OpenCode rewind. If catalog loading fails, check the CLI and app diagnostics before refreshing the provider.
 
 See the [OpenCode ACP integration](https://github.com/ait-app/ait/blob/main/docs/decisions/providers/adr-115-opencode-acp-provider.md) for protocol and version differences.
 
@@ -103,3 +103,5 @@ These variables select programs; they do not store model service credentials. Re
 Check the models, modes, and permissions returned by the working host before creating or continuing a session. Each provider’s capabilities depend on both its native program and Ait’s adapter. Permission modes do not provide operating-system isolation.
 
 Continue with [Workspaces](/en/docs/workspaces/). For availability, sign-in, or quota problems, see [Troubleshooting & support](/en/docs/support/).
+
+[Agent tools and skills](/en/docs/agent-tools/)

@@ -8,6 +8,8 @@ Existing official assets were downloaded on 2026-10-14. Additional SVGs were reu
 - `deepseek-harness.svg`: copied unchanged from `Documents/ait/apps/mobile/src/assets/acp-provider-icons/deepseek-harness.svg`.
 - `antigravity.svg`: the unchanged `agy` SVG from `Documents/ait/apps/mobile/src/assets/acp-provider-icons.ts`, which the Ait app also uses for its built-in Antigravity provider.
 
-The homepage order is maintained in `src/lib/site.ts`: Codex, DeepSeek Harness, OpenCode, Antigravity, Claude Code.
+- `pi.svg`, `omp.svg`, and `minimax.svg`: converted from the corresponding React Native SVG components in [Ait at 1863d8350](https://github.com/ait-app/ait/tree/1863d8350c59212c8d18cea8e48fca942ebe3eeb/apps/mobile/src/components/icons). The view boxes, paths, and fill rules are preserved.
+
+The homepage order is maintained in `src/lib/site.ts`.
 
 These trademarks belong to their respective owners. The icons identify supported agents.

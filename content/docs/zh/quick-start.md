@@ -55,7 +55,7 @@ aitd run
 
 首次授权时，终端会显示网页地址和验证码。在浏览器中打开地址，登录 Ait 账户并确认这台机器。启动后，打开 [Ait Web 界面](https://aitapp.cn/)，登录同一账户，从在线主机列表选择它。
 
-安装指南中的下载与服务示例已更新到 v0.2.24，使用 `aitd run`。升级旧版或从源码构建时，请按[版本说明](/zh/docs/daemon/#当前源码与升级)核对启动参数。
+安装指南中的下载与服务示例已更新到 v0.2.25，使用 `aitd run`。升级旧版或从源码构建时，请按[版本说明](/zh/docs/daemon/#当前源码与升级)核对启动参数。
 
 `run` 在前台运行，请保持进程运行。长期在线可按 [后台常驻说明](/zh/docs/daemon/#保持运行)配置 systemd 或 launchd。Agent CLI 和项目文件也应准备在这台主机上。
 
@@ -105,3 +105,5 @@ aitd run
 - [Agent 接入](/zh/docs/providers/)：配置更多 Agent，了解各自的模型和权限选项。
 - [连接与数据](/zh/docs/connection/)：了解远程连接和数据存放的位置。
 - [常见问题与支持](/zh/docs/support/)：处理安装、登录或主机连接问题，也可以联系 [support@ait-app.com](mailto:support@ait-app.com)。
+- [任务总览](/zh/docs/task-board/)：集中查看运行中的 Agent、权限审批和结果。
+- [Agent 会话](/zh/docs/sessions/)：侧问、恢复已有会话和导出时间线。
