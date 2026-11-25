@@ -79,4 +79,4 @@ claude auth status
 - **不改变主机自身的网络可达性**：能否连上 OpenAI 或 Anthropic 仍取决于远程主机本身的网络。
 - **按远端主机保留独立 profile**：网站的登录态会持久化保存，清除浏览器数据时会一并清掉。
 
-如果还在配远程主机，先看 [把 Linux 服务器或 Mac mini 配成常驻 Agent 主机](/zh/blog/always-on-aitd-host/) 或 [独立 daemon 文档](/zh/docs/daemon/)；各 Agent 的安装与认证说明在 [Agent 接入](/zh/docs/providers/)。
+如果还在配远程主机，可以先看 [独立 daemon 文档](/zh/docs/daemon/)；各 Agent 的安装与认证说明在 [Agent 接入](/zh/docs/providers/)。

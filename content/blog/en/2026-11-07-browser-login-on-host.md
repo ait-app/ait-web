@@ -79,4 +79,4 @@ The address bar automatically prepends `http://` for loopback hosts like `localh
 - **Reachability still depends on the host:** the built-in browser moves egress to the host; it does not bypass the host’s own network restrictions.
 - **Isolated profiles per remote host:** website sessions persist per remote host and are cleared if you clear browser data.
 
-If you are still setting up the remote machine, see [Turning a Linux server or Mac mini into an always-on agent host with aitd](/en/blog/always-on-aitd-host/) or [Standalone daemon](/en/docs/daemon/); for agent installation details, see [Agent setup](/en/docs/providers/).
+If you are still setting up the remote machine, start with [Standalone daemon](/en/docs/daemon/); for agent installation details, see [Agent setup](/en/docs/providers/).

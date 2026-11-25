@@ -6,6 +6,7 @@ slug: always-on-aitd-host
 date: 2026-11-24
 category: guide
 visual: connection
+draft: true
 ---
 
 Running every coding agent on your laptop gets old quickly: close the lid and a build stops, run three agents alongside a compiler and the fans spin up, or maybe your daily machine is Windows while the real toolchain lives on a Linux server.
