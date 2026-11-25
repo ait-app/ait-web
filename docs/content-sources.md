@@ -1,5 +1,14 @@
 # 内容来源
 
+## Blog 新增、改写与日文支持（2026-11-25）
+
+基于下方 2026-11-24 与 2026-11-25 已核验的 Ait 主线及 v0.2.26 公开文档基线，为 Blog 全面开启日文发布（`/ja/blog/<slug>/`、`/ja/rss.xml` 与三语 hreflang，移除 `/ja/blog/` 的英文回退提示，并更新 `content/docs/ja/workspaces.md` 指向日文文章），新增 3 篇中英日三语 Blog，并改写已有 4 篇中英日三语 Blog（保留既有首次发布日期与 `slug`）：
+
+- 新增 `sandboxed-worktrees`（2026-11-23）：对照 `workspaces.md`、`platforms.md` 说明本地目录、普通 Worktree 与沙箱 Worktree 的边界、Linux `bubblewrap >= 0.8.0` 依赖，以及分组 Git 面板与远端变基（v0.2.26 要求）。
+- 新增 `always-on-aitd-host`（2026-11-24）：对照 `daemon.md`、`configuration.md`、`connection.md`、`platforms.md` 说明独立 `aitd` 的在线授权、一次性令牌、局域网/SSH 直连、`tmux`/`systemd`/`launchd` 保活及常见 PATH / `enable-linger` 排障。
+- 新增 `workspace-bot-in-chat`（2026-11-25）：对照 `bots.md`、`task-board.md` 说明测试功能中的工作区 Bot、Telegram / 飞书 / 微信 / QQ / iMessage 渠道、PR/MR 跟进以及默认权限边界。
+- 改写 `workspace-context`、`across-devices`、`hello-ait`、`browser-login-on-host`：统一口吻为具体场景和实现边界说明，同步既有产品描述与当前文档基线，并补齐日文版。
+
 ## 下载与连接上手（2026-11-25）
 
 对照 Ait 远程主线 [`dd0061ffd3474e69932ba0ba074ba0aa5a5dba0a`](https://github.com/ait-app/ait/commit/dd0061ffd3474e69932ba0ba074ba0aa5a5dba0a) 和公开正式版 [v0.2.26](https://github.com/ait-app/ait/releases/tag/v0.2.26)。Release 的 `BUILD-INFO.json` 指向 [`5f3ac5eb38926dfd58737596f8f688319ad3db7b`](https://github.com/ait-app/ait/commit/5f3ac5eb38926dfd58737596f8f688319ad3db7b) 和[正式构建](https://github.com/ait-app/ait/actions/runs/45419134833)。下载国内镜像的 Apple Silicon DMG、Linux x64 和 macOS arm64 独立 daemon 归档，三份均通过该 Release 的 `SHA256SUMS` 校验。

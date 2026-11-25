@@ -16,7 +16,7 @@ Ait official website (`https://ait-app.com`), built with Astro static generation
 
 ## Content & Trilingual Parity (`zh`, `en`, `ja`)
 - Keep UI copy concise and comparable in line count across `zh`, `en`, and `ja` in `src/lib/i18n.ts` (`ja` follows `zh`'s exact TypeScript shape).
-- Docs (`content/docs/{zh,en,ja}/`) and legal pages (`content/legal/{zh,en,ja}/`) must have matching filenames/slugs across all three languages; blog posts (`content/blog/{zh,en}/`) are Chinese and English only.
+- Blog posts (`content/blog/{zh,en,ja}/`), docs (`content/docs/{zh,en,ja}/`), and legal pages (`content/legal/{zh,en,ja}/`) must have matching filenames/slugs across all three languages.
 - Verify product claims against the main Ait source repository and record verification commits/scope in `docs/content-sources.md`. Do not document unreleased or unimplemented features as generally available without stating version/channel conditions.
 
 ## Verification & Visual QA Gate

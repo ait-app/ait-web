@@ -12,8 +12,8 @@ const { post } = Astro.props;
 const lang = post.data.lang;
 const copy = t(lang).blog;
 const { Content } = await render(post);
-const words = post.body?.match(/[\u4e00-\u9fff]|\b[\w]+\b/g)?.length ?? 0;
-const minutes = Math.max(1, Math.ceil(words / (lang === 'zh' ? 350 : 200)));
+const words = post.body?.match(/[\u3040-\u30ff\u4e00-\u9fff]|\b[\w]+\b/g)?.length ?? 0;
+const minutes = Math.max(1, Math.ceil(words / (lang === 'zh' ? 350 : lang === 'ja' ? 500 : 200)));
 const related = (await getCollection('blog', entry => entry.data.lang === lang && entry.data.slug !== post.data.slug && !entry.data.draft)).sort((a,b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 2);
 ---
 <Base lang={lang} title={post.data.title} description={post.data.description} path={`blog/${post.data.slug}`} alternates={blogLanguages}>

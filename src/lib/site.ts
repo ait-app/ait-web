@@ -1,10 +1,10 @@
 export const languages = ['zh', 'en', 'ja'] as const;
 export type Language = typeof languages[number];
-/** Languages the blog is published in. Japanese pages link to the English articles instead. */
-export const blogLanguages = ['zh', 'en'] as const;
+/** Languages the blog is published in. */
+export const blogLanguages = ['zh', 'en', 'ja'] as const;
 export type BlogLanguage = typeof blogLanguages[number];
 export const isBlogLanguage = (lang: Language): lang is BlogLanguage => (blogLanguages as readonly string[]).includes(lang);
-/** The blog edition shown to readers of a language without translated articles. */
+/** The blog edition shown for a given site language. */
 export const blogLanguageFor = (lang: Language): BlogLanguage => isBlogLanguage(lang) ? lang : 'en';
 export const locales = {
   zh: { htmlLang: 'zh-CN', hreflang: 'zh-CN', og: 'zh_CN', intl: 'zh-CN', name: '简体中文', short: '中文' },

@@ -6,8 +6,7 @@ import { runInNewContext } from 'node:vm';
 const workspace = process.cwd();
 const origin = 'https://ait-app.com';
 const languages = ['zh', 'en', 'ja'];
-// The blog is published in Chinese and English only; Japanese pages link to the English articles.
-const blogLanguages = ['zh', 'en'];
+const blogLanguages = ['zh', 'en', 'ja'];
 const hreflangs = { zh: 'zh-CN', en: 'en', ja: 'ja' };
 const languagePattern = new RegExp(`^/(${languages.join('|')})/`);
 const root = path.join(workspace, 'dist');
