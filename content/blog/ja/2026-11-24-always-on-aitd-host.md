@@ -6,6 +6,7 @@ slug: always-on-aitd-host
 date: 2026-11-24
 category: guide
 visual: connection
+draft: true
 ---
 
 コーディングエージェントを全部ノート PC のローカルで動かしていると、いくつか面倒が出てきます。フタを閉じればビルドが止まり、コンパイルと複数エージェントが重なればファンが回りっぱなしになります。あるいは普段のメイン機は Windows で、実際の開発環境は Linux サーバーに置いている人も多いはずです。

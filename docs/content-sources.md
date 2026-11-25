@@ -5,7 +5,7 @@
 基于下方 2026-11-24 与 2026-11-25 已核验的 Ait 主线及 v0.2.26 公开文档基线，为 Blog 全面开启日文发布（`/ja/blog/<slug>/`、`/ja/rss.xml` 与三语 hreflang，移除 `/ja/blog/` 的英文回退提示，并更新 `content/docs/ja/workspaces.md` 指向日文文章），新增 3 篇中英日三语 Blog，并改写已有 4 篇中英日三语 Blog（保留既有首次发布日期与 `slug`）：
 
 - 新增 `sandboxed-worktrees`（2026-11-23）：对照 `workspaces.md`、`platforms.md` 说明本地目录、普通 Worktree 与沙箱 Worktree 的边界、Linux `bubblewrap >= 0.8.0` 依赖，以及分组 Git 面板与远端变基（v0.2.26 要求）。
-- 新增 `always-on-aitd-host`（2026-11-24）：对照 `daemon.md`、`configuration.md`、`connection.md`、`platforms.md` 说明独立 `aitd` 的在线授权、一次性令牌、局域网/SSH 直连、`tmux`/`systemd`/`launchd` 保活及常见 PATH / `enable-linger` 排障。
+- `always-on-aitd-host`（2026-11-24）：暂设为 `draft: true` 下线不发布，待无头常驻与桌面 daemon 管理方案调整后再更新上线。
 - 新增 `workspace-bot-in-chat`（2026-11-25）：对照 `bots.md`、`task-board.md` 说明测试功能中的工作区 Bot、Telegram / 飞书 / 微信 / QQ / iMessage 渠道、PR/MR 跟进以及默认权限边界。
 - 改写 `workspace-context`、`across-devices`、`hello-ait`、`browser-login-on-host`：统一口吻为具体场景和实现边界说明，同步既有产品描述与当前文档基线，并补齐日文版。
 

@@ -6,6 +6,7 @@ slug: always-on-aitd-host
 date: 2026-11-24
 category: guide
 visual: connection
+draft: true
 ---
 
 把编程 Agent 全跑在随身笔记本上，用久了会碰到几件烦心事：合盖休眠任务就停、编译加多个 Agent 一起跑风扇直响；或者主力机是 Windows，日常开发和工具链其实都在一台 Linux 服务器上。
