@@ -1,5 +1,9 @@
 # 内容来源
 
+## 稳定下载 0.2.26
+
+各语言 DMG、独立 daemon 下载与快速开始同步至 [v0.2.26](https://github.com/ait-app/ait/releases/tag/v0.2.26)。使用本批 BUILD-INFO 与 SHA256SUMS 核对的 COS 版本文件；历史迁移链接保留。
+
 ## Blog 新增、改写与日文支持（2026-11-25）
 
 基于下方 2026-11-24 与 2026-11-25 已核验的 Ait 主线及 v0.2.26 公开文档基线，为 Blog 全面开启日文发布（`/ja/blog/<slug>/`、`/ja/rss.xml` 与三语 hreflang，移除 `/ja/blog/` 的英文回退提示，并更新 `content/docs/ja/workspaces.md` 指向日文文章），新增 3 篇中英日三语 Blog，并改写已有 4 篇中英日三语 Blog（保留既有首次发布日期与 `slug`）：
