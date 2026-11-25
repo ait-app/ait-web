@@ -14,8 +14,8 @@ const blog = defineCollection({
     pattern: ['**/*.md', '!README.md'],
     base: './content/blog',
     generateId: ({ entry, data }) => {
-      const match = /^(zh|en)\/(\d{4}-\d{2}-\d{2})-([a-z0-9]+(?:-[a-z0-9]+)*)\.md$/.exec(entry);
-      if (!match) throw new Error(`content/blog/${entry}: use {zh,en}/YYYY-MM-DD-kebab-case-slug.md. See content/blog/README.md.`);
+      const match = /^(zh|en|ja)\/(\d{4}-\d{2}-\d{2})-([a-z0-9]+(?:-[a-z0-9]+)*)\.md$/.exec(entry);
+      if (!match) throw new Error(`content/blog/${entry}: use {zh,en,ja}/YYYY-MM-DD-kebab-case-slug.md. See content/blog/README.md.`);
       const [, lang, date, slug] = match;
       const parsedDate = new Date(`${date}T00:00:00.000Z`);
       if (Number.isNaN(parsedDate.valueOf()) || parsedDate.toISOString().slice(0, 10) !== date) {
@@ -30,8 +30,7 @@ const blog = defineCollection({
   }),
   schema: z.object({
     ...common,
-    // The blog is published in Chinese and English only; Japanese pages link to the English articles.
-    lang: z.enum(['zh', 'en']),
+    lang: z.enum(['zh', 'en', 'ja']),
     date: z.coerce.date(),
     category: z.enum(['product', 'engineering', 'guide']),
     author: z.string().default('Ait Team'),
