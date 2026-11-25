@@ -27,10 +27,10 @@ export const product = {
   webApp: 'https://aitapp.cn/',
   supportEmail: 'support@ait-app.com',
   wechatAppreciationCode: '/support/ait-appreciation-code.png',
-  telegramGroup: 'https://t.me/ait_users',
+  telegramGroup: 'https://t.me/ait_user',
   wechatGroup: {
-    qrCode: '/community/wechat-group-2026-11-08.png',
-    expiresAt: '2026-11-08',
+    qrCode: '/community/wechat-group-2026-12-03.png',
+    expiresAt: '2026-12-03',
   },
   testFlightPublicUrl: 'https://testflight.apple.com/join/fjc7g46u',
   repository: 'https://github.com/ait-app/ait',
