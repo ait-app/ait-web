@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { runInNewContext } from 'node:vm';
 
 const workspace = process.cwd();
-const origin = 'https://ait-app.com';
+const origin = 'https://ait.guide';
 const languages = ['zh', 'en', 'ja'];
 const blogLanguages = ['zh', 'en', 'ja'];
 const hreflangs = { zh: 'zh-CN', en: 'en', ja: 'ja' };

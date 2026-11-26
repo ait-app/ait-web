@@ -2,7 +2,7 @@
 
 Ait 宣传官网，包含产品主页、Blog、Docs / 支持、Privacy 和下载页。使用 Astro 静态生成，中文、英文和日文内容直接维护在 Markdown 中，不依赖数据库或 CMS。Blog、Docs 与隐私政策均发布中、英、日三种语言。
 
-官网唯一域名为 **[ait-app.com](https://ait-app.com/)**，所有语言均在此域名下提供。
+官网唯一域名为 **[ait.guide](https://ait.guide/)**，所有语言均在此域名下提供。
 
 视觉使用 Ait 现有 BI，包括正式飞鸟 SVG、路径化 AIT 字标、暖白底与橙红品牌色。
 
@@ -27,13 +27,13 @@ npm run verify
 
 ## 部署
 
-网站使用 `ait-app.com`。使用 GitHub Pages 托管，通过本仓库的 GitHub Actions 自动发布，Cloudflare 提供 DNS 与代理。部署配置见 [GitHub Pages 部署说明](docs/github-pages.md)。
+网站使用 `ait.guide`。使用 GitHub Pages 托管，通过本仓库的 GitHub Actions 自动发布，Cloudflare 提供 DNS 与代理。部署配置见 [GitHub Pages 部署说明](docs/github-pages.md)。
 
 | 域名 | 根路径语言选择 | 构建命令 | 上传目录 |
 | --- | --- | --- | --- |
-| `ait-app.com` | 优先浏览器语言，未匹配时 `/zh/`，无 JavaScript 时 `/en/` | `npm run build` | `dist/` |
+| `ait.guide` | 优先浏览器语言，未匹配时 `/zh/`，无 JavaScript 时 `/en/` | `npm run build` | `dist/` |
 
-同一份构建包含三种语言：英文位于 `https://ait-app.com/en/`，中文位于 `https://ait-app.com/zh/`，日文位于 `https://ait-app.com/ja/`。语言切换保留当前文章或文档路径。新增官网链接、商店资料和部署配置统一使用 `ait-app.com`，语言通过路径区分。
+同一份构建包含三种语言：英文位于 `https://ait.guide/en/`，中文位于 `https://ait.guide/zh/`，日文位于 `https://ait.guide/ja/`。语言切换保留当前文章或文档路径。新增官网链接、商店资料和部署配置统一使用 `ait.guide`，语言通过路径区分。
 
 无语言前缀的 `/privacy`（或 `/privacy/`）使用相同的浏览器语言选择规则，跳转到对应的隐私政策，并保留查询参数与锚点，例如账户删除入口 `#data-deletion`；关闭 JavaScript 时通过 HTML 自动跳转到 `/en/privacy/`，并提供可点击链接。带 `/zh/`、`/en/` 或 `/ja/` 前缀的页面遵循链接指定的语言，不自动改写。
 
@@ -43,11 +43,11 @@ npm run verify
 npm run build
 ```
 
-默认站点地址为 `https://ait-app.com`，构建输出为 `dist/`。`SITE_URL` 仅接受此 HTTPS 域名。各语言的 canonical、hreflang、RSS 与 sitemap 均使用同一域名；sitemap 包含三种语言的页面。Blog 文章声明中、英、日三种语言的 hreflang，并生成 `/zh/rss.xml`、`/en/rss.xml` 与 `/ja/rss.xml`。
+默认站点地址为 `https://ait.guide`，构建输出为 `dist/`。`SITE_URL` 仅接受此 HTTPS 域名。各语言的 canonical、hreflang、RSS 与 sitemap 均使用同一域名；sitemap 包含三种语言的页面。Blog 文章声明中、英、日三种语言的 hreflang，并生成 `/zh/rss.xml`、`/en/rss.xml` 与 `/ja/rss.xml`。
 
 CI 在 `.github/workflows/ci.yml` 中对 PR 运行类型检查、构建与站内校验。推送 `main` 或手动运行工作流时，校验通过后发布 `dist/` 到 GitHub Pages；`ait-web` 为对应的可下载产物。
 
-本项目按自定义域名根路径部署，`astro.config.mjs` 不设置 `/ait-web` 的 `base`。GitHub Pages 的 Custom domain 必须设为 `ait-app.com`；默认的 `ait-app.github.io/ait-web/` 地址由 GitHub 跳转到主域名。
+本项目按自定义域名根路径部署，`astro.config.mjs` 不设置 `/ait-web` 的 `base`。GitHub Pages 的 Custom domain 必须设为 `ait.guide`；默认的 `ait-app.github.io/ait-web/` 地址由 GitHub 跳转到主域名。
 
 ## 内容维护
 
@@ -90,13 +90,13 @@ Docs 首页包含直接可见的客服邮箱、反馈与隐私入口；`docs/sup
 
 每篇文档的正文末尾、上一篇 / 下一篇导航之前，使用 `AppreciationCard.astro` 提供可展开的「支持 Ait 开发」入口。微信赞赏码保留原图，存放在 `public/support/ait-appreciation-code.png`，图片路径由 `src/lib/site.ts` 的 `product.wechatAppreciationCode` 管理，中英文文案在 `src/lib/i18n.ts` 的 `appreciation` 中维护。
 
-部署后可使用以下地址填写商店资料，中文版本对应 `https://ait-app.com/zh/` 下的相同路径：
+部署后可使用以下地址填写商店资料，中文版本对应 `https://ait.guide/zh/` 下的相同路径：
 
 | 用途 | 英文地址 |
 | --- | --- |
-| App Store Support URL / Google Play 支持网站 | `https://ait-app.com/en/docs/` |
-| Privacy Policy URL | `https://ait-app.com/en/privacy/` |
-| Google Play 外部账户删除申请页面 | `https://ait-app.com/en/privacy/#data-deletion` |
+| App Store Support URL / Google Play 支持网站 | `https://ait.guide/en/docs/` |
+| Privacy Policy URL | `https://ait.guide/en/privacy/` |
+| Google Play 外部账户删除申请页面 | `https://ait.guide/en/privacy/#data-deletion` |
 
 Apple 的 [Support URL 定义](https://developer.apple.com/help/app-store-connect/reference/app-information/platform-version-information/)要求真实联系方式；Google Play [要求提供客服邮箱，建议提供支持网站](https://support.google.com/googleplay/android-developer/answer/9859152?hl=en)。补充后的 Docs 可作为支持页面，但这些地址须先部署并保持无需登录可访问，邮箱须可实际收信。
 

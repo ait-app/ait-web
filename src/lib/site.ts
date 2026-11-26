@@ -11,7 +11,7 @@ export const locales = {
   en: { htmlLang: 'en', hreflang: 'en', og: 'en_US', intl: 'en-US', name: 'English', short: 'EN' },
   ja: { htmlLang: 'ja', hreflang: 'ja', og: 'ja_JP', intl: 'ja-JP', name: '日本語', short: '日本語' },
 } satisfies Record<Language, { htmlLang: string; hreflang: string; og: string; intl: string; name: string; short: string }>;
-export const siteOrigin = 'https://ait-app.com';
+export const siteOrigin = 'https://ait.guide';
 export const featuredAgents = [
   { id: 'codex', name: 'Codex' },
   { id: 'deepseek-harness', name: 'DeepSeek Harness' },

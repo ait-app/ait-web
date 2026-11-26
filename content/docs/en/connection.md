@@ -13,7 +13,7 @@ Ait separates execution from access. The working host runs the daemon and agents
 
 | Purpose | Address |
 | --- | --- |
-| Website, downloads, and docs | [ait-app.com](https://ait-app.com/) |
+| Website, downloads, and docs | [ait.guide](https://ait.guide/) |
 | Account and Web app entry | [aitapp.cn](https://aitapp.cn/) |
 | Default account API | `https://aitapp.cn/api` |
 | Local development daemon | `127.0.0.1:7316` |
@@ -24,7 +24,7 @@ The marketing website is not the account API. The `/hosts` management page is no
 
 Using the bundled daemon locally on macOS or Linux requires no Ait account. To connect from another device through the online service, sign in from the welcome page, **Settings → App → Online Service**, or **Add host → Online Service**.
 
-Desktop, Android, and iOS use the account service address configured in the app; check **Service settings** for the current configuration. The hosted Web client runs at the site root and uses same-origin `/api`; the management console lives at `/dash`. The website `https://ait-app.com` provides product information and documentation; it is not an account API address.
+Desktop, Android, and iOS use the account service address configured in the app; check **Service settings** for the current configuration. The hosted Web client runs at the site root and uses same-origin `/api`; the management console lives at `/dash`. The website `https://ait.guide` provides product information and documentation; it is not an account API address.
 
 1. Open **Online Service → Sign in / Register** on the working computer. Complete hosted sign-in and return to Ait.
 2. Check that the working host is synchronized with the online service. If synchronization was stopped, enable it in the host’s connection settings.

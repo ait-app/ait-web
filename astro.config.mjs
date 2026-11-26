@@ -1,9 +1,9 @@
 import { defineConfig } from 'astro/config';
 
-const site = process.env.SITE_URL ?? 'https://ait-app.com';
+const site = process.env.SITE_URL ?? 'https://ait.guide';
 const url = new URL(site);
-if (url.origin !== 'https://ait-app.com' || url.pathname !== '/' || url.search || url.hash || url.port || url.username || url.password) {
-  throw new Error('SITE_URL must be https://ait-app.com');
+if (url.origin !== 'https://ait.guide' || url.pathname !== '/' || url.search || url.hash || url.port || url.username || url.password) {
+  throw new Error('SITE_URL must be https://ait.guide');
 }
 
 export default defineConfig({

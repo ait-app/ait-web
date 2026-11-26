@@ -200,7 +200,7 @@ macOS DMG 与两份独立 daemon 的 GitHub/COS 地址同步到 0.1.22。以已�
 - Google Play 目标受众按运营方确认设为 18 岁及以上，地区内容分级可能更高。链接不代表全球开放，实际可用性还取决于轨道发布状态、国家/地区、账号资格和设备。
 - TestFlight 公开邀请为 `https://testflight.apple.com/join/fjc7g46u`；用户无需先邮件申请。链接来自现有网站配置，本轮没有核验 App Store Connect 的外部审核、剩余名额或实际安装。
 - 桌面下载使用 [GitHub 最新 Release](https://github.com/ait-app/ait/releases/latest)入口，不在长期文档中写死“最新版本号”。国内 DMG 镜像当前明确标为 `0.1.3`，不把它当作动态最新版本。
-- `https://ait-app.com` 是宣传与文档网站，`https://aitapp.cn/` 是账户与 Web 客户端入口，原生客户端默认账户 API 为 `https://aitapp.cn/api`。
+- `https://ait.guide` 是宣传与文档网站，`https://aitapp.cn/` 是账户与 Web 客户端入口，原生客户端默认账户 API 为 `https://aitapp.cn/api`。
 - Google Play 资格与 opt-in 行为依据 [Google 官方测试说明](https://support.google.com/googleplay/android-developer/answer/9845334?hl=en)。商店审核与实机测试需要单独确认。
 
 更改入口时，同时更新 `src/lib/site.ts`、中英文 `platforms.md`、`getting-started.md`、`support.md`、`daemon.md` 与相关界面文案；本轮已核对这些位置的一致性。

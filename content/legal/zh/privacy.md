@@ -6,7 +6,7 @@ slug: privacy
 updated: 2026-10-16
 ---
 
-本政策适用于 **Ait** 桌面与移动应用、Ait 运营的账户与中继服务，以及 **ait-app.com** 网站。Ait 是在工作电脑上运行和连接 AI Agent 的工作空间。如对本政策有疑问，请联系 **[support@ait-app.com](mailto:support@ait-app.com)**。
+本政策适用于 **Ait** 桌面与移动应用、Ait 运营的账户与中继服务，以及 **ait.guide** 网站。Ait 是在工作电脑上运行和连接 AI Agent 的工作空间。如对本政策有疑问，请联系 **[support@ait-app.com](mailto:support@ait-app.com)**。
 
 ## Ait 处理的信息
 

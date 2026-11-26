@@ -13,7 +13,7 @@ Ait 将运行和连接分开：工作主机运行 daemon 与 Agent，客户端�
 
 | 用途 | 地址 |
 | --- | --- |
-| 官网、下载与文档 | [ait-app.com](https://ait-app.com/) |
+| 官网、下载与文档 | [ait.guide](https://ait.guide/) |
 | 账户与 Web 客户端入口 | [aitapp.cn](https://aitapp.cn/) |
 | 应用默认账户 API | `https://aitapp.cn/api` |
 | 本机开发 daemon | `127.0.0.1:7316` |
@@ -24,7 +24,7 @@ Ait 将运行和连接分开：工作主机运行 daemon 与 Agent，客户端�
 
 在 macOS 或 Linux 上使用内置 daemon 时，无需登录 Ait 账户。要通过在线服务从另一台设备连接，在欢迎页、**设置 → 应用 → 在线服务** 或 **添加主机 → 在线服务** 发起登录。
 
-桌面、Android 与 iOS 使用应用配置的账户服务地址，具体以 **Service settings** 中的配置为准。托管 Web 客户端部署在网站根路径，使用同源的 `/api` 服务，管理控制台位于 `/dash`。官网 `https://ait-app.com` 用于产品介绍和文档，不是账户 API 地址。
+桌面、Android 与 iOS 使用应用配置的账户服务地址，具体以 **Service settings** 中的配置为准。托管 Web 客户端部署在网站根路径，使用同源的 `/api` 服务，管理控制台位于 `/dash`。官网 `https://ait.guide` 用于产品介绍和文档，不是账户 API 地址。
 
 1. 在工作电脑打开 **在线服务 → 登录 / 注册**，完成托管登录流程并返回 Ait。
 2. 确认工作主机已与在线服务同步；如之前停止过同步，请在主机连接设置中重新启用。

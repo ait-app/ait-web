@@ -1,6 +1,6 @@
 # AGENTS.md — ait-web
 
-Ait official website (`https://ait-app.com`), built with Astro static generation and a single handcrafted `@layer` stylesheet (`src/styles/global.css`). Brand and content conventions are documented in `README.md` and `docs/internal/brand/zh.md`.
+Ait official website (`https://ait.guide`), built with Astro static generation and a single handcrafted `@layer` stylesheet (`src/styles/global.css`). Brand and content conventions are documented in `README.md` and `docs/internal/brand/zh.md`.
 
 ## Aesthetic & CSS Constitution
 - **Warm Editorial Minimalism**: warm off-white canvas (`--brand-canvas: #fafaf8`), white surfaces (`--brand-surface`), crisp 1px hairline borders (`--line: #e5e5e0`), restrained ink hierarchy (`--brand-ink`, `--text-muted`, `--text-soft`), and coral-orange accent (`--brand-primary: #ef4b2c`, `--brand-text: #be3a22`).

@@ -38,7 +38,7 @@ content/
 `content/blog/zh/2026-10-16-a-new-post.md` 对应页面：
 
 ```text
-https://ait-app.com/zh/blog/a-new-post/
+https://ait.guide/zh/blog/a-new-post/
 ```
 
 文件名中的日期方便在仓库中整理文章；网址由 `lang` 和 `slug` 决定。修改标题或正文不会改变网址。已发布的 `slug` 应保持不变，改动它会改变公开链接。
@@ -97,6 +97,6 @@ draft: true
    npm run verify
    ```
 
-4. 发布时确认三份文章均为 `draft: false`，提交并推送到 `main`。GitHub Actions 验证通过后会自动更新 `ait-app.com`。
+4. 发布时确认三份文章均为 `draft: false`，提交并推送到 `main`。GitHub Actions 验证通过后会自动更新 `ait.guide`。
 
 Docs 与隐私正文分别保存在 `content/docs/`、`content/legal/`，沿用各自的文件名和元数据规范，不使用 Blog 的日期前缀。

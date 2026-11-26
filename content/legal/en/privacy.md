@@ -6,7 +6,7 @@ slug: privacy
 updated: 2026-10-16
 ---
 
-This policy covers the **Ait** desktop and mobile apps, Ait-operated account and relay services, and the website **ait-app.com**. Ait is a workspace for running and connecting AI agents on a working computer. For questions about this policy, contact **[support@ait-app.com](mailto:support@ait-app.com)**.
+This policy covers the **Ait** desktop and mobile apps, Ait-operated account and relay services, and the website **ait.guide**. Ait is a workspace for running and connecting AI agents on a working computer. For questions about this policy, contact **[support@ait-app.com](mailto:support@ait-app.com)**.
 
 ## Information Ait processes
 
