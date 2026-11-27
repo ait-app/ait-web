@@ -37,7 +37,7 @@ Official [GitHub releases](https://github.com/ait-app/ait/releases/latest) provi
 
 ### macOS Apple Silicon
 
-Open the DMG, drag Ait into Applications, and launch it. You can also download the ZIP, extract it, and move Ait to Applications. For mainland China, use the [China download mirror (DMG, v0.2.26)](https://download.aitapp.cn/v0.2.26/Ait-0.2.26-macos-arm64.dmg).
+Open the DMG, drag Ait into Applications, and launch it. You can also download the ZIP, extract it, and move Ait to Applications. For mainland China, use the [China download mirror (DMG, v0.2.28)](https://download.aitapp.cn/v0.2.28/Ait-0.2.28-macos-arm64.dmg).
 
 ### Linux x86_64
 
