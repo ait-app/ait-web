@@ -37,7 +37,7 @@ Google Play 版本面向 18 岁及以上用户；部分地区的内容分级可�
 
 ### macOS Apple Silicon
 
-打开 DMG，把 Ait 拖到「应用程序」，再启动。也可从 Release 下载 ZIP，解压后将 Ait 移到「应用程序」。中国大陆可用[国内加速下载（DMG，v0.2.26）](https://download.aitapp.cn/v0.2.26/Ait-0.2.26-macos-arm64.dmg)。
+打开 DMG，把 Ait 拖到「应用程序」，再启动。也可从 Release 下载 ZIP，解压后将 Ait 移到「应用程序」。中国大陆可用[国内加速下载（DMG，v0.2.28）](https://download.aitapp.cn/v0.2.28/Ait-0.2.28-macos-arm64.dmg)。
 
 ### Linux x86_64
 
